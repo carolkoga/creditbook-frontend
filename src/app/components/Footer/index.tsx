@@ -6,7 +6,11 @@ export default function Footer() {
   return (
     <FooterStyle>
       <div className="left-content">
-        <Image src="/assets/images/logo.svg" width="186px" height="52px" alt="Logo" layout="fixed" />
+        <Link href="/">
+          <a>
+            <Image src="/assets/images/logo.svg" width="186px" height="52px" alt="Logo" layout="fixed" />
+          </a>
+        </Link>
 
         <ul className="networking__media">
           <li>
@@ -22,7 +26,7 @@ export default function Footer() {
           </li>
 
           <li>
-            <a target="_blank" rel="noreferrer" href="https://www.linkedin.com/in/creditbookoficial">
+            <a target="_blank" rel="noreferrer" href="https://www.linkedin.com/in/creditbook-br-5b22bb1ab">
               <Image src="/assets/icons/networking-media/linkedin.svg" width="32px" height="32px" alt="Creditbook Linkedin" layout="fixed" />
             </a>
           </li>
@@ -32,7 +36,7 @@ export default function Footer() {
       <div className="right-content">
         <small>
           Ajude-nos a evoluir!
-          <Link href="/feedback">
+          <Link href="/contact">
             <a className="button">
               Dar Feedback
             </a>
@@ -52,8 +56,7 @@ export default function Footer() {
         <small>
           ©
           {' '}
-          {/* {new Date().getFullYear() } */}
-          2022
+          {new Date().getFullYear()}
           {' '}
           Creditbook. All rights reserved.
         </small>

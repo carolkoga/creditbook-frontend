@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 
-type SizesButton = 'small' | 'small-large';
-type VariantsButton = 'default' | 'secondary';
+type SizesButton = 'small' | 'small-large' | 'large' | 'x-large';
+type VariantsButton = 'default' | 'secondary' | 'white';
 
 interface ButtonProps {
   size?: SizesButton,
@@ -18,6 +18,19 @@ const sizesButton = {
     padding: 3px 43px;
     font-size: 13px;
   `,
+
+  large: css`
+    padding: 11px 92px;
+    font-size: 13px;
+    line-height: 15px;
+    font-weight: 500;
+  `,
+
+  'x-large': css`
+    padding: 5px 92px;
+    font-size: 13px;
+    line-height: 15px;
+  `,
 };
 
 const variantsButton = {
@@ -28,9 +41,15 @@ const variantsButton = {
   secondary: css`
     background: #5DC8C4;
   `,
+
+  white: css`
+    background: #E8E6F3;
+    color: #151515;
+  `,
 };
 
 export const Button = styled.button<ButtonProps>`
+  border: none;
   color: #FFF;
   border-radius: 5px;
   cursor: pointer;

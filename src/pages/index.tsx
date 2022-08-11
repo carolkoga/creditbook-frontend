@@ -11,6 +11,7 @@ import {
   SectionHero,
   SubTitleSection,
   TitleSection,
+  WrapperImageHero,
   WrapperInfoCard,
 } from 'app/assets/styles/pages/home';
 import { Actions } from '@components/ActionLink';
@@ -19,12 +20,13 @@ import LawsuitCardSwiper from '@components/LawsuitCard/LawsuitCardSwiper';
 
 import { lawsuitsMock } from '@mocks/suits';
 import { Button } from '@components/Button/styled';
+import { WrapperVideo } from '@components/WrapperVideo';
 
 export default function Home() {
   const [controlsIsActive, setControlsIsActive] = useState(false);
 
   return (
-    <main>
+    <>
       <SectionHero>
         <ContentHero>
           <h1>
@@ -51,14 +53,14 @@ export default function Home() {
           </Actions>
         </ContentHero>
 
-        <Image
-          src="/assets/images/hero.png"
-          width="527px"
-          height="430px"
-          layout="fixed"
-          priority
-          alt="Hero"
-        />
+        <WrapperImageHero>
+          <Image
+            src="/assets/images/hero.png"
+            layout="fill"
+            priority
+            alt="Hero"
+          />
+        </WrapperImageHero>
       </SectionHero>
 
       <Section>
@@ -68,20 +70,21 @@ export default function Home() {
         </HeaderSection>
 
         <ContainerVideoAndInfo>
-          <video
-            poster="/assets/images/video-thumbnail.png"
-            width={!controlsIsActive ? 573 : 500}
-            height={!controlsIsActive ? 391 : 282}
-            controls={controlsIsActive}
-            onClick={() => setControlsIsActive(true)}
-            style={!controlsIsActive ? { cursor: 'pointer' } : { cursor: 'none' }}
-          >
-            <source
-              src="https://creditbook.com.br/videos/CreditBook_v3.mp4"
-              type="video/mp4"
-              height={295}
-            />
-          </video>
+          <WrapperVideo>
+            <video
+              poster="/assets/images/video-thumbnail.png"
+              width="100%"
+              height="100%"
+              controls={controlsIsActive}
+              onClick={() => setControlsIsActive(true)}
+              style={!controlsIsActive ? { cursor: 'pointer' } : { cursor: 'none' }}
+            >
+              <source
+                src="https://creditbook.com.br/videos/CreditBook_v3.mp4"
+                type="video/mp4"
+              />
+            </video>
+          </WrapperVideo>
 
           <WrapperInfoCard>
             <InfoCard>
@@ -140,6 +143,6 @@ export default function Home() {
         </HeaderSection>
         <LawsuitCardSwiper lawsuits={lawsuitsMock} access="not logged" />
       </Section>
-    </main>
+    </>
   );
 }

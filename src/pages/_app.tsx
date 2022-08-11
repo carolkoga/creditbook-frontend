@@ -8,6 +8,7 @@ import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 import LandingPageHeader from '@components/Header';
 import Footer from '@components/Footer';
+import { Main } from '@styles/index';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -26,7 +27,9 @@ Precisando de dinheiro? Procurando uma forma lucrativa para investir? Chegou a p
       <GlobalStyle />
 
       <LandingPageHeader />
-      <Component {...pageProps} />
+      <Main>
+        <Component {...pageProps} />
+      </Main>
       <Footer />
     </>
   );

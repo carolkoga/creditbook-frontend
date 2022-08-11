@@ -34,7 +34,6 @@ export const FooterStyle = styled.footer`
   .right-content {
     display: flex;
     flex-direction: column;
-    align-self: flex-end;
     gap: 14px;
 
     small {
@@ -53,5 +52,54 @@ export const FooterStyle = styled.footer`
       background: #150882;
       border-radius: 5px;
     }
+  }
+
+  @media screen and (max-width: 900px) {
+    padding: 59px 53px;
+  }
+
+  @media screen and (max-width: 720px) {
+    padding: 59px 42px;
+    justify-content: center;
+
+    flex-direction: column;
+    gap: 82px;
+
+    .right-content {
+      align-items: center;
+    }
+  }
+
+  @media screen and (max-width: 308px) {
+    padding: 59px 22px;
+
+    .left-content {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+
+  @media screen and (max-width: 236px) {
+    .right-content {
+      small {
+        :first-child {
+          display: flex;
+          flex-direction: column;
+        }
+      }
+    }
+
+   .left-content {
+      .networking__media {
+        flex-wrap: wrap;
+        justify-content: center;
+        ul {
+          display: flex;
+          align-items: center;
+        }
+      }
+   }
   }
 `;

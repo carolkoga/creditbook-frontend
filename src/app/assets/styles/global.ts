@@ -5,6 +5,7 @@ export default createGlobalStyle`
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    outline: none;
 
     font-family: 62.5%;
   }
@@ -16,7 +17,7 @@ export default createGlobalStyle`
     overflow-x: hidden;
   }
 
-  button, input-security, textarea {
+  button, input, textarea {
     font-family: 'Roboto', sans-serif;
   }
 
