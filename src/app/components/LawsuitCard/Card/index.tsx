@@ -118,6 +118,10 @@ export default function LawsuitCard(props: LawsuitCardProps) {
             </Button>
           </Link>
         </div>
+
+        <span>
+          Faça o cadastro para obter mais informações
+        </span>
       </Actions>
       )}
     </Container>

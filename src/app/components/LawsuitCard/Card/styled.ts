@@ -78,24 +78,34 @@ export const Header = styled.header`
   }
 `;
 
-export const Content = styled.div`
-  color: #929292;
+const marginOfContentAndActions = css`
   /* top -- horizontal -- bottom */
   margin: 12px 32px 9px;
+
+  @media screen and (max-width: 1262px) {
+    margin-left: 24px;
+    margin-right: 24px;
+  }
+`;
+
+export const Content = styled.div`
+  color: #929292;
 
   span {
     font-weight: 400;
     line-height: 15px;
     font-size: 13px;
 
-    ::first-letter {
-      text-transform: uppercase;
-    }
+    ${firstLatterUpercase};
+
   }
 
   span.location + div {
     margin-top: 6px;
   }
+
+  ${marginOfContentAndActions};
+  margin-bottom: 20px;
 `;
 
 export const InformationOfSuit = styled.div`
@@ -132,12 +142,20 @@ export const InformationOfSuit = styled.div`
   & + & {
     margin-top: 6px;
   }
+
+  @media screen and (max-width: 392px) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 `;
 
 export const Actions = styled.footer`
-  margin: 0 32px;
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 8px;
+
   span {
     font-size: 10px;
     color: #929292;
@@ -145,13 +163,25 @@ export const Actions = styled.footer`
     line-height: 12px;
     margin-top: 6px;
   }
+
   div {
     display: flex;
+    flex-direction: row;
     align-items: center;
     justify-content: space-between;
+    gap: 16px;
+  }
 
-    a:last-child {
-      margin-left: 7px;
+  ${marginOfContentAndActions};
+  margin-top: 0;
+  margin-bottom: 0;
+
+  @media screen and (max-width: 392px) {
+    div {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
     }
+
   }
 `;
