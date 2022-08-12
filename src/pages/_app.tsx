@@ -6,6 +6,8 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
+import 'react-lite-youtube-embed/dist/LiteYouTubeEmbed.css';
+
 import LandingPageHeader from '@components/Header';
 import Footer from '@components/Footer';
 import { Main } from '@styles/index';

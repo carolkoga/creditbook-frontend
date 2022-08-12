@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/media-has-caption */
 import Link from 'next/link';
 import Image from 'next/image';
 import {
@@ -14,6 +13,8 @@ import {
   WrapperImageHero,
   WrapperInfoCard,
 } from 'app/assets/styles/pages/home';
+import LiteYouTubeEmbed from 'react-lite-youtube-embed';
+
 import { Actions } from '@components/ActionLink';
 import LawsuitCardSwiper from '@components/LawsuitCard/LawsuitCardSwiper';
 
@@ -68,15 +69,7 @@ export default function Home() {
 
         <ContainerVideoAndInfo>
           <WrapperVideo>
-            <iframe
-              width="100%"
-              height="100%"
-              src="https://www.youtube.com/embed/w87t420-TWg"
-              title="YouTube video player"
-              frameBorder="0"
-              allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            />
+            <LiteYouTubeEmbed id="w87t420-TWg" title="Creditbook" poster="hqdefault" />
           </WrapperVideo>
 
           <WrapperInfoCard>

@@ -9,13 +9,18 @@ export const WrapperVideo = styled.div<WrapperVideoProps>`
   width: ${({ width }) => (!width ? '527px' : width)};
   height: ${({ height }) => (!height ? '360px' : height)};
   border-radius: 10px;
-  border: 1px solid #150881;
-
-  iframe {
+  .yt-lite {
     border-radius: 10px;
+    height: 100%;
+    width: 100%;
+    border: 1px solid #150881;
+
+    button {
+      border: none;
+    }
   }
 
-  @media screen and (max-width: 1128px){
+    @media screen and (max-width: 1128px){
     border-width: 0;
   }
 

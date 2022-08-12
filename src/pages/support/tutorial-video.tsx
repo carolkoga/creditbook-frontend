@@ -1,6 +1,7 @@
 import Navigation from '@components/pages/support/navigation';
 import { WrapperVideo } from '@components/WrapperVideo';
 import { HeaderSection, TitleSection } from '@styles/pages/home';
+import LiteYouTubeEmbed from 'react-lite-youtube-embed';
 
 export default function TutorialVideo() {
   return (
@@ -12,15 +13,7 @@ export default function TutorialVideo() {
 
       <div style={{ display: 'flex', justifyContent: 'center' }}>
         <WrapperVideo width="693px" height="429px">
-          <iframe
-            width="100%"
-            height="100%"
-            src="https://www.youtube.com/embed/w87t420-TWg"
-            title="YouTube video player"
-            frameBorder="0"
-            allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-          />
+          <LiteYouTubeEmbed id="w87t420-TWg" title="Creditbook" poster="hqdefault" />
         </WrapperVideo>
       </div>
     </>
