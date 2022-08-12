@@ -31,8 +31,6 @@ const routes = [
 
 export default function Navigation() {
   const router = useRouter();
-  console.log({ routes });
-  console.log(router.pathname);
 
   return (
     <Nav>

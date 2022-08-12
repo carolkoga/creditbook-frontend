@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export const Main = styled.main`
   padding: 56px;
+  padding-top: 0;
 
   @media screen and (max-width: 1200px) {
     padding: 42px;
