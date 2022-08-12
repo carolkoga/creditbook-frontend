@@ -1,7 +1,2 @@
-import { ISuits } from './Suits';
-import { ILawSuits } from './Lawsuits';
-
-export {
-  ISuits,
-  ILawSuits,
-};
+export type { ISuits } from './Suits';
+export type { ILawSuits } from './Lawsuits';
