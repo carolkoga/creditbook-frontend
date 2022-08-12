@@ -15,7 +15,6 @@ import {
   WrapperInfoCard,
 } from 'app/assets/styles/pages/home';
 import { Actions } from '@components/ActionLink';
-import { useState } from 'react';
 import LawsuitCardSwiper from '@components/LawsuitCard/LawsuitCardSwiper';
 
 import { lawsuitsMock } from '@mocks/suits';
@@ -23,8 +22,6 @@ import { Button } from '@components/Button/styled';
 import { WrapperVideo } from '@components/WrapperVideo';
 
 export default function Home() {
-  const [controlsIsActive, setControlsIsActive] = useState(false);
-
   return (
     <>
       <SectionHero>
@@ -71,19 +68,15 @@ export default function Home() {
 
         <ContainerVideoAndInfo>
           <WrapperVideo>
-            <video
-              poster="/assets/images/video-thumbnail.png"
+            <iframe
               width="100%"
               height="100%"
-              controls={controlsIsActive}
-              onClick={() => setControlsIsActive(true)}
-              style={!controlsIsActive ? { cursor: 'pointer' } : { cursor: 'none' }}
-            >
-              <source
-                src="https://creditbook.com.br/videos/CreditBook_v3.mp4"
-                type="video/mp4"
-              />
-            </video>
+              src="https://www.youtube.com/embed/w87t420-TWg"
+              title="YouTube video player"
+              frameBorder="0"
+              allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            />
           </WrapperVideo>
 
           <WrapperInfoCard>
@@ -93,35 +86,65 @@ export default function Home() {
             </InfoCard>
 
             <InfoCard>
-              <Image src="/assets/icons/home/insight.svg" width="85px" height="85px" alt="De insight" />
+              <Image
+                src="/assets/icons/home/insight.svg"
+                width="85px"
+                height="85px"
+                alt="De insight"
+                layout="fixed"
+              />
               <span>
                 Avalie Ofertas
               </span>
             </InfoCard>
 
             <InfoCard>
-              <Image src="/assets/icons/home/dollar-icon.svg" width="85px" height="85px" alt="De Sinal de dolar" />
+              <Image
+                src="/assets/icons/home/dollar-icon.svg"
+                width="85px"
+                height="85px"
+                alt="De Sinal de dolar"
+                layout="fixed"
+              />
               <span>
                 Busque a melhor oferta
               </span>
             </InfoCard>
 
             <InfoCard>
-              <Image src="/assets/icons/home/hand-money.svg" width="85px" height="85px" alt="De uma bolsa de dinheiro flutuando na mão (ilustrativa)" />
+              <Image
+                src="/assets/icons/home/hand-money.svg"
+                width="85px"
+                height="85px"
+                alt="De uma bolsa de dinheiro flutuando na mão (ilustrativa)"
+                layout="fixed"
+              />
               <span>
                 Receba o valor
               </span>
             </InfoCard>
 
             <InfoCard>
-              <Image src="/assets/icons/home/money-bag.svg" width="85px" height="85px" alt="Bolsa de dinheiro" />
+              <Image
+                src="/assets/icons/home/money-bag.svg"
+                width="85px"
+                height="85px"
+                alt="Bolsa de dinheiro"
+                layout="fixed"
+              />
               <span>
                 Faça uma oferta
               </span>
             </InfoCard>
 
             <InfoCard>
-              <Image src="/assets/icons/home/partner.svg" width="85px" height="85px" alt="Duas mãos fechando acordo" />
+              <Image
+                src="/assets/icons/home/partner.svg"
+                width="85px"
+                height="85px"
+                alt="Duas mãos fechando acordo"
+                layout="fixed"
+              />
               <span>
                 Compre Crédito
               </span>

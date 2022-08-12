@@ -11,7 +11,7 @@ export const WrapperVideo = styled.div<WrapperVideoProps>`
   border-radius: 10px;
   border: 1px solid #150881;
 
-  video {
+  iframe {
     border-radius: 10px;
   }
 
