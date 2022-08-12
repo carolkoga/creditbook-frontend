@@ -74,7 +74,13 @@ export default function Home() {
 
           <WrapperInfoCard>
             <InfoCard>
-              <Image src="/assets/icons/home/list-icon.svg" width="85px" height="85px" alt="De Lista" />
+              <Image
+                src="/assets/icons/home/list-icon.svg"
+                width="85px"
+                height="85px"
+                alt="De Lista"
+                layout="fixed"
+              />
               Anuncie
             </InfoCard>
 

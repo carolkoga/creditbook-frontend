@@ -59,7 +59,13 @@ export default function LawsuitCardSwiper({ lawsuits, access }: LawsuitCardListP
   return (
     <Container>
       <ButtonControl type="button" onClick={() => handleGoToPrev()}>
-        <Image src="/assets/icons/double-arrow.svg" width="32px" height="32px" alt="Anterior" />
+        <Image
+          src="/assets/icons/double-arrow.svg"
+          width="32px"
+          height="32px"
+          alt="Anterior"
+          layout="fixed"
+        />
       </ButtonControl>
       <Swiper
         onSwiper={setSwiperCustom}
@@ -85,7 +91,13 @@ export default function LawsuitCardSwiper({ lawsuits, access }: LawsuitCardListP
         onClick={() => handleGoToNext()}
         right
       >
-        <Image src="/assets/icons/double-arrow.svg" width="32px" height="32px" alt="Próximo" />
+        <Image
+          src="/assets/icons/double-arrow.svg"
+          width="32px"
+          height="32px"
+          alt="Próximo"
+          layout="fixed"
+        />
       </ButtonControl>
     </Container>
   );
