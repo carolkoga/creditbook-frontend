@@ -6,7 +6,7 @@ import Navigation from '@components/pages/support/navigation';
 
 export default function SellAds() {
   return (
-    <main>
+    <>
       <Navigation />
       <Section>
         <HeaderSection>
@@ -36,6 +36,6 @@ export default function SellAds() {
           </Link>
         </ADSContent>
       </Section>
-    </main>
+    </>
   );
 }

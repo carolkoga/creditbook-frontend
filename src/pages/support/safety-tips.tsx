@@ -6,7 +6,7 @@ import Image from 'next/image';
 
 export default function SafetTips() {
   return (
-    <main>
+    <>
       <Navigation />
       <Section>
         <HeaderSection>
@@ -52,6 +52,6 @@ export default function SafetTips() {
 
         </LayoutWithImage>
       </Section>
-    </main>
+    </>
   );
 }
