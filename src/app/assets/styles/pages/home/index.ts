@@ -165,8 +165,8 @@ export const InfoCard = styled.li`
   }
 
   @media screen and (max-width: 502px) {
-    max-width: 100px;
-    max-height: 145px;
+    max-width: 124px;
+    max-height: 180px;
   }
 
 `;
