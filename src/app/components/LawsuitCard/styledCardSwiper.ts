@@ -31,8 +31,4 @@ export const ButtonControl = styled.button`
   }
 
   transform: rotate(${({ right }: { right?: boolean }) => (right ? '180deg' : '0deg')});
-  img {
-    width: 32px;
-    height: 32px;
-  }
 `;

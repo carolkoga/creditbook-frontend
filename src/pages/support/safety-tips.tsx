@@ -1,4 +1,4 @@
-import Navigation from '@components/pages/support/navigation';
+import WrapperSupport from '@components/pages/support/WrapperSupport';
 import { TextContainer } from '@styles/pages/about';
 import { HeaderSection, Section, TitleSection } from '@styles/pages/home';
 import { LayoutWithImage, WrapperImage } from '@styles/pages/support';
@@ -6,8 +6,7 @@ import Image from 'next/image';
 
 export default function SafetTips() {
   return (
-    <>
-      <Navigation />
+    <WrapperSupport>
       <Section>
         <HeaderSection>
           <TitleSection>Dicas de Segurança</TitleSection>
@@ -52,6 +51,6 @@ export default function SafetTips() {
 
         </LayoutWithImage>
       </Section>
-    </>
+    </WrapperSupport>
   );
 }

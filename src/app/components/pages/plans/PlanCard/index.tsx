@@ -6,6 +6,7 @@ interface PlanCardProps {
   title: string,
   information: {
     title: string,
+    detail: string,
     subtitle: string,
   }
   description: string,
@@ -22,7 +23,7 @@ export default function PlanCard({ title, information, description }: PlanCardPr
         <header className="body__header">
           <div>
             <h3>{information.title}</h3>
-            <span>ou</span>
+            <span>{information.detail}</span>
             <h4>{information.subtitle}</h4>
           </div>
 

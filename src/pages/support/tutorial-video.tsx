@@ -1,12 +1,11 @@
-import Navigation from '@components/pages/support/navigation';
+import WrapperSupport from '@components/pages/support/WrapperSupport';
 import { WrapperVideo } from '@components/WrapperVideo';
 import { HeaderSection, TitleSection } from '@styles/pages/home';
 import LiteYouTubeEmbed from 'react-lite-youtube-embed';
 
 export default function TutorialVideo() {
   return (
-    <>
-      <Navigation />
+    <WrapperSupport>
       <HeaderSection>
         <TitleSection as="h1" style={{ textAlign: 'center' }}>Vídeo Tutorial</TitleSection>
       </HeaderSection>
@@ -16,6 +15,6 @@ export default function TutorialVideo() {
           <LiteYouTubeEmbed id="w87t420-TWg" title="Creditbook" poster="hqdefault" />
         </WrapperVideo>
       </div>
-    </>
+    </WrapperSupport>
   );
 }

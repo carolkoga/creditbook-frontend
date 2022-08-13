@@ -63,8 +63,8 @@ export default function Home() {
 
       <Section>
         <HeaderSection>
-          <TitleSection>Como Funciona?</TitleSection>
-          <SubTitleSection>Assiste o vídeo abaixo:</SubTitleSection>
+          <TitleSection>Comom funciona a venda e compra?</TitleSection>
+          <SubTitleSection>Assista o vídeo abaixo:</SubTitleSection>
         </HeaderSection>
 
         <ContainerVideoAndInfo>
@@ -81,71 +81,81 @@ export default function Home() {
                 alt="De Lista"
                 layout="fixed"
               />
-              Anuncie
+              <span>Anuncie</span>
             </InfoCard>
 
             <InfoCard>
-              <Image
-                src="/assets/icons/home/insight.svg"
-                width="85px"
-                height="85px"
-                alt="De insight"
-                layout="fixed"
-              />
+              <div className="wrapper__image">
+                <Image
+                  src="/assets/icons/home/insight.svg"
+                  width="85px"
+                  height="85px"
+                  alt="De insight"
+                  layout="fixed"
+                />
+              </div>
               <span>
-                Avalie Ofertas
+                Avalie as ofertas
               </span>
             </InfoCard>
 
             <InfoCard>
-              <Image
-                src="/assets/icons/home/dollar-icon.svg"
-                width="85px"
-                height="85px"
-                alt="De Sinal de dolar"
-                layout="fixed"
-              />
-              <span>
-                Busque a melhor oferta
-              </span>
-            </InfoCard>
-
-            <InfoCard>
-              <Image
-                src="/assets/icons/home/hand-money.svg"
-                width="85px"
-                height="85px"
-                alt="De uma bolsa de dinheiro flutuando na mão (ilustrativa)"
-                layout="fixed"
-              />
+              <div className="wrapper__image">
+                <Image
+                  src="/assets/icons/home/hand-money.svg"
+                  width="85px"
+                  height="85px"
+                  alt="De uma bolsa de dinheiro flutuando na mão (ilustrativa)"
+                  layout="fixed"
+                />
+              </div>
               <span>
                 Receba o valor
               </span>
             </InfoCard>
 
             <InfoCard>
-              <Image
-                src="/assets/icons/home/money-bag.svg"
-                width="85px"
-                height="85px"
-                alt="Bolsa de dinheiro"
-                layout="fixed"
-              />
+              <div className="wrapper__image">
+                <Image
+                  src="/assets/icons/home/dollar-icon.svg"
+                  width="85px"
+                  height="85px"
+                  alt="De Sinal de dolar"
+                  layout="fixed"
+                />
+              </div>
+              <span>
+                Busque a melhor oferta
+              </span>
+            </InfoCard>
+
+            <InfoCard>
+              <div className="wrapper__image">
+                <Image
+                  src="/assets/icons/home/money-bag.svg"
+                  width="85px"
+                  height="85px"
+                  alt="Bolsa de dinheiro"
+                  layout="fixed"
+                />
+              </div>
               <span>
                 Faça uma oferta
               </span>
             </InfoCard>
 
             <InfoCard>
-              <Image
-                src="/assets/icons/home/partner.svg"
-                width="85px"
-                height="85px"
-                alt="Duas mãos fechando acordo"
-                layout="fixed"
-              />
+              <div className="wrapper__image">
+                <Image
+                  src="/assets/icons/home/partner.svg"
+                  width="85px"
+                  height="85px"
+                  alt="Duas mãos fechando acordo"
+                  layout="fixed"
+                />
+              </div>
               <span>
-                Compre Crédito
+                Compre crédito
               </span>
             </InfoCard>
           </WrapperInfoCard>

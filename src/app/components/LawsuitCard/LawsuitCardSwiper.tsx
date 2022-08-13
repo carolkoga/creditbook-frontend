@@ -11,7 +11,7 @@ import { LawsuitCardListProps } from './types/Props';
 
 export default function LawsuitCardSwiper({ lawsuits, access }: LawsuitCardListProps) {
   const [swiperCustom, setSwiperCustom] = useState<any>(null);
-  const [slidePerView, setSlidePerView] = useState(3);
+  const [slidePerView, setSlidePerView] = useState(3.5);
 
   function handleGoToNext() {
     if (swiperCustom !== null) {
@@ -29,7 +29,7 @@ export default function LawsuitCardSwiper({ lawsuits, access }: LawsuitCardListP
     function handleResize() {
       setTimeout(() => {
         if (window.innerWidth > 1086) {
-          setSlidePerView(3);
+          setSlidePerView(3.5);
         }
 
         if (window.innerWidth <= 1086) {
@@ -61,15 +61,15 @@ export default function LawsuitCardSwiper({ lawsuits, access }: LawsuitCardListP
       <ButtonControl type="button" onClick={() => handleGoToPrev()}>
         <Image
           src="/assets/icons/double-arrow.svg"
-          width="32px"
-          height="32px"
+          width="24px"
+          height="20px"
           alt="Anterior"
           layout="fixed"
         />
       </ButtonControl>
       <Swiper
         onSwiper={setSwiperCustom}
-        spaceBetween={32}
+        spaceBetween={24}
         slidesPerView={slidePerView}
         direction="horizontal"
         modules={[Mousewheel, Pagination, A11y]}
@@ -93,8 +93,8 @@ export default function LawsuitCardSwiper({ lawsuits, access }: LawsuitCardListP
       >
         <Image
           src="/assets/icons/double-arrow.svg"
-          width="32px"
-          height="32px"
+          width="24px"
+          height="20px"
           alt="Próximo"
           layout="fixed"
         />

@@ -6,15 +6,17 @@ export const Container = styled.article`
   border-radius: 15px;
   max-width: 341px;
   width: 100%;
+  height: 518px;
 
   & > header {
     background: #150882;
     color: #FFF;
     border-radius: 10px 10px 0px 0px;
-    padding: 18px 80px;
+    padding: 18px 24px;
     display: flex;
     align-items: center;
     justify-content: center;
+    height: 84px;
     h2 {
       font-size: 20px;
       text-align: center;

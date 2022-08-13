@@ -7,7 +7,8 @@ interface IContainerProps {
 export const Container = styled.form<IContainerProps>`
   border: 1px solid #D5DDE0;
   background: #F9F9F9;
-  width: ${({ width }) => (!width ? '25.2rem' : `${(width / 10)}rem`)};
+  max-width: ${({ width }) => (!width ? '25.2rem' : `${(width / 10)}rem`)};
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;

@@ -5,6 +5,7 @@ import { Form } from '@styles/pages/contact';
 import { HeaderSection, Section, TitleSection } from '@styles/pages/home';
 
 import { Select } from '@components/Select';
+import { StructureDirection } from '@components/StructureDirection';
 
 const subjectSelectOptions = [
   {
@@ -35,7 +36,7 @@ const subjectSelectOptions = [
 
 export default function Contact() {
   return (
-    <>
+    <StructureDirection>
       <HeaderSection>
         <TitleSection as="h1">Entrar em contato</TitleSection>
       </HeaderSection>
@@ -70,6 +71,6 @@ export default function Contact() {
           <Button type="submit">Enviar Feedback</Button>
         </Form>
       </Section>
-    </>
+    </StructureDirection>
   );
 }

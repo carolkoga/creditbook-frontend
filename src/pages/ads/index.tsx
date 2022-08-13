@@ -3,6 +3,7 @@ import { ListLayoutSingleLawsuits } from '@components/ListsLayout';
 import { WrapperSelects } from '@components/pages/ads';
 import SearchBox from '@components/Search';
 import { Select } from '@components/Select';
+import { StructureDirection } from '@components/StructureDirection';
 import { lawsuitsMock } from '@mocks/suits';
 import { HeaderSection, Section, TitleSection } from '@styles/pages/home';
 
@@ -64,8 +65,14 @@ const stateSuitsOptions = [
 
 export default function SingleLawsuits() {
   return (
-    <>
-      <HeaderSection>
+    <StructureDirection>
+      <HeaderSection style={{
+        justifyContent: 'center',
+        alignItems: 'center',
+        display: 'flex',
+        flexDirection: 'column',
+      }}
+      >
         <TitleSection as="h1">Anúncios Individuais</TitleSection>
         <SearchBox onSearch={() => console.log('olá')} style={{ marginTop: '42px' }} />
         <WrapperSelects>
@@ -80,6 +87,6 @@ export default function SingleLawsuits() {
           <LawsuitCardList access="not logged" lawsuits={lawsuitsMock} />
         </ListLayoutSingleLawsuits>
       </Section>
-    </>
+    </StructureDirection>
   );
 }

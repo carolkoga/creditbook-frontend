@@ -2,12 +2,11 @@ import Link from 'next/link';
 import { Button } from '@components/Button/styled';
 import { HeaderSection, Section, TitleSection } from '@styles/pages/home';
 import { ADSContent } from '@styles/pages/support';
-import Navigation from '@components/pages/support/navigation';
+import WrapperSupport from '@components/pages/support/WrapperSupport';
 
 export default function SellAds() {
   return (
-    <>
-      <Navigation />
+    <WrapperSupport>
       <Section>
         <HeaderSection>
           <TitleSection>Vender Anúncios</TitleSection>
@@ -36,6 +35,6 @@ export default function SellAds() {
           </Link>
         </ADSContent>
       </Section>
-    </>
+    </WrapperSupport>
   );
 }

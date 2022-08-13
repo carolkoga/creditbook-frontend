@@ -14,7 +14,7 @@ import {
 const suitTranslation: ISuits<string> = {
   precatory: 'precatório',
   labor: 'Trabalhista',
-  civil: 'Cívil',
+  civil: 'Cível',
   fiscal: 'Fiscal',
 };
 
