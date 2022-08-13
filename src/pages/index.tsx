@@ -63,7 +63,7 @@ export default function Home() {
 
       <Section>
         <HeaderSection>
-          <TitleSection>Comom funciona a venda e compra?</TitleSection>
+          <TitleSection>Como funciona a venda e compra?</TitleSection>
           <SubTitleSection>Assista o vídeo abaixo:</SubTitleSection>
         </HeaderSection>
 
