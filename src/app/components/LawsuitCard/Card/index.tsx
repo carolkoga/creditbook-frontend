@@ -3,13 +3,12 @@ import React from 'react';
 import type { ISuits } from '@type/Suits';
 
 import convertToCurrency from '@utils/convertToCurrency';
-import Link from 'next/link';
-import { Button } from '@components/Button/styled';
+
 import { LawsuitCardProps } from '../types/Props';
 import {
-  Actions,
   Container, Content, Header, InformationOfSuit,
 } from './styled';
+import Footer from './components/Footer';
 
 const suitTranslation: ISuits<string> = {
   precatory: 'precatório',
@@ -69,61 +68,7 @@ export default function LawsuitCard(props: LawsuitCardProps) {
           <span>{convertToCurrency(props.lawsuit.income)}</span>
         </InformationOfSuit>
       </Content>
-
-      {props.access === 'admin' && (
-      <Actions>
-        <div>
-          <Link href="/informacao" color="secondary">
-            <Button as="a" size="small-large" variant="secondary">
-              Informação
-            </Button>
-          </Link>
-          <Link href="/">
-            <Button as="a" size="small-large" variant="default">
-              {props.lawsuit.suit}
-            </Button>
-          </Link>
-        </div>
-      </Actions>
-      )}
-
-      {props.access === 'logged' && (
-      <Actions>
-        <div>
-          <Link href="/informacao" color="secondary">
-            <Button as="a" size="small-large" variant="secondary">
-              Informação
-            </Button>
-          </Link>
-          <Link href="/">
-            <Button as="a" size="small-large" variant="default">
-              Comprar
-            </Button>
-          </Link>
-        </div>
-      </Actions>
-      )}
-
-      {props.access === 'not logged' && (
-      <Actions>
-        <div>
-          <Link href="/informacao" color="secondary">
-            <Button as="a" size="small-large" variant="secondary">
-              Cadastrar
-            </Button>
-          </Link>
-          <Link href="/">
-            <Button as="a" size="small-large" variant="default">
-              Entrar
-            </Button>
-          </Link>
-        </div>
-
-        <span>
-          Faça o cadastro para obter mais informações
-        </span>
-      </Actions>
-      )}
+      <Footer access={props.access} lawsuit={props.lawsuit} />
     </Container>
   );
 }

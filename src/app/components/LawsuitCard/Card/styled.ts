@@ -38,7 +38,7 @@ export const Container = styled.article`
   font-family: 'Roboto', sans-serif;
   box-shadow: 2px 2px 5px rgba(133, 133, 133, 0.1);
   padding-bottom: 15px;
-  background: #FFF;
+  background: ${({ theme }) => theme.colors.grey[10]};
 `;
 
 export const Header = styled.header`
@@ -53,7 +53,7 @@ export const Header = styled.header`
     ${firstLatterUpercase};
     font-weight: 500;
     font-size: 18px;
-    color: #434242;
+    color: ${({ theme }) => theme.colors.grey[50]};
   }
 
   .more__information {
@@ -123,7 +123,7 @@ export const InformationOfSuit = styled.div`
   &.bold {
     h3, span {
       font-weight: 700;
-      color: #434242;
+      color: ${({ theme }) => theme.colors.grey[50]};
     }
 
   }

@@ -1,6 +1,6 @@
 import type { ILawSuits } from '@type/index';
 
-interface AllAccess {
+export interface AllAccess {
   admin: 'admin',
   logged: 'logged',
   'not logged': 'not logged'
