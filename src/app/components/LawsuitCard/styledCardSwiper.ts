@@ -10,7 +10,7 @@ export const Container = styled.div`
 `;
 
 export const ButtonControl = styled.button`
-  background: #150882;
+  background: ${({ theme }) => theme.colors.primary.main};
   opacity: .5;
   border-radius: 50%;
   width: 32px;

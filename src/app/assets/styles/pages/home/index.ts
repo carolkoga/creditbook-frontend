@@ -26,7 +26,7 @@ export const ContentHero = styled.div`
   justify-content: center;
 
   h1 {
-    color: #150882;
+    color: ${({ theme }) => theme.colors.primary.main};
     font-size: 25px;
     line-height: 40px;
 
@@ -44,7 +44,7 @@ export const ContentHero = styled.div`
     font-size: 18px;
     line-height: 30px;
 
-    color: #434242;
+    color: ${({ theme }) => theme.colors.grey[50]};
 
     margin: 28px 0;
   }
@@ -89,7 +89,7 @@ export const TitleSection = styled.h3`
   font-weight: 500;
   font-size: 30px;
   line-height: 40px;
-  color: #150882;
+  color: ${({ theme }) => theme.colors.primary.main};
 
   @media screen and (max-width: 334px) {
     font-size: 24px;
@@ -101,7 +101,7 @@ export const SubTitleSection = styled.span`
   font-weight: 400;
   font-size: 14px;
   line-height: 30px;
-  color: #434242;
+  color: ${({ theme }) => theme.colors.grey[50]};
 `;
 
 export const ContainerVideoAndInfo = styled.div`
@@ -139,7 +139,7 @@ export const InfoCard = styled.li`
   gap: 18px 0;
   align-items: center;
   justify-content: center;
-  border: 1px solid #1800E0;
+  border: 1px solid ${({ theme }) => theme.colors.primary.main};
   border-radius: 10px;
   max-width: 141px;
   max-height: 175px;
@@ -149,11 +149,11 @@ export const InfoCard = styled.li`
   box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.25);
   padding: 28px 10px;
   text-align: center;
-  background: #fff;
+  background: ${({ theme }) => theme.colors.grey[10]};
 
   span {
     font-weight: 500;
-    color: #222222;
+    color: ${({ theme }) => theme.colors.grey[50]};
     font-size: 13px;
     max-width: 119px;
     width: 100%;

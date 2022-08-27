@@ -8,7 +8,7 @@ const commonStyles = css`
   border: 1px solid #F5F5F7;
 
   :focus {
-    border: 1px solid #152088;
+    border: 1px solid ${({ theme }) => theme.colors.primary.main};
   }
 `;
 

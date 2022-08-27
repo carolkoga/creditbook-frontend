@@ -48,8 +48,8 @@ export const FooterStyle = styled.footer`
       text-decoration: none;
       padding: 10px;
       font-weight: 500;
-      color: #FFF;
-      background: #150882;
+      color: ${({ theme }) => theme.colors.grey[10]};
+      background: ${({ theme }) => theme.colors.primary.main};
       border-radius: 5px;
     }
   }

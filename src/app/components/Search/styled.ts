@@ -23,14 +23,14 @@ export const Container = styled.form<IContainerProps>`
   input[type="search"] {
     width: 100%;
     height: 100%;
-    color: #939393;
+    color: ${({ theme }) => theme.colors.grey[40]};
     ::-webkit-search-cancel-button {
       appearance: none;
     }
   }
 
   :focus {
-    border-color: #150888;
+    border-color: ${({ theme }) => theme.colors.primary.main};
   }
   button {
     position: relative;

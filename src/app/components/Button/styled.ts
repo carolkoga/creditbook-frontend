@@ -35,22 +35,22 @@ const sizesButton = {
 
 const variantsButton = {
   default: css`
-    background: #150882;
+    background: ${({ theme }) => theme.colors.primary.main};
   `,
 
   secondary: css`
-    background: #5DC8C4;
+    background: ${({ theme }) => theme.colors.secondary.main};
   `,
 
   white: css`
-    background: #E8E6F3;
+    background: ${({ theme }) => theme.colors.grey[30]};
     color: #151515;
   `,
 };
 
 export const Button = styled.button<ButtonProps>`
   border: none;
-  color: #FFF;
+  color: ${({ theme }) => theme.colors.grey[10]};
   border-radius: 5px;
   cursor: pointer;
   text-decoration: none;

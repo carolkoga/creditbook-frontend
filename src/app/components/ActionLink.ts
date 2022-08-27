@@ -3,16 +3,16 @@ import styled from 'styled-components';
 export const Actions = styled.div`
   a {
     padding: 6px 34px;
-    background: #5DC8C4;
+    background: ${({ theme }) => theme.colors.secondary.main};
     border-radius: 5px;
     text-decoration: none;
-    color: #fff;
+    color: ${({ theme }) => theme.colors.grey[10]};
     font-weight: 500;
     font-size: 12px;
 
     + a {
       margin-left: 8px;
-      background: #150882;
+      background: ${({ theme }) => theme.colors.primary.main};
     }
 
   }

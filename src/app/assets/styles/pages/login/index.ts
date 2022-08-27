@@ -37,7 +37,7 @@ export const WrapperForm = styled.div`
     gap: 11px;
 
     .forget__password {
-      color: #434242;
+      color: ${({ theme }) => theme.colors.grey[50]};
       font-size: 12px;
       text-decoration: none;
     }

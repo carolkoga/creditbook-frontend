@@ -11,7 +11,7 @@ export default createGlobalStyle`
   }
 
   body {
-    background: #F9F9F9;
+    background: ${({ theme }) => theme.colors.grey[20]};
     font-family: 'Roboto', sans-serif;
     font-size: 1rem;
     overflow-x: hidden;

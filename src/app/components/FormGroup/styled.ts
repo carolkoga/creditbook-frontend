@@ -40,7 +40,7 @@ export const Container = styled.div<ContainerProps>`
 export const Label = styled.label`
   font-size: 14px;
   line-height: 24px;
-  color: #434242;
+  color: ${({ theme }) => theme.colors.grey[50]};
 
   + input {
     align-self: center;

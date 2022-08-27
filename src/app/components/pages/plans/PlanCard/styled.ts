@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Container = styled.article`
-  background: #FFFFFF;
+  background: ${({ theme }) => theme.colors.grey[10]};
   box-shadow: 2px 4px 10px rgba(133, 133, 133, 0.2);
   border-radius: 15px;
   max-width: 341px;
@@ -9,8 +9,8 @@ export const Container = styled.article`
   height: 518px;
 
   & > header {
-    background: #150882;
-    color: #FFF;
+    background: ${({ theme }) => theme.colors.primary.main};
+    color: ${({ theme }) => theme.colors.grey[10]};
     border-radius: 10px 10px 0px 0px;
     padding: 18px 24px;
     display: flex;
@@ -47,7 +47,7 @@ export const WrapperContent = styled.main`
       font-weight: 700;
       font-size: 20px;
       line-height: 29px;
-      color: #434242;
+      color: ${({ theme }) => theme.colors.grey[50]};
     }
 
     > a {
@@ -75,7 +75,7 @@ export const WrapperContent = styled.main`
     }
 
     > a {
-      background: #5DC8C4;
+      background: ${({ theme }) => theme.colors.secondary.main};
       border-radius: 5px;
       padding: 5px 15px;
     }

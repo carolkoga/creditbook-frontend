@@ -27,7 +27,7 @@ export const ADSContent = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: #E8E6F3;
+  background: ${({ theme }) => theme.colors.grey[30]};
   box-shadow: 2px 2px 10px rgba(35, 31, 32, 0.2);
   border-radius: 15px;
   padding: 50px 96px;
@@ -35,7 +35,7 @@ export const ADSContent = styled.div`
 
   h4 {
     font-weight: 500;
-    color: #1C1C1C;
+    color: ${({ theme }) => theme.colors.grey[80]};
     font-size: 20px;
     line-height: 30px;
     text-align: center;
@@ -44,7 +44,7 @@ export const ADSContent = styled.div`
 
   p {
     max-width: 789px;
-    color: #434242;
+    color: ${({ theme }) => theme.colors.grey[50]};
     font-size: 18px;
     line-height: 30px;
 

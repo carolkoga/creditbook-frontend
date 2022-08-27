@@ -19,7 +19,7 @@ export const NavContent = styled.li`
     font-weight: 500;
     font-size: 14px;
     padding: 12px;
-    border-bottom: #FFF;
+    border-bottom: ${({ theme }) => theme.colors.grey[10]};
     color: #7A70D2;
     text-decoration: none;
     transition: all .25s ease-in;

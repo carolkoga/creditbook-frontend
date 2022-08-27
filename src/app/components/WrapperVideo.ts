@@ -13,7 +13,7 @@ export const WrapperVideo = styled.div<WrapperVideoProps>`
     border-radius: 10px;
     height: 100%;
     width: 100%;
-    border: 1px solid #150881;
+    border: 1px solid ${({ theme }) => theme.colors.primary.main};
 
     button {
       border: none;

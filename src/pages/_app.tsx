@@ -1,6 +1,7 @@
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import GlobalStyle from '@styles/global';
+import { ThemeProvider } from 'styled-components';
 
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -11,6 +12,7 @@ import 'react-lite-youtube-embed/dist/LiteYouTubeEmbed.css';
 import LandingPageHeader from '@components/Header';
 import Footer from '@components/Footer';
 import { Main } from '@styles/index';
+import { light } from '@styles/themes/light';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -26,13 +28,15 @@ Precisando de dinheiro? Procurando uma forma lucrativa para investir? Chegou a p
         />
         <title>CreditBook</title>
       </Head>
-      <GlobalStyle />
+      <ThemeProvider theme={light}>
+        <GlobalStyle />
 
-      <LandingPageHeader />
-      <Main>
-        <Component {...pageProps} />
-      </Main>
-      <Footer />
+        <LandingPageHeader />
+        <Main>
+          <Component {...pageProps} />
+        </Main>
+        <Footer />
+      </ThemeProvider>
     </>
   );
 }

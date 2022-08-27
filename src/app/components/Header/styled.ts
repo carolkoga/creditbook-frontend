@@ -9,7 +9,7 @@ export const Content = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 18px 56px;
-  background: #fff;
+  background: ${({ theme }) => theme.colors.grey[10]};
 
   .action__menu {
     border: none;
@@ -49,16 +49,16 @@ export const Navigation = styled.nav`
 export const Actions = styled.div`
   a {
     padding: 6px 34px;
-    background: #5DC8C4;
+    background: ${({ theme }) => theme.colors.secondary.main};
     border-radius: 5px;
     text-decoration: none;
-    color: #fff;
+    color: ${({ theme }) => theme.colors.grey[10]};
     font-weight: 500;
     font-size: 12px;
 
     + a {
       margin-left: 8px;
-      background: #150882;
+      background: ${({ theme }) => theme.colors.primary.main};
     }
 
   }
@@ -113,7 +113,7 @@ export const CompactMenu = styled.div`
 
 
         li {
-          border-bottom: 3px solid #FFF;
+          border-bottom: 3px solid ${({ theme }) => theme.colors.grey[10]};
           transition: all .35s ease;
           padding: 8px;
           border-radius: 3px;
