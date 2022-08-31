@@ -1,0 +1,37 @@
+import useSidebar from 'app/hooks/useSidebar';
+import Link from 'next/link';
+import { Power } from 'phosphor-react';
+import { routes } from './routes';
+import {
+  Container, Navigation, PhotoProfile, Route, UserInfo,
+} from './styled';
+
+export default function Sidebar() {
+  const { isCollapsed } = useSidebar();
+
+  return (
+    <Container collapsed={!isCollapsed}>
+      <UserInfo>
+        <PhotoProfile />
+        {!isCollapsed && <strong>Matheus Jeronimo Todao</strong>}
+      </UserInfo>
+
+      <Navigation>
+        {routes.map((route) => (
+          <Route key={route.label}>
+            <Link href={route.link}>
+              <a>
+                {route.icon}
+                {!isCollapsed && route.label}
+              </a>
+            </Link>
+          </Route>
+        ))}
+      </Navigation>
+
+      <button type="button" className="button__logout" title="Sair">
+        <Power size={32} weight="regular" />
+      </button>
+    </Container>
+  );
+}
