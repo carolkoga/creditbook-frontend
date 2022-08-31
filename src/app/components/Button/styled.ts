@@ -15,7 +15,7 @@ const sizesButton = {
   `,
 
   'small-large': css`
-    padding: 3px 43px;
+    padding: 3px 30px;
     font-size: 13px;
   `,
 
@@ -49,6 +49,9 @@ const variantsButton = {
 };
 
 export const Button = styled.button<ButtonProps>`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border: none;
   color: ${({ theme }) => theme.colors.grey[10]};
   border-radius: 5px;
