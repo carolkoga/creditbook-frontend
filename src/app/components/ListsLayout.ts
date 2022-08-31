@@ -2,10 +2,17 @@ import styled from 'styled-components';
 
 export const ListLayoutSingleLawsuits = styled.div`
   max-width: 1366px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto;
   gap: 24px;
+
+  @media (max-width: 940px) {
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: 48px;
+  }
+
+  @media (max-width: 750px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
 `;
