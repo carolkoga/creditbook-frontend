@@ -4,14 +4,15 @@ import type { ISuits } from '@type/Suits';
 
 import convertToCurrency from '@utils/convertToCurrency';
 
+import { Heart } from 'phosphor-react';
 import { LawsuitCardProps } from '../types/Props';
 import {
   Container, Content, Header, InformationOfSuit,
 } from './styled';
 import Footer from './components/Footer';
 
-const suitTranslation: ISuits<string> = {
-  precatory: 'precatório',
+export const suitTranslation: ISuits<string> = {
+  precatory: 'Precatório',
   labor: 'Trabalhista',
   civil: 'Cível',
   fiscal: 'Fiscal',
@@ -28,8 +29,8 @@ export default function LawsuitCard(props: LawsuitCardProps) {
 
           <button type="button" onClick={() => props.onToggleFavorite()}>
             {props.lawsuit.isFavorite
-              ? <span>H</span>
-              : <span>HN</span>}
+              ? <Heart size={24} color="#F16565" />
+              : <Heart size={24} weight="fill" color="#F16565" /> }
           </button>
         </div>
         )}
@@ -67,8 +68,9 @@ export default function LawsuitCard(props: LawsuitCardProps) {
           <h3>Valor de liquidação:</h3>
           <span>{convertToCurrency(props.lawsuit.income)}</span>
         </InformationOfSuit>
+
+        <Footer access={props.access} lawsuit={props.lawsuit} />
       </Content>
-      <Footer access={props.access} lawsuit={props.lawsuit} />
     </Container>
   );
 }

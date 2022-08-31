@@ -32,8 +32,8 @@ const firstLatterUpercase = css`
 export const Container = styled.article`
   max-height: 364px;
   height: 100%;
-  max-width: 338px;
-  width: 100%;
+  max-width: 345px;
+  width: auto;
   border-radius: 10px;
   font-family: 'Roboto', sans-serif;
   box-shadow: 2px 2px 5px rgba(133, 133, 133, 0.1);
@@ -44,6 +44,7 @@ export const Container = styled.article`
 export const Header = styled.header`
   ${({ suit }: IHeaderCard) => headerCardSuit[suit]};
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   border-top-left-radius: 10px;
@@ -60,6 +61,7 @@ export const Header = styled.header`
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-wrap: wrap;
     strong {
       ${firstLatterUpercase};
       font-weight: 500;
@@ -90,7 +92,6 @@ const marginOfContentAndActions = css`
 
 export const Content = styled.div`
   color: #929292;
-
   span {
     font-weight: 400;
     line-height: 15px;
@@ -151,10 +152,12 @@ export const InformationOfSuit = styled.div`
 
 export const Actions = styled.footer`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: flex-start;
   justify-content: flex-start;
   gap: 8px;
+  width: 100%;
+  margin-top: 32px;
 
   span {
     font-size: 10px;
@@ -168,13 +171,13 @@ export const Actions = styled.footer`
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-  }
+    flex-wrap: wrap;
+    gap: 6px;
 
-  ${marginOfContentAndActions};
-  margin-top: 0;
-  margin-bottom: 0;
+    button, a {
+      flex: 1;
+    }
+  }
 
   @media screen and (max-width: 392px) {
     div {
