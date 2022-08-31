@@ -34,6 +34,7 @@
       "import/no-unresolved": "off",
       "import/extensions": ["error", {
         ".ts": "never"
-      }]
+      }],
+      "consistent-return": "off"
     }
 }
