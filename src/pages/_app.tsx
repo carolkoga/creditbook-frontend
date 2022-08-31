@@ -9,10 +9,9 @@ import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 import 'react-lite-youtube-embed/dist/LiteYouTubeEmbed.css';
 
-import LandingPageHeader from '@components/Header';
-import Footer from '@components/Footer';
-import { Main } from '@styles/index';
 import { light } from '@styles/themes/light';
+import Layout from '@components/Layout';
+import SidebarContextProvider from 'app/context/SidebarContext';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -28,14 +27,15 @@ Precisando de dinheiro? Procurando uma forma lucrativa para investir? Chegou a p
         />
         <title>CreditBook</title>
       </Head>
-      <ThemeProvider theme={light}>
-        <GlobalStyle />
 
-        <LandingPageHeader />
-        <Main>
-          <Component {...pageProps} />
-        </Main>
-        <Footer />
+      <ThemeProvider theme={light}>
+        <SidebarContextProvider>
+          <GlobalStyle />
+
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </SidebarContextProvider>
       </ThemeProvider>
     </>
   );

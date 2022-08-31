@@ -16,13 +16,13 @@ import {
 import LiteYouTubeEmbed from 'react-lite-youtube-embed';
 
 import { Actions } from '@components/ActionLink';
-import LawsuitCardSwiper from '@components/LawsuitCard/LawsuitCardSwiper';
+import LawsuitCardSwiper from '@components/LawsuitCard/LawsuitCardSwiper/index';
 
 import { lawsuitsMock } from '@mocks/suits';
 import { Button } from '@components/Button/styled';
 import { WrapperVideo } from '@components/WrapperVideo';
 
-export default function Home() {
+export default function HomeLadingPage() {
   return (
     <>
       <SectionHero>
