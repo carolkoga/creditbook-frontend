@@ -1,12 +1,31 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
-export const Section = styled.section`
+const sectionBgColors = {
+  white: css`
+    background: ${({ theme }) => theme.colors.grey[10]};
+    padding: 24px;
+  `,
+
+  light: css`
+    background: ${({ theme }) => theme.colors.grey[30]};
+    padding: 24px;
+  `,
+};
+
+interface SectionProps {
+  bg?: 'white' | 'light'
+}
+
+export const Section = styled.section<SectionProps>`
   display: flex;
   flex-direction: column;
+  border-radius: 10px;
 
   & + & {
     margin-top: 92px;
   }
+
+  ${({ bg }) => (!bg ? 'none' : sectionBgColors[bg])}
 `;
 
 export const SectionHero = styled(Section)`
