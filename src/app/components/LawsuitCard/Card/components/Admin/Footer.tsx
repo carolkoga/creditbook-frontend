@@ -2,12 +2,14 @@ import type { ILawSuits } from '@type/index';
 import Link from 'next/link';
 import { Button } from '@components/Button/styled';
 import { Actions } from '../../styled';
+import { suitTranslation } from '../..';
 
 interface IProps {
   lawsuit: ILawSuits
 }
 
 export default function FooterAdmin({ lawsuit }: IProps) {
+  console.log(lawsuit.suit, suitTranslation);
   return (
     <Actions>
       <div>
@@ -18,7 +20,7 @@ export default function FooterAdmin({ lawsuit }: IProps) {
         </Link>
         <Link href="/">
           <Button as="a" size="small-large" variant="default">
-            {lawsuit.suit}
+            {suitTranslation[lawsuit.suit]}
           </Button>
         </Link>
       </div>

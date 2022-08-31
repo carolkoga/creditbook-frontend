@@ -6,7 +6,7 @@ import FooterNotLogged from './NotLogged/Footer';
 
 interface IProps {
   lawsuit: ILawSuits,
-  access: keyof AllAccess
+  access: keyof AllAccess,
 }
 
 export default function Footer({ lawsuit, access }: IProps) {
