@@ -9,7 +9,6 @@ interface IProps {
 }
 
 export default function FooterAdmin({ lawsuit }: IProps) {
-  console.log(lawsuit.suit, suitTranslation);
   return (
     <Actions>
       <div>
