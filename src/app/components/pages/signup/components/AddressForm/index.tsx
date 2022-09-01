@@ -20,19 +20,6 @@ export default function AddressForm({ formGroupDirection }: { formGroupDirection
       <FormGroup
         direction={formGroupDirection}
         label={{
-          forId: 'city',
-          title: 'Cidade',
-        }}
-      >
-        <Input
-          id="city"
-          placeholder="Caxias do Sul"
-        />
-      </FormGroup>
-
-      <FormGroup
-        direction={formGroupDirection}
-        label={{
           forId: 'uf',
           title: 'UF',
         }}
@@ -46,11 +33,37 @@ export default function AddressForm({ formGroupDirection }: { formGroupDirection
       <FormGroup
         direction={formGroupDirection}
         label={{
+          forId: 'city',
+          title: 'Cidade',
+        }}
+      >
+        <Input
+          id="city"
+          placeholder="Caxias do Sul"
+        />
+      </FormGroup>
+
+      <FormGroup
+        direction={formGroupDirection}
+        label={{
+          forId: 'address',
+          title: 'Endereço',
+        }}
+      >
+        <Input
+          id="address"
+          placeholder="Rua José de Souza Brito"
+        />
+      </FormGroup>
+
+      <FormGroup
+        direction={formGroupDirection}
+        label={{
           forId: 'number',
           title: 'Número',
         }}
       >
-        <Input id="number" inputMode="numeric" placeholder="95030-430" />
+        <Input id="number" inputMode="numeric" placeholder="157" />
       </FormGroup>
 
       <FormGroup
