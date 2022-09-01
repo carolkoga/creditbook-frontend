@@ -12,8 +12,26 @@ const sectionBgColors = {
   `,
 };
 
+const sectionTextColors = {
+  default: css`
+    color: ${({ theme }) => theme.colors.primary.main};
+  `,
+
+  secondary: css`
+    color: ${({ theme }) => theme.colors.secondary.main};
+  `,
+
+  dark: css`
+    color: ${({ theme }) => theme.colors.grey[50]};
+  `,
+};
+
 interface SectionProps {
   bg?: 'white' | 'light'
+}
+
+interface SectionTitleProps {
+  textColor?: 'default' | 'secondary' | 'dark'
 }
 
 export const Section = styled.section<SectionProps>`
@@ -104,11 +122,11 @@ export const HeaderSection = styled.header`
   margin-bottom: 32px;
 `;
 
-export const TitleSection = styled.h3`
+export const TitleSection = styled.h3<SectionTitleProps>`
   font-weight: 500;
   font-size: 30px;
   line-height: 40px;
-  color: ${({ theme }) => theme.colors.primary.main};
+  ${({ textColor }) => (!textColor ? sectionTextColors.default : sectionTextColors[textColor])};
 
   @media screen and (max-width: 334px) {
     font-size: 24px;

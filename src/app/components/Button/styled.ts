@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 
-type SizesButton = 'small' | 'small-large' | 'large' | 'x-large';
+type SizesButton = 'small' | 'small-large' | 'large' | 'outline-filled-round' | 'x-large';
 type VariantsButton = 'default' | 'secondary' | 'white';
 
 interface ButtonProps {
@@ -26,6 +26,14 @@ const sizesButton = {
     font-weight: 500;
   `,
 
+  'outline-filled-round': css`
+    padding: 10px 62px;
+    font-size: 14px;
+    line-height: 24px;
+    font-weight: 500;
+    border-radius: 10px;
+  `,
+
   'x-large': css`
     padding: 5px 92px;
     font-size: 13px;
@@ -36,6 +44,9 @@ const sizesButton = {
 const variantsButton = {
   default: css`
     background: ${({ theme }) => theme.colors.primary.main};
+    &:hover {
+      filter: brightness(1.3);
+    }
   `,
 
   secondary: css`
@@ -57,6 +68,7 @@ export const Button = styled.button<ButtonProps>`
   border-radius: 5px;
   cursor: pointer;
   text-decoration: none;
+  transition: all .35s ease-in-out;
   ${({ size }) => (size ? sizesButton[size] : sizesButton['small-large'])}
   ${({ variant }) => (variant ? variantsButton[variant] : variantsButton.default)}
 `;

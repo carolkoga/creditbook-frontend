@@ -9,11 +9,11 @@ interface ContainerProps {
 export const Container = styled.div<ContainerProps>`
   display: flex;
   flex-direction: column;
+  flex-wrap: wrap;
 
   .content {
     display: flex;
     flex-direction: row;
-    flex-direction: column;
     justify-content: flex-start;
     align-items:  ${({ noAlign }) => (noAlign ? 'flex-start' : 'center')};
     gap: 0 16px;
@@ -22,8 +22,11 @@ export const Container = styled.div<ContainerProps>`
       flex-direction: column;
       align-items: flex-start;
       gap: 10px 0;
-
     `}
+    input, textarea {
+      flex: 1;
+    }
+
   }
 
   ${({ hasError }) => hasError && css`
