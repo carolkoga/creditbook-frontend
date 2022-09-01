@@ -43,11 +43,10 @@ export class HttpClient {
       const response = await axios({
         method,
         url: `${this.baseURL}${endpointParsed}`,
-        ...options,
         headers: {
-          ...options?.headers,
           ...this.headers,
         },
+        ...options,
       });
 
       let body: AxiosResponse<ResponseData>['data'] | null = null;
