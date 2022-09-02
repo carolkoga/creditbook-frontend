@@ -152,7 +152,7 @@ export const InformationOfSuit = styled.div`
 
 export const Actions = styled.footer`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
   gap: 8px;
