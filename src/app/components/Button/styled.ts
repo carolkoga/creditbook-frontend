@@ -69,6 +69,14 @@ export const Button = styled.button<ButtonProps>`
   cursor: pointer;
   text-decoration: none;
   transition: all .35s ease-in-out;
+  &[disabled] {
+    cursor: not-allowed;
+    filter: brightness(0.7);
+
+    &:hover {
+      filter: brightness(0.7);
+    }
+  }
   ${({ size }) => (size ? sizesButton[size] : sizesButton['small-large'])}
   ${({ variant }) => (variant ? variantsButton[variant] : variantsButton.default)}
 `;
