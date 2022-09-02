@@ -1,6 +1,6 @@
 export const breakpointsSwiper = {
   1200: {
-    slidesPerView: 3.5,
+    slidesPerView: 3,
   },
 
   1195: {
