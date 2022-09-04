@@ -1,12 +1,12 @@
-import { StructureDirection } from '@components/StructureDirection';
+import { Direction } from '@components/Direction';
 import { ReactNode } from 'react';
 import Navigation from './navigation';
 
 export default function WrapperSupport({ children }: { children: ReactNode }) {
   return (
-    <StructureDirection>
+    <Direction>
       <Navigation />
       {children}
-    </StructureDirection>
+    </Direction>
   );
 }

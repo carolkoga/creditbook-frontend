@@ -5,7 +5,7 @@ import { Form } from '@styles/pages/contact';
 import { Section } from '@components/Section';
 
 import { Select } from '@components/Select';
-import { StructureDirection } from '@components/StructureDirection';
+import { Direction } from '@components/Direction';
 
 const subjectSelectOptions = [
   {
@@ -36,7 +36,7 @@ const subjectSelectOptions = [
 
 export default function Contact() {
   return (
-    <StructureDirection>
+    <Direction>
       <Section.Header>
         <Section.Title as="h1">Entrar em contato</Section.Title>
       </Section.Header>
@@ -71,6 +71,6 @@ export default function Contact() {
           <Button type="submit">Enviar Feedback</Button>
         </Form>
       </Section.Container>
-    </StructureDirection>
+    </Direction>
   );
 }

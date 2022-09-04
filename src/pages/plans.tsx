@@ -1,6 +1,6 @@
 import PlanCard from '@components/pages/plans/PlanCard';
 import { Section } from '@components/Section';
-import { StructureDirection } from '@components/StructureDirection';
+import { Direction } from '@components/Direction';
 import { WrapperPlans } from '@styles/pages/plans';
 
 const plans = [
@@ -37,7 +37,7 @@ const plans = [
 
 export default function Plans() {
   return (
-    <StructureDirection>
+    <Direction>
       <Section.Header style={{ marginBottom: '42px' }}>
         <Section.Title as="h1">Nossos Planos</Section.Title>
       </Section.Header>
@@ -47,6 +47,6 @@ export default function Plans() {
           <PlanCard key={plan.title} {...plan} />
         ))}
       </WrapperPlans>
-    </StructureDirection>
+    </Direction>
   );
 }

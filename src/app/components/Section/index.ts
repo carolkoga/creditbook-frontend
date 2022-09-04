@@ -35,7 +35,7 @@ const SubTitleSection = styled.span`
 
 const HeaderSection = styled.header<HeaderSectionProps>`
   display: flex;
-  flex-direction: column;
+  flex-direction: ${({ direction }) => (direction === 'horizontal' ? 'row' : 'column')};
   align-items: ${({ alignItems }) => (!alignItems ? 'flex-start' : alignItems)};
   justify-content: ${({ justifyContent }) => (!justifyContent ? 'flex-start' : justifyContent)};
   gap: ${({ gap }) => (!gap ? '1.6rem' : gap)};

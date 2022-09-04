@@ -6,11 +6,11 @@ import { LayoutWithImage, WrapperImage } from '@styles/pages/support';
 import {
   Section,
 } from '@components/Section';
-import { StructureDirection } from '@components/StructureDirection';
+import { Direction } from '@components/Direction';
 
 export default function About() {
   return (
-    <StructureDirection style={{ justifyContent: 'center' }}>
+    <Direction justifyContent="center">
       <Section.Container>
         <Section.Header>
           <Section.Title>Sobre Creditbook</Section.Title>
@@ -57,6 +57,6 @@ export default function About() {
 
         </LayoutWithImage>
       </Section.Container>
-    </StructureDirection>
+    </Direction>
   );
 }
