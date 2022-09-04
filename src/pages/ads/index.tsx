@@ -3,9 +3,8 @@ import { ListLayoutSingleLawsuits } from '@components/ListsLayout';
 import { WrapperSelects } from '@components/pages/ads';
 import SearchBox from '@components/Search';
 import { Select } from '@components/Select';
-import { StructureDirection } from '@components/StructureDirection';
 import { lawsuitsMock } from '@mocks/suits';
-import { HeaderSection, Section, TitleSection } from '@styles/pages/home';
+import { Section } from '@components/Section';
 
 const suitsTypesOptions = [
   {
@@ -65,28 +64,22 @@ const stateSuitsOptions = [
 
 export default function SingleLawsuits() {
   return (
-    <StructureDirection>
-      <HeaderSection style={{
-        justifyContent: 'center',
-        alignItems: 'center',
-        display: 'flex',
-        flexDirection: 'column',
-      }}
-      >
-        <TitleSection as="h1">Anúncios Individuais</TitleSection>
+    <>
+      <Section.Header>
+        <Section.Title as="h1">Anúncios Individuais</Section.Title>
         <SearchBox onSearch={() => console.log('olá')} style={{ marginTop: '42px' }} />
         <WrapperSelects>
           <Select options={suitsTypesOptions} placeholder="Tipo de processo" width={166} />
           <Select options={stateSuitsOptions} placeholder="Estado de processo" width={166} />
           <Select options={suitsValuesOptions} placeholder="Valor de processo" width={166} />
         </WrapperSelects>
-      </HeaderSection>
+      </Section.Header>
 
-      <Section>
+      <Section.Container>
         <ListLayoutSingleLawsuits>
           <LawsuitCardList access="not logged" lawsuits={lawsuitsMock} />
         </ListLayoutSingleLawsuits>
-      </Section>
-    </StructureDirection>
+      </Section.Container>
+    </>
   );
 }

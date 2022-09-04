@@ -1,16 +1,16 @@
 import Link from 'next/link';
 import { Button } from '@components/Button/styled';
-import { HeaderSection, Section, TitleSection } from '@styles/pages/home';
+import { Section } from '@components/Section';
 import { ADSContent } from '@styles/pages/support';
 import WrapperSupport from '@components/pages/support/WrapperSupport';
 
 export default function SellAds() {
   return (
     <WrapperSupport>
-      <Section>
-        <HeaderSection>
-          <TitleSection>Vender Anúncios</TitleSection>
-        </HeaderSection>
+      <Section.Container>
+        <Section.Header>
+          <Section.Title>Vender Anúncios</Section.Title>
+        </Section.Header>
 
         <ADSContent>
           <h4>Cadastrar Anúncios</h4>
@@ -34,7 +34,7 @@ export default function SellAds() {
             </Button>
           </Link>
         </ADSContent>
-      </Section>
+      </Section.Container>
     </WrapperSupport>
   );
 }

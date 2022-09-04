@@ -6,7 +6,8 @@ import { Button } from '@components/Button/styled';
 import LegalEntity from '@components/pages/signup/LegalEntity';
 import PrivateIndividual from '@components/pages/signup/PrivateIndividual';
 
-import { Direction, HeaderSection, TitleSection } from '@styles/pages/home';
+import { Direction } from '@styles/pages/home';
+import { Section } from '@components/Section';
 import { registerLegalEntitySchema, registerPrivateIndividualSchema } from 'app/validations/yup/signup';
 import { RegistrationParams } from '@services/creditbook/auth/types';
 import AuthCreditBookService from '@services/creditbook/auth';
@@ -38,16 +39,16 @@ export default function SignUp() {
 
   return (
     <FormProvider {...methods}>
-      <HeaderSection>
+      <Section.Header>
         <Direction>
-          <TitleSection as="h2" textColor="dark">Cadastro</TitleSection>
+          <Section.Title as="h2" textColor="dark">Cadastro</Section.Title>
           <Button type="button" onClick={() => handleToggleRegisterPersonType()}>
             Cadastrar pessoa
             {' '}
             {registerPersonType === 'privateIndividual' ? 'jurídica' : 'física'}
           </Button>
         </Direction>
-      </HeaderSection>
+      </Section.Header>
 
       {registerPersonType === 'privateIndividual' && (
         <PrivateIndividual

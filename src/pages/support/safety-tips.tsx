@@ -1,16 +1,16 @@
 import WrapperSupport from '@components/pages/support/WrapperSupport';
 import { TextContainer } from '@styles/pages/about';
-import { HeaderSection, Section, TitleSection } from '@styles/pages/home';
+import { Section } from '@components/Section';
 import { LayoutWithImage, WrapperImage } from '@styles/pages/support';
 import Image from 'next/image';
 
 export default function SafetTips() {
   return (
     <WrapperSupport>
-      <Section>
-        <HeaderSection>
-          <TitleSection>Dicas de Segurança</TitleSection>
-        </HeaderSection>
+      <Section.Container>
+        <Section.Header>
+          <Section.Title>Dicas de Segurança</Section.Title>
+        </Section.Header>
 
         <LayoutWithImage>
           <TextContainer>
@@ -50,7 +50,7 @@ export default function SafetTips() {
           </WrapperImage>
 
         </LayoutWithImage>
-      </Section>
+      </Section.Container>
     </WrapperSupport>
   );
 }

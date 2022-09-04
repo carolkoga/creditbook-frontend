@@ -1,14 +1,14 @@
 import WrapperSupport from '@components/pages/support/WrapperSupport';
 import { WrapperVideo } from '@components/WrapperVideo';
-import { HeaderSection, TitleSection } from '@styles/pages/home';
+import { Section } from '@components/Section';
 import LiteYouTubeEmbed from 'react-lite-youtube-embed';
 
 export default function TutorialVideo() {
   return (
     <WrapperSupport>
-      <HeaderSection>
-        <TitleSection as="h1" style={{ textAlign: 'center' }}>Vídeo Tutorial</TitleSection>
-      </HeaderSection>
+      <Section.Header>
+        <Section.Title as="h1" style={{ textAlign: 'center' }}>Vídeo Tutorial</Section.Title>
+      </Section.Header>
 
       <div style={{ display: 'flex', justifyContent: 'center' }}>
         <WrapperVideo width="693px" height="429px">

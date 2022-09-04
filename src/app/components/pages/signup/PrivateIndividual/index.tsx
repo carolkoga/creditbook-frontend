@@ -1,6 +1,6 @@
 import { Button } from '@components/Button/styled';
 import { RegistrationParams } from '@services/creditbook/auth/types';
-import { HeaderSection, Section, TitleSection } from '@styles/pages/home';
+import { Section } from '@components/Section';
 import { useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 import AddressForm from '../components/AddressForm';
@@ -18,10 +18,10 @@ export default function PrivateIndividual({ onSubmit }: IProps) {
   const [formGroupDirection] = useState<'horizontal'>('horizontal');
 
   return (
-    <Section bg="white">
-      <HeaderSection>
-        <TitleSection as="h1">Cadastro Pessoa Física</TitleSection>
-      </HeaderSection>
+    <Section.Container bg="white">
+      <Section.Header>
+        <Section.Title as="h1">Cadastro Pessoa Física</Section.Title>
+      </Section.Header>
 
       <FormGrid autoComplete="off" noValidate onSubmit={handleSubmit(onSubmit)}>
         <InformationForm formGroupDirection={formGroupDirection} />
@@ -34,6 +34,6 @@ export default function PrivateIndividual({ onSubmit }: IProps) {
           </Button>
         </div>
       </FormGrid>
-    </Section>
+    </Section.Container>
   );
 }

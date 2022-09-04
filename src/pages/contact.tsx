@@ -2,7 +2,7 @@ import { Button } from '@components/Button/styled';
 import FormGroup from '@components/FormGroup';
 import { Input, Textarea } from '@components/Input';
 import { Form } from '@styles/pages/contact';
-import { HeaderSection, Section, TitleSection } from '@styles/pages/home';
+import { Section } from '@components/Section';
 
 import { Select } from '@components/Select';
 import { StructureDirection } from '@components/StructureDirection';
@@ -37,11 +37,11 @@ const subjectSelectOptions = [
 export default function Contact() {
   return (
     <StructureDirection>
-      <HeaderSection>
-        <TitleSection as="h1">Entrar em contato</TitleSection>
-      </HeaderSection>
+      <Section.Header>
+        <Section.Title as="h1">Entrar em contato</Section.Title>
+      </Section.Header>
 
-      <Section>
+      <Section.Container>
         <Form>
           <FormGroup label={{ title: 'Nome', forId: 'name' }}>
             <Input placeholder="matheus" id="name" />
@@ -70,7 +70,7 @@ export default function Contact() {
 
           <Button type="submit">Enviar Feedback</Button>
         </Form>
-      </Section>
+      </Section.Container>
     </StructureDirection>
   );
 }

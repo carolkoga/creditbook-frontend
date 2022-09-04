@@ -1,16 +1,16 @@
 import { Button } from '@components/Button/styled';
 import FormGroup from '@components/FormGroup';
 import { Input } from '@components/Input';
-import { HeaderSection, Section, TitleSection } from '@styles/pages/home';
+import { Section } from '@components/Section';
 import { WrapperForm } from '@styles/pages/login';
 import Link from 'next/link';
 
 export default function Login() {
   return (
-    <Section as="main">
-      <HeaderSection style={{ margin: 'auto' }}>
-        <TitleSection as="h1">Entrar</TitleSection>
-      </HeaderSection>
+    <Section.Container as="main">
+      <Section.Header style={{ margin: 'auto' }}>
+        <Section.Title as="h1">Entrar</Section.Title>
+      </Section.Header>
 
       <WrapperForm>
         <form>
@@ -39,6 +39,6 @@ export default function Login() {
           </Link>
         </div>
       </WrapperForm>
-    </Section>
+    </Section.Container>
   );
 }

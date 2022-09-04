@@ -5,7 +5,7 @@ import { Button } from '@components/Button/styled';
 import FormGroup from '@components/FormGroup';
 import { Input, MaskInput } from '@components/Input';
 
-import { HeaderSection, Section, TitleSection } from '@styles/pages/home';
+import { Section } from '@components/Section';
 
 import { RegistrationParams } from '@services/creditbook/auth/types';
 
@@ -25,10 +25,10 @@ export default function LegalEntity({ onSubmit }: IProps) {
   const { handleSubmit, control } = useFormContext<RegistrationParams>();
 
   return (
-    <Section bg="white">
-      <HeaderSection>
-        <TitleSection>Cadastro Pessoa Jurídica</TitleSection>
-      </HeaderSection>
+    <Section.Container bg="white">
+      <Section.Header>
+        <Section.Title>Cadastro Pessoa Jurídica</Section.Title>
+      </Section.Header>
 
       <FormGrid noValidate onSubmit={handleSubmit(onSubmit)}>
         <InformationForm formGroupDirection={formGroupDirection}>
@@ -79,6 +79,6 @@ export default function LegalEntity({ onSubmit }: IProps) {
           </Button>
         </div>
       </FormGrid>
-    </Section>
+    </Section.Container>
   );
 }

@@ -4,19 +4,17 @@ import { TextContainer } from '@styles/pages/about';
 import { LayoutWithImage, WrapperImage } from '@styles/pages/support';
 
 import {
-  HeaderSection,
-  TitleSection,
   Section,
-} from '@styles/pages/home';
+} from '@components/Section';
 import { StructureDirection } from '@components/StructureDirection';
 
 export default function About() {
   return (
     <StructureDirection style={{ justifyContent: 'center' }}>
-      <Section>
-        <HeaderSection>
-          <TitleSection>Sobre Creditbook</TitleSection>
-        </HeaderSection>
+      <Section.Container>
+        <Section.Header>
+          <Section.Title>Sobre Creditbook</Section.Title>
+        </Section.Header>
 
         <LayoutWithImage>
           <TextContainer>
@@ -58,7 +56,7 @@ export default function About() {
           </WrapperImage>
 
         </LayoutWithImage>
-      </Section>
+      </Section.Container>
     </StructureDirection>
   );
 }

@@ -1,26 +1,24 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import {
-  ContainerVideoAndInfo,
-  ContentHero,
-  Direction,
-  HeaderSection,
-  InfoCard,
-  Section,
-  SectionHero,
-  SubTitleSection,
-  TitleSection,
-  WrapperImageHero,
-  WrapperInfoCard,
-} from 'app/assets/styles/pages/home';
 import LiteYouTubeEmbed from 'react-lite-youtube-embed';
 
-import { Actions } from '@components/ActionLink';
-import LawsuitCardSwiper from '@components/LawsuitCard/LawsuitCardSwiper/index';
+import {
+  SectionHero,
+  ContentHero,
+  WrapperImageHero,
+  WrapperInfoCard,
+  InfoCard,
+  Direction,
+  ContainerVideoAndInfo,
+} from '@styles/pages/home';
 
-import { lawsuitsMock } from '@mocks/suits';
+import LawsuitCardSwiper from '@components/LawsuitCard/LawsuitCardSwiper/index';
+import { Section } from '@components/Section';
+import { Actions } from '@components/ActionLink';
 import { Button } from '@components/Button/styled';
 import { WrapperVideo } from '@components/WrapperVideo';
+
+import { lawsuitsMock } from '@mocks/suits';
 
 export default function HomeLadingPage() {
   return (
@@ -61,11 +59,11 @@ export default function HomeLadingPage() {
         </WrapperImageHero>
       </SectionHero>
 
-      <Section>
-        <HeaderSection>
-          <TitleSection>Como funciona a venda e compra?</TitleSection>
-          <SubTitleSection>Assista o vídeo abaixo:</SubTitleSection>
-        </HeaderSection>
+      <Section.Container>
+        <Section.Header>
+          <Section.Title>Como funciona a venda e compra?</Section.Title>
+          <Section.Subtitle>Assista o vídeo abaixo:</Section.Subtitle>
+        </Section.Header>
 
         <ContainerVideoAndInfo>
           <WrapperVideo>
@@ -160,21 +158,21 @@ export default function HomeLadingPage() {
             </InfoCard>
           </WrapperInfoCard>
         </ContainerVideoAndInfo>
-      </Section>
+      </Section.Container>
 
-      <Section>
-        <HeaderSection>
+      <Section.Container>
+        <Section.Header>
           <Direction>
-            <TitleSection>Galeria Premium</TitleSection>
+            <Section.Title>Galeria Premium</Section.Title>
             <Link href="/galeria-premium">
               <Button as="a" size="small">
                 Ver Todos
               </Button>
             </Link>
           </Direction>
-        </HeaderSection>
+        </Section.Header>
         <LawsuitCardSwiper lawsuits={lawsuitsMock} access="not logged" />
-      </Section>
+      </Section.Container>
     </>
   );
 }
