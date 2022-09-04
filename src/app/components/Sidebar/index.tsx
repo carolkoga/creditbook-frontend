@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import useSidebar from 'app/hooks/useSidebar';
 import Link from 'next/link';
 import { Power } from 'phosphor-react';
@@ -7,7 +8,9 @@ import {
 } from './styled';
 
 export default function Sidebar() {
+  const { asPath } = useRouter();
   const { isCollapsed } = useSidebar();
+  const defaultPath = asPath.split('/')[1];
 
   return (
     <Container collapsed={!isCollapsed}>
@@ -19,7 +22,7 @@ export default function Sidebar() {
       <Navigation>
         {routes.map((route) => (
           <Route key={route.label}>
-            <Link href={route.link}>
+            <Link href={`/${defaultPath}${route.link}`}>
               <a>
                 {route.icon}
                 {!isCollapsed && route.label}
