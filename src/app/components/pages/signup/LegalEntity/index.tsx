@@ -1,20 +1,24 @@
 import { Button } from '@components/Button/styled';
 import FormGroup from '@components/FormGroup';
 import { Input } from '@components/Input';
-import { Select } from '@components/Select';
+import { RegistrationParams } from '@services/creditbook/auth/types';
 import { HeaderSection, Section, TitleSection } from '@styles/pages/home';
 import { useState } from 'react';
+import { useFormContext } from 'react-hook-form';
 import AddressForm from '../components/AddressForm';
 import { FormGrid } from '../components/FormGrid';
 import InformationForm from '../components/InformationForm';
+import NationalitySelect from '../components/NationalitySelect';
 import PasswordForm from '../components/PasswordForm';
 
 interface IProps {
-  onSubmit: () => void
+  // eslint-disable-next-line no-unused-vars
+  onSubmit: (data: RegistrationParams) => void
 }
 
 export default function LegalEntity({ onSubmit }: IProps) {
   const [formGroupDirection] = useState<'horizontal'>('horizontal');
+  const { handleSubmit } = useFormContext<RegistrationParams>();
 
   return (
     <Section bg="white">
@@ -22,7 +26,7 @@ export default function LegalEntity({ onSubmit }: IProps) {
         <TitleSection>Cadastro Pessoa Jurídica</TitleSection>
       </HeaderSection>
 
-      <FormGrid noValidate onSubmit={() => onSubmit()}>
+      <FormGrid noValidate onSubmit={handleSubmit(onSubmit)}>
         <InformationForm formGroupDirection={formGroupDirection}>
           <FormGroup
             direction={formGroupDirection}
@@ -51,15 +55,7 @@ export default function LegalEntity({ onSubmit }: IProps) {
             />
           </FormGroup>
 
-          <FormGroup
-            direction={formGroupDirection}
-            label={{
-              forId: 'nationality',
-              title: 'Local de constituição',
-            }}
-          >
-            <Select id="nationality" placeholder="Nacionalidade" />
-          </FormGroup>
+          <NationalitySelect formGroupDirection={formGroupDirection} />
         </InformationForm>
         <AddressForm formGroupDirection={formGroupDirection} />
         <PasswordForm formGroupDirection={formGroupDirection} />
