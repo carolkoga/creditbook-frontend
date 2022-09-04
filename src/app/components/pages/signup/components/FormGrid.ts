@@ -19,6 +19,10 @@ export const FormGrid = styled.form`
       > div {
         width: 80%;
       }
+
+      #nationality, .select__control {
+        width: 100%;
+      }
     }
 
     &:nth-child(0) {
