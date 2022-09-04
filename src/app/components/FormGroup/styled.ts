@@ -54,5 +54,5 @@ export const ErrorMessage = styled.small`
   color: #F16565;
   font-size: 12px;
   font-weight: 400;
-  margin-top: 16px;
+  margin-top: 8px;
 `;

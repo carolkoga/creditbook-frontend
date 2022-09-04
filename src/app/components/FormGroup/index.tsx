@@ -9,7 +9,7 @@ interface FormGroupProps {
     title: string,
     forId: string,
   } | null,
-  error?: string,
+  error?: string | any,
 }
 
 export default function FormGroup({
