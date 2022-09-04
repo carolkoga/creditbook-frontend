@@ -5,12 +5,22 @@ import { Section } from '@components/Section';
 
 import { lawsuitsMock } from '@mocks/suits';
 import SelectAdsFilters from '@components/SelectAdsFilters';
+import { Direction } from '@components/Direction';
+import Link from 'next/link';
+import { Button } from '@components/Button/styled';
 
 export default function Home() {
   return (
     <>
       <Section.Container bg="light">
-        <Section.Title as="h3">Galeria Premium</Section.Title>
+        <Direction direction="horizontal" alignItems="center">
+          <Section.Title as="h3">Galeria Premium</Section.Title>
+          <Link href="/logged/gallery-premium">
+            <Button as="a" variant="dark">
+              Ver Todos
+            </Button>
+          </Link>
+        </Direction>
         <LawsuitCardSwiper access="admin" lawsuits={lawsuitsMock} />
       </Section.Container>
 
