@@ -1,55 +1,11 @@
-import styled, { css } from 'styled-components';
+import { Section } from '@components/Section';
+import styled from 'styled-components';
 
-const sectionBgColors = {
-  white: css`
-    background: ${({ theme }) => theme.colors.grey[10]};
-    padding: 24px;
-  `,
-
-  light: css`
-    background: ${({ theme }) => theme.colors.grey[30]};
-    padding: 24px;
-  `,
-};
-
-const sectionTextColors = {
-  default: css`
-    color: ${({ theme }) => theme.colors.primary.main};
-  `,
-
-  secondary: css`
-    color: ${({ theme }) => theme.colors.secondary.main};
-  `,
-
-  dark: css`
-    color: ${({ theme }) => theme.colors.grey[50]};
-  `,
-};
-
-interface SectionProps {
-  bg?: 'white' | 'light'
-}
-
-interface SectionTitleProps {
-  textColor?: 'default' | 'secondary' | 'dark'
-}
-
-export const Section = styled.section<SectionProps>`
-  display: flex;
-  flex-direction: column;
-  border-radius: 10px;
-
-  & + & {
-    margin-top: 92px;
-  }
-
-  ${({ bg }) => (!bg ? 'none' : sectionBgColors[bg])}
-`;
-
-export const SectionHero = styled(Section)`
+export const SectionHero = styled(Section.Container)`
   display: grid;
   grid-template-columns: repeat(2, auto);
   gap: 0 127px;
+  margin-bottom: 32px;
 
   @media screen and (max-width: 434px) {
     gap: 0;
@@ -118,33 +74,11 @@ export const WrapperImageHero = styled.div`
   }
 `;
 
-export const HeaderSection = styled.header`
-  margin-bottom: 32px;
-`;
-
-export const TitleSection = styled.h3<SectionTitleProps>`
-  font-weight: 500;
-  font-size: 30px;
-  line-height: 40px;
-  ${({ textColor }) => (!textColor ? sectionTextColors.default : sectionTextColors[textColor])};
-
-  @media screen and (max-width: 334px) {
-    font-size: 24px;
-    line-height: 34px;
-  }
-`;
-
-export const SubTitleSection = styled.span`
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 30px;
-  color: ${({ theme }) => theme.colors.grey[50]};
-`;
-
 export const ContainerVideoAndInfo = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  max-width: 1250px;
   height: 100%;
   width: 100%;
 
