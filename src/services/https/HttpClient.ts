@@ -1,5 +1,7 @@
 import axios, {
-  AxiosResponse, Method, AxiosRequestConfig,
+  AxiosResponse,
+  Method,
+  AxiosRequestConfig,
 } from 'axios';
 
 export class HttpClient {
@@ -7,9 +9,12 @@ export class HttpClient {
 
   private headers: { [key: string]: string | number | object | any };
 
+  private defaultEndpoint: string;
+
   constructor(baseURL: string) {
     this.baseURL = baseURL;
     this.headers = {};
+    this.defaultEndpoint = '';
   }
 
   get<ResponseData = any>(endpoint: string, options?: AxiosRequestConfig) {
@@ -28,6 +33,10 @@ export class HttpClient {
     return this.makeRequest<ResponseData>(endpoint, 'DELETE', options);
   }
 
+  setDefaultEndpoint(defaultEndpoint: string) {
+    this.defaultEndpoint = defaultEndpoint;
+  }
+
   addAuthorizationToken(token: string) {
     Object.assign(this.headers, { Authorization: `Bearer ${token}` });
   }
@@ -40,11 +49,16 @@ export class HttpClient {
   ResponseData>(endpoint: string, method: Method, options?: AxiosRequestConfig) {
     try {
       const endpointParsed = endpoint.split('')[0] === '/' ? endpoint : `/${endpoint}`;
+      const url = !this.defaultEndpoint
+        ? `${this.baseURL}${endpointParsed}`
+        : `${this.baseURL}/${this.defaultEndpoint}${endpointParsed}`;
+
       const response = await axios({
         method,
-        url: `${this.baseURL}${endpointParsed}`,
+        url,
         headers: {
           ...this.headers,
+          ...options?.headers,
         },
         ...options,
       });
@@ -61,7 +75,7 @@ export class HttpClient {
       }
     } catch (error: any) {
       const { statusText, status: statusCode } = error.response;
-      const errorMessage = error.response.data.error;
+      const errorMessage = error.response.data?.error;
 
       const messageWithMessageError = `${statusCode} - ${errorMessage}`;
       const messageNoMessageError = `${statusCode} - ${statusText}`;
@@ -69,7 +83,7 @@ export class HttpClient {
       const message = !errorMessage ? messageNoMessageError : messageWithMessageError;
 
       // eslint-disable-next-line no-console
-      console.debug(message);
+      console.debug('Request Error |', message);
     }
   }
 }
