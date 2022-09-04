@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import { IMaskInput } from 'react-imask';
 
 const commonStyles = css`
   border: none;
@@ -13,6 +14,10 @@ const commonStyles = css`
 `;
 
 export const Input = styled.input`
+  ${commonStyles};
+`;
+
+export const MaskInput = styled(IMaskInput)`
   ${commonStyles};
 `;
 
