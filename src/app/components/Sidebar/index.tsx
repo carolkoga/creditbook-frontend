@@ -10,7 +10,9 @@ import {
 export default function Sidebar() {
   const { asPath } = useRouter();
   const { isCollapsed } = useSidebar();
-  const defaultPath = asPath.split('/')[1];
+  const defaultPath = ['logged', 'admin'].includes(asPath.split('/')[1])
+    ? `/${asPath.split('/')[1]}`
+    : '/logged';
 
   return (
     <Container collapsed={!isCollapsed}>
@@ -22,7 +24,7 @@ export default function Sidebar() {
       <Navigation>
         {routes.map((route) => (
           <Route key={route.label}>
-            <Link href={`/${defaultPath}${route.link}`}>
+            <Link href={`${defaultPath}${route.link}`}>
               <a>
                 {route.icon}
                 {!isCollapsed && route.label}
