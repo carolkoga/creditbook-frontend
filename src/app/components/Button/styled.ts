@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 
 type SizesButton = 'small' | 'small-large' | 'large' | 'outline-filled-round' | 'x-large';
-type VariantsButton = 'default' | 'secondary' | 'white';
+type VariantsButton = 'default' | 'secondary' | 'white' | 'dark';
 
 interface ButtonProps {
   size?: SizesButton,
@@ -55,7 +55,13 @@ const variantsButton = {
 
   white: css`
     background: ${({ theme }) => theme.colors.grey[30]};
-    color: #151515;
+    border: 1px solid ${({ theme }) => theme.colors.grey[40]};
+    color: ${({ theme }) => theme.colors.grey[80]};
+  `,
+
+  dark: css`
+    background: ${({ theme }) => theme.colors.grey[50]};
+    color: ${({ theme }) => theme.colors.grey[10]};
   `,
 };
 
