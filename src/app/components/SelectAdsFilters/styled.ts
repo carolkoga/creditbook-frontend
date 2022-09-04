@@ -5,6 +5,4 @@ export const WrapperSelects = styled.div`
   align-items: center;
   gap: 24px;
   flex-wrap: wrap;
-  margin-top: 32px;
-  margin-bottom: 56px;
 `;
