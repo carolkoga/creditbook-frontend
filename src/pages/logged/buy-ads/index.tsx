@@ -1,0 +1,24 @@
+import LawsuitCardList from '@components/LawsuitCard';
+import { ListLayoutSingleLawsuits } from '@components/ListsLayout';
+import SearchBox from '@components/Search';
+import { lawsuitsMock } from '@mocks/suits';
+import { Section } from '@components/Section';
+import SelectAdsFilters from '@components/SelectAdsFilters';
+
+export default function BuyAds() {
+  return (
+    <>
+      <Section.Header>
+        <Section.Title as="h1">Comprar créditos</Section.Title>
+        <SearchBox onSearch={() => console.log('olá')} width={365} />
+        <SelectAdsFilters />
+      </Section.Header>
+
+      <Section.Container>
+        <ListLayoutSingleLawsuits>
+          <LawsuitCardList access="logged" lawsuits={lawsuitsMock} />
+        </ListLayoutSingleLawsuits>
+      </Section.Container>
+    </>
+  );
+}

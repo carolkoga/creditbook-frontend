@@ -4,6 +4,7 @@ import { ListLayoutSingleLawsuits } from '@components/ListsLayout';
 import { Section } from '@components/Section';
 
 import { lawsuitsMock } from '@mocks/suits';
+import SelectAdsFilters from '@components/SelectAdsFilters';
 
 export default function Home() {
   return (
@@ -16,6 +17,7 @@ export default function Home() {
       <Section.Container>
         <Section.Header>
           <Section.Title as="h3">Anúncios gerais</Section.Title>
+          <SelectAdsFilters />
         </Section.Header>
 
         <ListLayoutSingleLawsuits>
