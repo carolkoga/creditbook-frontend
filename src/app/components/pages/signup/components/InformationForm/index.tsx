@@ -1,11 +1,11 @@
 import {
   ReactNode, useEffect, useState,
 } from 'react';
-import { useFormContext } from 'react-hook-form';
+import { useFormContext, Controller } from 'react-hook-form';
 import { UploadSimple } from 'phosphor-react';
 
 import FormGroup from '@components/FormGroup';
-import { Input } from '@components/Input';
+import { Input, MaskInput } from '@components/Input';
 
 import { Fieldset } from '../Fieldset';
 import { WrapperInputFile } from '../WrapperInputFile';
@@ -18,7 +18,7 @@ interface IProps {
 
 export default function InformationForm({ formGroupDirection, children }: IProps) {
   const {
-    register, formState: { errors }, watch, setValue,
+    register, formState: { errors }, watch, setValue, control,
   } = useFormContext();
   const profilePictureFileList = watch('profilePicture', null);
   const [profilePreview, setProfilePreview] = useState<string | any>('');
@@ -50,19 +50,11 @@ export default function InformationForm({ formGroupDirection, children }: IProps
       required: 'Campo obrigatório',
     }),
 
-    phone: register('cellphone', {
-      required: 'Campo obrigatório',
-    }),
-
     bornDate: register('bornDate', {
       required: 'Campo obrigatório',
     }),
 
     rg: register('rg'),
-
-    cpf: register('cpf', {
-      required: 'Campo obrigatório',
-    }),
 
     profilePicture: register('profilePicture', {
       required: 'Campo obrigatório',
@@ -106,22 +98,29 @@ export default function InformationForm({ formGroupDirection, children }: IProps
         />
       </FormGroup>
 
-      <FormGroup
-        direction={formGroupDirection}
-        error={errors?.cellphone?.message}
-        label={{
-          forId: 'phone',
-          title: 'Celular',
-        }}
-      >
-        <Input
-          type="tel"
-          id="phone"
-          inputMode="numeric"
-          placeholder="(54) 98753-0813"
-          {...registeredFields.phone}
-        />
-      </FormGroup>
+      <Controller
+        control={control}
+        name="cellPhone"
+        defaultValue=""
+        render={({ field }) => (
+          <FormGroup
+            direction={formGroupDirection}
+            error={errors?.cellphone?.message}
+            label={{
+              forId: 'phone',
+              title: 'Celular',
+            }}
+          >
+            <MaskInput
+              {...field}
+              id="phone"
+              inputMode="numeric"
+              placeholder="(54) 98753-0813"
+              mask="(00) 00000-0000"
+            />
+          </FormGroup>
+        )}
+      />
 
       <FormGroup
         direction={formGroupDirection}
@@ -155,21 +154,29 @@ export default function InformationForm({ formGroupDirection, children }: IProps
         />
       </FormGroup>
 
-      <FormGroup
-        direction={formGroupDirection}
-        error={errors?.cpf?.message}
-        label={{
-          forId: 'cpf',
-          title: 'CPF',
-        }}
-      >
-        <Input
-          id="cpf"
-          inputMode="numeric"
-          placeholder="423.177.667-93"
-          {...registeredFields.cpf}
-        />
-      </FormGroup>
+      <Controller
+        name="cpf"
+        defaultValue=""
+        control={control}
+        render={({ field }) => (
+          <FormGroup
+            direction={formGroupDirection}
+            error={errors?.cpf?.message}
+            label={{
+              forId: 'cpf',
+              title: 'CPF',
+            }}
+          >
+            <MaskInput
+              {...field}
+              id="cpf"
+              inputMode="numeric"
+              placeholder="423.177.667-93"
+              mask="000.000.000-00"
+            />
+          </FormGroup>
+        )}
+      />
 
       {!children && <NationalitySelect formGroupDirection={formGroupDirection} />}
 

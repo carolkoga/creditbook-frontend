@@ -1,7 +1,7 @@
-import { useFormContext } from 'react-hook-form';
+import { Controller, useFormContext } from 'react-hook-form';
 
 import FormGroup from '@components/FormGroup';
-import { Input } from '@components/Input';
+import { Input, MaskInput } from '@components/Input';
 import { RegistrationParams } from '@services/creditbook/auth/types';
 import CepService, { CepResponse } from '@services/cep';
 
@@ -14,7 +14,7 @@ interface IProps {
 
 export default function AddressForm({ formGroupDirection }: IProps) {
   const {
-    register, formState: { errors }, watch, setValue,
+    register, formState: { errors }, watch, setValue, control,
   } = useFormContext<RegistrationParams>();
   const cep = watch('address.cep');
 
@@ -60,21 +60,28 @@ export default function AddressForm({ formGroupDirection }: IProps) {
     <Fieldset>
       <legend>Endereço</legend>
 
-      <FormGroup
-        direction={formGroupDirection}
-        error={errors?.address?.cep?.message}
-        label={{
-          forId: 'address.cep',
-          title: 'CEP',
-        }}
-      >
-        <Input
-          id="address.cep"
-          inputMode="numeric"
-          placeholder="95030-430"
-          {...registeredFields.cep}
-        />
-      </FormGroup>
+      <Controller
+        name="address.cep"
+        control={control}
+        render={({ field }) => (
+          <FormGroup
+            direction={formGroupDirection}
+            error={errors?.address?.cep?.message}
+            label={{
+              forId: 'address.cep',
+              title: 'CEP',
+            }}
+          >
+            <MaskInput
+              {...field}
+              id="address.cep"
+              inputMode="numeric"
+              placeholder="95030-430"
+              mask="00000-000"
+            />
+          </FormGroup>
+        )}
+      />
 
       <FormGroup
         direction={formGroupDirection}
