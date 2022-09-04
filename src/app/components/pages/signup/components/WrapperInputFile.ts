@@ -6,6 +6,7 @@ export const WrapperInputFile = styled.div`
   }
   width: 40px;
   height: 40px;
+
   label {
     aspect-ratio: 1;
     display: flex;
@@ -18,6 +19,19 @@ export const WrapperInputFile = styled.div`
     cursor: pointer;
 
     transition: all 0.3s ease-in;
+
+    &.--with-img {
+      padding: 0;
+      border: 1px solid ${({ theme }) => theme.colors.primary.main};
+      img {
+        border-radius: 50%;
+        filter: brightness(1.3);
+
+      }
+      :hover {
+        filter: brightness(1);
+      }
+    }
     &:hover {
       filter: brightness(1.4);
     }
