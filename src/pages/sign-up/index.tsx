@@ -1,6 +1,6 @@
+import { useState } from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useState } from 'react';
 
 import { Button } from '@components/Button/styled';
 import LegalEntity from '@components/pages/signup/LegalEntity';
