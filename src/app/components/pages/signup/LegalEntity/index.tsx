@@ -1,10 +1,14 @@
+import { useState } from 'react';
+import { Controller, useFormContext } from 'react-hook-form';
+
 import { Button } from '@components/Button/styled';
 import FormGroup from '@components/FormGroup';
-import { Input } from '@components/Input';
-import { RegistrationParams } from '@services/creditbook/auth/types';
+import { Input, MaskInput } from '@components/Input';
+
 import { HeaderSection, Section, TitleSection } from '@styles/pages/home';
-import { useState } from 'react';
-import { useFormContext } from 'react-hook-form';
+
+import { RegistrationParams } from '@services/creditbook/auth/types';
+
 import AddressForm from '../components/AddressForm';
 import { FormGrid } from '../components/FormGrid';
 import InformationForm from '../components/InformationForm';
@@ -18,7 +22,7 @@ interface IProps {
 
 export default function LegalEntity({ onSubmit }: IProps) {
   const [formGroupDirection] = useState<'horizontal'>('horizontal');
-  const { handleSubmit } = useFormContext<RegistrationParams>();
+  const { handleSubmit, control } = useFormContext<RegistrationParams>();
 
   return (
     <Section bg="white">
@@ -41,19 +45,28 @@ export default function LegalEntity({ onSubmit }: IProps) {
             />
           </FormGroup>
 
-          <FormGroup
-            direction={formGroupDirection}
-            label={{
-              forId: 'cnpj',
-              title: 'CNPJ',
-            }}
-          >
-            <Input
-              id="cnpj"
-              inputMode="numeric"
-              placeholder="32.683.609/0001-07"
-            />
-          </FormGroup>
+          <Controller
+            name="cnpj"
+            control={control}
+            defaultValue=""
+            render={({ field }) => (
+              <FormGroup
+                direction={formGroupDirection}
+                label={{
+                  forId: 'cnpj',
+                  title: 'CNPJ',
+                }}
+              >
+                <MaskInput
+                  {...field}
+                  id="cnpj"
+                  inputMode="numeric"
+                  placeholder="32.683.609/0001-07"
+                  mask="00.000.000/0000-00"
+                />
+              </FormGroup>
+            )}
+          />
 
           <NationalitySelect formGroupDirection={formGroupDirection} />
         </InformationForm>
