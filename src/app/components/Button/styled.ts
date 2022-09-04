@@ -55,7 +55,6 @@ const variantsButton = {
 
   white: css`
     background: ${({ theme }) => theme.colors.grey[30]};
-    border: 1px solid ${({ theme }) => theme.colors.grey[40]};
     color: ${({ theme }) => theme.colors.grey[80]};
   `,
 
