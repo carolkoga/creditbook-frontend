@@ -41,10 +41,10 @@ const globalStyle = css`
   }
 `;
 
-export const Select = styled(ReactSelect).attrs(() => ({ classNamePrefix: 'select', instanceId: 'select' }))`
+export const Select = styled(ReactSelect).attrs((props) => ({ classNamePrefix: 'select', instanceId: props.instanceId || 'select' }))`
   ${globalStyle};
 `;
 
-export const AsyncSelect = styled(ReactSelectAsync).attrs(() => ({ classNamePrefix: 'select', instanceId: 'select' }))`
+export const AsyncSelect = styled(ReactSelectAsync).attrs((props) => ({ classNamePrefix: 'select', instanceId: props.instanceId || 'select' }))`
   ${globalStyle};
 `;
