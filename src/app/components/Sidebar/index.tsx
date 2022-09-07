@@ -1,42 +1,34 @@
-import { useRouter } from 'next/router';
+import useOnclickOutside from 'react-cool-onclickoutside';
+
+import ReactPortal from '@components/ReactPortal';
+import useDimensions from 'app/hooks/useDimensions';
 import useSidebar from 'app/hooks/useSidebar';
-import Link from 'next/link';
-import { Power } from 'phosphor-react';
-import { routes } from './routes';
-import {
-  Container, Navigation, PhotoProfile, Route, UserInfo,
-} from './styled';
+
+import CoreSidebar from './sidebar';
+import { FloatSidebar } from './styled';
 
 export default function Sidebar() {
-  const { asPath } = useRouter();
-  const { isCollapsed } = useSidebar();
-  const defaultPath = ['logged', 'admin'].includes(asPath.split('/')[1])
-    ? `/${asPath.split('/')[1]}`
-    : '/logged';
+  const { isCollapsed, handleControlSidebar } = useSidebar();
+  const { dimensionsOverlimit } = useDimensions();
+  const { widthOverlimit } = dimensionsOverlimit(914);
+  const ref = useOnclickOutside(() => {
+    if (!widthOverlimit) {
+      handleControlSidebar(false);
+    }
+  });
 
   return (
-    <Container collapsed={!isCollapsed}>
-      <UserInfo>
-        <PhotoProfile />
-        {!isCollapsed && <strong>Matheus Jeronimo Todao</strong>}
-      </UserInfo>
-
-      <Navigation>
-        {routes.map((route) => (
-          <Route key={route.label}>
-            <Link href={`${defaultPath}${route.link}`}>
-              <a>
-                {route.icon}
-                {!isCollapsed && route.label}
-              </a>
-            </Link>
-          </Route>
-        ))}
-      </Navigation>
-
-      <button type="button" className="button__logout" title="Sair">
-        <Power size={32} weight="regular" />
-      </button>
-    </Container>
+    <>
+      {widthOverlimit && <CoreSidebar />}
+      {!widthOverlimit && (
+        <ReactPortal containerId="float-sidebar">
+          <FloatSidebar isVisible={isCollapsed && !widthOverlimit} ref={ref}>
+            <CoreSidebar
+              smallDevice={!isCollapsed && !widthOverlimit}
+            />
+          </FloatSidebar>
+        </ReactPortal>
+      )}
+    </>
   );
 }

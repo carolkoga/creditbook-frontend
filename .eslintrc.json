@@ -38,6 +38,7 @@
       "consistent-return": "off",
       "no-return-await": "off",
       "class-methods-use-this": "off",
-      "react/jsx-no-bind": "off"
+      "react/jsx-no-bind": "off",
+      "react/default-props-match-prop-types": "off"
     }
 }

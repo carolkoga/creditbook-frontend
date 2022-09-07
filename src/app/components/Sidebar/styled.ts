@@ -17,7 +17,7 @@ export const Container = styled.header<ContainerProps>`
   top: 0;
   left: 0;
   overflow-y: scroll;
-  width: ${({ collapsed }) => (collapsed ? '23rem' : '9.3rem')};;
+  width: ${({ collapsed }) => (collapsed ? '23rem' : '9.3rem')};
   padding: auto;
 
   .button__logout {
@@ -27,6 +27,26 @@ export const Container = styled.header<ContainerProps>`
     background: none;
     color: ${({ theme }) => theme.colors.grey[10]};
     margin: auto;
+  }
+
+  .close__menu {
+    background: none;
+    align-self: ${({ collapsed }) => (collapsed ? 'flex-end' : 'center')};
+
+
+    button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: none;
+      color: ${({ theme }) => theme.colors.grey[30]};
+      background: none;
+      padding: 8px;
+      background: #efefee36;
+      border-radius: 5px;
+      font-size: 12px;
+      text-align: center;
+    }
   }
 
   scrollbar-width: thin;
@@ -101,4 +121,12 @@ export const Route = styled.li`
     font-weight: 500;
     font-size: 13px;
   }
+`;
+
+export const FloatSidebar = styled.div<{ isVisible: boolean }>`
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: ${({ isVisible }) => (!isVisible ? 'block' : 'none')};
+  z-index: 300;
 `;
