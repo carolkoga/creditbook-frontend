@@ -46,4 +46,15 @@ export const FormGrid = styled.form`
     align-items: center;
     justify-content: flex-end;
   }
+
+  @media screen and (max-width: 780px) {
+    grid-template-areas: "informationForm" "addressForm" "passwordForm" "actions";
+    grid-template-columns: auto;
+    gap: 42px;
+
+    .actions {
+      justify-content: flex-start;
+    }
+  }
+
 `;
