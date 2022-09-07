@@ -22,9 +22,16 @@ export const Container = styled.div<ContainerProps>`
       flex-direction: column;
       align-items: flex-start;
       gap: 10px 0;
+
+      input, textarea {
+        width: 100%;
+        align-self: flex-start;
+      }
     `}
     input, textarea {
+      width: 100%;
       flex: 1;
+      align-self: flex-start;
     }
 
   }
@@ -38,6 +45,10 @@ export const Container = styled.div<ContainerProps>`
       color: #F16565 !important;
     }
   `};
+
+  ${({ direction }) => direction === 'vertical' && css`
+    width: 100% !important;
+  `}
 `;
 
 export const Label = styled.label`
