@@ -2,6 +2,10 @@ import styled from 'styled-components';
 
 export const HeaderStyle = styled.header`
   margin-bottom: 81px;
+
+  @media screen and (max-width: 452px) {
+    margin-bottom: 32px;
+  }
 `;
 
 export const Content = styled.div`
@@ -17,8 +21,12 @@ export const Content = styled.div`
     background: none;
   }
 
-  @media screen and (max-width: 382px) {
+  @media screen and (max-width: 452px) {
     padding: 18px 24px;
+  }
+
+  @media screen and (max-width: 382px) {
+    padding: 18px 14px;
   }
 
   @media screen and (max-width: 252px) {

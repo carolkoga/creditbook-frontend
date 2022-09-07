@@ -7,18 +7,27 @@ export const Main = styled.main`
 
   @media screen and (max-width: 1200px) {
     padding: 42px;
+    padding-top: 0;
   }
 
   @media screen and (max-width: 700px) {
     padding: 32px;
+    padding-top: 0;
   }
 
-  @media screen and (max-width: 400px) {
+  @media screen and (max-width: 452px) {
     padding: 24px;
+    padding-top: 0;
+  }
+
+  @media screen and (max-width: 382px) {
+    padding: 14px;
+    padding-top: 0;
   }
 
   @media screen and (max-width: 300px) {
     padding: 18px;
+    padding-top: 0;
   }
 `;
 
