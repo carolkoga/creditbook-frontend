@@ -5,12 +5,11 @@ import {
 interface SidebarContextType {
   isCollapsed: boolean,
   handleToggleSidebarIsCollapsed: () => void,
+  // eslint-disable-next-line no-unused-vars
+  handleControlSidebar: (collapsed: boolean) => void,
 }
 
-export const SidebarContext = createContext<SidebarContextType>({
-  isCollapsed: false,
-  handleToggleSidebarIsCollapsed: () => {},
-});
+export const SidebarContext = createContext<SidebarContextType>({} as SidebarContextType);
 
 interface IProps {
   children: ReactNode,
@@ -44,6 +43,7 @@ export default function SidebarContextProvider({ children }: IProps) {
 
   const values = useMemo(() => ({
     isCollapsed,
+    handleControlSidebar: (collapsed: boolean) => setIsCollapsed(!collapsed),
     handleToggleSidebarIsCollapsed,
   }), [isCollapsed]);
 
