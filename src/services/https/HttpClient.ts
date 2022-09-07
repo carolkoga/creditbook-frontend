@@ -84,6 +84,8 @@ export class HttpClient {
 
       // eslint-disable-next-line no-console
       console.debug('Request Error |', message);
+      // eslint-disable-next-line no-console
+      console.debug({ error });
     }
   }
 }

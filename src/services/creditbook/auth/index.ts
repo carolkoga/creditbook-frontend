@@ -31,6 +31,11 @@ class AuthCreditBookService {
       formData.append(key, (value as string | Blob));
     });
 
+    const dataParsed: any[] = [];
+
+    formData.forEach((itemValue, keyItem) => dataParsed.push({ [keyItem]: itemValue }));
+    console.log({ dataParsed });
+
     return await creditbookApi.post('/auth/registration', formData, {
       headers: {
         'content-type': 'multipart/form-data',
