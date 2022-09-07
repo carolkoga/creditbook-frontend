@@ -15,7 +15,7 @@ interface IProps {
 export default function AddressForm({ formGroupDirection }: IProps) {
   const {
     register, formState: { errors }, watch, setValue, control,
-  } = useFormContext<RegistrationParams>();
+  } = useFormContext();
   const cep = watch('address.cep');
 
   async function setAddressValuesFromCEP() {
