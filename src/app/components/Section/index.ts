@@ -12,6 +12,10 @@ const SectionContainer = styled.section<SectionContainerProps>`
   }
 
   ${({ bg }) => (!bg ? 'none' : sectionBgColors[bg])}
+
+  @media screen and (max-width: 452px) {
+    padding: 16px;
+  }
 `;
 
 const TitleSection = styled.h3<SectionTitleProps>`
