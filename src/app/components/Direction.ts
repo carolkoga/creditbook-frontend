@@ -14,4 +14,5 @@ export const Direction = styled.div<DirectionProps>`
   justify-content: ${({ justifyContent }) => (!justifyContent ? 'flex-start' : justifyContent)};
   gap: ${({ gap }) => (!gap ? '1.6rem' : gap)};
   width: 100%;
+  flex-wrap: wrap;
 `;
