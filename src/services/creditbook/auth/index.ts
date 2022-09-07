@@ -1,11 +1,10 @@
 import { OptionType } from '@components/Select';
 import { creditbookApi } from '@services/api/creditbookApi';
-import { AccountTypes } from './types';
+import { RegistrationParams, AccountTypes } from './types';
 
 class AuthCreditBookService {
-  async register(data: any, accountType: AccountTypes) {
+  async register<T extends AccountTypes = 'person'>(data: RegistrationParams<T>) {
     const formData = new FormData();
-    formData.append('type', accountType);
     Object.entries(data).forEach((field) => {
       const [key, value] = field;
       if (key === 'address') {
@@ -25,8 +24,8 @@ class AuthCreditBookService {
 
       if (key === 'profilePicture') {
         const profilePictureIsFileList = value as FileList;
-        if (!profilePictureIsFileList.length) {
-          return formData.append(key, '');
+        if (profilePictureIsFileList.length) {
+          return;
         }
       }
       formData.append(key, (value as string | Blob));

@@ -1,66 +1,60 @@
 import { useState } from 'react';
-import { useForm, FormProvider } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
 
 import { Button } from '@components/Button/styled';
-import LegalEntity from '@components/pages/signup/LegalEntity';
-import PrivateIndividual from '@components/pages/signup/PrivateIndividual';
+import LegalEntity, { CorporationParams } from '@components/pages/signup/LegalEntity';
+import PrivateIndividual, { PersonParams } from '@components/pages/signup/PrivateIndividual';
 
 import { Direction } from '@styles/pages/home';
 import { Section } from '@components/Section';
-import { registerLegalEntitySchema, registerPrivateIndividualSchema } from 'app/validations/yup/signup';
-import { RegistrationParams } from '@services/creditbook/auth/types';
-import AuthCreditBookService from '@services/creditbook/auth';
+import AuthCreditbookService from '@services/creditbook/auth';
+import { AccountTypes } from '@services/creditbook/auth/types';
+import useDimensions from 'app/hooks/useDimensions';
 
 export default function SignUp() {
-  const [registerPersonType, setRegisterPersonType] = useState<'privateIndividual' | 'legalEntity'>('privateIndividual');
+  const [registerAccountType, setRegisterAccountType] = useState<AccountTypes>('person');
+  const { dimensionsOverlimit } = useDimensions();
+  const { widthOverlimit } = dimensionsOverlimit(870);
 
-  const methods = useForm<RegistrationParams>({
-    resolver: yupResolver(
-      registerPersonType === 'legalEntity'
-        ? registerLegalEntitySchema
-        : registerPrivateIndividualSchema,
-    ),
-    reValidateMode: 'onBlur',
-    mode: 'all',
-  });
-
-  function handleToggleRegisterPersonType() {
-    setRegisterPersonType((oldState) => (oldState === 'privateIndividual' ? 'legalEntity' : 'privateIndividual'));
+  function handleToggleRegisterAccountType() {
+    setRegisterAccountType((oldState) => (oldState === 'person' ? 'corporation' : 'person'));
   }
 
-  async function handleSubmitRegisterToPrivateIndividual(data: RegistrationParams) {
-    await AuthCreditBookService.register(data, 'person');
+  async function handleSignUpPersonAccount(data: PersonParams) {
+    console.log({ before: data });
+    await AuthCreditbookService.register({ ...data, type: 'person' });
   }
 
-  async function handleSubmitRegisterToLegalEntity(data: RegistrationParams) {
-    await AuthCreditBookService.register(data, 'person');
+  async function handleSignUpCorporationAccount(data: CorporationParams) {
+    console.log({ before: data });
+    await AuthCreditbookService.register({ ...data, type: 'corporation' });
   }
 
   return (
-    <FormProvider {...methods}>
+    <>
       <Section.Header>
         <Direction>
           <Section.Title as="h2" textColor="dark">Cadastro</Section.Title>
-          <Button type="button" onClick={() => handleToggleRegisterPersonType()}>
+          <Button type="button" onClick={() => handleToggleRegisterAccountType()}>
             Cadastrar pessoa
             {' '}
-            {registerPersonType === 'privateIndividual' ? 'jurídica' : 'física'}
+            {registerAccountType === 'person' ? 'jurídica' : 'física'}
           </Button>
         </Direction>
       </Section.Header>
 
-      {registerPersonType === 'privateIndividual' && (
+      {registerAccountType === 'person' && (
         <PrivateIndividual
-          onSubmit={handleSubmitRegisterToPrivateIndividual}
+          onSubmit={handleSignUpPersonAccount}
+          formGroupDirection={widthOverlimit ? 'horizontal' : 'vertical'}
         />
       )}
 
-      {registerPersonType === 'legalEntity' && (
+      {registerAccountType === 'corporation' && (
         <LegalEntity
-          onSubmit={handleSubmitRegisterToLegalEntity}
+          onSubmit={handleSignUpCorporationAccount}
+          formGroupDirection={widthOverlimit ? 'horizontal' : 'vertical'}
         />
       )}
-    </FormProvider>
+    </>
   );
 }

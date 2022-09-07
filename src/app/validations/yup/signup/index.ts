@@ -56,13 +56,14 @@ const commonValidationSchema = {
   address: addressValidationSchema,
 };
 
-export const registerPrivateIndividualSchema = yup.object({ ...commonValidationSchema });
+export const registerPersonAccountSchema = yup.object({ ...commonValidationSchema });
 
-export const registerLegalEntitySchema = yup.object({
+export const registerCorporationAccountSchema = yup.object({
   ...commonValidationSchema,
   cnpj: yup.string().test(
     'cnpj',
     'Digite um CNPJ válido',
     (value: any) => validateCNPJ(value),
   ).required(),
+  corporationName: yup.string().required(),
 });

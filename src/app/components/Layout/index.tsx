@@ -5,7 +5,7 @@ import LayoutNotLogged from './NotLogged';
 interface IProps {
   children: ReactNode;
 }
-const isLogged = true;
+const isLogged = false;
 export default function Layout({ children }: IProps) {
   return (
     <>

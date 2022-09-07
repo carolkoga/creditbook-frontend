@@ -14,7 +14,7 @@ export type LoginParams = {
   email: string;
 };
 
-export type RegistrationParams = {
+interface AccountCommonParams {
   profilePicture: File,
 
   passwordConfirmation: string,
@@ -24,13 +24,17 @@ export type RegistrationParams = {
   password: string,
   email: string,
   rg: string,
-
-  cnpj?: string,
   cpf: string,
-
   bornDate: string,
-
   address: Address,
-
   type: AccountTypes,
-};
+}
+
+interface AccountCorporation extends AccountCommonParams {
+  cnpj: string,
+  corporationName: string,
+}
+
+interface AccountPerson extends AccountCommonParams {}
+
+export type RegistrationParams<AccountType extends AccountTypes> = AccountType extends 'corporation' ? AccountCorporation : AccountPerson;
