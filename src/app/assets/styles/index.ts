@@ -42,6 +42,11 @@ export const WrapperMainAndSidebar = styled.div<WrapperMainAndSidebarProps>`
   grid-template-areas: 'sidebar header' 'sidebar main';
   height: 100vh;
 
+  @media screen and (max-width: 914px) {
+    grid-template-columns: auto;
+    grid-template-areas: 'header' 'main';
+  }
+
 `;
 
 export const MainWithSideBar = styled(Main)`
