@@ -99,9 +99,9 @@ export default function InformationForm({ formGroupDirection, children }: IProps
       </FormGroup>
 
       <Controller
-        control={control}
-        name="cellPhone"
+        name="cellphone"
         defaultValue=""
+        control={control}
         render={({ field }) => (
           <FormGroup
             direction={formGroupDirection}
@@ -112,11 +112,11 @@ export default function InformationForm({ formGroupDirection, children }: IProps
             }}
           >
             <MaskInput
-              {...field}
               id="phone"
               inputMode="numeric"
               placeholder="(54) 98753-0813"
               mask="(00) 00000-0000"
+              {...field}
             />
           </FormGroup>
         )}
