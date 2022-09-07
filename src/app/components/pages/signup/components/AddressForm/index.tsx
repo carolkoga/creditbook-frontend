@@ -25,11 +25,7 @@ interface FieldErrorAddress {
 export default function AddressForm({ formGroupDirection }: IProps) {
   const {
     register, formState: { errors }, watch, setValue, control,
-<<<<<<< HEAD
   } = useFormContext<FieldErrorAddress>();
-=======
-  } = useFormContext();
->>>>>>> 0b507d00fe95416e589a2bd3423f29aba621dcf3
   const cep = watch('address.cep');
 
   async function setAddressValuesFromCEP() {
