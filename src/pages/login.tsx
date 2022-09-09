@@ -1,11 +1,34 @@
+import Link from 'next/link';
+import { ChangeEvent, FormEvent, useState } from 'react';
+
+import AuthCreditbookService from '@services/creditbook/auth';
+
 import { Button } from '@components/Button/styled';
 import FormGroup from '@components/FormGroup';
 import { Input } from '@components/Input';
 import { Section } from '@components/Section';
 import { WrapperForm } from '@styles/pages/login';
-import Link from 'next/link';
 
 export default function Login() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const isValid = !email && !password;
+
+  async function handleSignIn(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    console.log({ email, password });
+    const response = await AuthCreditbookService.login({ email, password });
+    console.log({ foi: response });
+  }
+
+  function handleChangeEmail(event: ChangeEvent<HTMLInputElement>) {
+    setEmail(event.target.value);
+  }
+
+  function handleChangePassword(event: ChangeEvent<HTMLInputElement>) {
+    setPassword(event.target.value);
+  }
+
   return (
     <Section.Container as="main">
       <Section.Header style={{ margin: 'auto' }}>
@@ -13,16 +36,28 @@ export default function Login() {
       </Section.Header>
 
       <WrapperForm>
-        <form>
+        <form noValidate onSubmit={(e) => handleSignIn(e)}>
           <FormGroup label={{ title: 'E-mail', forId: 'email' }}>
-            <Input type="email" placeholder="ex: credit@mail.com" id="email" />
+            <Input
+              type="email"
+              placeholder="ex: tes@mail.com"
+              id="email"
+              value={email}
+              onChange={handleChangeEmail}
+            />
           </FormGroup>
 
           <FormGroup label={{ title: 'Senha', forId: 'password' }}>
-            <Input type="password" placeholder="************" id="password" />
+            <Input
+              type="password"
+              placeholder="************"
+              id="password"
+              value={password}
+              onChange={handleChangePassword}
+            />
           </FormGroup>
 
-          <Button type="submit" size="large">Entrar</Button>
+          <Button type="submit" size="large" disabled={isValid}>Entrar</Button>
         </form>
 
         <div className="actions">

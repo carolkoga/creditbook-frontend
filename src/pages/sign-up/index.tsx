@@ -27,6 +27,12 @@ export default function SignUp() {
   async function handleSignUpCorporationAccount(data: CorporationParams) {
     console.log({ before: data });
     await AuthCreditbookService.register({ ...data, type: 'corporation' });
+    const response = await AuthCreditbookService.login({
+      email: data.email,
+      password: data.password,
+    });
+
+    console.log({ response });
   }
 
   return (
