@@ -24,8 +24,7 @@ interface IProps {
 export default function PrivateIndividual({ onSubmit, formGroupDirection }: IProps) {
   const methods = useForm<PersonParams>({
     resolver: yupResolver(registerPersonAccountSchema),
-    reValidateMode: 'onBlur',
-    mode: 'onBlur',
+    mode: 'all',
   });
   const { handleSubmit } = methods;
 
