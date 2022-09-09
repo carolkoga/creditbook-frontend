@@ -26,7 +26,14 @@ const addressValidationSchema = yup.object().shape({
 });
 
 const commonValidationSchema = {
-  profilePicture: yup.mixed(),
+  profilePicture: yup
+    .mixed()
+    .test(
+      'image not valid',
+      'Imagem não valida escolha com a extensão .png | .jpeg | .jpg',
+      (value: any) => (!!value?.name),
+    )
+    .required('Campo obrigatório'),
   nationality: yup.object().required(),
   cellphone: yup.string().required('Campo obrigatório'),
   fullName: yup.string().required('Campo obrigatório'),
@@ -51,7 +58,27 @@ const commonValidationSchema = {
       (value: any) => validateCPF(value),
     ),
 
-  bornDate: yup.string().required('Campo obrigatório'),
+  bornDate: yup
+    .string()
+    .test(
+      '+18',
+      'Menores de idade não é permitido',
+      (value: any) => {
+        const currentYear = new Date().getFullYear();
+        const bornYear = new Date(value).getFullYear();
+        const currentMonth = new Date().getMonth() + 1;
+        const bornMonth = new Date(value).getMonth() + 1;
+        const currentDay = new Date().getDate();
+        const bornDay = new Date(value).getDate() + 1;
+        const isGreaterThan18 = (currentYear - bornYear) >= 18;
+        const isGreaterThanBornMonthAndDay = (
+          currentMonth === bornMonth ? currentDay <= bornDay : bornMonth >= currentMonth
+        );
+
+        return isGreaterThan18 && isGreaterThanBornMonthAndDay;
+      },
+    )
+    .required('Campo obrigatório'),
 
   address: addressValidationSchema,
 };
