@@ -1,6 +1,6 @@
 import { OptionType } from '@components/Select';
 import { creditbookApi } from '@services/api/creditbookApi';
-import { RegistrationParams, AccountTypes } from './types';
+import { RegistrationParams, AccountTypes, LoginParams } from './types';
 
 class AuthCreditBookService {
   async register<T extends AccountTypes = 'person'>(data: RegistrationParams<T>) {
@@ -19,7 +19,7 @@ class AuthCreditBookService {
       if (key === 'bornDate') {
         const date = new Date((value as string));
 
-        return formData.append(key, date.toString());
+        return formData.append(key, date.toISOString());
       }
 
       if (key === 'profilePicture') {
@@ -41,6 +41,11 @@ class AuthCreditBookService {
         'content-type': 'multipart/form-data',
       },
     });
+  }
+
+  async login({ email, password }: LoginParams) {
+    const data = { password, email };
+    return await creditbookApi.post('/auth/login', data);
   }
 }
 
