@@ -1,3 +1,4 @@
+import useAuth from 'hooks/useAuth';
 import { ReactNode } from 'react';
 import LayoutLogged from './Logged';
 import LayoutNotLogged from './NotLogged';
@@ -5,17 +6,19 @@ import LayoutNotLogged from './NotLogged';
 interface IProps {
   children: ReactNode;
 }
-const isLogged = true;
+
 export default function Layout({ children }: IProps) {
+  const { isAuthenticated } = useAuth();
+
   return (
     <>
-      {isLogged && (
+      {isAuthenticated && (
         <LayoutLogged>
           {children}
         </LayoutLogged>
       )}
 
-      {!isLogged && (
+      {!isAuthenticated && (
         <LayoutNotLogged>
           {children}
         </LayoutNotLogged>

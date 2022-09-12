@@ -6,4 +6,4 @@ class CountriesService {
   }
 }
 
-export default new CountriesService();
+export const countriesService = new CountriesService();

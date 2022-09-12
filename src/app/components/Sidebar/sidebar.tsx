@@ -2,6 +2,7 @@ import { useRouter } from 'next/router';
 import useSidebar from 'app/hooks/useSidebar';
 import Link from 'next/link';
 import { Power } from 'phosphor-react';
+import useAuth from 'hooks/useAuth';
 import { routes } from './routes';
 import {
   Container, Navigation, PhotoProfile, Route, UserInfo,
@@ -13,6 +14,7 @@ interface IProps {
 }
 
 export default function CoreSidebar({ smallDevice }: IProps) {
+  const { handleSignOut } = useAuth();
   const { asPath } = useRouter();
   const { isCollapsed, handleControlSidebar } = useSidebar();
   const defaultPath = ['logged', 'admin'].includes(asPath.split('/')[1])
@@ -46,7 +48,7 @@ export default function CoreSidebar({ smallDevice }: IProps) {
         ))}
       </Navigation>
 
-      <button type="button" className="button__logout" title="Sair">
+      <button type="button" className="button__logout" title="Sair" onClick={handleSignOut}>
         <Power size={32} weight="regular" />
       </button>
     </Container>

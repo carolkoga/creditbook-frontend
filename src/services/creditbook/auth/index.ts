@@ -1,6 +1,8 @@
 import { OptionType } from '@components/Select';
+import { AccountTypes } from '@type/creditbook';
+import { LoginParams } from '@type/creditbook/auth/login';
+import { RegistrationParams } from '@type/creditbook/auth/register';
 import { creditbookApi } from '@services/api/creditbookApi';
-import { RegistrationParams, AccountTypes, LoginParams } from './types';
 
 class AuthCreditBookService {
   async register<T extends AccountTypes = 'person'>(data: RegistrationParams<T>) {
@@ -34,9 +36,8 @@ class AuthCreditBookService {
     const dataParsed: any[] = [];
 
     formData.forEach((itemValue, keyItem) => dataParsed.push({ [keyItem]: itemValue }));
-    console.log({ dataParsed });
 
-    return await creditbookApi.post('/auth/registration', formData, {
+    return await creditbookApi.post('https://creditbook-api.herokuapp.com/auth/register', formData, {
       headers: {
         'content-type': 'multipart/form-data',
       },
@@ -45,8 +46,8 @@ class AuthCreditBookService {
 
   async login({ email, password }: LoginParams) {
     const data = { password, email };
-    return await creditbookApi.post('/auth/login', data);
+    return await creditbookApi.post('https://creditbook-api.herokuapp.com/auth/login', data);
   }
 }
 
-export default new AuthCreditBookService();
+export const authCreditBookService = new AuthCreditBookService();

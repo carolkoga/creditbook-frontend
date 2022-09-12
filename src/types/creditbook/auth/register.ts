@@ -1,20 +1,6 @@
-export type AccountTypes = 'person' | 'corporation';
+import { AccountTypes, Address } from '..';
 
-export type Address = {
-  cep: string,
-  uf: string,
-  number: string,
-  complement: string,
-  address: string,
-  city: string,
-};
-
-export type LoginParams = {
-  password: string;
-  email: string;
-};
-
-interface AccountCommonParams {
+export interface AccountCommonParams {
   profilePicture: File,
 
   passwordConfirmation: string,
@@ -30,11 +16,11 @@ interface AccountCommonParams {
   type: AccountTypes,
 }
 
-interface AccountCorporation extends AccountCommonParams {
+export interface AccountCorporation extends AccountCommonParams {
   cnpj: string,
   corporationName: string,
 }
 
-interface AccountPerson extends AccountCommonParams {}
+export interface AccountPerson extends AccountCommonParams {}
 
 export type RegistrationParams<AccountType extends AccountTypes> = AccountType extends 'corporation' ? AccountCorporation : AccountPerson;

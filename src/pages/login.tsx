@@ -1,24 +1,23 @@
 import Link from 'next/link';
 import { ChangeEvent, FormEvent, useState } from 'react';
 
-import AuthCreditbookService from '@services/creditbook/auth';
-
 import { Button } from '@components/Button/styled';
 import FormGroup from '@components/FormGroup';
 import { Input } from '@components/Input';
 import { Section } from '@components/Section';
 import { WrapperForm } from '@styles/pages/login';
+import useAuth from 'hooks/useAuth';
 
 export default function Login() {
   const [email, setEmail] = useState('');
+  const { handleSignIn } = useAuth();
   const [password, setPassword] = useState('');
   const isValid = !email && !password;
 
-  async function handleSignIn(event: FormEvent<HTMLFormElement>) {
+  async function onSignIn(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    console.log({ email, password });
-    const response = await AuthCreditbookService.login({ email, password });
-    console.log({ foi: response });
+
+    await handleSignIn({ email, password });
   }
 
   function handleChangeEmail(event: ChangeEvent<HTMLInputElement>) {
@@ -36,7 +35,7 @@ export default function Login() {
       </Section.Header>
 
       <WrapperForm>
-        <form noValidate onSubmit={(e) => handleSignIn(e)}>
+        <form noValidate onSubmit={onSignIn}>
           <FormGroup label={{ title: 'E-mail', forId: 'email' }}>
             <Input
               type="email"

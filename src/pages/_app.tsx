@@ -12,6 +12,7 @@ import 'react-lite-youtube-embed/dist/LiteYouTubeEmbed.css';
 import { light } from '@styles/themes/light';
 import Layout from '@components/Layout';
 import SidebarContextProvider from 'app/context/SidebarContext';
+import { AuthProvider } from 'context/AuthContext';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -27,16 +28,17 @@ Precisando de dinheiro? Procurando uma forma lucrativa para investir? Chegou a p
         />
         <title>CreditBook</title>
       </Head>
+      <AuthProvider>
+        <ThemeProvider theme={light}>
+          <SidebarContextProvider>
+            <GlobalStyle />
 
-      <ThemeProvider theme={light}>
-        <SidebarContextProvider>
-          <GlobalStyle />
-
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
-        </SidebarContextProvider>
-      </ThemeProvider>
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+          </SidebarContextProvider>
+        </ThemeProvider>
+      </AuthProvider>
     </>
   );
 }

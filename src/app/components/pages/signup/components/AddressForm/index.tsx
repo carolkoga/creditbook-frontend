@@ -2,8 +2,8 @@ import { Controller, useFormContext } from 'react-hook-form';
 
 import FormGroup from '@components/FormGroup';
 import { Input, MaskInput } from '@components/Input';
-import { RegistrationParams } from '@services/creditbook/auth/types';
-import CepService, { CepResponse } from '@services/cep';
+import { RegistrationParams } from '@type/creditbook/auth/register';
+import { cepService } from '@services/cep';
 
 import { useEffect } from 'react';
 import { Fieldset } from '../Fieldset';
@@ -20,7 +20,7 @@ export default function AddressForm({ formGroupDirection }: IProps) {
 
   async function setAddressValuesFromCEP() {
     if (cep?.trim().replace('-', '').length === 8) {
-      const address: CepResponse = await CepService.getAddressByCep(cep);
+      const { data: address } = await cepService.getAddressByCep(cep);
 
       setValue('address.city', address.localidade);
       setValue('address.uf', address.uf);

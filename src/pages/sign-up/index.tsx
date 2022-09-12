@@ -6,12 +6,14 @@ import PrivateIndividual, { PersonParams } from '@components/pages/signup/Privat
 
 import { Direction } from '@styles/pages/home';
 import { Section } from '@components/Section';
-import AuthCreditbookService from '@services/creditbook/auth';
-import { AccountTypes } from '@services/creditbook/auth/types';
+import { authCreditBookService } from '@services/creditbook/auth';
+import { AccountTypes } from '@type/creditbook';
 import useDimensions from 'app/hooks/useDimensions';
+import useAuth from 'hooks/useAuth';
 
 export default function SignUp() {
   const [registerAccountType, setRegisterAccountType] = useState<AccountTypes>('person');
+  const { handleSignIn } = useAuth();
   const { dimensionsOverlimit } = useDimensions();
   const { widthOverlimit } = dimensionsOverlimit(870);
 
@@ -20,19 +22,27 @@ export default function SignUp() {
   }
 
   async function handleSignUpPersonAccount(data: PersonParams) {
-    console.log({ before: data });
-    await AuthCreditbookService.register({ ...data, type: 'person' });
+    try {
+      await authCreditBookService.register<'person'>({ ...data, type: 'person' });
+      await handleSignIn({
+        email: data.email,
+        password: data.password,
+      });
+    } catch {
+      console.debug('opz');
+    }
   }
 
   async function handleSignUpCorporationAccount(data: CorporationParams) {
-    console.log({ before: data });
-    await AuthCreditbookService.register({ ...data, type: 'corporation' });
-    const response = await AuthCreditbookService.login({
-      email: data.email,
-      password: data.password,
-    });
-
-    console.log({ response });
+    try {
+      await authCreditBookService.register<'corporation'>({ ...data, type: 'corporation' });
+      await handleSignIn({
+        email: data.email,
+        password: data.password,
+      });
+    } catch {
+      console.log('opz');
+    }
   }
 
   return (

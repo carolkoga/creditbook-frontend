@@ -1,7 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { FormProvider, useForm } from 'react-hook-form';
 
-import { RegistrationParams } from '@services/creditbook/auth/types';
+import { RegistrationParams } from '@type/creditbook/auth/register';
 
 import { Button } from '@components/Button/styled';
 import { Section } from '@components/Section';

@@ -22,7 +22,7 @@ export default function InformationForm({ formGroupDirection, children }: IProps
   } = useFormContext();
   const profilePictureFileList = watch('profilePicture', null);
   const [profilePreview, setProfilePreview] = useState<string | any>('');
-  console.log({ error: errors?.profilePicture, profilePictureFileList });
+
   function convertToBase64AndSetPreview(file: File, setPreview: Function) {
     const reader = new FileReader();
 

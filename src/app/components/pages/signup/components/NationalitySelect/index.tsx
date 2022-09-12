@@ -6,13 +6,13 @@ import { AsyncSelect, OptionType } from '@components/Select';
 
 import { factoryOptionReactSelect } from '@utils/factoryOptionReactSelect';
 
-import CountriesService from '@services/countries';
+import { countriesService } from '@services/countries';
 
 export default function NationalitySelect({ formGroupDirection }: { formGroupDirection: 'vertical' | 'horizontal' }) {
   const { control, formState: { errors } } = useFormContext();
   const [inputNationalityValue, setInputNationalityValue] = useState('');
   const optionsNationalities = useCallback(async () => {
-    const nationalities = await CountriesService.listCountries();
+    const { data: nationalities } = await countriesService.listCountries();
     const optionReactSelect = nationalities
       ?.map((country: { flag: string; }, index: any, array: any) => {
         const valuePath: string = `${index}.translations.por.official`;
