@@ -5,6 +5,7 @@
       "@components/*": ["components/*"],
       "@hooks/*": ["hooks/*"],
       "@context/*": ["context/*"],
+      "@validations/*": ["validations/*"],
       "@styles/*": ["assets/styles/*"],
       "@type/*": ["types/*"],
       "@utils/*": ["utils/*"],

@@ -23,6 +23,7 @@ export default function SignUp() {
 
   async function handleSignUpPersonAccount(data: PersonParams) {
     try {
+      console.log({ data });
       await authCreditBookService.register<'person'>({ ...data, type: 'person' });
       await handleSignIn({
         email: data.email,

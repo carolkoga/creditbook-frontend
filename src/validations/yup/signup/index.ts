@@ -71,11 +71,12 @@ const commonValidationSchema = {
         const currentDay = new Date().getDate();
         const bornDay = new Date(value).getDate() + 1;
         const isGreaterThan18 = (currentYear - bornYear) >= 18;
-        const isGreaterThanBornMonthAndDay = (
-          currentMonth === bornMonth ? currentDay <= bornDay : bornMonth >= currentMonth
+        const isGreaterThanMonth = (
+          (currentYear - bornYear) === 18 ? currentMonth <= bornMonth : true
         );
+        const isGreaterThanDay = isGreaterThanMonth && currentDay <= bornDay;
 
-        return isGreaterThan18 && isGreaterThanBornMonthAndDay;
+        return isGreaterThan18 && isGreaterThanMonth && isGreaterThanDay;
       },
     )
     .required('Campo obrigatório'),
