@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import useSidebar from 'app/hooks/useSidebar';
+import useSidebar from '@hooks/useSidebar';
 import Link from 'next/link';
 import { Power } from 'phosphor-react';
 import useAuth from 'hooks/useAuth';

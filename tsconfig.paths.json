@@ -2,8 +2,10 @@
   "compilerOptions": {
     "baseUrl": "./src/",
     "paths": {
-      "@components/*": ["app/components/*"],
-      "@styles/*": ["app/assets/styles/*"],
+      "@components/*": ["components/*"],
+      "@hooks/*": ["hooks/*"],
+      "@context/*": ["context/*"],
+      "@styles/*": ["assets/styles/*"],
       "@type/*": ["types/*"],
       "@utils/*": ["utils/*"],
       "@mocks/*": ["mocks/*"],

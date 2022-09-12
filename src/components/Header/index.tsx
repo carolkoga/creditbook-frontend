@@ -1,4 +1,4 @@
-import useSidebar from 'app/hooks/useSidebar';
+import useSidebar from '@hooks/useSidebar';
 import Image from 'next/image';
 import { CaretDoubleLeft, CaretDoubleRight } from 'phosphor-react';
 import { Container } from './styled';

@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import { MainWithSideBar, WrapperMainAndSidebar } from '@styles/index';
 import Sidebar from '@components/Sidebar';
-import useSidebar from 'app/hooks/useSidebar';
+import useSidebar from '@hooks/useSidebar';
 import Header from '@components/Header';
 
 interface IProps {

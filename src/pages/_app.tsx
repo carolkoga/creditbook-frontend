@@ -11,7 +11,7 @@ import 'react-lite-youtube-embed/dist/LiteYouTubeEmbed.css';
 
 import { light } from '@styles/themes/light';
 import Layout from '@components/Layout';
-import SidebarContextProvider from 'app/context/SidebarContext';
+import SidebarContextProvider from '@context/SidebarContext';
 import { AuthProvider } from 'context/AuthContext';
 
 function MyApp({ Component, pageProps }: AppProps) {

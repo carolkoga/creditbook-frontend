@@ -1,8 +1,8 @@
 import useOnclickOutside from 'react-cool-onclickoutside';
 
 import ReactPortal from '@components/ReactPortal';
-import useDimensions from 'app/hooks/useDimensions';
-import useSidebar from 'app/hooks/useSidebar';
+import useDimensions from '@hooks/useDimensions';
+import useSidebar from '@hooks/useSidebar';
 
 import CoreSidebar from './sidebar';
 import { FloatSidebar } from './styled';

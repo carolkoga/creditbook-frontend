@@ -8,7 +8,7 @@ import { Direction } from '@styles/pages/home';
 import { Section } from '@components/Section';
 import { authCreditBookService } from '@services/creditbook/auth';
 import { AccountTypes } from '@type/creditbook';
-import useDimensions from 'app/hooks/useDimensions';
+import useDimensions from '@hooks/useDimensions';
 import useAuth from 'hooks/useAuth';
 
 export default function SignUp() {
