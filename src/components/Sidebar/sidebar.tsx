@@ -3,6 +3,7 @@ import useSidebar from '@hooks/useSidebar';
 import Link from 'next/link';
 import { Power } from 'phosphor-react';
 import useAuth from 'hooks/useAuth';
+import Image from 'next/image';
 import { routes } from './routes';
 import {
   Container, Navigation, PhotoProfile, Route, UserInfo,
@@ -14,7 +15,7 @@ interface IProps {
 }
 
 export default function CoreSidebar({ smallDevice }: IProps) {
-  const { handleSignOut } = useAuth();
+  const { handleSignOut, user } = useAuth();
   const { asPath } = useRouter();
   const { isCollapsed, handleControlSidebar } = useSidebar();
   const defaultPath = ['logged', 'admin'].includes(asPath.split('/')[1])
@@ -31,8 +32,14 @@ export default function CoreSidebar({ smallDevice }: IProps) {
         </div>
       )}
       <UserInfo>
-        <PhotoProfile />
-        {!isCollapsed && <strong>Matheus Jeronimo Todao</strong>}
+        <PhotoProfile>
+          {user?.profilePictureUrl && (
+            <div className="wrapperImage">
+              <Image src={user.profilePictureUrl} layout="fill" />
+            </div>
+          )}
+        </PhotoProfile>
+        {!isCollapsed && <strong>{user?.fullName}</strong>}
       </UserInfo>
 
       <Navigation>

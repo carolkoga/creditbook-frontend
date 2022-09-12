@@ -71,6 +71,7 @@ export const Container = styled.header<ContainerProps>`
 `;
 
 export const PhotoProfile = styled.div`
+  position: relative;
   width: 5rem;
   height: 5rem;
   background: ${({ theme }) => theme.colors.grey[30]};
