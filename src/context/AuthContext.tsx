@@ -1,7 +1,7 @@
 import {
-  createContext, ReactNode, useEffect, useMemo, useState,
+  createContext, ReactNode, useCallback, useEffect, useMemo, useState,
 } from 'react';
-import Router from 'next/router';
+import { useRouter } from 'next/router';
 import { setCookie, parseCookies, destroyCookie } from 'nookies';
 
 import { AuthContextType, AuthenticatedUserData } from '@type/creditbook/auth/authenticatedUser';
@@ -17,12 +17,16 @@ export const AuthContext = createContext({} as Omit<AuthContextType, 'token'>);
 
 export function AuthProvider({ children }: IProps) {
   const [user, setUser] = useState<AuthenticatedUserData | null>(null);
+  const Router = useRouter();
   const isAuthenticated = !!user;
 
   function handleSignOut() {
-    destroyCookie(undefined, 'nextauth.token');
+    destroyCookie(undefined, 'nextauth.token', {
+      path: '/',
+    });
+
     setUser(null);
-    Router.replace('/');
+    Router.push('/');
   }
 
   async function handleSignIn(data: LoginParams) {
@@ -35,15 +39,13 @@ export function AuthProvider({ children }: IProps) {
       });
       setUser(userSignIn);
       creditbookApi.defaults.headers.common.Authorization = `Bearer ${token}`;
-      Router.push('/logged/home');
+      Router.replace('/logged/home');
     } catch {
       handleSignOut();
     }
   }
 
-  useEffect(() => {
-    const { 'nextauth.token': nextAuthToken } = parseCookies();
-
+  const verifyIsAlreadyHaveAToken = useCallback(() => {
     async function getUserInformation(token: string) {
       try {
         const { data } = await creditbookApi.get('/user', {
@@ -58,12 +60,21 @@ export function AuthProvider({ children }: IProps) {
       }
     }
 
-    if (nextAuthToken) {
-      getUserInformation(nextAuthToken);
-      creditbookApi.defaults.headers.common.Authorization = `Bearer ${nextAuthToken}`;
-      Router.replace('/logged/home');
+    if (Router.pathname === '/login' || Router.pathname.includes('logged')) {
+      const { 'nextauth.token': nextAuthToken } = parseCookies();
+
+      if (nextAuthToken) {
+        getUserInformation(nextAuthToken);
+        creditbookApi.defaults.headers.common.Authorization = `Bearer ${nextAuthToken}`;
+      }
+    } else {
+      setUser(null);
     }
-  }, []);
+  }, [Router.pathname]);
+
+  useEffect(() => {
+    verifyIsAlreadyHaveAToken();
+  }, [verifyIsAlreadyHaveAToken]);
 
   const values = useMemo(() => ({
     user: user as AuthenticatedUserData,
