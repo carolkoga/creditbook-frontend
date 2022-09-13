@@ -1,7 +1,7 @@
-import Link from 'next/link';
+import LinkNext from 'next/link';
 import { ChangeEvent, FormEvent, useState } from 'react';
 
-import { Button } from '@components/Button/styled';
+import { Button, Link } from '@components/Button';
 import FormGroup from '@components/FormGroup';
 import { Input } from '@components/Input';
 import { Section } from '@components/Section';
@@ -56,21 +56,25 @@ export default function Login() {
             />
           </FormGroup>
 
-          <Button type="submit" size="large" disabled={isValid}>Entrar</Button>
+          <Button
+            type="submit"
+            size="large"
+            disabled={isValid}
+          >
+            Entrar
+          </Button>
         </form>
 
         <div className="actions">
-          <Link href="/sign-up">
-            <Button as="a" type="submit" size="large" variant="white">
-              Quero me cadastrar
-            </Button>
+          <Link href="/sign-up" size="large" variant="white">
+            Quero me cadastrar
           </Link>
 
-          <Link href="/">
+          <LinkNext href="/">
             <a className="forget__password">
               Esqueci a minha senha
             </a>
-          </Link>
+          </LinkNext>
         </div>
       </WrapperForm>
     </Section.Container>

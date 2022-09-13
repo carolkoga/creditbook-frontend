@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { Button } from '@components/Button/styled';
+import { Button } from '@components/Button';
 import LegalEntity, { CorporationParams } from '@components/pages/signup/LegalEntity';
 import PrivateIndividual, { PersonParams } from '@components/pages/signup/PrivateIndividual';
 

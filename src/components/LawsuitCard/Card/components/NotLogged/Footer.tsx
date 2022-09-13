@@ -1,20 +1,15 @@
-import Link from 'next/link';
-import { Button } from '@components/Button/styled';
+import { Link } from '@components/Button';
 import { Actions } from '../../styled';
 
 export default function FooterNotLogged() {
   return (
     <Actions>
       <div>
-        <Link href="/informacao" color="secondary">
-          <Button as="a" size="small-large" variant="secondary">
-            Cadastrar
-          </Button>
+        <Link href="/informacao" size="small-large" variant="secondary">
+          Cadastrar
         </Link>
-        <Link href="/">
-          <Button as="a" size="small-large" variant="default">
-            Entrar
-          </Button>
+        <Link href="/" size="small-large" variant="default">
+          Entrar
         </Link>
       </div>
 

@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components';
 type SizesButton = 'small' | 'small-large' | 'large' | 'outline-filled-round' | 'x-large';
 type VariantsButton = 'default' | 'secondary' | 'white' | 'dark';
 
-interface ButtonProps {
+export interface ButtonProps {
   size?: SizesButton,
   variant?: VariantsButton,
 }
@@ -64,10 +64,11 @@ const variantsButton = {
   `,
 };
 
-export const Button = styled.button<ButtonProps>`
+export const StyleButton = styled.button<ButtonProps>`
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 14px;
   border: none;
   color: ${({ theme }) => theme.colors.grey[10]};
   border-radius: 5px;

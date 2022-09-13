@@ -56,7 +56,7 @@ export function AuthProvider({ children }: IProps) {
 
         setUser(data);
       } catch {
-        handleSignOut();
+        console.debug('');
       }
     }
 

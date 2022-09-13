@@ -6,8 +6,8 @@ import { Section } from '@components/Section';
 import { lawsuitsMock } from '@mocks/suits';
 import SelectAdsFilters from '@components/SelectAdsFilters';
 import { Direction } from '@components/Direction';
-import Link from 'next/link';
-import { Button } from '@components/Button/styled';
+
+import { Link } from '@components/Button';
 
 export default function Home() {
   return (
@@ -15,10 +15,8 @@ export default function Home() {
       <Section.Container bg="light">
         <Direction direction="horizontal" alignItems="center">
           <Section.Title as="h3">Galeria Premium</Section.Title>
-          <Link href="/logged/gallery-premium">
-            <Button as="a" variant="dark">
-              Ver Todos
-            </Button>
+          <Link href="/logged/gallery-premium" variant="dark">
+            Ver Todos
           </Link>
         </Direction>
         <LawsuitCardSwiper access="admin" lawsuits={lawsuitsMock} />

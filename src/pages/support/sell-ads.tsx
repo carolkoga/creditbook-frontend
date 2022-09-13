@@ -1,5 +1,4 @@
-import Link from 'next/link';
-import { Button } from '@components/Button/styled';
+import { Link } from '@components/Button';
 import { Section } from '@components/Section';
 import { ADSContent } from '@styles/pages/support';
 import WrapperSupport from '@components/pages/support/WrapperSupport';
@@ -30,10 +29,8 @@ export default function SellAds() {
               Vamos começar?
             </p>
 
-            <Link href="/cadastrar">
-              <Button as="a" size="x-large">
-                Cadastrar
-              </Button>
+            <Link href="/cadastrar" size="x-large">
+              Cadastrar
             </Link>
           </ADSContent>
         </Section.Container>

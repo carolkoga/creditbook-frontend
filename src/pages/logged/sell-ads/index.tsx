@@ -5,8 +5,7 @@ import { lawsuitsMock } from '@mocks/suits';
 import { Section } from '@components/Section';
 import SelectAdsFilters from '@components/SelectAdsFilters';
 import { Direction } from '@components/Direction';
-import Link from 'next/link';
-import { Button } from '@components/Button/styled';
+import { Link } from '@components/Button';
 
 export default function SellAds() {
   return (
@@ -15,14 +14,10 @@ export default function SellAds() {
         <Direction direction="horizontal" alignItems="center">
           <Direction direction="horizontal">
             <Link href="/ads/new">
-              <Button as="a">
-                Adicionar
-              </Button>
+              Adicionar
             </Link>
             <Link href="/ads/lots">
-              <Button as="a">
-                Ver Lotes
-              </Button>
+              Ver Lotes
             </Link>
           </Direction>
           <Section.Title as="h1">Meus anúncios</Section.Title>

@@ -1,7 +1,7 @@
 import { Controller, useForm, FormProvider } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
-import { Button } from '@components/Button/styled';
+import { Button } from '@components/Button';
 import FormGroup from '@components/FormGroup';
 import { Input, MaskInput } from '@components/Input';
 
