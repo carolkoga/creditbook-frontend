@@ -2,29 +2,20 @@ import {
   createContext, ReactNode, useCallback, useEffect, useMemo, useState,
 } from 'react';
 import { useRouter } from 'next/router';
+import { toast } from 'react-toastify';
 import { setCookie, parseCookies, destroyCookie } from 'nookies';
 
 import { AuthContextType, AuthenticatedUserData } from '@type/creditbook/auth/authenticatedUser';
 import { authCreditBookService } from '@services/creditbook/auth';
 import { LoginParams } from '@type/creditbook/auth/login';
 import { creditbookApi } from '@services/api/creditbookApi';
-import { toast, ToastOptions } from 'react-toastify';
+import { commonToastProps } from '@configs/toast';
 
 interface IProps {
   children: ReactNode,
 }
 
 export const AuthContext = createContext({} as Omit<AuthContextType, 'token'>);
-
-const commonToastProps: ToastOptions = {
-  position: 'bottom-center',
-  autoClose: 2000,
-  hideProgressBar: false,
-  closeOnClick: true,
-  pauseOnHover: true,
-  draggable: true,
-  progress: undefined,
-};
 
 export function AuthProvider({ children }: IProps) {
   const [user, setUser] = useState<AuthenticatedUserData | null>(null);
@@ -41,27 +32,31 @@ export function AuthProvider({ children }: IProps) {
   }
 
   async function handleSignIn(data: LoginParams) {
-    const response = await toast.promise(
-      authCreditBookService.login(data),
-      {
-        pending: 'Estamos verificando seus dados, aguarde um momento...',
-        success: 'Login realizado com sucessso!',
-        error: 'Ops. verifique e-mail e senha estão certo.',
-      },
-      commonToastProps,
-    );
+    try {
+      const response = await toast.promise(
+        authCreditBookService.login(data),
+        {
+          pending: 'Estamos verificando seus dados, aguarde um momento...',
+          success: 'Login realizado com sucessso!',
+          error: 'Ops. verifique e-mail e senha estão certo.',
+        },
+        commonToastProps,
+      );
 
-    const { token, user: userSignIn } = response.data;
+      const { token, user: userSignIn } = response.data;
 
-    setCookie(undefined, 'nextauth.token', token, {
-      maxAge: 60 * 60 * 24 * 30, // 30 days
-      path: '/',
-    });
+      setCookie(undefined, 'nextauth.token', token, {
+        maxAge: 60 * 60 * 24 * 30, // 30 days
+        path: '/',
+      });
 
-    Router.push('/logged/home');
+      Router.push('/logged/home');
 
-    creditbookApi.defaults.headers.common.Authorization = `Bearer ${token}`;
-    setUser(userSignIn);
+      creditbookApi.defaults.headers.common.Authorization = `Bearer ${token}`;
+      setUser(userSignIn);
+    } catch (error) {
+      console.log('...');
+    }
   }
 
   const verifyIsAlreadyHaveAToken = useCallback(() => {
