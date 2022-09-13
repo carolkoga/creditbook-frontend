@@ -19,9 +19,10 @@ interface IProps {
   // eslint-disable-next-line no-unused-vars
   onSubmit: (data: PersonParams) => void,
   formGroupDirection: 'horizontal' | 'vertical',
+  loading: boolean,
 }
 
-export default function PrivateIndividual({ onSubmit, formGroupDirection }: IProps) {
+export default function PrivateIndividual({ onSubmit, formGroupDirection, loading }: IProps) {
   const methods = useForm<PersonParams>({
     resolver: yupResolver(registerPersonAccountSchema),
     mode: 'onBlur',
@@ -41,7 +42,7 @@ export default function PrivateIndividual({ onSubmit, formGroupDirection }: IPro
           <PasswordForm formGroupDirection={formGroupDirection} />
 
           <div className="actions">
-            <Button type="submit" size="outline-filled-round">
+            <Button type="submit" size="outline-filled-round" isLoading={loading}>
               Cadastrar
             </Button>
           </div>

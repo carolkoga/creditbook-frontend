@@ -22,9 +22,10 @@ interface IProps {
   // eslint-disable-next-line no-unused-vars
   onSubmit: (data: CorporationParams) => void
   formGroupDirection: 'horizontal' | 'vertical',
+  loading: boolean,
 }
 
-export default function LegalEntity({ onSubmit, formGroupDirection }: IProps) {
+export default function LegalEntity({ onSubmit, formGroupDirection, loading }: IProps) {
   const methods = useForm<CorporationParams>({
     resolver: yupResolver(registerCorporationAccountSchema),
     mode: 'onBlur',
@@ -88,7 +89,7 @@ export default function LegalEntity({ onSubmit, formGroupDirection }: IProps) {
           <PasswordForm formGroupDirection={formGroupDirection} />
 
           <div className="actions">
-            <Button type="submit" size="outline-filled-round">
+            <Button type="submit" size="outline-filled-round" isLoading={loading}>
               Cadastrar
             </Button>
           </div>
