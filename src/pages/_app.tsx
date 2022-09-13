@@ -1,6 +1,5 @@
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
-import GlobalStyle from '@styles/global';
 import { ThemeProvider } from 'styled-components';
 
 import 'swiper/css';
@@ -8,11 +7,14 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 import 'react-lite-youtube-embed/dist/LiteYouTubeEmbed.css';
+import 'react-toastify/dist/ReactToastify.css';
 
 import { light } from '@styles/themes/light';
+import GlobalStyle from '@styles/global';
 import Layout from '@components/Layout';
 import SidebarContextProvider from '@context/SidebarContext';
 import { AuthProvider } from 'context/AuthContext';
+import { ToastContainer } from 'react-toastify';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -33,6 +35,7 @@ Precisando de dinheiro? Procurando uma forma lucrativa para investir? Chegou a p
           <SidebarContextProvider>
             <GlobalStyle />
 
+            <ToastContainer />
             <Layout>
               <Component {...pageProps} />
             </Layout>

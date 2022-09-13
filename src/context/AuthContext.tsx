@@ -8,12 +8,23 @@ import { AuthContextType, AuthenticatedUserData } from '@type/creditbook/auth/au
 import { authCreditBookService } from '@services/creditbook/auth';
 import { LoginParams } from '@type/creditbook/auth/login';
 import { creditbookApi } from '@services/api/creditbookApi';
+import { toast, ToastOptions } from 'react-toastify';
 
 interface IProps {
   children: ReactNode,
 }
 
 export const AuthContext = createContext({} as Omit<AuthContextType, 'token'>);
+
+const commonToastProps: ToastOptions = {
+  position: 'bottom-center',
+  autoClose: 2000,
+  hideProgressBar: false,
+  closeOnClick: true,
+  pauseOnHover: true,
+  draggable: true,
+  progress: undefined,
+};
 
 export function AuthProvider({ children }: IProps) {
   const [user, setUser] = useState<AuthenticatedUserData | null>(null);
@@ -30,19 +41,27 @@ export function AuthProvider({ children }: IProps) {
   }
 
   async function handleSignIn(data: LoginParams) {
-    try {
-      const response = await authCreditBookService.login(data);
-      const { token, user: userSignIn } = response.data;
-      Router.push('/logged/home');
-      setCookie(undefined, 'nextauth.token', token, {
-        maxAge: 60 * 60 * 24 * 30, // 30 days
-        path: '/',
-      });
-      setUser(userSignIn);
-      creditbookApi.defaults.headers.common.Authorization = `Bearer ${token}`;
-    } catch {
-      handleSignOut();
-    }
+    const response = await toast.promise(
+      authCreditBookService.login(data),
+      {
+        pending: 'Estamos verificando seus dados, aguarde um momento...',
+        success: 'Login realizado com sucessso!',
+        error: 'Ops. verifique e-mail e senha estão certo.',
+      },
+      commonToastProps,
+    );
+
+    const { token, user: userSignIn } = response.data;
+
+    setCookie(undefined, 'nextauth.token', token, {
+      maxAge: 60 * 60 * 24 * 30, // 30 days
+      path: '/',
+    });
+
+    Router.push('/logged/home');
+
+    creditbookApi.defaults.headers.common.Authorization = `Bearer ${token}`;
+    setUser(userSignIn);
   }
 
   const verifyIsAlreadyHaveAToken = useCallback(() => {
