@@ -1,4 +1,4 @@
-import { Button } from '@components/Button/styled';
+import { Button } from '@components/Button';
 import FormGroup from '@components/FormGroup';
 import { Input, Textarea } from '@components/Input';
 import { Form } from '@styles/pages/contact';

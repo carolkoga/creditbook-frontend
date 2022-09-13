@@ -1,4 +1,6 @@
-import { HttpClient } from '@services/https/HttpClient';
+import axios from 'axios';
 
 // Rest Countries --> https://restcountries.com/
-export const countriesApi = new HttpClient('https://restcountries.com/v3.1');
+export const countriesApi = axios.create({
+  baseURL: 'https://restcountries.com/v3.1',
+});

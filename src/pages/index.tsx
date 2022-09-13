@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import Image from 'next/image';
 import LiteYouTubeEmbed from 'react-lite-youtube-embed';
 
@@ -15,7 +14,7 @@ import {
 import LawsuitCardSwiper from '@components/LawsuitCard/LawsuitCardSwiper/index';
 import { Section } from '@components/Section';
 import { Actions } from '@components/ActionLink';
-import { Button } from '@components/Button/styled';
+import { Link } from '@components/Button';
 import { WrapperVideo } from '@components/WrapperVideo';
 
 import { lawsuitsMock } from '@mocks/suits';
@@ -37,14 +36,10 @@ export default function HomeLadingPage() {
 
           <Actions>
             <Link href="/login">
-              <a>
-                Anuncie
-              </a>
+              Anuncie
             </Link>
-            <Link href="/login">
-              <a>
-                Compre
-              </a>
+            <Link href="/login" variant="secondary">
+              Compre
             </Link>
           </Actions>
         </ContentHero>
@@ -164,10 +159,8 @@ export default function HomeLadingPage() {
         <Section.Header>
           <Direction>
             <Section.Title>Galeria Premium</Section.Title>
-            <Link href="/galeria-premium">
-              <Button as="a" size="small">
-                Ver Todos
-              </Button>
+            <Link href="/galeria-premium" size="small">
+              Ver Todos
             </Link>
           </Direction>
         </Section.Header>

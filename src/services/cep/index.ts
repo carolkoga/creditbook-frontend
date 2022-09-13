@@ -1,4 +1,4 @@
-import { HttpClient } from '@services/https/HttpClient';
+import axios, { AxiosInstance } from 'axios';
 
 export interface CepResponse {
   cep: string,
@@ -14,15 +14,17 @@ export interface CepResponse {
 }
 
 class CepService {
-  private httpClient: HttpClient;
+  private httpClient: AxiosInstance;
 
   constructor() {
-    this.httpClient = new HttpClient('https://viacep.com.br/ws');
+    this.httpClient = axios.create({
+      baseURL: 'https://viacep.com.br/ws',
+    });
   }
 
   async getAddressByCep(cep: string) {
-    return await this.httpClient.get(`${cep}/json`) as CepResponse;
+    return await this.httpClient.get<CepResponse>(`${cep}/json`);
   }
 }
 
-export default new CepService();
+export const cepService = new CepService();
