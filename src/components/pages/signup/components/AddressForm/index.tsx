@@ -2,12 +2,8 @@ import { Controller, useFormContext } from 'react-hook-form';
 
 import FormGroup from '@components/FormGroup';
 import { Input, MaskInput } from '@components/Input';
-<<<<<<< HEAD:src/app/components/pages/signup/components/AddressForm/index.tsx
-import CepService, { CepResponse } from '@services/cep';
-=======
 import { RegistrationParams } from '@type/creditbook/auth/register';
 import { cepService } from '@services/cep';
->>>>>>> developing:src/components/pages/signup/components/AddressForm/index.tsx
 
 import { useEffect } from 'react';
 import { Fieldset } from '../Fieldset';
@@ -16,25 +12,10 @@ interface IProps {
   formGroupDirection: 'vertical' | 'horizontal'
 }
 
-interface FieldErrorAddress {
-  address: {
-    cep: string,
-    uf: string,
-    address: string,
-    complement: string,
-    number: string,
-    city: string,
-  }
-}
-
 export default function AddressForm({ formGroupDirection }: IProps) {
   const {
     register, formState: { errors }, watch, setValue, control,
-<<<<<<< HEAD:src/app/components/pages/signup/components/AddressForm/index.tsx
-  } = useFormContext<FieldErrorAddress>();
-=======
   } = useFormContext<RegistrationParams<'person'>>();
->>>>>>> developing:src/components/pages/signup/components/AddressForm/index.tsx
   const cep = watch('address.cep');
 
   async function setAddressValuesFromCEP() {
