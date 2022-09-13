@@ -78,6 +78,8 @@ export const PhotoProfile = styled.div`
   border-radius: 50%;
   aspect-ratio: 1;
   .wrapper__image {
+    border-radius: 50%;
+
     width: 5rem;
     height: 5rem;
     aspect-ratio: 1;
