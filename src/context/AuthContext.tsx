@@ -25,21 +25,21 @@ export function AuthProvider({ children }: IProps) {
       path: '/',
     });
 
-    setUser(null);
     Router.push('/');
+    setUser(null);
   }
 
   async function handleSignIn(data: LoginParams) {
     try {
       const response = await authCreditBookService.login(data);
-      const { token, user: userSignIn } = response!.data;
+      const { token, user: userSignIn } = response.data;
+      Router.push('/logged/home');
       setCookie(undefined, 'nextauth.token', token, {
         maxAge: 60 * 60 * 24 * 30, // 30 days
         path: '/',
       });
       setUser(userSignIn);
       creditbookApi.defaults.headers.common.Authorization = `Bearer ${token}`;
-      Router.replace('/logged/home');
     } catch {
       handleSignOut();
     }
