@@ -27,7 +27,7 @@ interface IProps {
 export default function LegalEntity({ onSubmit, formGroupDirection }: IProps) {
   const methods = useForm<CorporationParams>({
     resolver: yupResolver(registerCorporationAccountSchema),
-    mode: 'all',
+    mode: 'onBlur',
   });
 
   const {
