@@ -8,8 +8,9 @@ import { setCookie, parseCookies, destroyCookie } from 'nookies';
 import { AuthContextType, AuthenticatedUserData } from '@type/creditbook/auth/authenticatedUser';
 import { authCreditBookService } from '@services/creditbook/auth';
 import { LoginParams } from '@type/creditbook/auth/login';
-import { creditbookApi } from '@services/api/creditbookApi';
+import { creditbookApi } from '@api/creditbookApi';
 import { commonToastProps } from '@configs/toast';
+import { userCreditbookService } from '@services/creditbook/user';
 
 interface IProps {
   children: ReactNode,
@@ -62,11 +63,7 @@ export function AuthProvider({ children }: IProps) {
   const verifyIsAlreadyHaveAToken = useCallback(() => {
     async function getUserInformation(token: string) {
       try {
-        const { data } = await creditbookApi.get('/user', {
-          headers: {
-            token: `Bearer ${token}`,
-          },
-        });
+        const { data } = await userCreditbookService.getUserInformation({ token });
 
         setUser(data);
       } catch {

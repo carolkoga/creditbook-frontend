@@ -1,4 +1,4 @@
-import { countriesApi } from '@services/api/countriesApi';
+import { countriesApi } from '@api/countriesApi';
 
 class CountriesService {
   async listCountries() {

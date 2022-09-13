@@ -11,7 +11,8 @@
       "@type/*": ["types/*"],
       "@utils/*": ["utils/*"],
       "@mocks/*": ["mocks/*"],
-      "@services/*": ["services/*"]
+      "@api/*": ["services/api/*"],
+      "@services/*": ["services/*"],
     }
   }
 }
