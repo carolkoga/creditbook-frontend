@@ -3,7 +3,7 @@ import { FormProvider, useForm } from 'react-hook-form';
 
 import { RegistrationParams } from '@type/creditbook/auth/register';
 
-import { Button } from '@components/Button/styled';
+import { Button } from '@components/Button';
 import { Section } from '@components/Section';
 
 import { registerPersonAccountSchema } from '@validations/yup/signup';
