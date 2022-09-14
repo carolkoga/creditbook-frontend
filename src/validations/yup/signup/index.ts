@@ -29,12 +29,12 @@ const commonValidationSchema = {
   profilePicture: yup
     .mixed()
     .test(
-      'image not valid',
-      'Imagem não valida escolha com a extensão .png | .jpeg | .jpg',
+      'image required',
+      'Campo obrigatório',
       (value: any) => (!!value?.name),
     )
     .required('Campo obrigatório'),
-  nationality: yup.object().required(),
+  nationality: yup.object().typeError('Campo obrigatório'),
   cellphone: yup.string().required('Campo obrigatório'),
   fullName: yup.string().required('Campo obrigatório'),
   password: yup.string()
@@ -60,6 +60,7 @@ const commonValidationSchema = {
 
   bornDate: yup
     .string()
+    .required('Campo obrigatório')
     .test(
       '+18',
       'Menores de idade não é permitido',
@@ -68,8 +69,7 @@ const commonValidationSchema = {
         const bornYear = new Date(value).getFullYear();
         return (currentYear - bornYear) >= 18;
       },
-    )
-    .required('Campo obrigatório'),
+    ),
 
   address: addressValidationSchema,
 };
@@ -78,10 +78,13 @@ export const registerPersonAccountSchema = yup.object({ ...commonValidationSchem
 
 export const registerCorporationAccountSchema = yup.object({
   ...commonValidationSchema,
-  cnpj: yup.string().test(
-    'cnpj',
-    'Digite um CNPJ válido',
-    (value: any) => validateCNPJ(value),
-  ).required(),
+  cnpj: yup
+    .string()
+    .required()
+    .test(
+      'cnpj',
+      'Digite um CNPJ válido',
+      (value: any) => validateCNPJ(value),
+    ),
   corporationName: yup.string().required(),
 });
