@@ -7,6 +7,7 @@ import { Button } from '@components/Button';
 import { Section } from '@components/Section';
 
 import { registerPersonAccountSchema } from '@validations/yup/UserForm';
+import { updatePersonAccountSchema } from '@validations/yup/UserForm/update';
 
 import AddressForm from '../components/AddressForm';
 import { FormGrid } from '../components/FormGrid';
@@ -18,10 +19,15 @@ import { FormCommonType } from '../types';
 export interface PersonParams extends Omit<RegistrationParams<'person'>, 'type'> {}
 
 export default function PrivateIndividual({
-  onSubmit, formGroupDirection, loading, label,
+  onSubmit, formGroupDirection, loading, label, validation,
 }: FormCommonType<PersonParams>) {
+  const validationSchema = (
+    validation === 'register'
+      ? registerPersonAccountSchema
+      : validation === 'update' && updatePersonAccountSchema
+  );
   const methods = useForm<PersonParams>({
-    resolver: yupResolver(registerPersonAccountSchema),
+    resolver: yupResolver(validationSchema as any),
     mode: 'onBlur',
   });
   const { handleSubmit } = methods;

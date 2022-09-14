@@ -10,6 +10,7 @@ import { Section } from '@components/Section';
 import { RegistrationParams } from '@type/creditbook/auth/register';
 import { registerCorporationAccountSchema } from '@validations/yup/UserForm';
 
+import { updateCorporationAccountSchema } from '@validations/yup/UserForm/update';
 import AddressForm from '../components/AddressForm';
 import { FormGrid } from '../components/FormGrid';
 import InformationForm from '../components/InformationForm';
@@ -20,10 +21,15 @@ import { FormCommonType } from '../types';
 export interface CorporationParams extends Omit<RegistrationParams<'corporation'>, 'type'> {}
 
 export default function LegalEntity({
-  onSubmit, formGroupDirection, loading, label,
+  onSubmit, formGroupDirection, loading, label, validation,
 }: FormCommonType<CorporationParams>) {
+  const validationSchema = (
+    validation === 'register'
+      ? registerCorporationAccountSchema
+      : validation === 'update' && updateCorporationAccountSchema
+  );
   const methods = useForm<CorporationParams>({
-    resolver: yupResolver(registerCorporationAccountSchema),
+    resolver: yupResolver(validationSchema as any),
     mode: 'onBlur',
   });
 

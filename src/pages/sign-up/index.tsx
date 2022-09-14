@@ -89,6 +89,7 @@ export default function SignUp() {
 
       {registerAccountType === 'person' && (
         <PrivateIndividual
+          validation="register"
           onSubmit={handleSignUpPersonAccount}
           loading={isLoading}
           formGroupDirection={widthOverlimit ? 'horizontal' : 'vertical'}
@@ -98,6 +99,7 @@ export default function SignUp() {
 
       {registerAccountType === 'corporation' && (
         <LegalEntity
+          validation="register"
           onSubmit={handleSignUpCorporationAccount}
           loading={isLoading}
           formGroupDirection={widthOverlimit ? 'horizontal' : 'vertical'}

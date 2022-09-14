@@ -7,4 +7,5 @@ export interface FormCommonType<Type> extends AllCommonType {
   onSubmit: (data: Type) => void
   loading: boolean,
   label: string,
+  validation: 'register' | 'update'
 }

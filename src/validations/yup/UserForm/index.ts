@@ -25,7 +25,31 @@ const addressValidationSchema = yup.object().shape({
   city: yup.string().required('Campo obrigatório'),
 });
 
-const commonValidationSchema = {
+export const corporationValidation = {
+  cnpj: yup
+    .string()
+    .required()
+    .test(
+      'cnpj',
+      'Digite um CNPJ válido',
+      (value: any) => validateCNPJ(value),
+    ),
+  corporationName: yup.string().required(),
+};
+
+const passwordValidation = {
+  password: yup.string()
+    .required('Campo obrigatório')
+    .test('Least a uppercase letter', 'No mínimo uma letra maiúscula', (value: any) => (/[A-Z]/).test(value))
+    .test('Least a non-alphanumeric', 'No mínimo um caracter especial', (value: any) => (/\W/).test(value))
+    .test('Least a number', 'No mínimo um número', (value: any) => (/\d/).test(value))
+    .min(8, 'Sua senha precisa ter no mínimo 8 caracteres'),
+  passwordConfirmation: yup.string()
+    .required('Campo obrigatório')
+    .oneOf([yup.ref('password')], 'As senhas não correspondem'),
+};
+
+export const commonValidationSchema = {
   profilePicture: yup
     .mixed()
     .test(
@@ -37,15 +61,6 @@ const commonValidationSchema = {
   nationality: yup.object().typeError('Campo obrigatório'),
   cellphone: yup.string().required('Campo obrigatório'),
   fullName: yup.string().required('Campo obrigatório'),
-  password: yup.string()
-    .required('Campo obrigatório')
-    .test('Least a uppercase letter', 'No mínimo uma letra maiúscula', (value: any) => (/[A-Z]/).test(value))
-    .test('Least a non-alphanumeric', 'No mínimo um caracter especial', (value: any) => (/\W/).test(value))
-    .test('Least a number', 'No mínimo um número', (value: any) => (/\d/).test(value))
-    .min(8, 'Sua senha precisa ter no mínimo 8 caracteres'),
-  passwordConfirmation: yup.string()
-    .required('Campo obrigatório')
-    .oneOf([yup.ref('password')], 'As senhas não correspondem'),
 
   email: yup.string().email().required('Campo obrigatório'),
   rg: yup.string().required('Campo obrigatório'),
@@ -74,17 +89,13 @@ const commonValidationSchema = {
   address: addressValidationSchema,
 };
 
-export const registerPersonAccountSchema = yup.object({ ...commonValidationSchema });
+export const registerPersonAccountSchema = yup.object({
+  ...commonValidationSchema,
+  ...passwordValidation,
+});
 
 export const registerCorporationAccountSchema = yup.object({
   ...commonValidationSchema,
-  cnpj: yup
-    .string()
-    .required()
-    .test(
-      'cnpj',
-      'Digite um CNPJ válido',
-      (value: any) => validateCNPJ(value),
-    ),
-  corporationName: yup.string().required(),
+  ...passwordValidation,
+  ...corporationValidation,
 });
