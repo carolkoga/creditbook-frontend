@@ -12,6 +12,7 @@ import AddressForm from '../components/AddressForm';
 import { FormGrid } from '../components/FormGrid';
 import InformationForm from '../components/InformationForm';
 import PasswordForm from '../components/PasswordForm';
+import ProfilePictureForm from '../components/ProfilePictureForm';
 
 export interface PersonParams extends Omit<RegistrationParams<'person'>, 'type'> {}
 
@@ -37,7 +38,12 @@ export default function PrivateIndividual({ onSubmit, formGroupDirection, loadin
 
       <FormProvider {...methods}>
         <FormGrid autoComplete="off" noValidate onSubmit={handleSubmit(onSubmit)}>
-          <InformationForm formGroupDirection={formGroupDirection} />
+          <InformationForm formGroupDirection={formGroupDirection} nationalityLabel="Nacionalidade">
+            <ProfilePictureForm
+              label="Foto de Perfil"
+              formGroupDirection={formGroupDirection}
+            />
+          </InformationForm>
           <AddressForm formGroupDirection={formGroupDirection} />
           <PasswordForm formGroupDirection={formGroupDirection} />
 

@@ -1,11 +1,15 @@
 import styled from 'styled-components';
 
-export const WrapperInputFile = styled.div`
+interface WrapperInputFileProps {
+  size?: number,
+}
+
+export const WrapperInputFile = styled.div<WrapperInputFileProps>`
   input {
     display: none;
   }
-  width: 40px;
-  height: 40px;
+  width: ${({ size }) => (!size ? '40px' : `${size}px`)};
+  height: ${({ size }) => (!size ? '40px' : `${size}px`)};
 
   label {
     aspect-ratio: 1;
@@ -25,8 +29,8 @@ export const WrapperInputFile = styled.div`
       border: 1px solid ${({ theme }) => theme.colors.primary.main};
       img {
         border-radius: 50%;
-        filter: brightness(1.3);
-
+        filter: brightness(1);
+        object-fit: cover;
       }
       :hover {
         filter: brightness(1);

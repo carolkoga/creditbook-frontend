@@ -35,7 +35,13 @@ export default function CoreSidebar({ smallDevice }: IProps) {
         <PhotoProfile>
           {user?.profilePictureUrl && (
             <div className="wrapperImage">
-              <Image src={user.profilePictureUrl} layout="fill" style={{ borderRadius: '50%' }} />
+              <Image
+                src={user.profilePictureUrl}
+                layout="fill"
+                style={{ borderRadius: '50%' }}
+                objectFit="contain"
+                alt="Foto de perfil"
+              />
             </div>
           )}
         </PhotoProfile>

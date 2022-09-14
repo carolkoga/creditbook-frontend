@@ -1,46 +1,24 @@
-import {
-  ReactNode, useEffect, useState,
-} from 'react';
+import { ReactNode } from 'react';
 import { useFormContext, Controller } from 'react-hook-form';
-import { UploadSimple } from 'phosphor-react';
 
 import FormGroup from '@components/FormGroup';
 import { Input, MaskInput } from '@components/Input';
 
 import { Fieldset } from '../Fieldset';
-import { WrapperInputFile } from '../WrapperInputFile';
 import NationalitySelect from '../NationalitySelect';
 
 interface IProps {
   formGroupDirection: 'vertical' | 'horizontal',
+  nationalityLabel: string,
   children?: ReactNode,
 }
 
-export default function InformationForm({ formGroupDirection, children }: IProps) {
+export default function InformationForm({
+  formGroupDirection, children, nationalityLabel,
+}: IProps) {
   const {
-    register, formState: { errors }, watch, setValue, control,
+    register, formState: { errors }, control,
   } = useFormContext();
-  const profilePictureFileList = watch('profilePicture', null);
-  const [profilePreview, setProfilePreview] = useState<string | any>('');
-
-  function convertToBase64AndSetPreview(file: File, setPreview: Function) {
-    const reader = new FileReader();
-
-    reader.addEventListener('load', () => setPreview((reader.result as string)));
-    reader.readAsDataURL(file);
-  }
-
-  useEffect(() => {
-    if (profilePictureFileList) {
-      const profilePicture: File | null | undefined = profilePictureFileList['0'];
-
-      if (profilePicture) {
-        setValue('profilePicture', profilePicture);
-        convertToBase64AndSetPreview(profilePicture, setProfilePreview);
-      }
-    }
-  }, [profilePictureFileList]);
-
   const registeredFields = {
     fullName: register('fullName', {
       required: 'Campo obrigatório',
@@ -55,10 +33,6 @@ export default function InformationForm({ formGroupDirection, children }: IProps
     }),
 
     rg: register('rg'),
-
-    profilePicture: register('profilePicture', {
-      required: 'Campo obrigatório',
-    }),
   };
 
   return (
@@ -178,37 +152,10 @@ export default function InformationForm({ formGroupDirection, children }: IProps
         )}
       />
 
-      {!children && <NationalitySelect formGroupDirection={formGroupDirection} />}
-
-      <FormGroup
-        direction={formGroupDirection}
-        error={errors?.profilePicture?.message}
-        label={{
-          forId: 'profile-photo',
-          title: 'Foto de perfil',
-        }}
-      >
-        <WrapperInputFile>
-          {!profilePreview && (
-            <label htmlFor="profile-photo">
-              <UploadSimple size={20} weight="bold" />
-            </label>
-          )}
-
-          {profilePreview && (
-            <label htmlFor="profile-photo" className="--with-img">
-              <img src={profilePreview} alt="Foto de perfil" width="100%" height="100%" />
-            </label>
-          )}
-          <input
-            type="file"
-            id="profile-photo"
-            accept="image/*"
-            defaultValue=""
-            {...registeredFields.profilePicture}
-          />
-        </WrapperInputFile>
-      </FormGroup>
+      <NationalitySelect
+        formGroupDirection={formGroupDirection}
+        label={nationalityLabel}
+      />
     </Fieldset>
   );
 }

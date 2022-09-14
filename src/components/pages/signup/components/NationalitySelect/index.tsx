@@ -8,7 +8,12 @@ import { factoryOptionReactSelect } from '@utils/factoryOptionReactSelect';
 
 import { countriesService } from '@services/countries';
 
-export default function NationalitySelect({ formGroupDirection }: { formGroupDirection: 'vertical' | 'horizontal' }) {
+interface IProps {
+  formGroupDirection: 'vertical' | 'horizontal',
+  label: string,
+}
+
+export default function NationalitySelect({ formGroupDirection, label }: IProps) {
   const { control, formState: { errors } } = useFormContext();
   const [inputNationalityValue, setInputNationalityValue] = useState('');
   const optionsNationalities = useCallback(async () => {
@@ -40,20 +45,21 @@ export default function NationalitySelect({ formGroupDirection }: { formGroupDir
     <Controller
       control={control}
       name="nationality"
+      defaultValue=""
       render={({ field }) => (
         <FormGroup
           direction={formGroupDirection}
           error={errors?.nationality?.message}
           label={{
             forId: 'nationality',
-            title: 'Nacionalidade',
+            title: label,
           }}
         >
           <AsyncSelect
             {...field}
             id="nationality"
             instanceId="nationality"
-            placeholder="Nacionalidade"
+            placeholder={label}
             cacheOptions
             defaultOptions
             onInputChange={handleChangeInputNationality}

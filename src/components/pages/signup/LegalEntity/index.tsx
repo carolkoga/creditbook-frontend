@@ -13,8 +13,8 @@ import { registerCorporationAccountSchema } from '@validations/yup/signup';
 import AddressForm from '../components/AddressForm';
 import { FormGrid } from '../components/FormGrid';
 import InformationForm from '../components/InformationForm';
-import NationalitySelect from '../components/NationalitySelect';
 import PasswordForm from '../components/PasswordForm';
+import ProfilePictureForm from '../components/ProfilePictureForm';
 
 export interface CorporationParams extends Omit<RegistrationParams<'corporation'>, 'type'> {}
 
@@ -43,7 +43,9 @@ export default function LegalEntity({ onSubmit, formGroupDirection, loading }: I
 
       <FormProvider {...methods}>
         <FormGrid noValidate onSubmit={handleSubmit(onSubmit)}>
-          <InformationForm formGroupDirection={formGroupDirection}>
+          <InformationForm formGroupDirection={formGroupDirection} nationalityLabel="Local de constituição">
+            <ProfilePictureForm label="Foto de Perfil" formGroupDirection={formGroupDirection} />
+
             <FormGroup
               direction={formGroupDirection}
               error={errors?.corporationName?.message}
@@ -82,8 +84,6 @@ export default function LegalEntity({ onSubmit, formGroupDirection, loading }: I
                 </FormGroup>
               )}
             />
-
-            <NationalitySelect formGroupDirection={formGroupDirection} />
           </InformationForm>
           <AddressForm formGroupDirection={formGroupDirection} />
           <PasswordForm formGroupDirection={formGroupDirection} />
