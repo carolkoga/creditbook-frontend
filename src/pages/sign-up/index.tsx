@@ -3,8 +3,8 @@ import { AxiosError } from 'axios';
 import { toast, ToastOptions } from 'react-toastify';
 
 import { Button } from '@components/Button';
-import LegalEntity, { CorporationParams } from '@components/pages/signup/LegalEntity';
-import PrivateIndividual, { PersonParams } from '@components/pages/signup/PrivateIndividual';
+import LegalEntity, { CorporationParams } from '@components/UserForm/LegalEntity';
+import PrivateIndividual, { PersonParams } from '@components/UserForm/PrivateIndividual';
 
 import { Direction } from '@styles/pages/home';
 import { Section } from '@components/Section';

@@ -6,7 +6,7 @@ import { RegistrationParams } from '@type/creditbook/auth/register';
 import { Button } from '@components/Button';
 import { Section } from '@components/Section';
 
-import { registerPersonAccountSchema } from '@validations/yup/signup';
+import { registerPersonAccountSchema } from '@validations/yup/UserForm';
 
 import AddressForm from '../components/AddressForm';
 import { FormGrid } from '../components/FormGrid';

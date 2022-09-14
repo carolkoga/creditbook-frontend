@@ -8,7 +8,7 @@ import { Input, MaskInput } from '@components/Input';
 import { Section } from '@components/Section';
 
 import { RegistrationParams } from '@type/creditbook/auth/register';
-import { registerCorporationAccountSchema } from '@validations/yup/signup';
+import { registerCorporationAccountSchema } from '@validations/yup/UserForm';
 
 import AddressForm from '../components/AddressForm';
 import { FormGrid } from '../components/FormGrid';
