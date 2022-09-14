@@ -15,17 +15,13 @@ import { FormGrid } from '../components/FormGrid';
 import InformationForm from '../components/InformationForm';
 import PasswordForm from '../components/PasswordForm';
 import ProfilePictureForm from '../components/ProfilePictureForm';
+import { FormCommonType } from '../types';
 
 export interface CorporationParams extends Omit<RegistrationParams<'corporation'>, 'type'> {}
 
-interface IProps {
-  // eslint-disable-next-line no-unused-vars
-  onSubmit: (data: CorporationParams) => void
-  formGroupDirection: 'horizontal' | 'vertical',
-  loading: boolean,
-}
-
-export default function LegalEntity({ onSubmit, formGroupDirection, loading }: IProps) {
+export default function LegalEntity({
+  onSubmit, formGroupDirection, loading, label,
+}: FormCommonType<CorporationParams>) {
   const methods = useForm<CorporationParams>({
     resolver: yupResolver(registerCorporationAccountSchema),
     mode: 'onBlur',
@@ -90,7 +86,7 @@ export default function LegalEntity({ onSubmit, formGroupDirection, loading }: I
 
           <div className="actions">
             <Button type="submit" size="outline-filled-round" isLoading={loading}>
-              Cadastrar
+              {label}
             </Button>
           </div>
         </FormGrid>

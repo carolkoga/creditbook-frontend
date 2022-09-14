@@ -1,9 +1,10 @@
 import FormGroup from '@components/FormGroup';
 import { Input } from '@components/Input';
+import { AllCommonType } from '@components/UserForm/types';
 import { useFormContext } from 'react-hook-form';
 import { Fieldset } from '../Fieldset';
 
-export default function PasswordForm({ formGroupDirection }: { formGroupDirection: 'vertical' | 'horizontal' }) {
+export default function PasswordForm({ formGroupDirection }: AllCommonType) {
   const { register, formState: { errors } } = useFormContext();
 
   const registeredFields = {

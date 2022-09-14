@@ -4,11 +4,11 @@ import { useFormContext, Controller } from 'react-hook-form';
 import FormGroup from '@components/FormGroup';
 import { Input, MaskInput } from '@components/Input';
 
+import { AllCommonType } from '@components/UserForm/types';
 import { Fieldset } from '../Fieldset';
 import NationalitySelect from '../NationalitySelect';
 
-interface IProps {
-  formGroupDirection: 'vertical' | 'horizontal',
+interface IProps extends AllCommonType {
   nationalityLabel: string,
   children?: ReactNode,
 }

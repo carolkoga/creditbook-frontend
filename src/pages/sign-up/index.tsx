@@ -92,6 +92,7 @@ export default function SignUp() {
           onSubmit={handleSignUpPersonAccount}
           loading={isLoading}
           formGroupDirection={widthOverlimit ? 'horizontal' : 'vertical'}
+          label={isLoading ? 'Cadastrando' : 'Cadastrar'}
         />
       )}
 
@@ -100,6 +101,7 @@ export default function SignUp() {
           onSubmit={handleSignUpCorporationAccount}
           loading={isLoading}
           formGroupDirection={widthOverlimit ? 'horizontal' : 'vertical'}
+          label={isLoading ? 'Cadastrando' : 'Cadastrar'}
         />
       )}
     </>

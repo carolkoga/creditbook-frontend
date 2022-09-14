@@ -7,9 +7,9 @@ import { AsyncSelect, OptionType } from '@components/Select';
 import { factoryOptionReactSelect } from '@utils/factoryOptionReactSelect';
 
 import { countriesService } from '@services/countries';
+import { AllCommonType } from '@components/UserForm/types';
 
-interface IProps {
-  formGroupDirection: 'vertical' | 'horizontal',
+interface IProps extends AllCommonType {
   label: string,
 }
 

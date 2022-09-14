@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 
 import FormGroup from '@components/FormGroup';
@@ -5,14 +6,10 @@ import { Input, MaskInput } from '@components/Input';
 import { RegistrationParams } from '@type/creditbook/auth/register';
 import { cepService } from '@services/cep';
 
-import { useEffect } from 'react';
+import { AllCommonType } from '@components/UserForm/types';
 import { Fieldset } from '../Fieldset';
 
-interface IProps {
-  formGroupDirection: 'vertical' | 'horizontal'
-}
-
-export default function AddressForm({ formGroupDirection }: IProps) {
+export default function AddressForm({ formGroupDirection }: AllCommonType) {
   const {
     register, formState: { errors }, watch, setValue, control,
   } = useFormContext<RegistrationParams<'person'>>();

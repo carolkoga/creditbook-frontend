@@ -1,11 +1,11 @@
 import FormGroup from '@components/FormGroup';
+import { AllCommonType } from '@components/UserForm/types';
 import { UploadSimple } from 'phosphor-react';
 import { useEffect, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { WrapperInputFile } from '../WrapperInputFile';
 
-interface IProps {
-  formGroupDirection: 'vertical' | 'horizontal',
+interface IProps extends AllCommonType {
   label?: string,
   size?: number,
 }
