@@ -2,7 +2,7 @@ import {
   createContext, ReactNode, useCallback, useEffect, useMemo, useState,
 } from 'react';
 import { useRouter } from 'next/router';
-import { toast } from 'react-toastify';
+import { toast, ToastOptions } from 'react-toastify';
 import { setCookie, parseCookies, destroyCookie } from 'nookies';
 
 import { AuthContextType, AuthenticatedUserData } from '@type/creditbook/auth/authenticatedUser';
@@ -11,12 +11,19 @@ import { LoginParams } from '@type/creditbook/auth/login';
 import { creditbookApi } from '@api/creditbookApi';
 import { commonToastProps } from '@configs/toast';
 import { userCreditbookService } from '@services/creditbook/user';
+import { handleCatchErrorRequest } from '@utils/handleCatchErrorRequest';
+import { AxiosError } from 'axios';
 
 interface IProps {
   children: ReactNode,
 }
 
 export const AuthContext = createContext({} as Omit<AuthContextType, 'token'>);
+
+const customToastProps: ToastOptions = {
+  ...commonToastProps,
+  position: 'bottom-center',
+};
 
 export function AuthProvider({ children }: IProps) {
   const [user, setUser] = useState<AuthenticatedUserData | null>(null);
@@ -56,8 +63,12 @@ export function AuthProvider({ children }: IProps) {
       creditbookApi.defaults.headers.common.Authorization = `Bearer ${token}`;
       setUser(userSignIn);
     } catch (error) {
-      console.log('...');
+      handleCatchErrorRequest(error as AxiosError, customToastProps);
     }
+  }
+
+  function updateUser(data: any) {
+    setUser((oldState) => Object.assign(data, oldState));
   }
 
   const verifyIsAlreadyHaveAToken = useCallback(() => {
@@ -66,8 +77,8 @@ export function AuthProvider({ children }: IProps) {
         const { data } = await userCreditbookService.getUserInformation({ token });
 
         setUser(data);
-      } catch {
-        console.debug('');
+      } catch (error) {
+        handleCatchErrorRequest(error as AxiosError, customToastProps);
       }
     }
 
@@ -92,7 +103,8 @@ export function AuthProvider({ children }: IProps) {
     isAuthenticated,
     handleSignIn,
     handleSignOut,
-  }), [isAuthenticated]);
+    handleUpdateUser: (data: AuthenticatedUserData) => updateUser(data),
+  }), [isAuthenticated, user]);
 
   return (
     <AuthContext.Provider value={values}>

@@ -24,4 +24,6 @@ export interface AuthContextType {
   // eslint-disable-next-line no-unused-vars
   handleSignIn: (data: LoginParams) => Promise<void>
   handleSignOut: () => void,
+  // eslint-disable-next-line no-unused-vars
+  handleUpdateUser: (data: AuthenticatedUserData) => void,
 }
