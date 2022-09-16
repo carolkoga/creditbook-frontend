@@ -103,7 +103,12 @@ export default function LegalEntity({
           )}
 
           <div className="actions">
-            <Button type="submit" size="outline-filled-round" isLoading={loading}>
+            <Button
+              type="submit"
+              size="outline-filled-round"
+              isLoading={loading}
+              disabled={!methods.formState.isValid}
+            >
               {label}
             </Button>
           </div>
