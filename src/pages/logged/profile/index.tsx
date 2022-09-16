@@ -11,6 +11,8 @@ import useAuth from 'hooks/useAuth';
 import { userCreditbookService } from '@services/creditbook/user';
 import { UserDefaultValues } from '@type/creditbook';
 import { handleCatchErrorRequest } from '@utils/handleCatchErrorRequest';
+import { toast } from 'react-toastify';
+import { commonToastProps } from '@configs/toast';
 
 export default function Profile() {
   const { user, handleUpdateUser } = useAuth();
@@ -49,6 +51,7 @@ export default function Profile() {
 
       handleUpdateUser(response.data);
       setIsLoading(false);
+      toast.success('Pefil Atualizado!', commonToastProps);
     } catch (error) {
       handleCatchErrorRequest(error as AxiosError);
       setIsLoading(false);
