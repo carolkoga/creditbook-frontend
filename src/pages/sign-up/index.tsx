@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { AxiosError } from 'axios';
-import { toast, ToastOptions } from 'react-toastify';
+import { ToastOptions } from 'react-toastify';
 
 import { Button } from '@components/Button';
-import LegalEntity, { CorporationParams } from '@components/UserForm/LegalEntity';
-import PrivateIndividual, { PersonParams } from '@components/UserForm/PrivateIndividual';
+import LegalEntity from '@components/UserForm/LegalEntity';
+import PrivateIndividual from '@components/UserForm/PrivateIndividual';
 
 import { Direction } from '@styles/pages/home';
 import { Section } from '@components/Section';
@@ -13,8 +13,10 @@ import { AccountTypes } from '@type/creditbook';
 import useDimensions from '@hooks/useDimensions';
 import useAuth from 'hooks/useAuth';
 import { commonToastProps } from '@configs/toast';
+import { AccountCorporation, AccountPerson } from '@type/creditbook/auth/register';
+import { handleCatchErrorRequest } from '@utils/handleCatchErrorRequest';
 
-const commonToastPropsToSignUp: ToastOptions = {
+const customToastPropsToSignUp: ToastOptions = {
   ...commonToastProps,
   position: 'top-right',
 };
@@ -30,19 +32,7 @@ export default function SignUp() {
     setRegisterAccountType((oldState) => (oldState === 'person' ? 'corporation' : 'person'));
   }
 
-  function handleCatchErrorRequest(error: AxiosError) {
-    if (error?.response?.status === 0) {
-      toast.error('Aconteceu algum erro no nosso servidor, aguarde um momento até resolvermos!', commonToastPropsToSignUp);
-    }
-
-    if (typeof error?.response?.status === 'number') {
-      if (error?.response?.status >= 400 && error?.response?.status <= 499) {
-        toast.warning('Verifique se não há nenhum dado errado.', commonToastPropsToSignUp);
-      }
-    }
-  }
-
-  async function handleSignUpPersonAccount(data: PersonParams) {
+  async function handleSignUpPersonAccount(data: AccountPerson) {
     try {
       setIsLoading(true);
       await authCreditBookService.register<'person'>({ ...data, type: 'person' });
@@ -52,12 +42,12 @@ export default function SignUp() {
         password: data.password,
       });
     } catch (error) {
-      handleCatchErrorRequest(error as AxiosError);
+      handleCatchErrorRequest(error as AxiosError, customToastPropsToSignUp);
       setIsLoading(false);
     }
   }
 
-  async function handleSignUpCorporationAccount(data: CorporationParams) {
+  async function handleSignUpCorporationAccount(data: AccountCorporation) {
     try {
       setIsLoading(true);
 
