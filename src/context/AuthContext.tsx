@@ -48,7 +48,7 @@ export function AuthProvider({ children }: IProps) {
           success: 'Login realizado com sucessso!',
           error: 'Ops. verifique e-mail e senha estão certo.',
         },
-        commonToastProps,
+        customToastProps,
       );
 
       const { token, user: userSignIn } = response.data;
@@ -63,7 +63,8 @@ export function AuthProvider({ children }: IProps) {
       creditbookApi.defaults.headers.common.Authorization = `Bearer ${token}`;
       setUser(userSignIn);
     } catch (error) {
-      handleCatchErrorRequest(error as AxiosError, customToastProps);
+      // eslint-disable-next-line no-console
+      console.debug('...');
     }
   }
 
