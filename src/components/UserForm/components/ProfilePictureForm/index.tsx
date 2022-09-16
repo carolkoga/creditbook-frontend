@@ -25,6 +25,9 @@ export default function ProfilePictureForm({ formGroupDirection, label, size = 4
   }
 
   useEffect(() => {
+    if (typeof profilePictureFileList === 'string') {
+      return setProfilePreview(profilePictureFileList);
+    }
     if (profilePictureFileList) {
       const profilePicture: File | null | undefined = profilePictureFileList['0'];
 
@@ -52,9 +55,9 @@ export default function ProfilePictureForm({ formGroupDirection, label, size = 4
         )}
 
         {profilePreview && (
-        <label htmlFor="profile-photo" className="--with-img">
-          <img src={profilePreview} alt="Foto de perfil" width="100%" height="100%" />
-        </label>
+          <label htmlFor="profile-photo" className="--with-img">
+            <img src={profilePreview} alt="Foto de perfil" width="100%" height="100%" />
+          </label>
         )}
 
         <input
