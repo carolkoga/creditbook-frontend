@@ -7,7 +7,8 @@ import { Input, MaskInput } from '@components/Input';
 
 import { Section } from '@components/Section';
 
-import { RegistrationParams } from '@type/creditbook/auth/register';
+import { AccountCommonParams, RegistrationParams } from '@type/creditbook/auth/register';
+
 import { registerCorporationAccountSchema } from '@validations/yup/UserForm';
 
 import { updateCorporationAccountSchema } from '@validations/yup/UserForm/update';
@@ -17,20 +18,22 @@ import InformationForm from '../components/InformationForm';
 import PasswordForm from '../components/PasswordForm';
 import ProfilePictureForm from '../components/ProfilePictureForm';
 import { FormCommonType } from '../types';
+import UpdatePasswordForm from '../components/UpdatePasswordForm';
 
 export interface CorporationParams extends Omit<RegistrationParams<'corporation'>, 'type'> {}
 
 export default function LegalEntity({
-  onSubmit, formGroupDirection, loading, label, validation,
-}: FormCommonType<CorporationParams>) {
+  onSubmit, formGroupDirection, loading, label, validation, defaultValues,
+}: FormCommonType) {
   const validationSchema = (
     validation === 'register'
       ? registerCorporationAccountSchema
       : validation === 'update' && updateCorporationAccountSchema
   );
-  const methods = useForm<CorporationParams>({
+  const methods = useForm<AccountCommonParams | any>({
     resolver: yupResolver(validationSchema as any),
     mode: 'onBlur',
+    defaultValues: !defaultValues ? {} : defaultValues,
   });
 
   const {
@@ -39,9 +42,11 @@ export default function LegalEntity({
 
   return (
     <Section.Container bg="white">
-      <Section.Header>
-        <Section.Title>Cadastro Pessoa Jurídica</Section.Title>
-      </Section.Header>
+      {validation === 'register' && (
+        <Section.Header>
+          <Section.Title>Cadastro Pessoa Jurídica</Section.Title>
+        </Section.Header>
+      )}
 
       <FormProvider {...methods}>
         <FormGrid noValidate onSubmit={handleSubmit(onSubmit)}>
@@ -88,7 +93,14 @@ export default function LegalEntity({
             />
           </InformationForm>
           <AddressForm formGroupDirection={formGroupDirection} />
-          <PasswordForm formGroupDirection={formGroupDirection} />
+
+          {validation === 'register' && (
+            <PasswordForm formGroupDirection={formGroupDirection} />
+          )}
+
+          {validation === 'update' && (
+            <UpdatePasswordForm formGroupDirection={formGroupDirection} />
+          )}
 
           <div className="actions">
             <Button type="submit" size="outline-filled-round" isLoading={loading}>
