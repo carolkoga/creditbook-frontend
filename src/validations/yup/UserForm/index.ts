@@ -55,7 +55,11 @@ export const commonValidationSchema = {
     .test(
       'image required',
       'Campo obrigatório',
-      (value: any) => (!!value?.name),
+      (value: any) => (
+        typeof value === 'object'
+          ? value.name
+          : typeof value === 'string'
+      ),
     )
     .required('Campo obrigatório'),
   nationality: yup.object().typeError('Campo obrigatório'),
