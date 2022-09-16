@@ -24,7 +24,7 @@ export default function FormGroup({
       direction={direction}
     >
       <div className="content">
-        {label && (
+        {label?.title && (
           <Label htmlFor={label.forId}>
             {label.title}
           </Label>
