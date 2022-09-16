@@ -8,6 +8,10 @@ class UserCreditbookService {
       },
     });
   }
+
+  async update(data: any) {
+    return await creditbookApi.patch('/user', data);
+  }
 }
 
 export const userCreditbookService = new UserCreditbookService();
