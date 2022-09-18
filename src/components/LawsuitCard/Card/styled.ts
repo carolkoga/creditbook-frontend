@@ -19,7 +19,7 @@ const headerCardSuit: ISuits<CSSProp> = {
   `,
 
   fiscal: css`
-    background-color: #CFEAEC;
+    background-color: #ffa9a9;
   `,
 };
 
