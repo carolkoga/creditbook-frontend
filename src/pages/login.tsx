@@ -10,14 +10,20 @@ import useAuth from 'hooks/useAuth';
 
 export default function Login() {
   const [email, setEmail] = useState('');
+  const [loading, setLoading] = useState(false);
   const { handleSignIn } = useAuth();
   const [password, setPassword] = useState('');
-  const isValid = !email && !password;
+  const isValid = !email.length && !password.length;
 
   async function onSignIn(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
+    try {
+      setLoading(true);
+      event.preventDefault();
 
-    await handleSignIn({ email, password });
+      await handleSignIn({ email, password });
+    } finally {
+      setLoading(false);
+    }
   }
 
   function handleChangeEmail(event: ChangeEvent<HTMLInputElement>) {
@@ -39,7 +45,7 @@ export default function Login() {
           <FormGroup label={{ title: 'E-mail', forId: 'email' }}>
             <Input
               type="email"
-              placeholder="ex: tes@mail.com"
+              placeholder=" "
               id="email"
               value={email}
               onChange={handleChangeEmail}
@@ -49,7 +55,7 @@ export default function Login() {
           <FormGroup label={{ title: 'Senha', forId: 'password' }}>
             <Input
               type="password"
-              placeholder="************"
+              placeholder=" "
               id="password"
               value={password}
               onChange={handleChangePassword}
@@ -60,6 +66,7 @@ export default function Login() {
             type="submit"
             size="large"
             disabled={isValid}
+            isLoading={loading}
           >
             Entrar
           </Button>
