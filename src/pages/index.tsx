@@ -118,7 +118,7 @@ export default function HomeLadingPage() {
                 />
               </div>
               <span>
-                Busque a melhor oferta
+                Busque anúncios
               </span>
             </InfoCard>
 
