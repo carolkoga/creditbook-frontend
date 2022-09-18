@@ -18,14 +18,19 @@ export default function SellAds() {
             <p>
               A plataforma Creditbook disponibiliza aos anunciantes uma alternativa inovadora
               para dar liquidez aos processos judiciais.
-              <br />
-              <br />
+            </p>
+
+            <p>
               Após o preenchimento das informações relativas ao processo que deseja negociar,
               milhares de interessados poderão adquirir os créditos anunciados de forma simples
               e rápida.
-              <br />
+            </p>
+
+            <p>
               Lembre-se de manter seus anúncios constantemente atualizados para que potenciais
               compradores estejam cientes das condições da ação e valores envolvidos na venda.
+              <br />
+              <br />
               Vamos começar?
             </p>
 

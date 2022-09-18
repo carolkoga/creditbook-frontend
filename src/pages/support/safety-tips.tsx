@@ -32,7 +32,9 @@ export default function SafetTips() {
               com estranhos, já que estes poderão inserir dados ou efetuar transações indevidas.
               O Creditbook não solicita estas informações em hipótese alguma e somente se comunica
               com os usuários por meio de suas redes oficiais.
-              <br />
+            </p>
+
+            <p>
               Portanto, qualquer e-mail, correspondência ou mensagem alheios deverão ser
               desconsiderados. Em caso de dúvidas, entre em contato conosco por meio dos
               nossos canais oficiais.
