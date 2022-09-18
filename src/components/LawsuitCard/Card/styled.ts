@@ -32,13 +32,15 @@ const firstLatterUpercase = css`
 export const Container = styled.article`
   max-height: 364px;
   height: 100%;
-  max-width: 345px;
   width: auto;
   border-radius: 10px;
   font-family: 'Roboto', sans-serif;
   box-shadow: 2px 2px 5px rgba(133, 133, 133, 0.1);
   padding-bottom: 15px;
   background: ${({ theme }) => theme.colors.grey[10]};
+  @media (max-width: 634px) {
+    max-width: 345px;
+  }
 `;
 
 export const Header = styled.header`
@@ -112,6 +114,7 @@ export const Content = styled.div`
 export const InformationOfSuit = styled.div`
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   justify-content: flex-start;
   width: 100%;
 
@@ -144,9 +147,11 @@ export const InformationOfSuit = styled.div`
     margin-top: 6px;
   }
 
-  @media screen and (max-width: 392px) {
-    flex-direction: column;
-    align-items: flex-start;
+  @media (max-width: 210px) {
+    text-align: left;
+    h3 {
+      margin-top: 10px;
+    }
   }
 `;
 
@@ -179,12 +184,4 @@ export const Actions = styled.footer`
     }
   }
 
-  @media screen and (max-width: 392px) {
-    div {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 10px;
-    }
-
-  }
 `;

@@ -7,12 +7,12 @@ export const ListLayoutSingleLawsuits = styled.div`
   grid-template-rows: auto;
   gap: 24px;
 
-  @media (max-width: 1220px) {
+  @media (max-width: 964px) {
     grid-template-columns: repeat(2, 1fr);
     row-gap: 48px;
   }
 
-  @media (max-width: 650px) {
+  @media (max-width: 634px) {
     grid-template-columns: repeat(1, 1fr);
   }
 `;
