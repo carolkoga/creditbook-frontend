@@ -55,12 +55,7 @@ export const MainWithSideBar = styled(Main)`
   }
 
   @media (max-width: 452px) {
-    padding: 24px;
-    padding-top: 36px;
-  }
-
-  @media (max-width: 300px) {
-    padding: 8px;
+    padding: 10px;
     padding-top: 36px;
   }
 `;
