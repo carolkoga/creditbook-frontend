@@ -17,10 +17,10 @@ export function Button({
 }: IButtonProps) {
   return (
     <StyleButton
+      {...restAttributes}
       size={size}
       variant={variant}
       disabled={isLoading}
-      {...restAttributes}
     >
       {children}
       <TailSpin
