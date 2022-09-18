@@ -15,7 +15,7 @@ export default function Home() {
       <Section.Container bg="light">
         <Direction direction="horizontal" alignItems="center">
           <Section.Title as="h3">Galeria Premium</Section.Title>
-          <Link href="/logged/gallery-premium" variant="dark">
+          <Link href="/in/gallery-premium" variant="dark">
             Ver Todos
           </Link>
         </Direction>

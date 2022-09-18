@@ -16,7 +16,7 @@ import SidebarContextProvider from '@context/SidebarContext';
 import { AuthProvider } from 'context/AuthContext';
 import { ToastContainer } from 'react-toastify';
 
-function MyApp({ Component, pageProps }: AppProps) {
+export default function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
@@ -45,5 +45,3 @@ Precisando de dinheiro? Procurando uma forma lucrativa para investir? Chegou a p
     </>
   );
 }
-
-export default MyApp;

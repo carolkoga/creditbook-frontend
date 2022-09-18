@@ -18,9 +18,9 @@ export default function CoreSidebar({ smallDevice }: IProps) {
   const { handleSignOut, user } = useAuth();
   const { asPath } = useRouter();
   const { isCollapsed, handleControlSidebar } = useSidebar();
-  const defaultPath = ['logged', 'admin'].includes(asPath.split('/')[1])
+  const defaultPath = ['in'].includes(asPath.split('/')[1])
     ? `/${asPath.split('/')[1]}`
-    : '/logged';
+    : '/in';
 
   return (
     <Container collapsed={!isCollapsed}>

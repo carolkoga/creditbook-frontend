@@ -1,9 +1,10 @@
+import { useRouter } from 'next/router';
 import {
   createContext, ReactNode, useCallback, useEffect, useMemo, useState,
 } from 'react';
-import { useRouter } from 'next/router';
 import { toast, ToastOptions } from 'react-toastify';
 import { setCookie, parseCookies, destroyCookie } from 'nookies';
+import { AxiosError } from 'axios';
 
 import { AuthContextType, AuthenticatedUserData } from '@type/creditbook/auth/authenticatedUser';
 import { authCreditBookService } from '@services/creditbook/auth';
@@ -12,7 +13,6 @@ import { creditbookApi } from '@api/creditbookApi';
 import { commonToastProps } from '@configs/toast';
 import { userCreditbookService } from '@services/creditbook/user';
 import { handleCatchErrorRequest } from '@utils/handleCatchErrorRequest';
-import { AxiosError } from 'axios';
 
 interface IProps {
   children: ReactNode,
@@ -24,6 +24,10 @@ const customToastProps: ToastOptions = {
   ...commonToastProps,
   position: 'bottom-center',
 };
+
+function setAuthorizationHeader(token: string) {
+  creditbookApi.defaults.headers.common.Authorization = `Bearer ${token}`;
+}
 
 export function AuthProvider({ children }: IProps) {
   const [user, setUser] = useState<AuthenticatedUserData | null>(null);
@@ -58,10 +62,9 @@ export function AuthProvider({ children }: IProps) {
         path: '/',
       });
 
-      Router.push('/logged/home');
-
-      creditbookApi.defaults.headers.common.Authorization = `Bearer ${token}`;
+      setAuthorizationHeader(token);
       setUser(userSignIn);
+      Router.push('/in/home');
     } catch (error) {
       // eslint-disable-next-line no-console
       console.debug('...');
@@ -71,24 +74,23 @@ export function AuthProvider({ children }: IProps) {
   function updateUser(data: any) {
     setUser((oldState) => Object.assign(data, oldState));
   }
+  async function getUserInformation(token: string) {
+    try {
+      const { data } = await userCreditbookService.getUserInformation({ token });
+
+      setUser(data);
+    } catch (error) {
+      handleCatchErrorRequest(error as AxiosError, customToastProps);
+    }
+  }
 
   const verifyIsAlreadyHaveAToken = useCallback(() => {
-    async function getUserInformation(token: string) {
-      try {
-        const { data } = await userCreditbookService.getUserInformation({ token });
-
-        setUser(data);
-      } catch (error) {
-        handleCatchErrorRequest(error as AxiosError, customToastProps);
-      }
-    }
-
-    if (Router.pathname === '/login' || Router.pathname.includes('logged')) {
+    if (Router.pathname === '/login' || Router.pathname.includes('in')) {
       const { 'nextauth.token': nextAuthToken } = parseCookies();
 
       if (nextAuthToken) {
         getUserInformation(nextAuthToken);
-        creditbookApi.defaults.headers.common.Authorization = `Bearer ${nextAuthToken}`;
+        setAuthorizationHeader(nextAuthToken);
       }
     } else {
       setUser(null);

@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 
 export const config = {
-  matcher: ['/logged/:path*', '/login'],
+  matcher: ['/in/:path*', '/login'],
 };
 
 export function middleware(req: NextRequest) {
@@ -14,7 +14,7 @@ export function middleware(req: NextRequest) {
   }
 
   if (isAuthenticated && isLoginRoute) {
-    return NextResponse.rewrite(new URL('/logged/home', req.url));
+    return NextResponse.rewrite(new URL('/in/home', req.url));
   }
   return NextResponse.rewrite(new URL(path, req.url));
 }
