@@ -3,8 +3,12 @@ export const breakpointsSwiper = {
     slidesPerView: 3,
   },
 
-  734: {
+  758: {
     slidesPerView: 2,
+  },
+
+  648: {
+    slidesPerView: 1.5,
   },
 
   360: {

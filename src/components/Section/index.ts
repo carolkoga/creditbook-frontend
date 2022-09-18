@@ -14,7 +14,7 @@ const SectionContainer = styled.section<SectionContainerProps>`
   ${({ bg }) => (!bg ? 'none' : sectionBgColors[bg])}
 
   @media screen and (max-width: 452px) {
-    padding: 16px;
+    padding: 12px;
   }
 `;
 

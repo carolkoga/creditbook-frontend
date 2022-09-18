@@ -5,28 +5,23 @@ export const Main = styled.main`
   padding-top: 0;
   height: 100%;
 
-  @media screen and (max-width: 1200px) {
+  @media (max-width: 1200px) {
     padding: 42px;
     padding-top: 0;
   }
 
-  @media screen and (max-width: 700px) {
+  @media (max-width: 700px) {
     padding: 32px;
     padding-top: 0;
   }
 
-  @media screen and (max-width: 452px) {
+  @media (max-width: 452px) {
     padding: 24px;
     padding-top: 0;
   }
 
   @media screen and (max-width: 382px) {
-    padding: 14px;
-    padding-top: 0;
-  }
-
-  @media screen and (max-width: 300px) {
-    padding: 18px;
+    padding: 12px;
     padding-top: 0;
   }
 `;
@@ -55,7 +50,17 @@ export const MainWithSideBar = styled(Main)`
   width: 100%;
   overflow-x: scroll;
 
-  @media screen and (max-width: 1200px) {
+  @media (max-width: 500px) {
     padding: 32px;
+  }
+
+  @media (max-width: 452px) {
+    padding: 24px;
+    padding-top: 36px;
+  }
+
+  @media (max-width: 300px) {
+    padding: 8px;
+    padding-top: 36px;
   }
 `;
