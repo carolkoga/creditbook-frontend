@@ -1,11 +1,12 @@
 import { Direction } from '@components/Direction';
+import NavigationTab from '@components/NavigationTab';
 import { ReactNode } from 'react';
-import Navigation from './navigation';
+import { routesInSupport } from './routes';
 
 export default function WrapperSupport({ children }: { children: ReactNode }) {
   return (
     <Direction>
-      <Navigation />
+      <NavigationTab routes={routesInSupport} />
       {children}
     </Direction>
   );

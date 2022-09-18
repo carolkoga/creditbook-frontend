@@ -1,8 +1,7 @@
 import styled, { css } from 'styled-components';
 
 export const Nav = styled.nav`
-  margin-bottom: 42px;
-  /* margin-left: 46px; */
+  margin-bottom: 24px;
 `;
 
 export const WrapperListNav = styled.ul`

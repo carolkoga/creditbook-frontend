@@ -2,34 +2,14 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { Nav, NavContent, WrapperListNav } from './styled';
 
-const routes = [
-  {
-    label: 'Dicas de Segurança',
-    link: '/support/safety-tips',
-  },
+interface IProps {
+  routes: {
+    label: string,
+    link: string,
+  }[],
+}
 
-  {
-    label: 'Vender Anúncios',
-    link: '/support/sell-ads',
-  },
-
-  {
-    label: 'FAQ',
-    link: '/support',
-  },
-
-  {
-    label: 'Termos de uso',
-    link: '/support/terms-of-service',
-  },
-
-  {
-    label: 'Vídeo tutorial',
-    link: '/support/tutorial-video',
-  },
-];
-
-export default function Navigation() {
+export default function NavigationTab({ routes }: IProps) {
   const router = useRouter();
 
   return (
