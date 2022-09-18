@@ -44,28 +44,28 @@ export default function Contact() {
       <Section.Container>
         <Form>
           <FormGroup label={{ title: 'Nome', forId: 'name' }}>
-            <Input placeholder="matheus" id="name" />
+            <Input placeholder=" " id="name" />
           </FormGroup>
 
           <FormGroup label={{ title: 'E-mail', forId: 'email' }}>
-            <Input placeholder="contato@mail.com" id="email" type="email" />
+            <Input placeholder=" " id="email" type="email" />
           </FormGroup>
 
           <FormGroup label={{ title: 'Escolha um assunto', forId: 'subject' }}>
             <Select
               options={subjectSelectOptions}
-              placeholder="assunto"
+              placeholder=" "
               id="subject"
               instanceId="subject"
             />
           </FormGroup>
 
           <FormGroup label={{ title: 'Telefone', forId: 'phone' }}>
-            <Input placeholder="(00) 99764-0098" id="phone" inputMode="numeric" />
+            <Input placeholder=" " id="phone" inputMode="numeric" />
           </FormGroup>
 
           <FormGroup label={{ title: 'Mensagem', forId: 'feedback' }}>
-            <Textarea placeholder="Escreva a sua mensagem..." id="feedback" />
+            <Textarea placeholder=" " id="feedback" />
           </FormGroup>
 
           <Button type="submit">Enviar Feedback</Button>
