@@ -30,9 +30,9 @@ export default function UpdatePasswordForm({ formGroupDirection }: AllCommonType
       >
         <Input
           type="password"
-          id="password"
+          id="current-password"
           autoComplete="disabled"
-          placeholder="***********"
+          placeholder=" "
           {...registeredFields.currentPassword}
         />
       </FormGroup>
@@ -48,7 +48,7 @@ export default function UpdatePasswordForm({ formGroupDirection }: AllCommonType
         <Input
           type="password"
           id="new-password"
-          placeholder="***********"
+          placeholder=" "
           autoComplete="disabled"
           {...registeredFields.newPassword}
         />

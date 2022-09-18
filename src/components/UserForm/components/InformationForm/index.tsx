@@ -49,7 +49,7 @@ export default function InformationForm({
       >
         <Input
           id="full-name"
-          placeholder="Beatriz Nair Carvalho"
+          placeholder=" "
           {...registeredFields.fullName}
         />
       </FormGroup>
@@ -66,7 +66,7 @@ export default function InformationForm({
           type="email"
           inputMode="email"
           id="email"
-          placeholder="beacar@mail.com"
+          placeholder=" "
           autoComplete="off"
           {...registeredFields.email}
         />
@@ -88,7 +88,7 @@ export default function InformationForm({
             <MaskInput
               id="phone"
               inputMode="numeric"
-              placeholder="(54) 98753-0813"
+              placeholder=" "
               mask="(00) 00000-0000"
               {...field}
             />
@@ -107,7 +107,7 @@ export default function InformationForm({
         <Input
           type="date"
           id="born-date"
-          placeholder="dd/mm/yyyy"
+          placeholder=" "
           {...registeredFields.bornDate}
         />
       </FormGroup>
@@ -123,7 +123,7 @@ export default function InformationForm({
         <Input
           id="rg"
           inputMode="numeric"
-          placeholder="44.902.756-9"
+          placeholder=" "
           {...registeredFields.rg}
         />
       </FormGroup>
@@ -145,7 +145,7 @@ export default function InformationForm({
               {...field}
               id="cpf"
               inputMode="numeric"
-              placeholder="423.177.667-93"
+              placeholder=" "
               mask="000.000.000-00"
             />
           </FormGroup>

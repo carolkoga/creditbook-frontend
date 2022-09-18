@@ -36,7 +36,7 @@ export default function PasswordForm({ formGroupDirection }: AllCommonType) {
           type="password"
           id="password"
           autoComplete="disabled"
-          placeholder="***********"
+          placeholder=" "
           {...registeredFields.password}
         />
       </FormGroup>
@@ -52,7 +52,7 @@ export default function PasswordForm({ formGroupDirection }: AllCommonType) {
         <Input
           type="password"
           id="confirm-password"
-          placeholder="***********"
+          placeholder=" "
           autoComplete="disabled"
           {...registeredFields.passwordConfirmation}
         />

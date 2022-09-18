@@ -73,7 +73,7 @@ export default function AddressForm({ formGroupDirection }: AllCommonType) {
               {...field}
               id="address.cep"
               inputMode="numeric"
-              placeholder="95030-430"
+              placeholder=" "
               mask="00000-000"
             />
           </FormGroup>
@@ -90,7 +90,7 @@ export default function AddressForm({ formGroupDirection }: AllCommonType) {
       >
         <Input
           id="address.uf"
-          placeholder="RS"
+          placeholder=" "
           {...registeredFields.uf}
         />
       </FormGroup>
@@ -105,7 +105,7 @@ export default function AddressForm({ formGroupDirection }: AllCommonType) {
       >
         <Input
           id="address.city"
-          placeholder="Caxias do Sul"
+          placeholder=" "
           {...registeredFields.city}
         />
       </FormGroup>
@@ -120,7 +120,7 @@ export default function AddressForm({ formGroupDirection }: AllCommonType) {
       >
         <Input
           id="address.address"
-          placeholder="Rua José de Souza Brito"
+          placeholder=" "
           {...registeredFields.address}
         />
       </FormGroup>
@@ -136,7 +136,7 @@ export default function AddressForm({ formGroupDirection }: AllCommonType) {
         <Input
           id="address.number"
           inputMode="numeric"
-          placeholder="157"
+          placeholder=" "
           {...registeredFields.number}
         />
       </FormGroup>
@@ -151,7 +151,7 @@ export default function AddressForm({ formGroupDirection }: AllCommonType) {
       >
         <Input
           id="address.complement"
-          placeholder=""
+          placeholder=" "
           autoComplete="false"
           {...registeredFields.complement}
         />

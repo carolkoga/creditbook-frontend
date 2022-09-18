@@ -63,7 +63,7 @@ export default function LegalEntity({
             >
               <Input
                 id="social-name"
-                placeholder="Carvalho & Nair LTDA"
+                placeholder=" "
                 {...register('corporationName')}
               />
             </FormGroup>
@@ -85,7 +85,7 @@ export default function LegalEntity({
                     {...field}
                     id="cnpj"
                     inputMode="numeric"
-                    placeholder="32.683.609/0001-07"
+                    placeholder=" "
                     mask="00.000.000/0000-00"
                   />
                 </FormGroup>
