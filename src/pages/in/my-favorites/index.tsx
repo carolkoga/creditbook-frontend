@@ -10,7 +10,7 @@ export default function MyFavorites() {
     <>
       <Section.Header>
         <Section.Title as="h1">Meus Favoritos</Section.Title>
-        <SearchBox onSearch={() => console.log('olá')} width={365} />
+        <SearchBox onSearch={() => console.log('olá')} />
         <SelectAdsFilters />
       </Section.Header>
 

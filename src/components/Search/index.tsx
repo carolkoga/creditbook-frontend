@@ -7,10 +7,9 @@ import { Container } from './styled';
 interface IProps extends HTMLAttributes<HTMLFormElement> {
   // eslint-disable-next-line no-unused-vars
   onSearch: (searchTerm: string) => void,
-  width?: number | null
 }
 
-export default function SearchBox({ onSearch, width = null, ...attributes }: IProps) {
+export default function SearchBox({ onSearch, ...attributes }: IProps) {
   const [searchTerm, setSearchTerm] = useState('');
 
   const handleChangeSearchTerm = (e: ChangeEvent<HTMLInputElement>) => {
@@ -26,7 +25,7 @@ export default function SearchBox({ onSearch, width = null, ...attributes }: IPr
   };
 
   return (
-    <Container onSubmit={handleSubmit} width={width} {...attributes}>
+    <Container onSubmit={handleSubmit} {...attributes}>
       <input
         type="search"
         placeholder="Pesquisar..."
@@ -40,7 +39,3 @@ export default function SearchBox({ onSearch, width = null, ...attributes }: IPr
     </Container>
   );
 }
-
-SearchBox.defaultProps = {
-  width: null,
-};

@@ -1,13 +1,9 @@
 import styled from 'styled-components';
 
-interface IContainerProps {
-  width: number | null,
-}
-
-export const Container = styled.form<IContainerProps>`
+export const Container = styled.form`
   border: 1px solid #D5DDE0;
   background: #F9F9F9;
-  max-width: ${({ width }) => (!width ? '25.2rem' : `${(width / 10)}rem`)};
+  max-width: 52rem;
   width: 100%;
   display: flex;
   align-items: center;
