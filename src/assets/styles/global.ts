@@ -46,6 +46,7 @@ export default createGlobalStyle`
     font-size: 1.2rem;
     font-weight: 400;
     overflow-x: hidden;
+    text-align: justify;
   }
 
   button, input, textarea {
