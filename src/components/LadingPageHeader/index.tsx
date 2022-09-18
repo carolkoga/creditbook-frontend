@@ -13,8 +13,13 @@ const routes = [
   },
 
   {
-    label: 'Anúncios',
+    label: 'Comprar',
     link: '/ads',
+  },
+
+  {
+    label: 'Vender',
+    link: '/support/sell-ads',
   },
 
   {
