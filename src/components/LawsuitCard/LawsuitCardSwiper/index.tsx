@@ -1,9 +1,8 @@
-/* eslint-disable no-unused-vars */
 import { useRef, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import {
-  Mousewheel, Pagination, A11y,
+  Pagination, A11y,
 } from 'swiper';
 import Image from 'next/image';
 import LawsuitCard from '../Card';
@@ -44,7 +43,7 @@ export default function LawsuitCardSwiper({ lawsuits, access }: LawsuitCardListP
         slidesPerView={0.1}
         breakpoints={breakpointsSwiper}
         direction="horizontal"
-        modules={[Mousewheel, Pagination, A11y]}
+        modules={[Pagination, A11y]}
         pagination={{ dynamicBullets: true, clickable: true }}
         mousewheel
       >
