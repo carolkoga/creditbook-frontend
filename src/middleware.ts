@@ -14,7 +14,7 @@ export function middleware(req: NextRequest) {
   }
 
   if (isAuthenticated && isLoginRoute) {
-    return NextResponse.rewrite(new URL('/in/home', req.url));
+    return NextResponse.redirect(new URL('/in/home', req.url));
   }
   return NextResponse.rewrite(new URL(path, req.url));
 }
