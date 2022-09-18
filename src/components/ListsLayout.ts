@@ -7,7 +7,7 @@ export const ListLayoutSingleLawsuits = styled.div`
   grid-template-rows: auto;
   gap: 24px;
 
-  @media (max-width: 964px) {
+  @media (max-width: 1150px) {
     grid-template-columns: repeat(2, 1fr);
     row-gap: 48px;
   }
