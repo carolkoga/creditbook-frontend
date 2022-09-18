@@ -35,12 +35,11 @@ export function AuthProvider({ children }: IProps) {
   const isAuthenticated = !!user;
 
   function handleSignOut() {
+    setUser(null);
+    Router.push('/');
     destroyCookie(undefined, 'nextauth.token', {
       path: '/',
     });
-
-    Router.push('/');
-    setUser(null);
   }
 
   async function handleSignIn(data: LoginParams) {
@@ -56,15 +55,14 @@ export function AuthProvider({ children }: IProps) {
       );
 
       const { token, user: userSignIn } = response.data;
+      Router.push('/in/home');
+      setUser(userSignIn);
+      setAuthorizationHeader(token);
 
       setCookie(undefined, 'nextauth.token', token, {
         maxAge: 60 * 60 * 24 * 30, // 30 days
         path: '/',
       });
-
-      setAuthorizationHeader(token);
-      setUser(userSignIn);
-      Router.push('/in/home');
     } catch (error) {
       // eslint-disable-next-line no-console
       console.debug('...');
