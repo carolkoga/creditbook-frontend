@@ -31,7 +31,9 @@ export default function NationalitySelect({ formGroupDirection, label }: IProps)
 
     if (inputNationalityValue) {
       return optionReactSelect.filter((option: OptionType) => (
-        option.value.toLowerCase().includes(inputNationalityValue.toLowerCase())
+        option.value.toLowerCase().normalize('NFD').includes(
+          inputNationalityValue.toLowerCase().normalize('NFD'),
+        )
       ));
     }
 
