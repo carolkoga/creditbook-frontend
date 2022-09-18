@@ -9,8 +9,8 @@ export default function SingleLawsuits() {
   return (
     <>
       <Section.Header>
-        <Section.Title as="h1">Anúncios Individuais</Section.Title>
-        <SearchBox onSearch={() => console.log('olá')} style={{ marginTop: '42px' }} />
+        <Section.Title as="h1">Anúncios</Section.Title>
+        <SearchBox onSearch={() => console.log('olá')} />
         <SelectAdsFilters />
       </Section.Header>
 
