@@ -107,7 +107,6 @@ export default function LegalEntity({
               type="submit"
               size="outline-filled-round"
               isLoading={loading}
-              disabled={!methods.formState.isValid}
             >
               {label}
             </Button>
