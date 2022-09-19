@@ -72,6 +72,7 @@ export function AuthProvider({ children }: IProps) {
   function updateUser(data: any) {
     setUser((oldState) => Object.assign(data, oldState));
   }
+
   async function getUserInformation(token: string) {
     try {
       const { data } = await userCreditbookService.getUserInformation({ token });
