@@ -83,7 +83,7 @@ export function AuthProvider({ children }: IProps) {
   }
 
   const verifyIsAlreadyHaveAToken = useCallback(() => {
-    if (Router.pathname === '/login' || Router.pathname.includes('in')) {
+    if (Router.pathname === '/login' || Router.pathname.startsWith('/in/')) {
       const { 'nextauth.token': nextAuthToken } = parseCookies();
 
       if (nextAuthToken) {
@@ -93,7 +93,7 @@ export function AuthProvider({ children }: IProps) {
     } else {
       setUser(null);
     }
-  }, [Router.pathname]);
+  }, []);
 
   useEffect(() => {
     verifyIsAlreadyHaveAToken();
