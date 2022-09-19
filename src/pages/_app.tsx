@@ -1,6 +1,7 @@
-import type { AppProps } from 'next/app';
 import Head from 'next/head';
+import type { AppProps } from 'next/app';
 import { ThemeProvider } from 'styled-components';
+import { ToastContainer } from 'react-toastify';
 
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -11,10 +12,10 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import { light } from '@styles/themes/light';
 import GlobalStyle from '@styles/global';
+
 import Layout from '@components/Layout';
 import SidebarContextProvider from '@context/SidebarContext';
 import { AuthProvider } from 'context/AuthContext';
-import { ToastContainer } from 'react-toastify';
 
 export default function MyApp({ Component, pageProps }: AppProps) {
   return (
