@@ -1,6 +1,8 @@
 import * as yup from 'yup';
 import { setLocale } from 'yup';
-import { validateCNPJ, validateCPF, validateUF } from 'validations-br';
+import {
+  validateCep, validateCNPJ, validateCPF, validateUF,
+} from 'validations-br';
 
 setLocale({
   string: {
@@ -15,9 +17,7 @@ setLocale({
 const addressValidationSchema = yup.object().shape({
   cep: yup.string()
     .required('Campo obrigatório')
-    .transform((currentValue) => (
-      currentValue.replace(/\D/g, '').replace(/(\d{3})(\d)/, '$1-')
-    )),
+    .test('CEP is invalid', 'Digite um CEP válido', async (value: any) => validateCep(value)),
   uf: yup.string().required('Campo obrigatório').test('uf', 'Digite um UF válido', (value: any) => validateUF(value)),
   number: yup.string().required('Campo obrigatório'),
   complement: yup.string().notRequired(),
