@@ -94,7 +94,7 @@ export function AuthProvider({ children }: IProps) {
     } else {
       setUser(null);
     }
-  }, []);
+  }, [Router.pathname]);
 
   useEffect(() => {
     verifyIsAlreadyHaveAToken();
