@@ -13,10 +13,10 @@ export default function SellAds() {
       <Section.Header>
         <Direction direction="horizontal" alignItems="center">
           <Direction direction="horizontal">
-            <Link href="/ads/new">
+            <Link href="/in/ads/new">
               Adicionar
             </Link>
-            <Link href="/ads/lots">
+            <Link href="/in/ads/lots">
               Ver Lotes
             </Link>
           </Direction>
