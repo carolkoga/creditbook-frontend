@@ -10,13 +10,15 @@ export const Container = styled.div<ContainerProps>`
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
+  width: 100%;
 
   .content {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
     align-items:  ${({ noAlign }) => (noAlign ? 'flex-start' : 'center')};
-    gap: 0 16px;
+    gap: 8px 16px;
+    width: auto;
 
     ${({ direction }) => direction === 'vertical' && css`
       flex-direction: column;
