@@ -23,7 +23,7 @@ export const MaskInput = styled(IMaskInput)`
 
 export const Textarea = styled.textarea`
   max-height: 143px;
-  height: 143px;
+  min-height: 143px;
   resize: none;
   ${commonStyles};
 `;
