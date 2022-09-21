@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import {
-  createContext, ReactNode, useCallback, useEffect, useMemo, useState,
+  createContext, ReactNode, useEffect, useMemo, useState,
 } from 'react';
 import { toast, ToastOptions } from 'react-toastify';
 import { setCookie, parseCookies, destroyCookie } from 'nookies';
@@ -83,7 +83,7 @@ export function AuthProvider({ children }: IProps) {
     }
   }
 
-  const verifyIsAlreadyHaveAToken = useCallback(() => {
+  useEffect(() => {
     if (Router.pathname === '/login' || Router.pathname.startsWith('/in/')) {
       const { 'nextauth.token': nextAuthToken } = parseCookies();
 
@@ -95,10 +95,6 @@ export function AuthProvider({ children }: IProps) {
       setUser(null);
     }
   }, [Router.pathname]);
-
-  useEffect(() => {
-    verifyIsAlreadyHaveAToken();
-  }, [verifyIsAlreadyHaveAToken]);
 
   const values = useMemo(() => ({
     user: user as AuthenticatedUserData,
