@@ -36,7 +36,7 @@ const subjectSelectOptions = [
 
 export default function Contact() {
   return (
-    <Direction>
+    <Direction alignItems="center">
       <Section.Header>
         <Section.Title as="h1">Entrar em contato</Section.Title>
       </Section.Header>
