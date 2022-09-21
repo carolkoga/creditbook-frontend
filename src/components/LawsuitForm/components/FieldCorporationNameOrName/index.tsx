@@ -1,6 +1,6 @@
 import FormGroup from '@components/FormGroup';
-import { InputCPForCNPJ } from '@components/Form/Input/Mask/InputCPForCNPJ';
 import { forwardRef, InputHTMLAttributes } from 'react';
+import { Input } from '@components/Input';
 
 interface IProps extends InputHTMLAttributes<HTMLInputElement> { }
 
@@ -12,9 +12,9 @@ const FieldCorporationNameOrName = forwardRef(({ ...registerField }: IProps, ref
       title: 'Razão social /Nome:',
     }}
   >
-    <InputCPForCNPJ
+    <Input
+      ref={ref as never}
       {...registerField}
-      ref={ref}
       id={registerField.name}
     />
   </FormGroup>
