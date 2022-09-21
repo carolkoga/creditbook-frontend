@@ -1,12 +1,48 @@
+import {
+  useCallback, useEffect, useState,
+} from 'react';
+import { Controller, useFormContext } from 'react-hook-form';
+
 import { Direction } from '@components/Direction';
 import FormGroup from '@components/FormGroup';
 import { Input } from '@components/Input';
-import { Select } from '@components/Select';
-import { Controller, useFormContext } from 'react-hook-form';
+import { AsyncSelect, OptionType, Select } from '@components/Select';
+
+import { IBGEService } from '@services/ibge';
+
+import { factoryOptionReactSelect } from '@utils/factoryOptionReactSelect';
+
+import { UFListAsOptionSelect } from '@mocks/ReactSelectOptions/BrazilStatesInUF';
+import { lawsuitCategories } from '@mocks/ReactSelectOptions/LawsuitCategories';
+
+import { lawsuitActionPhase } from '@mocks/ReactSelectOptions/LawsuitActionPhase';
+import { lawsuitKind } from '@mocks/ReactSelectOptions/LawsuitKind';
+import { courtsOptions } from '@mocks/ReactSelectOptions/CourtsOptions';
 import { Fieldset } from '../components/Fieldset';
 
 export default function ProcessInfoForm() {
-  const { control } = useFormContext();
+  const { control, watch } = useFormContext();
+  const [citiesOptions, setCitiesOptions] = useState([{ label: 'Selecione o Estado', value: '' }]);
+  const uf = watch('uf', null);
+
+  const loadCitiesOptions = useCallback(() => {
+    (async () => {
+      if (uf?.value) {
+        const { data: cities } = await IBGEService.munipilitiesByUF(uf.value);
+        const options = cities.map((_: any, index: any, array: any) => {
+          const asPath = `${index}.nome`;
+          return factoryOptionReactSelect(asPath, asPath, array);
+        });
+
+        setCitiesOptions(options);
+      }
+    })();
+  }, [uf]);
+
+  useEffect(() => {
+    loadCitiesOptions();
+  }, [loadCitiesOptions]);
+
   return (
     <Fieldset>
       <legend>1. Dados do processo</legend>
@@ -36,7 +72,7 @@ export default function ProcessInfoForm() {
               }}
             >
               <Select
-                options={[{ label: 'SP', value: 'SP' }]}
+                options={UFListAsOptionSelect}
                 placeholder="UF"
                 id="uf"
                 instanceId="uf"
@@ -61,13 +97,16 @@ export default function ProcessInfoForm() {
                 title: 'Cidade',
               }}
             >
-              <Select
-                options={[{ label: 'Americana', value: 'Americana' }]}
+              <AsyncSelect
+                {...field}
                 placeholder="Cidade"
                 id="city"
                 instanceId="city"
                 className="selects"
-                {...field}
+                cacheOptions
+                isSearchable={false}
+                defaultOptions={citiesOptions}
+                loadOptions={loadCitiesOptions}
               />
             </FormGroup>
           )}
@@ -88,7 +127,10 @@ export default function ProcessInfoForm() {
               }}
             >
               <Select
-                options={[{ label: 'Teste', value: 'Teste' }]}
+                options={uf?.value
+                  // @ts-ignore
+                  ? (courtsOptions[uf.value as any] as OptionType[])
+                  : [{ label: 'Selecione o Estado', value: '' }]}
                 placeholder="Tribunal"
                 id="tribunal"
                 instanceId="tribunal"
@@ -114,7 +156,7 @@ export default function ProcessInfoForm() {
               }}
             >
               <Select
-                options={[{ label: 'Ação', value: 'Ação' }]}
+                options={lawsuitKind}
                 placeholder="Espécie"
                 id="kind"
                 instanceId="kind"
@@ -140,7 +182,7 @@ export default function ProcessInfoForm() {
               }}
             >
               <Select
-                options={[{ label: 'Americana', value: 'Americana' }]}
+                options={lawsuitCategories}
                 placeholder="Gênero do Processo"
                 id="processGender"
                 instanceId="processGender"
@@ -166,7 +208,7 @@ export default function ProcessInfoForm() {
               }}
             >
               <Select
-                options={[{ label: 'Americana', value: 'Americana' }]}
+                options={lawsuitActionPhase}
                 placeholder="Fase de ação"
                 id="actionPhase"
                 instanceId="actionPhase"
