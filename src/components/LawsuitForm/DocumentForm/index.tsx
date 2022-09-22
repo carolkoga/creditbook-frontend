@@ -10,7 +10,7 @@ import ModalUploadDocuments from './components/ModalUploadDocuments';
 
 export default function DocumentForm() {
   const {
-    control, register, setValue,
+    control, register, setValue, formState: { errors },
   } = useFormContext();
   const [lawsuitType, setLawsuitType] = useState<'digital' | 'physical'>('digital');
   const [uploadDocumentsModalIsVisible, setUploadDocumentsModalIsVisible] = useState(false);
@@ -82,6 +82,7 @@ export default function DocumentForm() {
           <Direction>
             <FormGroup
               direction="horizontal"
+              error={errors?.digitalProcess?.message}
               label={{
                 forId: 'digital-process',
                 title: 'Processo Digital',
