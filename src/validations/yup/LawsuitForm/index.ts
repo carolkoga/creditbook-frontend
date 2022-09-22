@@ -1,3 +1,4 @@
+import '../methods/string/index';
 import { MixedSchema } from 'yup/lib/mixed';
 import { validateUF } from 'validations-br';
 import * as yup from 'yup';
@@ -40,8 +41,8 @@ export const newLawsuitSchemaValidation = yup.object().shape({
 
   mainActorCorporationNameOrName: yup.string().required('Campo obrigatório'),
   mainActorCpfOrCnpj: yup.string()
-    .cpfOrcnpj()
-    .required('Campo obrigatório'),
+    .required('Campo obrigatório')
+    .cpfOrcnpj(),
 
   secondaryActorCorporationNameOrName: yup.string().nullable().notRequired(),
   secondaryActorCpfOrCnpj: yup.string()
@@ -54,8 +55,8 @@ export const newLawsuitSchemaValidation = yup.object().shape({
 
   mainDefendantCorporationNameOrName: yup.string().required('Campo obrigatório'),
   mainDefendantCpjOrCnpj: yup.string()
-    .cpfOrcnpj()
-    .required('Campo obrigatório'),
+    .required('Campo obrigatório')
+    .cpfOrcnpj(),
 
   secondaryDefendantCorporationNameOrName: yup.string().nullable().notRequired(),
   secondaryDefendantCpjOrCnpj: yup.string()
