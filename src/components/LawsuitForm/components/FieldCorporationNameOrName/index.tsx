@@ -1,12 +1,14 @@
 import FormGroup from '@components/FormGroup';
 import { forwardRef, InputHTMLAttributes } from 'react';
 import { Input } from '@components/Input';
+import { CommonFieldTypes } from '../types';
 
-interface IProps extends InputHTMLAttributes<HTMLInputElement> { }
+interface IProps extends CommonFieldTypes, InputHTMLAttributes<HTMLInputElement>{ }
 
-const FieldCorporationNameOrName = forwardRef(({ ...registerField }: IProps, ref) => (
+const FieldCorporationNameOrName = forwardRef(({ error, ...registerField }: IProps, ref) => (
   <FormGroup
     direction="horizontal"
+    error={error}
     label={{
       forId: registerField.name as string,
       title: 'Razão social /Nome:',
