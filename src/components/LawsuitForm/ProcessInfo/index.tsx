@@ -14,21 +14,30 @@ import { factoryOptionReactSelect } from '@utils/factoryOptionReactSelect';
 
 import { UFListAsOptionSelect } from '@mocks/ReactSelectOptions/BrazilStatesInUF';
 import { lawsuitCategories } from '@mocks/ReactSelectOptions/LawsuitCategories';
-
 import { lawsuitActionPhase } from '@mocks/ReactSelectOptions/LawsuitActionPhase';
 import { lawsuitKind } from '@mocks/ReactSelectOptions/LawsuitKind';
 import { courtsOptions } from '@mocks/ReactSelectOptions/CourtsOptions';
+
+import { LawsuitParams } from '@type/creditbook/Lawsuits';
+import { UFList } from '@type/brazil/BrazilStatesInUFTypes';
+
 import { Fieldset } from '../components/Fieldset';
 
+type FormContextType = Pick<
+  LawsuitParams, 'uf' | 'city' | 'kind' | 'processNumber' | 'processGender' | 'tribunal' | 'actionPhase'>;
+
 export default function ProcessInfoForm() {
-  const { control, watch, register } = useFormContext();
-  const [citiesOptions, setCitiesOptions] = useState([{ label: 'Selecione o Estado', value: '' }]);
-  const uf = watch('uf', null);
+  const {
+    control, watch, register, formState: { errors },
+  } = useFormContext<FormContextType>();
+  const [citiesOptions, setCitiesOptions] = useState([{ label: 'Selecione um estado', value: '' }]);
+  const uf = watch('uf') as any;
 
   const loadCitiesOptions = useCallback(() => {
     (async () => {
-      if (uf?.value) {
-        const { data: cities } = await IBGEService.munipilitiesByUF(uf.value);
+      if (uf) {
+        const selectUF = uf.value;
+        const { data: cities } = await IBGEService.munipilitiesByUF(selectUF as keyof UFList);
         const options = cities.map((_: any, index: any, array: any) => {
           const asPath = `${index}.nome`;
           return factoryOptionReactSelect(asPath, asPath, array);
@@ -49,6 +58,7 @@ export default function ProcessInfoForm() {
       <Direction>
         <FormGroup
           direction="horizontal"
+          error={errors?.processNumber?.message}
           label={{
             forId: 'process-number',
             title: 'Número do processo',
@@ -61,11 +71,11 @@ export default function ProcessInfoForm() {
       <Direction className="wrapper--selects">
         <Controller
           name="uf"
-          defaultValue=""
           control={control}
           render={({ field }) => (
             <FormGroup
               direction="horizontal"
+              error={errors?.uf?.message}
               label={{
                 forId: 'uf',
                 title: 'Estado',
@@ -87,11 +97,11 @@ export default function ProcessInfoForm() {
       <Direction className="wrapper--selects">
         <Controller
           name="city"
-          defaultValue=""
           control={control}
           render={({ field }) => (
             <FormGroup
               direction="horizontal"
+              error={errors?.city?.message}
               label={{
                 forId: 'city',
                 title: 'Cidade',
@@ -116,21 +126,21 @@ export default function ProcessInfoForm() {
       <Direction className="wrapper--selects">
         <Controller
           name="tribunal"
-          defaultValue=""
           control={control}
           render={({ field }) => (
             <FormGroup
               direction="horizontal"
+              error={errors?.tribunal?.message}
               label={{
                 forId: 'tribunal',
                 title: 'Tribunal',
               }}
             >
               <Select
-                options={uf?.value
+                options={uf
                   // @ts-ignore
                   ? (courtsOptions[uf.value as any] as OptionType[])
-                  : [{ label: 'Selecione o Estado', value: '' }]}
+                  : [{ label: 'Selecione um estado', value: '' }]}
                 placeholder="Tribunal"
                 id="tribunal"
                 instanceId="tribunal"
@@ -145,11 +155,11 @@ export default function ProcessInfoForm() {
       <Direction className="wrapper--selects">
         <Controller
           name="kind"
-          defaultValue=""
           control={control}
           render={({ field }) => (
             <FormGroup
               direction="horizontal"
+              error={errors?.kind?.message}
               label={{
                 forId: 'kind',
                 title: 'Espécie',
@@ -171,11 +181,11 @@ export default function ProcessInfoForm() {
       <Direction className="wrapper--selects">
         <Controller
           name="processGender"
-          defaultValue=""
           control={control}
           render={({ field }) => (
             <FormGroup
               direction="horizontal"
+              error={errors?.processGender?.message}
               label={{
                 forId: 'processGender',
                 title: 'Gênero do Processo',
@@ -197,11 +207,11 @@ export default function ProcessInfoForm() {
       <Direction className="wrapper--selects">
         <Controller
           name="actionPhase"
-          defaultValue=""
           control={control}
           render={({ field }) => (
             <FormGroup
               direction="horizontal"
+              error={errors?.actionPhase?.message}
               label={{
                 forId: 'actionPhase',
                 title: 'Fase de ação',

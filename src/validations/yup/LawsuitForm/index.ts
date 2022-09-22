@@ -19,13 +19,11 @@ export const newLawsuitSchemaValidation = yup.object().shape({
 
   city: yup.mixed()
     .transform((val: any) => val.value)
-    .required('Campo obrigatório')
-    .oneOf([yup.ref('uf')], 'Escolha um estado'),
+    .required('Campo obrigatório'),
 
   tribunal: yup.mixed()
     .transform((val: any) => val.value)
-    .required('Campo obrigatório')
-    .oneOf([yup.ref('uf')], 'Escolha um estado'),
+    .required('Campo obrigatório'),
 
   processGender: yup.mixed()
     .transform((val: any) => val.value)
