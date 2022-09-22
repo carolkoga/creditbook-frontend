@@ -9,11 +9,14 @@ import { LawsuitCheckType } from './components/LawsuitCheckType';
 import ModalUploadDocuments from './components/ModalUploadDocuments';
 
 export default function DocumentForm() {
-  const { control, register } = useFormContext();
+  const {
+    control, register, setValue,
+  } = useFormContext();
   const [lawsuitType, setLawsuitType] = useState<'digital' | 'physical'>('digital');
   const [uploadDocumentsModalIsVisible, setUploadDocumentsModalIsVisible] = useState(false);
 
   function handleChangeLawsuitType(value: 'digital' | 'physical') {
+    setValue('type', value);
     setLawsuitType(() => value);
   }
 
@@ -32,8 +35,7 @@ export default function DocumentForm() {
         <Direction direction="horizontal" gap="6px">
           <Controller
             control={control}
-            name="lawsuitType"
-            defaultValue=""
+            name="type"
             render={({ field }) => (
               <LawsuitCheckType
                 htmlFor="lawsuitTypeDigital"
@@ -42,7 +44,9 @@ export default function DocumentForm() {
                 <input
                   type="radio"
                   id="lawsuitTypeDigital"
-                  {...field}
+                  ref={field.ref}
+                  name={field.name}
+                  onBlur={field.onBlur}
                   value="digital"
                   onChange={() => handleChangeLawsuitType('digital')}
                 />
@@ -53,8 +57,7 @@ export default function DocumentForm() {
 
           <Controller
             control={control}
-            name="lawsuitType"
-            defaultValue=""
+            name="type"
             render={({ field }) => (
               <LawsuitCheckType
                 htmlFor="lawsuitTypePhysical"
@@ -63,7 +66,9 @@ export default function DocumentForm() {
                 <input
                   type="radio"
                   id="lawsuitTypePhysical"
-                  {...field}
+                  ref={field.ref}
+                  name={field.name}
+                  onBlur={field.onBlur}
                   value="physical"
                   onChange={() => handleChangeLawsuitType('physical')}
                 />

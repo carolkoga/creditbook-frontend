@@ -21,7 +21,7 @@ import { courtsOptions } from '@mocks/ReactSelectOptions/CourtsOptions';
 import { Fieldset } from '../components/Fieldset';
 
 export default function ProcessInfoForm() {
-  const { control, watch } = useFormContext();
+  const { control, watch, register } = useFormContext();
   const [citiesOptions, setCitiesOptions] = useState([{ label: 'Selecione o Estado', value: '' }]);
   const uf = watch('uf', null);
 
@@ -54,7 +54,7 @@ export default function ProcessInfoForm() {
             title: 'Número do processo',
           }}
         >
-          <Input id="process-number" />
+          <Input id="process-number" {...register('processNumber')} />
         </FormGroup>
       </Direction>
 
