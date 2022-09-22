@@ -1,3 +1,8 @@
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useForm, FormProvider } from 'react-hook-form';
+
+import { newLawsuitSchemaValidation } from '@validations/yup/LawsuitForm';
+
 import { Button } from '@components/Button';
 import AuthorForm from '@components/LawsuitForm/Author/Form';
 import { FormLayout } from '@components/LawsuitForm/components/FormLayout';
@@ -6,10 +11,20 @@ import DocumentForm from '@components/LawsuitForm/DocumentForm';
 import ProcessInfoForm from '@components/LawsuitForm/ProcessInfo';
 
 import { Section } from '@components/Section';
-import { useForm, FormProvider } from 'react-hook-form';
 
 export default function NewLawsuit() {
-  const methods = useForm();
+  const methods = useForm({
+    resolver: yupResolver(newLawsuitSchemaValidation),
+    mode: 'all',
+    reValidateMode: 'onBlur',
+    defaultValues: {
+      type: 'digital',
+    },
+  });
+
+  function handleSubmitNewLawsuit(data: any) {
+    console.log(data);
+  }
   return (
     <>
       <Section.Header>
@@ -18,7 +33,10 @@ export default function NewLawsuit() {
 
       <Section.Container>
         <FormProvider {...methods}>
-          <FormLayout>
+          <FormLayout
+            noValidate
+            onSubmit={methods.handleSubmit(handleSubmitNewLawsuit)}
+          >
             <ProcessInfoForm />
             <AuthorForm />
             <DefendantForm />
