@@ -6,12 +6,16 @@ import { ContainerInputFile, Filename, Wrapper } from './styled';
 interface IProps extends InputHTMLAttributes<HTMLInputElement> {
   file: File | undefined,
   label: string,
+  error?: any,
 }
 
-const FieldFile = forwardRef(({ file, label, ...registerField }: IProps, ref) => (
+const FieldFile = forwardRef(({
+  file, label, error, ...registerField
+}: IProps, ref) => (
   <Wrapper>
     <FormGroup
       direction="horizontal"
+      error={error}
       label={{
         forId: registerField.name as string,
         title: label,
@@ -44,3 +48,7 @@ const FieldFile = forwardRef(({ file, label, ...registerField }: IProps, ref) =>
 ));
 
 export default FieldFile;
+
+FieldFile.defaultProps = {
+  error: null,
+};
