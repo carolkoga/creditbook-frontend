@@ -11,9 +11,10 @@ import DocumentForm from '@components/LawsuitForm/DocumentForm';
 import ProcessInfoForm from '@components/LawsuitForm/ProcessInfo';
 
 import { Section } from '@components/Section';
+import { LawsuitParams } from '@type/creditbook/Lawsuits';
 
 export default function NewLawsuit() {
-  const methods = useForm({
+  const methods = useForm<Omit<LawsuitParams, 'batchId'>>({
     resolver: yupResolver(newLawsuitSchemaValidation),
     mode: 'all',
     reValidateMode: 'onBlur',
