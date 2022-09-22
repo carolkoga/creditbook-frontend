@@ -19,7 +19,7 @@ export interface LawsuitParams {
   actionPhase: AnnouncementActionPhase;
   kind: AnnouncementKind;
 
-  type: AnnouncementTypes;
+  type: AnnouncementTypes | string;
 
   digitalProcess?: string;
 

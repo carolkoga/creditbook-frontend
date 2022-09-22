@@ -1,6 +1,6 @@
 export enum AnnouncementTypes {
-  'physical',
-  digital,
+  'physical' = 'physical',
+  'digital' = 'digital',
 }
 export enum AnnouncementGender {
   civel,
