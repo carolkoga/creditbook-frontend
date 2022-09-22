@@ -2,15 +2,17 @@ import { Button } from '@components/Button';
 import { Direction } from '@components/Direction';
 import FormGroup from '@components/FormGroup';
 import { Input } from '@components/Input';
+import { commonToastProps } from '@configs/toast';
 import { useState } from 'react';
 import { useFormContext, Controller } from 'react-hook-form';
+import { toast } from 'react-toastify';
 import { Fieldset } from '../components/Fieldset';
 import { LawsuitCheckType } from './components/LawsuitCheckType';
 import ModalUploadDocuments from './components/ModalUploadDocuments';
 
 export default function DocumentForm() {
   const {
-    control, register, setValue, formState: { errors },
+    control, register, setValue, formState: { errors }, trigger,
   } = useFormContext();
   const [lawsuitType, setLawsuitType] = useState<'digital' | 'physical'>('digital');
   const [uploadDocumentsModalIsVisible, setUploadDocumentsModalIsVisible] = useState(false);
@@ -20,7 +22,12 @@ export default function DocumentForm() {
     setLawsuitType(() => value);
   }
 
-  function handleCloseUploadDocumentsModal() {
+  async function handleCloseUploadDocumentsModal() {
+    const isValidInicialPetition = await trigger('inicialPetition');
+    if (!isValidInicialPetition) {
+      toast.warning('O arquivo de Petição Inicial é obrigatório', commonToastProps);
+    }
+
     setUploadDocumentsModalIsVisible(false);
   }
 
