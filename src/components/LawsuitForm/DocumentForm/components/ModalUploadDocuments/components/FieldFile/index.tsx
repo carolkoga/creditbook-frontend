@@ -1,4 +1,5 @@
 import FormGroup from '@components/FormGroup';
+import useLawsuitForm from '@components/LawsuitForm/hooks/useLawsuitForm';
 import { UploadSimple } from 'phosphor-react';
 import { forwardRef, InputHTMLAttributes } from 'react';
 import { ContainerInputFile, Filename, Wrapper } from './styled';
@@ -11,29 +12,32 @@ interface IProps extends InputHTMLAttributes<HTMLInputElement> {
 
 const FieldFile = forwardRef(({
   file, label, error, ...registerField
-}: IProps, ref) => (
-  <Wrapper>
-    <FormGroup
-      direction="horizontal"
-      error={error}
-      label={{
-        forId: registerField.name as string,
-        title: label,
-      }}
-    >
-      <>
-        <ContainerInputFile htmlFor={registerField.name}>
-          <input
-            {...registerField}
-            ref={ref as never}
-            type="file"
-            accept="application/pdf"
-            id={registerField.name}
-            multiple={false}
-          />
-          <UploadSimple size={30} weight="bold" />
-        </ContainerInputFile>
-        {file?.name && (
+}: IProps, ref) => {
+  const { formGroupDirection } = useLawsuitForm();
+
+  return (
+    <Wrapper>
+      <FormGroup
+        direction={formGroupDirection}
+        error={error}
+        label={{
+          forId: registerField.name as string,
+          title: label,
+        }}
+      >
+        <>
+          <ContainerInputFile htmlFor={registerField.name}>
+            <input
+              {...registerField}
+              ref={ref as never}
+              type="file"
+              accept="application/pdf"
+              id={registerField.name}
+              multiple={false}
+            />
+            <UploadSimple size={30} weight="bold" />
+          </ContainerInputFile>
+          {file?.name && (
           <Filename>
             <span>
               Arquivo escolhido:
@@ -41,11 +45,12 @@ const FieldFile = forwardRef(({
             </span>
             {file.name.toLowerCase() }
           </Filename>
-        )}
-      </>
-    </FormGroup>
-  </Wrapper>
-));
+          )}
+        </>
+      </FormGroup>
+    </Wrapper>
+  );
+});
 
 export default FieldFile;
 

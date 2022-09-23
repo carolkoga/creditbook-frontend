@@ -15,26 +15,37 @@ export const FormLayout = styled.form`
       align-items: center;
       flex-wrap: wrap;
       gap: 12px;
-      > div {
-        &.wrapper--selects {
-          width: 48%;
-          text-align: left;
-          label {
-            line-height: 13px;
-          }
 
-          &:nth-child(7), &:nth-child(8) {
+      .wrapper--selects {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        > div {
+          width: 45%;
+          &:nth-child(5), &:nth-child(6) {
             width: 100%;
             label {
               width: 35%;
+              @media (max-width: 460px) {
+                width: 100%;
+              }
             }
+          }
+          .selects {
+            width: 100%;
+
+          }
+        }
+
+        @media (max-width: 1100px) {
+          flex-direction: column;
+
+          > div {
+            width: 100%;
           }
         }
       }
       grid-area: lawsuitInfo;
-      .selects {
-        width: 100%;
-      }
     }
 
     &:nth-child(2) {
@@ -54,4 +65,40 @@ export const FormLayout = styled.form`
     right: 0;
     bottom: -180px;
   }
+
+  @media (max-width: 975px) {
+    > fieldset {
+      &:nth-child(1) {
+        > div {
+          &.wrapper--selects {
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+
+  @media (max-width: 671px) {
+    display: flex;
+    flex-direction: column;
+
+    > button {
+      position: static;
+    }
+  }
+
+
+  @media (max-width: 460px) {
+    > fieldset {
+      &:nth-child(1) {
+        row-gap: none;
+        > div {
+          &.wrapper--selects {
+            row-gap: none;
+          }
+        }
+      }
+    }
+  }
+
 `;

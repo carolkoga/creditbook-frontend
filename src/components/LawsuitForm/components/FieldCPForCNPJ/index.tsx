@@ -2,6 +2,7 @@ import { Controller, useFormContext } from 'react-hook-form';
 
 import FormGroup from '@components/FormGroup';
 import { InputCPForCNPJ } from '@components/Form/Input/Mask/InputCPForCNPJ';
+import useLawsuitForm from '@components/LawsuitForm/hooks/useLawsuitForm';
 import { CommonFieldTypes } from '../types';
 
 interface IProps extends CommonFieldTypes {
@@ -10,6 +11,7 @@ interface IProps extends CommonFieldTypes {
 
 export default function FieldCPForCNPJ({ name, error }: IProps) {
   const { control } = useFormContext<any>();
+  const { formGroupDirection } = useLawsuitForm();
   return (
     <Controller
       control={control}
@@ -17,7 +19,7 @@ export default function FieldCPForCNPJ({ name, error }: IProps) {
       defaultValue=""
       render={({ field }) => (
         <FormGroup
-          direction="horizontal"
+          direction={formGroupDirection}
           error={error}
           label={{
             forId: name,

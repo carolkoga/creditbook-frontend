@@ -22,6 +22,7 @@ import { LawsuitParams } from '@type/creditbook/Lawsuits';
 import { UFList } from '@type/brazil/BrazilStatesInUFTypes';
 
 import { Fieldset } from '../components/Fieldset';
+import useLawsuitForm from '../hooks/useLawsuitForm';
 
 type FormContextType = Pick<
   LawsuitParams, 'uf' | 'city' | 'kind' | 'processNumber' | 'processGender' | 'tribunal' | 'actionPhase'>;
@@ -31,6 +32,7 @@ export default function ProcessInfoForm() {
     control, watch, register, formState: { errors },
   } = useFormContext<FormContextType>();
   const [citiesOptions, setCitiesOptions] = useState([{ label: 'Selecione um estado', value: '' }]);
+  const { formGroupDirection } = useLawsuitForm();
   const uf = watch('uf') as any;
 
   const loadCitiesOptions = useCallback(() => {
@@ -57,7 +59,7 @@ export default function ProcessInfoForm() {
       <legend>1. Dados do processo</legend>
       <Direction>
         <FormGroup
-          direction="horizontal"
+          direction={formGroupDirection}
           error={errors?.processNumber?.message}
           label={{
             forId: 'process-number',
@@ -74,7 +76,7 @@ export default function ProcessInfoForm() {
           control={control}
           render={({ field }) => (
             <FormGroup
-              direction="horizontal"
+              direction={formGroupDirection}
               error={errors?.uf?.message}
               label={{
                 forId: 'uf',
@@ -92,15 +94,13 @@ export default function ProcessInfoForm() {
             </FormGroup>
           )}
         />
-      </Direction>
 
-      <Direction className="wrapper--selects">
         <Controller
           name="city"
           control={control}
           render={({ field }) => (
             <FormGroup
-              direction="horizontal"
+              direction={formGroupDirection}
               error={errors?.city?.message}
               label={{
                 forId: 'city',
@@ -121,15 +121,13 @@ export default function ProcessInfoForm() {
             </FormGroup>
           )}
         />
-      </Direction>
 
-      <Direction className="wrapper--selects">
         <Controller
           name="tribunal"
           control={control}
           render={({ field }) => (
             <FormGroup
-              direction="horizontal"
+              direction={formGroupDirection}
               error={errors?.tribunal?.message}
               label={{
                 forId: 'tribunal',
@@ -150,15 +148,13 @@ export default function ProcessInfoForm() {
             </FormGroup>
           )}
         />
-      </Direction>
 
-      <Direction className="wrapper--selects">
         <Controller
           name="kind"
           control={control}
           render={({ field }) => (
             <FormGroup
-              direction="horizontal"
+              direction={formGroupDirection}
               error={errors?.kind?.message}
               label={{
                 forId: 'kind',
@@ -176,15 +172,13 @@ export default function ProcessInfoForm() {
             </FormGroup>
           )}
         />
-      </Direction>
 
-      <Direction className="wrapper--selects">
         <Controller
           name="processGender"
           control={control}
           render={({ field }) => (
             <FormGroup
-              direction="horizontal"
+              direction={formGroupDirection}
               error={errors?.processGender?.message}
               label={{
                 forId: 'processGender',
@@ -202,15 +196,13 @@ export default function ProcessInfoForm() {
             </FormGroup>
           )}
         />
-      </Direction>
 
-      <Direction className="wrapper--selects">
         <Controller
           name="actionPhase"
           control={control}
           render={({ field }) => (
             <FormGroup
-              direction="horizontal"
+              direction={formGroupDirection}
               error={errors?.actionPhase?.message}
               label={{
                 forId: 'actionPhase',
@@ -229,7 +221,6 @@ export default function ProcessInfoForm() {
           )}
         />
       </Direction>
-
     </Fieldset>
   );
 }
