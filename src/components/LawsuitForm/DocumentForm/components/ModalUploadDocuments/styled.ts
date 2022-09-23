@@ -38,4 +38,26 @@ export const ContentWrapper = styled.div`
       flex-wrap: wrap;
     }
   }
+
+  @media (max-width: 780px) {
+    width: 70%;
+  }
+
+  @media (max-width: 458px) {
+    padding: 24px;
+    width: 80%;
+
+    div:first-child {
+      strong {
+        text-align: left;
+        line-height: 24px;
+        margin-bottom: 18px;
+      }
+    }
+  }
+
+  @media (max-width: 340px) {
+    width: 98%;
+
+  }
 `;
