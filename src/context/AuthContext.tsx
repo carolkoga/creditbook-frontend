@@ -4,15 +4,12 @@ import {
 } from 'react';
 import { toast, ToastOptions } from 'react-toastify';
 import { setCookie, parseCookies, destroyCookie } from 'nookies';
-import { AxiosError } from 'axios';
 
 import { AuthContextType, AuthenticatedUserData } from '@type/creditbook/auth/authenticatedUser';
 import { authCreditBookService } from '@services/creditbook/auth';
 import { LoginParams } from '@type/creditbook/auth/login';
 import { creditbookApi } from '@api/creditbookApi';
 import { commonToastProps } from '@configs/toast';
-import { userCreditbookService } from '@services/creditbook/user';
-import { handleCatchErrorRequest } from '@utils/handleCatchErrorRequest';
 
 interface IProps {
   children: ReactNode,
@@ -63,6 +60,11 @@ export function AuthProvider({ children }: IProps) {
         maxAge: 60 * 60 * 24 * 30, // 30 days
         path: '/',
       });
+
+      setCookie(undefined, 'nextauth.user', JSON.stringify({ ...userSignIn, password: undefined }), {
+        maxAge: 60 * 60 * 24 * 30, // 30 days
+        path: '/',
+      });
     } catch (error) {
       // eslint-disable-next-line no-console
       console.debug('...');
@@ -73,22 +75,16 @@ export function AuthProvider({ children }: IProps) {
     setUser((oldState) => Object.assign(data, oldState));
   }
 
-  async function getUserInformation(token: string) {
-    try {
-      const { data } = await userCreditbookService.getUserInformation({ token });
-
-      setUser(data);
-    } catch (error) {
-      handleCatchErrorRequest(error as AxiosError, customToastProps);
-    }
+  async function getUserInformation() {
+    const { 'nextauth.user': userDataSaved } = parseCookies();
+    setUser(JSON.parse(userDataSaved));
   }
 
   useEffect(() => {
     if (Router.pathname === '/login' || Router.pathname.startsWith('/in/')) {
       const { 'nextauth.token': nextAuthToken } = parseCookies();
-
       if (nextAuthToken) {
-        getUserInformation(nextAuthToken);
+        getUserInformation();
         setAuthorizationHeader(nextAuthToken);
       }
     } else {

@@ -11,7 +11,7 @@ type CorporationAccountMainInformation = Omit<AccountCorporation, 'profilePictur
 
 type UnionAccountType = PersonAccountMainInformation | CorporationAccountMainInformation;
 
-export type AuthenticatedUserData = UnionAccountType & {
+export type AuthenticatedUserData = Omit<UnionAccountType, 'password'> & {
   id: string,
   profilePictureKey: string,
   profilePictureUrl: string,
