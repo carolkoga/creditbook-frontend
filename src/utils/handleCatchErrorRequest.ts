@@ -3,7 +3,8 @@ import { toast, ToastOptions } from 'react-toastify';
 import { commonToastProps } from '@configs/toast';
 
 export function handleCatchErrorRequest(error: AxiosError, customToast?: ToastOptions | null) {
-  if (error?.response?.status === 0) {
+  console.log({ error });
+  if (error?.response?.status === 0 || error?.response?.status === 500) {
     toast.error('Aconteceu algum erro no nosso servidor, aguarde um momento até resolvermos!', customToast ?? commonToastProps);
   }
 
