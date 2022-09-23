@@ -8,6 +8,7 @@ import SelectAdsFilters from '@components/SelectAdsFilters';
 import { Direction } from '@components/Direction';
 
 import { Link } from '@components/Button';
+import LawsuitNewCard from '@components/LawsuitCard/newCard';
 
 export default function Home() {
   return (
@@ -20,6 +21,10 @@ export default function Home() {
           </Link>
         </Direction>
         <LawsuitCardSwiper access="admin" lawsuits={lawsuitsMock} />
+      </Section.Container>
+
+      <Section.Container>
+        <LawsuitNewCard />
       </Section.Container>
 
       <Section.Container>
