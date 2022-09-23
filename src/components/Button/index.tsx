@@ -20,7 +20,7 @@ export function Button({
       {...restAttributes}
       size={size}
       variant={variant}
-      disabled={isLoading}
+      disabled={restAttributes.disabled || isLoading}
     >
       {children}
       <TailSpin
