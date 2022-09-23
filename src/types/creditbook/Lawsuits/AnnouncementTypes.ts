@@ -2,11 +2,11 @@ export enum AnnouncementTypes {
   'physical' = 'physical',
   'digital' = 'digital',
 }
-export enum AnnouncementGender {
-  civel,
-  trabalhista,
-  fiscal,
-  precatorio
+export interface AnnouncementGender {
+  civel: 'civel',
+  trabalhista: 'trabalhista',
+  fiscal: 'fiscal',
+  precatorio: 'precatorio',
 }
 export enum AnnouncementKind {
   acaoIndenizatoria,
