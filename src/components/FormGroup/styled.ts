@@ -11,6 +11,7 @@ export const Container = styled.div<ContainerProps>`
   flex-direction: column;
   flex-wrap: wrap;
   width: 100%;
+  text-align: left;
 
   .content {
     display: flex;
