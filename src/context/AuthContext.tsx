@@ -90,9 +90,12 @@ export function AuthProvider({ children }: IProps) {
       if (nextAuthToken) {
         getUserInformation();
         setAuthorizationHeader(nextAuthToken);
+      } else {
+        setUser(null);
+        destroyCookie(undefined, 'nextauth.token', {
+          path: '/',
+        });
       }
-    } else {
-      handleSignOut();
     }
   }, [Router.pathname]);
 

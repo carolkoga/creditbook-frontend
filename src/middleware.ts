@@ -5,16 +5,12 @@ export const config = {
 };
 
 export function middleware(req: NextRequest) {
-  const isAuthenticated = req.cookies.get('nextauth.token');
-  const isLoginRoute = req.nextUrl.pathname === '/login';
-
-  let path = isAuthenticated ? req.nextUrl.pathname : '/';
-  if (!isAuthenticated && isLoginRoute) {
-    path = '/login';
+  if (req.nextUrl.pathname.startsWith('/in') || req.nextUrl.pathname.startsWith('/login')) {
+    const isAuthenticated = req.cookies.get('nextauth.token');
+    const path = !isAuthenticated ? '/login' : req.nextUrl.pathname;
+    console.log({ path, isAuthenticated });
+    return NextResponse.rewrite(new URL(path, req.url));
   }
 
-  if (isAuthenticated && isLoginRoute) {
-    return NextResponse.redirect(new URL('/in/home', req.url));
-  }
-  return NextResponse.rewrite(new URL(path, req.url));
+  return NextResponse.rewrite(new URL(req.nextUrl.pathname, req.url));
 }
