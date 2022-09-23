@@ -68,7 +68,8 @@ export default function NewLawsuit() {
                 type="submit"
                 isLoading={loading}
               >
-                Cadastrar
+                {!loading && 'Cadastrar'}
+                {loading && 'Cadastrando'}
               </Button>
             </FormLayout>
           </LawsuitFormProvider>

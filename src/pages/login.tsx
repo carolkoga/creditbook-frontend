@@ -68,7 +68,8 @@ export default function Login() {
             disabled={isValid}
             isLoading={loading}
           >
-            Entrar
+            {loading && 'Entrando'}
+            {!loading && 'Entrar'}
           </Button>
         </form>
 
