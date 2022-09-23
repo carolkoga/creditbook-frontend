@@ -77,7 +77,11 @@ export function AuthProvider({ children }: IProps) {
 
   async function getUserInformation() {
     const { 'nextauth.user': userDataSaved } = parseCookies();
-    setUser(JSON.parse(userDataSaved));
+    if (userDataSaved) {
+      setUser(JSON.parse(userDataSaved));
+    } else {
+      handleSignOut();
+    }
   }
 
   useEffect(() => {
@@ -88,7 +92,7 @@ export function AuthProvider({ children }: IProps) {
         setAuthorizationHeader(nextAuthToken);
       }
     } else {
-      setUser(null);
+      handleSignOut();
     }
   }, [Router.pathname]);
 
