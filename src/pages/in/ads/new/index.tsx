@@ -12,8 +12,14 @@ import ProcessInfoForm from '@components/LawsuitForm/ProcessInfo';
 
 import { Section } from '@components/Section';
 import { LawsuitParams } from '@type/creditbook/Lawsuits';
+import { handleCatchErrorRequest } from '@utils/handleCatchErrorRequest';
+import { lawsuitService } from '@services/creditbook/lawsuit';
+import { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
+import { commonToastProps } from '@configs/toast';
 
 export default function NewLawsuit() {
+  const [loading, setLoading] = useState(false);
   const methods = useForm<Omit<LawsuitParams, 'batchId'>>({
     resolver: yupResolver(newLawsuitSchemaValidation),
     mode: 'all',
@@ -23,9 +29,21 @@ export default function NewLawsuit() {
     },
   });
 
-  function handleSubmitNewLawsuit(data: any) {
-    console.log(data);
+  async function handleSubmitNewLawsuit(data: any) {
+    try {
+      setLoading(true);
+      await lawsuitService.createLawsuit(data);
+    } catch (error) {
+      setLoading(false);
+      handleCatchErrorRequest(error as any);
+    }
   }
+
+  useEffect(() => {
+    if (methods.formState.errors?.inicialPetition) {
+      toast.error('Arquivo de PETIÇÃO INICIAL é obrigatório', commonToastProps);
+    }
+  }, [methods.formState.errors]);
   return (
     <>
       <Section.Header>
@@ -45,7 +63,7 @@ export default function NewLawsuit() {
 
             <Button
               type="submit"
-              disabled={!methods.formState.isValid}
+              isLoading={loading}
             >
               Cadastrar
             </Button>
