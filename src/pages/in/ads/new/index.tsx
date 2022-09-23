@@ -1,21 +1,23 @@
-import { yupResolver } from '@hookform/resolvers/yup';
+import { useEffect, useState } from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
-
-import { newLawsuitSchemaValidation } from '@validations/yup/LawsuitForm';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { toast } from 'react-toastify';
 
 import { Button } from '@components/Button';
+import { Section } from '@components/Section';
+
 import AuthorForm from '@components/LawsuitForm/Author/Form';
 import { FormLayout } from '@components/LawsuitForm/components/FormLayout';
 import DefendantForm from '@components/LawsuitForm/Defendant/Form';
 import DocumentForm from '@components/LawsuitForm/DocumentForm';
 import ProcessInfoForm from '@components/LawsuitForm/ProcessInfo';
+import { LawsuitFormProvider } from '@components/LawsuitForm/context/LawsuitFormContext';
 
-import { Section } from '@components/Section';
+import { lawsuitService } from '@services/creditbook/lawsuit';
+import { newLawsuitSchemaValidation } from '@validations/yup/LawsuitForm';
+
 import { LawsuitParams } from '@type/creditbook/Lawsuits';
 import { handleCatchErrorRequest } from '@utils/handleCatchErrorRequest';
-import { lawsuitService } from '@services/creditbook/lawsuit';
-import { useEffect, useState } from 'react';
-import { toast } from 'react-toastify';
 import { commonToastProps } from '@configs/toast';
 
 export default function NewLawsuit() {
@@ -52,22 +54,24 @@ export default function NewLawsuit() {
 
       <Section.Container>
         <FormProvider {...methods}>
-          <FormLayout
-            noValidate
-            onSubmit={methods.handleSubmit(handleSubmitNewLawsuit)}
-          >
-            <ProcessInfoForm />
-            <AuthorForm />
-            <DefendantForm />
-            <DocumentForm />
-
-            <Button
-              type="submit"
-              isLoading={loading}
+          <LawsuitFormProvider>
+            <FormLayout
+              noValidate
+              onSubmit={methods.handleSubmit(handleSubmitNewLawsuit)}
             >
-              Cadastrar
-            </Button>
-          </FormLayout>
+              <ProcessInfoForm />
+              <AuthorForm />
+              <DefendantForm />
+              <DocumentForm />
+
+              <Button
+                type="submit"
+                isLoading={loading}
+              >
+                Cadastrar
+              </Button>
+            </FormLayout>
+          </LawsuitFormProvider>
         </FormProvider>
       </Section.Container>
     </>
