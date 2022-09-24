@@ -15,11 +15,11 @@ export interface LawsuitParams {
   tribunal: string;
   city: string;
   uf: string;
-  processGender: AnnouncementGender;
-  actionPhase: AnnouncementActionPhase;
-  kind: AnnouncementKind;
+  processGender: keyof AnnouncementGender;
+  actionPhase: keyof AnnouncementActionPhase;
+  kind: keyof AnnouncementKind;
 
-  type: AnnouncementTypes | string;
+  type: keyof AnnouncementTypes | string;
 
   digitalProcess?: string;
 
@@ -37,4 +37,9 @@ export interface LawsuitParams {
   resources?: File;
   accordion?: File;
   sentence?: File;
+}
+
+export interface LawsuitParamsID extends LawsuitParams {
+  id: string
+  owner: string,
 }

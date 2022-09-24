@@ -1,14 +1,23 @@
 import { Direction } from '@components/Direction';
+import useAuth from '@hooks/useAuth';
+import { LawsuitParamsID } from '@type/creditbook/Lawsuits';
+import convertToCurrency from '@utils/convertToCurrency';
 import { Heart } from 'phosphor-react';
 import Footer from './components/Footer';
 import { Lawsuit } from './styled';
+import { processCategoryTranslation, actionPhaseTranslation, processKindTranslation } from './utils/translations';
 
-export default function LawsuitNewCard() {
+interface IProps {
+  lawsuit: LawsuitParamsID,
+}
+
+export default function LawsuitNewCard({ lawsuit }: IProps) {
+  const { user } = useAuth();
   return (
     <Lawsuit.Wrapper>
-      <Lawsuit.Header.Container category="civel">
+      <Lawsuit.Header.Container category={lawsuit.processGender}>
         <Lawsuit.Header.Title>
-          Precatório
+          {processCategoryTranslation[lawsuit.processGender]}
         </Lawsuit.Header.Title>
 
         <Direction direction="horizontal" gap="8px" alignItems="center">
@@ -23,18 +32,22 @@ export default function LawsuitNewCard() {
         <Lawsuit.Content>
           <Lawsuit.Info.Container>
             <Lawsuit.Info.KeyInformation>
-              Americana - SP
+              {lawsuit.city} - {lawsuit.uf.toUpperCase()}
             </Lawsuit.Info.KeyInformation>
           </Lawsuit.Info.Container>
 
           <Lawsuit.Info.Container>
             <Lawsuit.Info.KeyInformation>Espécie:</Lawsuit.Info.KeyInformation>
-            <Lawsuit.Info.ValueInformation>Título Judicial</Lawsuit.Info.ValueInformation>
+            <Lawsuit.Info.ValueInformation>
+              {processKindTranslation[lawsuit.kind]}
+            </Lawsuit.Info.ValueInformation>
           </Lawsuit.Info.Container>
 
           <Lawsuit.Info.Container>
             <Lawsuit.Info.KeyInformation>Fase do Processo:</Lawsuit.Info.KeyInformation>
-            <Lawsuit.Info.ValueInformation>Incidente em execução</Lawsuit.Info.ValueInformation>
+            <Lawsuit.Info.ValueInformation>
+              {actionPhaseTranslation[lawsuit.actionPhase]}
+            </Lawsuit.Info.ValueInformation>
           </Lawsuit.Info.Container>
 
           <Lawsuit.Info.Container>
@@ -44,7 +57,9 @@ export default function LawsuitNewCard() {
 
           <Lawsuit.Info.Container>
             <Lawsuit.Info.KeyInformation>Valor do Processo:</Lawsuit.Info.KeyInformation>
-            <Lawsuit.Info.ValueInformation>R$ 123,00</Lawsuit.Info.ValueInformation>
+            <Lawsuit.Info.ValueInformation>
+              {convertToCurrency(1253564)}
+            </Lawsuit.Info.ValueInformation>
           </Lawsuit.Info.Container>
 
           <Lawsuit.Info.Container>
@@ -52,12 +67,16 @@ export default function LawsuitNewCard() {
               Valor de liquidação:
             </Lawsuit.Info.KeyInformation>
             <Lawsuit.Info.ValueInformation bold>
-              R$ 123,00
+              {convertToCurrency(125321564)}
             </Lawsuit.Info.ValueInformation>
           </Lawsuit.Info.Container>
         </Lawsuit.Content>
 
-        <Footer batchId="" mine />
+        <Footer
+          batchId={lawsuit.batchId}
+          lawsuitId={lawsuit.id}
+          mine={lawsuit.owner?.toLowerCase() === user?.fullName.toLowerCase()}
+        />
       </Lawsuit.WrapperContent>
     </Lawsuit.Wrapper>
   );

@@ -7,8 +7,7 @@ export const DropdownButton = styled(Trigger)`
   border: none;
   border-radius: 5px;
   color: ${({ theme }) => theme.colors.grey[80]};
-  width: 80px;
-  padding: 3px 30px;
+  padding: 4px 14px;
   font-size: 13px;
   background: ${({ theme }) => theme.colors.grey[30]};
   transition: all .35s ease-in;

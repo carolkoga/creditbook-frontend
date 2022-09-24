@@ -6,6 +6,7 @@ export const Actions = styled.footer`
   align-items: flex-start;
   justify-content: flex-start;
   gap: 8px;
+  width: 100%;
 
   small {
     font-size: 10px;
@@ -23,7 +24,6 @@ export const Content = styled.div`
   flex-wrap: wrap;
   gap: 6px;
   width: 100%;
-
   button, a {
     flex: 1;
   }

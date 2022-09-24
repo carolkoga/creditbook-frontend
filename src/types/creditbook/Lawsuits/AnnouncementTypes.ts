@@ -8,22 +8,23 @@ export interface AnnouncementGender {
   fiscal: 'fiscal',
   precatorio: 'precatorio',
 }
-export enum AnnouncementKind {
-  acaoIndenizatoria,
-  acaoCondenatoria,
-  tituloJudicial,
-  tituloExtrajudicial,
-  reclamacaoTrabalhista,
-  falencia,
-  creditoFalimenter,
-  creditoTributario
+export interface AnnouncementKind {
+  acaoIndenizatoria: 'acaoIndenizatoria',
+  acaoCondenatoria: 'acaoCondenatoria',
+  tituloJudicial: 'tituloJudicial',
+  tituloExtrajudicial: 'tituloExtrajudicial',
+  reclamacaoTrabalhista: 'reclamacaoTrabalhista',
+  falencia: 'falencia',
+  creditoFalimenter: 'creditoFalimenter',
+  creditoTributario: 'creditoTributario',
 }
-export enum AnnouncementActionPhase {
-  naoSentenciada,
-  sentenciadaComRecurso,
-  transitadaEmJulgado,
-  incidenteDeExecucao,
-  sentenciada,
-  execucao,
-  cumprimentoDeSentenca
+
+export interface AnnouncementActionPhase {
+  naoSentenciada: 'naoSentenciada',
+  sentenciadaComRecurso: 'sentenciadaComRecurso',
+  transitadaEmJulgado: 'transitadaEmJulgado',
+  incidenteDeExecucao: 'incidenteDeExecucao',
+  sentenciada: 'sentenciada',
+  execucao: 'execucao',
+  cumprimentoDeSentenca: 'cumprimentoDeSentenca',
 }

@@ -1,14 +1,15 @@
 import { Link } from '@components/Button';
+import { CommonPropsTypes } from '..';
 import { Actions, Content } from '../styled';
 
-export default function OwnedInBatch() {
+export default function OwnedInBatch({ batchId, lawsuitId }: CommonPropsTypes) {
   return (
     <Actions>
       <Content>
-        <Link href="/ads/13565-16516-15156" size="small-large" variant="secondary">
+        <Link href={`/ads/${lawsuitId}`} size="small-large" variant="secondary">
           Informação
         </Link>
-        <Link href="/batch/13565-16516-15156" size="small-large" variant="default">
+        <Link href={`/batch/${batchId}`} size="small-large" variant="default">
           Lote 1
         </Link>
       </Content>

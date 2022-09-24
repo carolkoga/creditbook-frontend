@@ -9,13 +9,14 @@ import {
   DropdownMenuRadioItem,
 } from './styled';
 import { Actions, Content } from '../styled';
+import { CommonPropsTypes } from '..';
 
-export default function OwnedNoBatch() {
+export default function OwnedNoBatch({ lawsuitId }: CommonPropsTypes) {
   const [value, setValue] = useState('1');
   return (
     <Actions>
       <Content>
-        <Link href="/ads/13565-16516-15156" size="small-large" variant="secondary">
+        <Link href={`/ads/${lawsuitId}`} size="small-large" variant="secondary">
           Informação
         </Link>
         <DropdownMenu.Root>
