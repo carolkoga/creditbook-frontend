@@ -1,5 +1,6 @@
-import FooterNotLogged from '@components/LawsuitCard/Card/components/NotLogged/Footer';
 import useAuth from '@hooks/useAuth';
+
+import FooterNotLogged from './NotLogged';
 import LoggedFooter from './Logged';
 import OwnedInBatch from './OwnedInBatch';
 import OwnedNoBatch from './OwnedNoBatch';

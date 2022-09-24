@@ -5,7 +5,7 @@ import {
   Pagination, A11y,
 } from 'swiper';
 import Image from 'next/image';
-import LawsuitCard from '../newCard';
+import LawsuitCard from '../Card';
 import { ButtonControl, Container } from './styled';
 import { LawsuitCardListProps } from '../types/Props';
 import { breakpointsSwiper } from './utils/breakpoints';

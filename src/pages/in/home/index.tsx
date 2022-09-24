@@ -8,8 +8,6 @@ import SelectAdsFilters from '@components/SelectAdsFilters';
 import { Direction } from '@components/Direction';
 
 import { Link } from '@components/Button';
-import LawsuitNewCard from '@components/LawsuitCard/newCard';
-import { LawsuitParamsID } from '@type/creditbook/Lawsuits';
 
 export default function Home() {
   return (
@@ -22,19 +20,6 @@ export default function Home() {
           </Link>
         </Direction>
         <LawsuitCardSwiper lawsuits={lawsuitsMock} />
-      </Section.Container>
-
-      <Section.Container>
-        <LawsuitNewCard lawsuit={{
-          id: '1',
-          processGender: 'civel',
-          actionPhase: 'cumprimentoDeSentenca',
-          city: 'São Paulo',
-          uf: 'SP',
-          kind: 'acaoCondenatoria',
-          batchId: '12',
-        } as LawsuitParamsID}
-        />
       </Section.Container>
 
       <Section.Container>

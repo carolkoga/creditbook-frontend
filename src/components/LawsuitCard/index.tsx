@@ -1,4 +1,4 @@
-import LawsuitCard from './newCard';
+import LawsuitCard from './Card';
 import { LawsuitCardListProps } from './types/Props';
 
 export default function LawsuitCardList({ lawsuits }: LawsuitCardListProps) {

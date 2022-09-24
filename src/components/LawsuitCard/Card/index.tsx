@@ -1,76 +1,87 @@
-/* eslint-disable react/destructuring-assignment */
-import React from 'react';
-import type { ISuits } from '@type/Suits';
+import { Heart } from 'phosphor-react';
 
+import useAuth from '@hooks/useAuth';
+
+import { Direction } from '@components/Direction';
+
+import { LawsuitParamsID } from '@type/creditbook/Lawsuits';
 import convertToCurrency from '@utils/convertToCurrency';
 
-import { Heart } from 'phosphor-react';
-import { LawsuitCardProps } from '../types/Props';
-import {
-  Container, Content, Header, InformationOfSuit,
-} from './styled';
 import Footer from './components/Footer';
+import { Lawsuit } from './styled';
+import { processCategoryTranslation, actionPhaseTranslation, processKindTranslation } from './utils/translations';
 
-export const suitTranslation: ISuits<string> = {
-  precatory: 'Precatório',
-  labor: 'Trabalhista',
-  civil: 'Cível',
-  fiscal: 'Fiscal',
-};
+interface IProps {
+  lawsuit: LawsuitParamsID,
+}
 
-export default function LawsuitCard(props: LawsuitCardProps) {
+export default function LawsuitNewCard({ lawsuit }: IProps) {
+  const { user } = useAuth();
   return (
-    <Container>
-      <Header suit={props.lawsuit.suit}>
-        <strong>{suitTranslation[props.lawsuit.suit]}</strong>
-        {(props.access !== 'not logged') && (
-        <div className="more__information">
-          {props.lawsuit.isPremium && <strong>Premium</strong>}
+    <Lawsuit.Wrapper>
+      <Lawsuit.Header.Container category={lawsuit.processGender}>
+        <Lawsuit.Header.Title>
+          {processCategoryTranslation[lawsuit.processGender]}
+        </Lawsuit.Header.Title>
 
-          <button type="button" onClick={() => props.onToggleFavorite()}>
-            {props.lawsuit.isFavorite
-              ? <Heart size={24} color="#F16565" />
-              : <Heart size={24} weight="fill" color="#F16565" /> }
+        <Direction direction="horizontal" gap="8px" alignItems="center">
+          <Lawsuit.Header.PremiumTitle>Premium</Lawsuit.Header.PremiumTitle>
+          <button type="button">
+            <Heart size={24} color="#F16565" />
           </button>
-        </div>
-        )}
-      </Header>
+        </Direction>
+      </Lawsuit.Header.Container>
 
-      <Content>
-        <span className="location">
-          {`${props.lawsuit.address.city} - ${props.lawsuit.address.state}`}
-        </span>
+      <Lawsuit.WrapperContent>
+        <Lawsuit.Content>
+          <Lawsuit.Info.Container>
+            <Lawsuit.Info.KeyInformation>
+              {lawsuit.city} - {lawsuit.uf.toUpperCase()}
+            </Lawsuit.Info.KeyInformation>
+          </Lawsuit.Info.Container>
 
-        <InformationOfSuit className="no__align">
-          <h3>Espécie:</h3>
-          <span>{props.lawsuit.courtCase}</span>
-        </InformationOfSuit>
+          <Lawsuit.Info.Container>
+            <Lawsuit.Info.KeyInformation>Espécie:</Lawsuit.Info.KeyInformation>
+            <Lawsuit.Info.ValueInformation>
+              {processKindTranslation[lawsuit.kind]}
+            </Lawsuit.Info.ValueInformation>
+          </Lawsuit.Info.Container>
 
-        {props.access !== 'not logged' && (
-        <>
-          <InformationOfSuit>
-            <h3>Fase do processo:</h3>
-            <span>{props.lawsuit.stateOfProcess}</span>
-          </InformationOfSuit>
+          <Lawsuit.Info.Container>
+            <Lawsuit.Info.KeyInformation>Fase do Processo:</Lawsuit.Info.KeyInformation>
+            <Lawsuit.Info.ValueInformation>
+              {actionPhaseTranslation[lawsuit.actionPhase]}
+            </Lawsuit.Info.ValueInformation>
+          </Lawsuit.Info.Container>
 
-          <InformationOfSuit>
-            <h3>Penhora ou garantia:</h3>
-            <span>{props.lawsuit.pledgeOrSecure}</span>
-          </InformationOfSuit>
-        </>
-        )}
-        <InformationOfSuit>
-          <h3>Valor do processo:</h3>
-          <span>{convertToCurrency(props.lawsuit.valueSuit)}</span>
-        </InformationOfSuit>
+          <Lawsuit.Info.Container>
+            <Lawsuit.Info.KeyInformation>Penhora ou garantia:</Lawsuit.Info.KeyInformation>
+            <Lawsuit.Info.ValueInformation>Não</Lawsuit.Info.ValueInformation>
+          </Lawsuit.Info.Container>
 
-        <InformationOfSuit className="bold">
-          <h3>Valor de liquidação:</h3>
-          <span>{convertToCurrency(props.lawsuit.income)}</span>
-        </InformationOfSuit>
+          <Lawsuit.Info.Container>
+            <Lawsuit.Info.KeyInformation>Valor do Processo:</Lawsuit.Info.KeyInformation>
+            <Lawsuit.Info.ValueInformation>
+              {convertToCurrency(1253564)}
+            </Lawsuit.Info.ValueInformation>
+          </Lawsuit.Info.Container>
 
-        <Footer access={props.access} lawsuit={props.lawsuit} />
-      </Content>
-    </Container>
+          <Lawsuit.Info.Container>
+            <Lawsuit.Info.KeyInformation>
+              Valor de liquidação:
+            </Lawsuit.Info.KeyInformation>
+            <Lawsuit.Info.ValueInformation bold>
+              {convertToCurrency(125321564)}
+            </Lawsuit.Info.ValueInformation>
+          </Lawsuit.Info.Container>
+        </Lawsuit.Content>
+
+        <Footer
+          batchId={lawsuit.batchId}
+          lawsuitId={lawsuit.id}
+          mine={lawsuit.owner?.toLowerCase() === user?.fullName.toLowerCase()}
+        />
+      </Lawsuit.WrapperContent>
+    </Lawsuit.Wrapper>
   );
 }
