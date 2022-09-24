@@ -16,7 +16,7 @@ export default function SingleLawsuits() {
 
       <Section.Container>
         <ListLayoutSingleLawsuits>
-          <LawsuitCardList access="not logged" lawsuits={lawsuitsMock} />
+          <LawsuitCardList lawsuits={lawsuitsMock} />
         </ListLayoutSingleLawsuits>
       </Section.Container>
     </>

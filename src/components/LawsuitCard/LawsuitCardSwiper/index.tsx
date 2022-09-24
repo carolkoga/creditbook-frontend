@@ -5,12 +5,12 @@ import {
   Pagination, A11y,
 } from 'swiper';
 import Image from 'next/image';
-import LawsuitCard from '../Card';
+import LawsuitCard from '../newCard';
 import { ButtonControl, Container } from './styled';
 import { LawsuitCardListProps } from '../types/Props';
 import { breakpointsSwiper } from './utils/breakpoints';
 
-export default function LawsuitCardSwiper({ lawsuits, access }: LawsuitCardListProps) {
+export default function LawsuitCardSwiper({ lawsuits }: LawsuitCardListProps) {
   const [swiperCustom, setSwiperCustom] = useState<any>(null);
   const containerRef = useRef<HTMLDivElement>(null!);
 
@@ -49,11 +49,7 @@ export default function LawsuitCardSwiper({ lawsuits, access }: LawsuitCardListP
       >
         {lawsuits.map((lawsuit) => (
           <SwiperSlide key={lawsuit.id}>
-            <LawsuitCard
-              access={access}
-              lawsuit={lawsuit}
-              onToggleFavorite={() => {}}
-            />
+            <LawsuitCard lawsuit={lawsuit} />
           </SwiperSlide>
         ))}
       </Swiper>

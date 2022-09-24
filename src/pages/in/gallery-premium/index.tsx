@@ -16,7 +16,7 @@ export default function GalleryPremium() {
 
       <Section.Container>
         <ListLayoutSingleLawsuits>
-          <LawsuitCardList access="logged" lawsuits={lawsuitsMock} />
+          <LawsuitCardList lawsuits={lawsuitsMock} />
         </ListLayoutSingleLawsuits>
       </Section.Container>
     </>

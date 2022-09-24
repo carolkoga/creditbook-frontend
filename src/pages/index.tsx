@@ -164,7 +164,7 @@ export default function HomeLadingPage() {
             </Link>
           </Direction>
         </Section.Header>
-        <LawsuitCardSwiper lawsuits={lawsuitsMock} access="not logged" />
+        <LawsuitCardSwiper lawsuits={lawsuitsMock} />
       </Section.Container>
     </>
   );
