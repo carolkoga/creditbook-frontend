@@ -20,7 +20,7 @@ const sizesButton = {
   `,
 
   large: css`
-    padding: 11px 92px;
+    padding: 15px 82px;
     font-size: 13px;
     line-height: 15px;
     font-weight: 500;
