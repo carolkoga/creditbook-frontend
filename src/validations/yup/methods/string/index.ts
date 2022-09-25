@@ -12,3 +12,11 @@ addMethod(string, 'cpfOrcnpj', function validateCPForCNPJ(messageError?: string)
     },
   });
 });
+
+addMethod(string, 'validatePassword', function validatePassword() {
+  return this
+    .test('Least a uppercase letter', 'No mínimo uma letra maiúscula', (value: any) => (/[A-Z]/).test(value))
+    .test('Least a non-alphanumeric', 'No mínimo um caracter especial', (value: any) => (/\W/).test(value))
+    .test('Least a number', 'No mínimo um número', (value: any) => (/\d/).test(value))
+    .min(8, 'Sua senha precisa ter no mínimo 8 caracteres');
+});

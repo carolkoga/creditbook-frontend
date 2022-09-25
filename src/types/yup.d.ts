@@ -9,6 +9,7 @@ declare module 'yup' {
     TOut extends TType = TType,
   > extends yup.BaseSchema<TType, TContext, TOut> {
     cpfOrcnpj(messageError?: string): StringSchema<TType, TContext>;
+    validatePassword(): StringSchema<TType, TContext>;
   }
 
   interface MixedSchema extends yup.BaseSchema {
