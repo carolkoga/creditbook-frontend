@@ -1,4 +1,3 @@
-import '../methods/string/index';
 import { MixedSchema } from 'yup/lib/mixed';
 import { validateUF } from 'validations-br';
 import * as yup from 'yup';
