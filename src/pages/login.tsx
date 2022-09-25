@@ -35,7 +35,7 @@ export default function Login() {
   }
 
   return (
-    <Section.Container as="main">
+    <Section.Container>
       <Section.Header style={{ margin: 'auto' }}>
         <Section.Title as="h1">Entrar</Section.Title>
       </Section.Header>
@@ -78,7 +78,7 @@ export default function Login() {
             Quero me cadastrar
           </Link>
 
-          <LinkNext href="/">
+          <LinkNext href="/reset-password">
             <a className="forget__password">
               Esqueci a minha senha
             </a>
