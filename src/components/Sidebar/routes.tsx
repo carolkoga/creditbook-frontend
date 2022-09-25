@@ -1,5 +1,14 @@
 import {
-  House, ShoppingCart, CurrencyCircleDollar, Heart, Star, User, CreditCard, Gear,
+  House,
+  ShoppingCart,
+  CurrencyCircleDollar,
+  Heart,
+  Star,
+  User,
+  CreditCard,
+  Gear,
+  DiceSix,
+  DiceTwo,
 } from 'phosphor-react';
 
 export const routes = [
@@ -19,6 +28,18 @@ export const routes = [
     label: 'Vender',
     icon: <CurrencyCircleDollar size={24} weight="regular" />,
     link: '/sell-ads',
+  },
+
+  {
+    label: 'Novo Anúncio',
+    icon: <DiceSix size={24} weight="regular" />,
+    link: '/ads/new',
+  },
+
+  {
+    label: 'Lotes',
+    icon: <DiceTwo size={24} weight="regular" />,
+    link: '/batchs',
   },
 
   {
