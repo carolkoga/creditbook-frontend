@@ -17,8 +17,23 @@ export const Wrapper = styled.div`
       flex-wrap: wrap;
       margin-left: auto;
       gap: 8px;
-      button {
-        margin-top: 16px;
+      margin-top: 16px;
+    }
+  }
+
+  @media (max-width: 570px) {
+    margin-top: 200px;
+    padding: 34px 24px;
+  }
+
+  @media (max-width: 277px) {
+    padding: 16px;
+    text-align: left;
+    form {
+      .actions {
+        flex-direction: column-reverse;
+        gap: 6px;
+        margin-left: 0;
       }
     }
   }
