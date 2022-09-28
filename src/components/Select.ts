@@ -29,7 +29,6 @@ const globalStyle = css`
 
     &__control {
       border-radius: 10px;
-      max-width: ${({ width }: { width?: number}) => (!width ? '250px' : `${width}px`)};
       width: 100%;
       font-size: 12px;
       background: #F5F5F7;
