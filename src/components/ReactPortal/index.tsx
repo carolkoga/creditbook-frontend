@@ -15,7 +15,10 @@ export default function ReactPortal({ containerId, children }: IProps) {
   const [mounted, setMounted] = useState(false);
 
   if (mounted) {
-    if (!ref.current) {
+    const alreadyHasElement = document.querySelector(`#${containerId}`);
+    if (alreadyHasElement) {
+      ref.current = alreadyHasElement;
+    } else if (!ref.current) {
       ref.current = document.createElement('div');
       ref.current.setAttribute('id', containerId);
       document.body.appendChild(ref.current);
