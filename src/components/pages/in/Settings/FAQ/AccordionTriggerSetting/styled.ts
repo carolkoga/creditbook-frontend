@@ -4,7 +4,7 @@ import * as AccordionPrimitive from '@radix-ui/react-accordion';
 export const StyledHeader = styled(AccordionPrimitive.AccordionHeader)`
   all: unset;
   display: flex;
-
+  background: ${({ theme }) => theme.colors.grey[10]};
   padding-right: 24px;
 
   &[data-state="open"] {
