@@ -6,7 +6,6 @@ export const StyledAccordion = styled(AccordionPrimitive.Root)`
   border-radius: 5px;
   background: ${({ theme }) => theme.colors.grey[10]};
   border: 1px solid ${({ theme }) => theme.colors.grey[30]};
-
 `;
 
 export const StyledItem = styled(AccordionPrimitive.Item)`
@@ -39,30 +38,42 @@ export const StyledItem = styled(AccordionPrimitive.Item)`
 `;
 
 export const StyledTrigger = styled(AccordionPrimitive.Trigger)`
-  border: none;
-  font-family: inherit;
-  padding: 0 0px;
-  height: 45px;
-  flex: 1;
   display: flex;
+  flex: 1;
   align-items: center;
   justify-content: space-between;
-  font-size: 16px;
-  transition: all .5s ease-in-out;
-  cursor: pointer;
+
+  width: 100%;
+  height: 45px;
+
+  border: none;
   padding: 0 24px;
+
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 400;
+
   color: ${({ theme }) => theme.colors.primary.main};
   background: ${({ theme }) => theme.colors.grey[10]};
+
+  transition: all .5s ease-in-out;
+  cursor: pointer;
+
   &[data-state="open"] {
     transition: all .35s ease;
-    box-shadow: 0px 0.3px 2px rgba(0, 0, 0, 0.25);
+    box-shadow: 0px 0.3px 16px rgba(0, 0, 0, 0.25);
 
     svg {
       transform: rotateX(180deg);
     }
   };
-  font-weight: 500;
-  width: 100%;
+
+  @media (max-width: 248px) {
+    padding: 16px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
 `;
 
 export const StyledArrow = styled(CaretDown)`
@@ -70,10 +81,13 @@ export const StyledArrow = styled(CaretDown)`
 `;
 
 export const StyledContent = styled(AccordionPrimitive.Content)`
-  font-size: 13px;
-  color: ${({ theme }) => theme.colors.grey[50]};
-  background: #f9f9f9;
-  font-weight: 400;
+  background: #f3f3f3;
   padding-bottom: 12px;
   padding: 32px 24px;
+`;
+
+export const StyledContentText = styled.p`
+  font-size: 13px;
+  color: ${({ theme }) => theme.colors.grey[50]};
+  font-weight: 400;
 `;
