@@ -54,10 +54,11 @@ interface IProps {
   onCancelForm: () => void,
   isVisible: boolean,
   defaultValues?: null | any,
+  isLoading: boolean,
 }
 
 export default function FAQForm({
-  title, onConfirmForm, labelConfirm, onCancelForm, isVisible, defaultValues,
+  title, onConfirmForm, labelConfirm, onCancelForm, isVisible, defaultValues, isLoading,
 }: IProps) {
   if (!isVisible) return null;
   const {
@@ -105,7 +106,7 @@ export default function FAQForm({
               }}
             >
               <Input
-                {...register('title')}
+                {...register('question')}
                 id="title"
               />
             </FormGroup>
@@ -125,7 +126,7 @@ export default function FAQForm({
             </FormGroup>
 
             <div className="actions">
-              <Button type="submit">{labelConfirm}</Button>
+              <Button type="submit" isLoading={isLoading}>{labelConfirm}</Button>
               <Button
                 type="button"
                 variant="white"
