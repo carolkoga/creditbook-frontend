@@ -18,8 +18,12 @@ export class FaqService {
     return this.httpClient.post('/faq', data);
   }
 
-  update(data: any) {
-    return this.httpClient.patch('/faq', data);
+  update(data: any, userId: string) {
+    return this.httpClient.patch(`/faq/${userId}`, data);
+  }
+
+  delete(userId: string) {
+    return this.httpClient.delete(`/faq/${userId}`);
   }
 }
 
