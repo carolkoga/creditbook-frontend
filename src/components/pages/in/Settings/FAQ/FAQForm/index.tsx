@@ -60,7 +60,6 @@ interface IProps {
 export default function FAQForm({
   title, onConfirmForm, labelConfirm, onCancelForm, isVisible, defaultValues, isLoading,
 }: IProps) {
-  if (!isVisible) return null;
   const {
     register, control, handleSubmit, formState: { errors },
   } = useForm({
@@ -69,6 +68,7 @@ export default function FAQForm({
     defaultValues: !defaultValues ? {} : defaultValues,
   });
 
+  if (!isVisible) return null;
   return (
     <ReactPortal>
       <Overlay>
@@ -92,6 +92,7 @@ export default function FAQForm({
                     {...field}
                     options={FAQSections}
                     isSearchable={false}
+                    placeholder="Escolha a seção da pergunta"
                   />
                 </FormGroup>
               )}
@@ -106,7 +107,7 @@ export default function FAQForm({
               }}
             >
               <Input
-                {...register('question')}
+                {...register('title')}
                 id="title"
               />
             </FormGroup>
