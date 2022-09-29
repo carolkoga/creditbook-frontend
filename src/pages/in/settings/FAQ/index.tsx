@@ -230,19 +230,3 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     },
   };
 };
-
-/*
-  <AccordionContainer type="single" defaultValue="quem-nos-somos" collapsible>
-    <AccordionItem value="quem-nos-somos?">
-      <AccordionTriggerSetting
-        onEdit={() => {}}
-        onDelete={() => {}}
-      >
-        Quem nós somos?
-      </AccordionTriggerSetting>
-      <AccordionContent>
-        Somos credit
-      </AccordionContent>
-    </AccordionItem>
-  </AccordionContainer>
-*/
