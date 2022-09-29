@@ -4,7 +4,7 @@ interface ContainerProps {
   collapsed: boolean,
 }
 
-export const Container = styled.header<ContainerProps>`
+export const Container = styled.aside<ContainerProps>`
   display: flex;
   flex-direction: column;
   gap: 53px 0;
