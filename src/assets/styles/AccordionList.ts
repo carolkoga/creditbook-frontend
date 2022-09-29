@@ -2,6 +2,8 @@ import { Section } from '@components/Section';
 import styled from 'styled-components';
 
 const ContainerList = styled.article`
+  max-width: 1365px;
+  width: 100%;
   & + & {
     margin-top: 32px;
   }
