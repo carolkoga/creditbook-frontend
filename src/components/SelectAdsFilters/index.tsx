@@ -61,9 +61,9 @@ const stateSuitsOptions = [
 export default function SelectAdsFilters() {
   return (
     <WrapperSelects>
-      <Select options={suitsTypesOptions} placeholder="Tipo de processo" width={166} />
-      <Select options={stateSuitsOptions} placeholder="Estado de processo" width={166} />
-      <Select options={suitsValuesOptions} placeholder="Valor de processo" width={166} />
+      <Select options={suitsTypesOptions} placeholder="Tipo de processo" />
+      <Select options={stateSuitsOptions} placeholder="Estado de processo" />
+      <Select options={suitsValuesOptions} placeholder="Valor de processo" />
     </WrapperSelects>
   );
 }
