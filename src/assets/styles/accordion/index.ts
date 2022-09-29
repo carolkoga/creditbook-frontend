@@ -55,6 +55,9 @@ export const StyledTrigger = styled(AccordionPrimitive.Trigger)`
 
   color: ${({ theme }) => theme.colors.primary.main};
   background: ${({ theme }) => theme.colors.grey[10]};
+  &::first-letter {
+    text-transform: uppercase;
+  }
 
   transition: all .5s ease-in-out;
   cursor: pointer;
@@ -90,4 +93,7 @@ export const StyledContentText = styled.p`
   font-size: 13px;
   color: ${({ theme }) => theme.colors.grey[50]};
   font-weight: 400;
+  &::first-letter {
+    text-transform: uppercase;
+  }
 `;
