@@ -61,7 +61,7 @@ export default function FAQForm({
   title, onConfirmForm, labelConfirm, onCancelForm, isVisible, defaultValues, isLoading,
 }: IProps) {
   const {
-    register, control, handleSubmit, formState: { errors }, reset,
+    register, control, handleSubmit, formState: { errors }, reset, clearErrors,
   } = useForm({
     resolver: yupResolver(FAQSchemaValidation),
     mode: 'onBlur',
@@ -71,6 +71,11 @@ export default function FAQForm({
   async function onSubmit(data: any) {
     await onConfirmForm(data);
     reset();
+  }
+
+  function handleCancelForm() {
+    onCancelForm();
+    clearErrors();
   }
 
   if (!isVisible) return null;
@@ -136,7 +141,7 @@ export default function FAQForm({
               <Button
                 type="button"
                 variant="white"
-                onClick={onCancelForm}
+                onClick={handleCancelForm}
               >
                 Cancelar
               </Button>
