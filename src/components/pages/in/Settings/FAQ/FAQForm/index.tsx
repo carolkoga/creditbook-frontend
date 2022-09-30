@@ -49,7 +49,7 @@ const FAQSections = [
 interface IProps {
   title: string,
   // eslint-disable-next-line no-unused-vars
-  onConfirmForm: (data: any) => void,
+  onConfirmForm: (data: any) => Promise<void>,
   labelConfirm: string,
   onCancelForm: () => void,
   isVisible: boolean,
@@ -61,12 +61,17 @@ export default function FAQForm({
   title, onConfirmForm, labelConfirm, onCancelForm, isVisible, defaultValues, isLoading,
 }: IProps) {
   const {
-    register, control, handleSubmit, formState: { errors },
+    register, control, handleSubmit, formState: { errors }, reset,
   } = useForm({
     resolver: yupResolver(FAQSchemaValidation),
     mode: 'onBlur',
     defaultValues: !defaultValues ? {} : defaultValues,
   });
+
+  async function onSubmit(data: any) {
+    await onConfirmForm(data);
+    reset();
+  }
 
   if (!isVisible) return null;
   return (
@@ -75,7 +80,7 @@ export default function FAQForm({
         <Container>
           <h1>{title}</h1>
 
-          <form noValidate onSubmit={handleSubmit(onConfirmForm)}>
+          <form noValidate onSubmit={handleSubmit(onSubmit)}>
             <Controller
               control={control}
               name="section"
