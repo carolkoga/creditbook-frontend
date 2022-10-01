@@ -16,44 +16,23 @@ import { GetServerSideProps } from 'next';
 import { setupAPIClient } from '@api/creditbookApi';
 import AlertModal from '@components/AlertModal';
 import { AccordionList } from '@styles/AccordionList';
+import { translationSectionFAQ } from '@mocks/FAQ';
+import { FAQResponseType, QuestionResponseType, SectionFaqParams } from '@type/creditbook/support/faq';
 
 const AccordionTriggerSetting = dynamic(() => import('@components/pages/in/Settings/FAQ/AccordionTriggerSetting'), { ssr: false });
-
-const translationSectionFAQ: any = {
-  creditbook: 'Creditbook',
-  vendaCompraDireitosCreditoórios: 'Venda e Compra de Direitos Creditórios',
-  anuncio: 'Anúncio',
-  usuarios: 'Usuários',
-  lotes: 'Lotes',
-  custos: 'Custos',
-  outrasPerguntasFrequentes: 'Outras Perguntas Frequentes',
-};
-
-interface QuestionResponseType {
-  id: string,
-  title: string,
-  answer: string,
-}
-
-interface FAQResponseType {
-  faq: {
-    section: string,
-    questions: QuestionResponseType[]
-  }[]
-}
 
 interface IProps {
   initialQuestions: FAQResponseType;
 }
 
-type QuestionBeignParams = QuestionResponseType & { section: string };
+type QuestionBeignParams = QuestionResponseType & { section: keyof SectionFaqParams };
 
 export default function FAQ({ initialQuestions }: IProps) {
   const [newFAQIsVisible, setNewFAQIsVisible] = useState(false);
   const [questions, setQuestions] = useState(initialQuestions);
   const [loading, setLoading] = useState(false);
   // eslint-disable-next-line max-len
-  const [questionBeignEdited, setQuestionBeignEdited] = useState<QuestionBeignParams | any>(null!);
+  const [questionBeignEdited, setQuestionBeignEdited] = useState<QuestionBeignParams | null>(null!);
   const [questionIdBeignDeleted, setQuestionIdBeignDeleted] = useState(null as string | any);
   const loadQuestions = useCallback(async () => {
     const { data } = await FAQService.listAllFAQs();
@@ -101,13 +80,11 @@ export default function FAQ({ initialQuestions }: IProps) {
 
   async function handleUpdateQuestionById(data: any) {
     try {
-      console.log({ before: questions });
       setLoading(true);
       await FAQService.update(data, questionBeignEdited?.id as string);
       await loadQuestions();
       setNewFAQIsVisible(false);
       setQuestionBeignEdited(null);
-      console.log({ after: questions });
     } catch (error) {
       handleCatchErrorRequest(error as any);
     } finally {
@@ -182,7 +159,7 @@ export default function FAQ({ initialQuestions }: IProps) {
             title: questionBeignEdited.title,
             answer: questionBeignEdited.answer,
             section: {
-              label: translationSectionFAQ[questionBeignEdited.section],
+              label: translationSectionFAQ[questionBeignEdited?.section],
               value: questionBeignEdited.section,
             },
           }}

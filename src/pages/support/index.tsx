@@ -1,35 +1,33 @@
-import { setupAPIClient } from '@api/creditbookApi';
+import { GetServerSideProps } from 'next';
+
+import { FAQService } from '@services/creditbook/support/faq';
+
 import {
   AccordionContainer, AccordionContent, AccordionItem, AccordionTrigger,
 } from '@components/Accordion';
 import WrapperSupport from '@components/pages/support/WrapperSupport';
 import { Section } from '@components/Section';
-import { FaqService } from '@services/creditbook/support/faq';
+
 import { AccordionList } from '@styles/AccordionList';
-import { GetServerSideProps } from 'next';
+import { translationSectionFAQ } from '@mocks/FAQ';
+import { FAQResponseType } from '@type/creditbook/support/faq';
 
-const translationSectionFAQ: any = {
-  creditbook: 'Creditbook',
-  vendaCompraDireitosCreditoórios: 'Venda e Compra de Direitos Creditórios',
-  anuncio: 'Anúncio',
-  usuarios: 'Usuários',
-  lotes: 'Lotes',
-  custos: 'Custos',
-  outrasPerguntasFrequentes: 'Outras Perguntas Frequentes',
-};
+interface ServerSideProps {
+  questions: FAQResponseType,
+}
 
-export default function FAQ({ questions }: any) {
+export default function FAQ({ questions }: ServerSideProps) {
   return (
     <WrapperSupport>
       <Section.Container style={{ width: '100%' }}>
-        {questions?.faq?.map((faq: any) => (
-          <AccordionList.Container key={faq.section}>
+        {questions?.faq.map((faq) => (
+          <AccordionList.Container>
             <Section.Title textColor="dark">
               {translationSectionFAQ[faq.section]}
             </Section.Title>
             <AccordionList.Wrapper>
               <AccordionContainer type="single" collapsible>
-                {faq.questions.map((question: any) => (
+                {faq.questions.map((question) => (
                   <AccordionList.Content key={question.title}>
                     <AccordionItem value={question.title}>
                       <AccordionTrigger>
@@ -50,10 +48,8 @@ export default function FAQ({ questions }: any) {
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async ({ req }) => {
-  const api = setupAPIClient(req.cookies['nextauth.token']);
-  const faqService = new FaqService(api);
-  const { data } = await faqService.listAllFAQs();
+export const getServerSideProps: GetServerSideProps = async () => {
+  const { data } = await FAQService.listAllFAQs();
 
   return {
     props: {
