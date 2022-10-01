@@ -42,12 +42,12 @@ export const StyledTrigger = styled(AccordionPrimitive.Trigger)`
   flex: 1;
   align-items: center;
   justify-content: space-between;
+  text-align: left;
 
   width: 100%;
-  height: 45px;
 
   border: none;
-  padding: 0 24px;
+  padding: 8px 24px;
 
   font-family: inherit;
   font-size: 16px;
