@@ -3,12 +3,12 @@ import { ButtonHTMLAttributes, ReactNode } from 'react';
 import { TailSpin } from 'react-loader-spinner';
 import { StyleButton, ButtonProps } from './styled';
 
-interface IPropsCommon extends ButtonProps {
+export interface IPropsCommon extends ButtonProps {
   children: ReactNode,
   isLoading?: boolean,
 }
 
-type IButtonProps = IPropsCommon & ButtonHTMLAttributes<HTMLButtonElement>
+export type IButtonProps = IPropsCommon & ButtonHTMLAttributes<HTMLButtonElement>
 
 interface ILinkProps extends IPropsCommon, LinkProps {}
 
