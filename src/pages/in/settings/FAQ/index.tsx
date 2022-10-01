@@ -125,7 +125,7 @@ export default function FAQ({ initialQuestions }: IProps) {
             <AccordionList.Wrapper>
               <AccordionContainer type="single" collapsible>
                 {faq.questions.map((question) => (
-                  <AccordionList.Content key={question.title}>
+                  <AccordionList.Content key={question.id}>
                     <AccordionItem value={question.title}>
                       <AccordionTriggerSetting
                         onEdit={() => (

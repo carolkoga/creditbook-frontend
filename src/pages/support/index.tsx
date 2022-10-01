@@ -21,14 +21,14 @@ export default function FAQ({ questions }: ServerSideProps) {
     <WrapperSupport>
       <Section.Container style={{ width: '100%' }}>
         {questions?.faq.map((faq) => (
-          <AccordionList.Container>
+          <AccordionList.Container key={faq.section}>
             <Section.Title textColor="dark">
               {translationSectionFAQ[faq.section]}
             </Section.Title>
             <AccordionList.Wrapper>
               <AccordionContainer type="single" collapsible>
                 {faq.questions.map((question) => (
-                  <AccordionList.Content key={question.title}>
+                  <AccordionList.Content key={question.id}>
                     <AccordionItem value={question.title}>
                       <AccordionTrigger>
                         {question.title}
