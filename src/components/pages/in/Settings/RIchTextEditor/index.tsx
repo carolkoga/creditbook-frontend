@@ -14,7 +14,8 @@ interface IProps extends ReactQuillProps {
 }
 
 export function RIchTextEditor({ onSubmit, buttonProps, ...props }: IProps) {
-  const [termsText, setTermsText] = useState(props.defaultValue ?? '');
+  const [termsText, setTermsText] = useState<string>(props.defaultValue as string | undefined || '');
+  const isValidButton = termsText.trim().length < 1;
   const module = {
     toolbar: [
       [{ header: [1, 2, 3, false] }],
@@ -52,6 +53,7 @@ export function RIchTextEditor({ onSubmit, buttonProps, ...props }: IProps) {
         <Button
           size="outline-filled-round"
           onClick={() => onSubmit(termsText)}
+          disabled={isValidButton}
           {...buttonProps}
         >
           {buttonProps?.isLoading && 'Salvando'}

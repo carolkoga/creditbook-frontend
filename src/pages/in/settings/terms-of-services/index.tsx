@@ -1,8 +1,38 @@
+import { useState } from 'react';
+import { GetServerSideProps } from 'next';
+import { toast } from 'react-toastify';
+
+import { termsService } from '@services/creditbook/support/term';
+
 import { Section } from '@components/Section';
 import { StructureSettings } from '@components/pages/in/Settings/StructureSettings';
 import { RIchTextEditor } from '@components/pages/in/Settings/RIchTextEditor';
 
-export default function TermsOfServices() {
+import { TermsParams } from '@type/creditbook/support/term';
+
+interface IProps {
+  terms: TermsParams,
+}
+
+export default function TermsOfServices({ terms }: IProps) {
+  const [initialTermContent] = useState<string>(terms.content);
+  const [loading, setLoading] = useState(false);
+
+  async function handleCreateNewTerm(content: string) {
+    try {
+      setLoading(true);
+      await termsService.createTerms({
+        content,
+        id: terms.id,
+      });
+      toast.success('Termos de uso atualizado');
+    } catch (error) {
+      handleCreateNewTerm(error as any);
+    } finally {
+      setLoading(false);
+    }
+  }
+
   return (
     <StructureSettings>
       <Section.Header>
@@ -10,11 +40,22 @@ export default function TermsOfServices() {
       </Section.Header>
 
       <RIchTextEditor
-        onSubmit={(terms) => console.log(terms)}
+        onSubmit={(contentTerm) => handleCreateNewTerm(contentTerm as string)}
+        defaultValue={initialTermContent}
         buttonProps={{
-          isLoading: false,
+          isLoading: loading,
         }}
       />
     </StructureSettings>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  const { data } = await termsService.getTerms();
+
+  return {
+    props: {
+      terms: data,
+    },
+  };
+};
