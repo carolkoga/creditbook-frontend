@@ -1,3 +1,4 @@
+/* eslint-disable react/no-danger */
 import { GetServerSideProps } from 'next';
 import WrapperSupport from '@components/pages/support/WrapperSupport';
 import { Section } from '@components/Section';
@@ -12,8 +13,17 @@ export default function TermsOfService({ terms: { content } }: IProps) {
   return (
     <WrapperSupport>
       <Section.Container>
-        {/* eslint-disable-next-line react/no-danger */}
-        <div dangerouslySetInnerHTML={{ __html: content }} />
+        <div
+          className="ql-container ql-snow"
+          style={{
+            border: 'none',
+          }}
+        >
+          <div
+            className="ql-editor"
+            dangerouslySetInnerHTML={{ __html: content }}
+          />
+        </div>
       </Section.Container>
     </WrapperSupport>
   );
