@@ -10,4 +10,5 @@ export interface BatchParams {
   name: string,
   value: string,
   userId: string,
+  announcementQuantity: number,
 }
