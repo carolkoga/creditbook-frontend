@@ -26,7 +26,7 @@ export function BatchCard({ mine, batch }: IProps) {
         <Description>
           {batch.description}
         </Description>
-        <QuantityADS>Quantidade de anúncios: 5</QuantityADS>
+        <QuantityADS>Quantidade de anúncios: {batch.announcementQuantity}</QuantityADS>
       </LeftContent>
 
       <RightContent>

@@ -1,17 +1,15 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useForm, Controller } from 'react-hook-form';
+import { useForm, FormProvider } from 'react-hook-form';
 
 import { Button } from '@components/Button';
-import FormGroup from '@components/FormGroup';
-import { Input, Textarea } from '@components/Input';
 import { Overlay } from '@components/Overlay';
 import ReactPortal from '@components/ReactPortal';
 
 import { schemaBatchFormValidation } from '@validations/yup/Batch';
-import { InputCurrency } from '@components/Form/Input/Mask/InputCurrency';
 import { NewBatchParams } from '@type/creditbook/Batch';
 
 import { Wrapper, ContentHeader } from './styled';
+import BatchForm from '../BatchForm';
 
 interface IProps {
   isVisible: boolean,
@@ -21,12 +19,12 @@ interface IProps {
 }
 
 export function NewBatchFormModal({ isVisible, onCloseModal, onCreateBatch }: IProps) {
-  const {
-    register, formState: { errors }, handleSubmit, control, reset, clearErrors,
-  } = useForm<NewBatchParams>({
+  const methods = useForm<NewBatchParams>({
     resolver: yupResolver(schemaBatchFormValidation),
     mode: 'all',
   });
+
+  const { handleSubmit, reset, clearErrors } = methods;
 
   if (!isVisible) {
     return null;
@@ -70,67 +68,20 @@ export function NewBatchFormModal({ isVisible, onCloseModal, onCreateBatch }: IP
             </div>
           </ContentHeader>
 
-          <form noValidate onSubmit={handleSubmit(stackToSubmit)}>
-            <FormGroup
-              direction="vertical"
-              error={errors?.name?.message}
-              label={{
-                forId: 'batch-name',
-                title: 'Título do lote',
-              }}
-            >
-              <Input
-                {...register('name')}
-                id="batch-name"
-              />
-            </FormGroup>
-
-            <FormGroup
-              direction="vertical"
-              error={errors?.description?.message}
-              label={{
-                forId: 'batch-description',
-                title: 'Descrição',
-              }}
-            >
-              <Textarea
-                {...register('description')}
-                id="batch-description"
-              />
-            </FormGroup>
-
-            <Controller
-              control={control}
-              name="value"
-              defaultValue=""
-              render={({ field }) => (
-                <FormGroup
-                  direction="vertical"
-                  error={errors?.value?.message}
-                  label={{
-                    forId: 'value',
-                    title: 'Valor',
-                  }}
+          <FormProvider {...methods}>
+            <BatchForm onSubmit={handleSubmit(stackToSubmit)}>
+              <div className="actions">
+                <Button
+                  type="button"
+                  variant="white"
+                  onClick={stackToCloseModal}
                 >
-                  <InputCurrency
-                    id="value"
-                    {...field}
-                  />
-                </FormGroup>
-              )}
-            />
-
-            <div className="actions">
-              <Button
-                type="button"
-                variant="white"
-                onClick={stackToCloseModal}
-              >
-                Cancelar
-              </Button>
-              <Button type="submit">Salvar</Button>
-            </div>
-          </form>
+                  Cancelar
+                </Button>
+                <Button type="submit">Salvar</Button>
+              </div>
+            </BatchForm>
+          </FormProvider>
         </Wrapper>
       </Overlay>
     </ReactPortal>
