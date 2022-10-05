@@ -1,22 +1,53 @@
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useForm, Controller } from 'react-hook-form';
+
 import { Button } from '@components/Button';
 import FormGroup from '@components/FormGroup';
 import { Input, Textarea } from '@components/Input';
 import { Overlay } from '@components/Overlay';
 import ReactPortal from '@components/ReactPortal';
-import { useForm } from 'react-hook-form';
+
+import { schemaBatchFormValidation } from '@validations/yup/Batch';
+import { InputCurrency } from '@components/Form/Input/Mask/InputCurrency';
+import { NewBatchParams } from '@type/creditbook/Batch';
+
 import { Wrapper, ContentHeader } from './styled';
 
 interface IProps {
   isVisible: boolean,
   onCloseModal: () => void,
+  // eslint-disable-next-line no-unused-vars
+  onCreateBatch: (data: NewBatchParams) => Promise<void>,
 }
 
-export function NewBatchFormModal({ isVisible, onCloseModal }: IProps) {
+export function NewBatchFormModal({ isVisible, onCloseModal, onCreateBatch }: IProps) {
+  const {
+    register, formState: { errors }, handleSubmit, control, reset, clearErrors,
+  } = useForm<NewBatchParams>({
+    resolver: yupResolver(schemaBatchFormValidation),
+    mode: 'all',
+  });
+
   if (!isVisible) {
     return null;
   }
 
-  const { register } = useForm();
+  async function stackToSubmit(newBatch: NewBatchParams) {
+    try {
+      await onCreateBatch(newBatch);
+    } catch {
+      clearErrors();
+    } finally {
+      reset();
+    }
+  }
+
+  function stackToCloseModal() {
+    onCloseModal();
+    reset();
+    clearErrors();
+  }
+
   return (
     <ReactPortal>
       <Overlay>
@@ -39,22 +70,24 @@ export function NewBatchFormModal({ isVisible, onCloseModal }: IProps) {
             </div>
           </ContentHeader>
 
-          <form>
+          <form noValidate onSubmit={handleSubmit(stackToSubmit)}>
             <FormGroup
               direction="vertical"
+              error={errors?.name?.message}
               label={{
                 forId: 'batch-name',
                 title: 'Título do lote',
               }}
             >
               <Input
-                {...register('batchName')}
+                {...register('name')}
                 id="batch-name"
               />
             </FormGroup>
 
             <FormGroup
               direction="vertical"
+              error={errors?.description?.message}
               label={{
                 forId: 'batch-description',
                 title: 'Descrição',
@@ -66,24 +99,32 @@ export function NewBatchFormModal({ isVisible, onCloseModal }: IProps) {
               />
             </FormGroup>
 
-            <FormGroup
-              direction="vertical"
-              label={{
-                forId: 'batch-price',
-                title: 'Valor',
-              }}
-            >
-              <Input
-                {...register('price')}
-                id="batch-price"
-              />
-            </FormGroup>
+            <Controller
+              control={control}
+              name="value"
+              defaultValue=""
+              render={({ field }) => (
+                <FormGroup
+                  direction="vertical"
+                  error={errors?.value?.message}
+                  label={{
+                    forId: 'value',
+                    title: 'Valor',
+                  }}
+                >
+                  <InputCurrency
+                    id="value"
+                    {...field}
+                  />
+                </FormGroup>
+              )}
+            />
 
             <div className="actions">
               <Button
                 type="button"
                 variant="white"
-                onClick={onCloseModal}
+                onClick={stackToCloseModal}
               >
                 Cancelar
               </Button>
