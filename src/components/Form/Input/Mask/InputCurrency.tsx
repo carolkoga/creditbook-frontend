@@ -1,21 +1,14 @@
-import { MaskInput } from '@components/Input';
-import { forwardRef, InputHTMLAttributes } from 'react';
+import { NumericInputStyled } from '@components/Input';
+import { forwardRef } from 'react';
 
-interface IProps extends InputHTMLAttributes<HTMLInputElement> { }
-
-export const InputCurrency = forwardRef((props: IProps, ref) => (
-  <MaskInput
+export const InputCurrency = forwardRef((props: any, refForward: any) => (
+  <NumericInputStyled
+    getInputRef={refForward}
     {...props}
-    ref={ref}
+    type="text"
+    value={props.value as any}
     inputMode="numeric"
-    mask="R$ num"
-    lazy={false}
-    blocks={{
-      num: {
-        mask: Number,
-        max: 999999999999999,
-        thousandsSeparator: '.',
-      },
-    }}
+    thousandSeparator="."
+    decimalSeparator=","
   />
 ));

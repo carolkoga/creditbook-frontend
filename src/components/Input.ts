@@ -1,5 +1,6 @@
 import styled, { css } from 'styled-components';
 import { IMaskInput } from 'react-imask';
+import { NumericFormat } from 'react-number-format';
 
 const commonStyles = css`
   border: none;
@@ -18,6 +19,10 @@ export const Input = styled.input`
 `;
 
 export const MaskInput = styled(IMaskInput)`
+  ${commonStyles};
+`;
+
+export const NumericInputStyled = styled(NumericFormat)`
   ${commonStyles};
 `;
 
