@@ -10,5 +10,6 @@ export const InputCurrency = forwardRef((props: any, refForward: any) => (
     inputMode="numeric"
     thousandSeparator="."
     decimalSeparator=","
+    prefix="R$"
   />
 ));
