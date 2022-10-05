@@ -51,7 +51,7 @@ export default function Batches({ initialBatches }: IProps) {
         {batches && batches.map((currentBatch) => (
           <BatchCard
             key={currentBatch.id}
-            mine={currentBatch.id === user?.id}
+            mine={currentBatch.userId === user?.id}
             batch={currentBatch}
           />
         ))}
