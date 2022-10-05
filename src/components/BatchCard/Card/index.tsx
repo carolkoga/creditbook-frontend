@@ -1,4 +1,5 @@
 import { Link } from '@components/Button';
+import { BatchParams } from '@type/creditbook/Batch';
 import convertToCurrency from '@utils/convertToCurrency';
 import {
   Container,
@@ -12,19 +13,18 @@ import {
 
 interface IProps {
   mine: boolean,
+  batch: BatchParams,
 }
 
-export function BatchCard({ mine }: IProps) {
+export function BatchCard({ mine, batch }: IProps) {
   return (
     <Container>
       <LeftContent>
         <Title>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit
+          {batch.name}
         </Title>
         <Description>
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolorum itaque
-          placeat magni voluptate temporibus iste nihil commodi, expedita, reiciendis
-          inventore optio quas eveniet sit animi earum eaque ea repellat sint!
+          {batch.description}
         </Description>
         <QuantityADS>Quantidade de anúncios: 5</QuantityADS>
       </LeftContent>
@@ -34,12 +34,12 @@ export function BatchCard({ mine }: IProps) {
           Valor da liquidação
           <span>
             {' '}
-            {convertToCurrency(18062135156)}
+            {convertToCurrency(Number(batch.value))}
           </span>
         </BatchIncome>
         <div className="actions">
-          <Link href="/batch/434124123" variant="secondary">Ver Anuncios</Link>
-          {mine && <Link href="/batch/434124123">Adicionar Anúncios</Link>}
+          <Link href={`/batch/${batch.id}`} variant="secondary">Ver Anuncios</Link>
+          {mine && <Link href={`/batch/${batch.id}`}>Adicionar Anúncios</Link>}
         </div>
       </RightContent>
     </Container>
