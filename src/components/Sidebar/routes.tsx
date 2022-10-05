@@ -39,7 +39,7 @@ export const routes = [
   {
     label: 'Lotes',
     icon: <DiceTwo size={24} weight="regular" />,
-    link: '/batchs',
+    link: '/batches',
   },
 
   {

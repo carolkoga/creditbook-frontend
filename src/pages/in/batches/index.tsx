@@ -5,7 +5,7 @@ import { BatchCard } from '@components/BatchCard/Card';
 import { Button } from '@components/Button';
 import { Direction } from '@components/Direction';
 import { ListBatchs } from '@components/ListBatchs';
-import { NewBatchFormModal } from '@components/pages/in/batchs/NewBatchFormModal';
+import { NewBatchFormModal } from '@components/pages/in/batches/NewBatchFormModal';
 import { Section } from '@components/Section';
 import { batchServices } from '@services/creditbook/batch';
 import { BatchParams, NewBatchParams } from '@type/creditbook/Batch';
@@ -16,7 +16,7 @@ interface IProps {
   initialBatches: BatchParams[],
 }
 
-export default function Batchs({ initialBatches }: IProps) {
+export default function Batches({ initialBatches }: IProps) {
   const [newBatchModalIsVisible, setNewBatchModalIsVisible] = useState(false);
   const [batches, setBatches] = useState<BatchParams[]>(initialBatches);
   const { user } = useAuth();

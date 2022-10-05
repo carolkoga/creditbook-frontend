@@ -1,10 +1,16 @@
+import { BatchParams } from '@type/creditbook/Batch';
 import { BatchCard } from './Card';
 
-export default function BatchsList({ mine, batchs }: any) {
+interface IProps {
+  batches: BatchParams[],
+  mine: boolean
+}
+
+export default function BatchsList({ mine, batches }: IProps) {
   return (
     <>
-      {batchs.map((batch: { id: string }) => (
-        <BatchCard key={batch.id} mine={mine} />
+      {batches.map((currentBatch) => (
+        <BatchCard key={currentBatch.id} batch={currentBatch} mine={mine} />
       ))}
     </>
   );
