@@ -34,6 +34,10 @@ export const Title = styled.strong`
   color: ${({ theme }) => theme.colors.grey[80]};
   font-size: 18px;
   margin-bottom: 16px;
+
+  &::first-letter {
+    text-transform: uppercase;
+  }
 `;
 
 export const Description = styled.p`
@@ -44,6 +48,10 @@ export const Description = styled.p`
   overflow-y: scroll;
   text-align: justify;
   word-break: break-all;
+
+  &::first-letter {
+    text-transform: uppercase;
+  }
 `;
 
 export const QuantityADS = styled.small`
