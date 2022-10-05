@@ -3,3 +3,11 @@ export interface NewBatchParams {
   description: string,
   value: string,
 }
+
+export interface BatchParams {
+  id: string,
+  description: string,
+  name: string,
+  value: string,
+  userId: string,
+}
