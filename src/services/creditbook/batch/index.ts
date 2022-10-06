@@ -1,18 +1,44 @@
 import { creditbookApi } from '@api/creditbookApi';
 import { NewBatchParams } from '@type/creditbook/Batch';
+import { AxiosInstance } from 'axios';
 
-class BatchServices {
+interface UpdateParams {
+  id: string,
+  batch: NewBatchParams,
+}
+
+export class BatchServices {
+  private httpClient: AxiosInstance;
+
+  constructor(customAPI?: AxiosInstance) {
+    this.httpClient = !customAPI
+      ? creditbookApi
+      : customAPI;
+  }
+
   async create(batch: NewBatchParams) {
     const newBatch = {
       ...batch,
       value: batch.value.replaceAll('R$ ', '').replaceAll(',', '').replaceAll('.', ''),
     };
 
-    return creditbookApi.post('/batch', newBatch);
+    return this.httpClient.post('/batch', newBatch);
   }
 
   async list() {
-    return await creditbookApi.get('/batch/all');
+    return await this.httpClient.get('/batch/all');
+  }
+
+  async show(id: string) {
+    return await this.httpClient.get(`/batch/${id}`);
+  }
+
+  async update({ id, batch }: UpdateParams) {
+    return await this.httpClient.patch(`/batch/${id}`, batch);
+  }
+
+  async delete(id: string) {
+    return await this.httpClient.delete(`/batch/${id}`);
   }
 }
 
