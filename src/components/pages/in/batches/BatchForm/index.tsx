@@ -5,6 +5,7 @@ import { Input, Textarea } from '@components/Input';
 import { InputCurrency } from '@components/Form/Input/Mask/InputCurrency';
 import { NewBatchParams } from '@type/creditbook/Batch';
 import { ReactNode } from 'react';
+import { Container } from './styled';
 
 interface IProps {
   children?: ReactNode,
@@ -17,7 +18,7 @@ export default function BatchForm({ children, onSubmit }: IProps) {
   } = useFormContext<NewBatchParams>();
 
   return (
-    <form noValidate onSubmit={onSubmit}>
+    <Container noValidate onSubmit={onSubmit}>
       <FormGroup
         direction="vertical"
         error={errors?.name?.message}
@@ -68,7 +69,7 @@ export default function BatchForm({ children, onSubmit }: IProps) {
       />
 
       {children}
-    </form>
+    </Container>
   );
 }
 
