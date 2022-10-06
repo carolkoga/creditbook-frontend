@@ -9,7 +9,11 @@ type CorporationAccountMainInformation = Omit<AccountCorporation, 'profilePictur
   type: 'corporation'
 }
 
-type UnionAccountType = PersonAccountMainInformation | CorporationAccountMainInformation;
+interface UnionAccountType extends
+  Omit<PersonAccountMainInformation, 'type'>,
+  Omit<CorporationAccountMainInformation, 'type'> {
+  type: 'person' | 'corporation',
+}
 
 export type AuthenticatedUserData = Omit<UnionAccountType, 'password'> & {
   id: string,

@@ -28,7 +28,7 @@ export default function LegalEntity({
   const validationSchema = (
     validation === 'register'
       ? registerCorporationAccountSchema
-      : validation === 'update' && updateCorporationAccountSchema
+      : updateCorporationAccountSchema
   );
   const methods = useForm<AccountCommonParams | any>({
     resolver: yupResolver(validationSchema as any),

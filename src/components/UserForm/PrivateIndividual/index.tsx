@@ -25,7 +25,7 @@ export default function PrivateIndividual({
   const validationSchema = (
     validation === 'register'
       ? registerPersonAccountSchema
-      : validation === 'update' && updatePersonAccountSchema
+      : updatePersonAccountSchema
   );
 
   const methods = useForm<PersonParams | any>({

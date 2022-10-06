@@ -20,19 +20,14 @@ export default function Profile() {
   const { dimensionsOverlimit } = useDimensions();
   const { widthOverlimit } = dimensionsOverlimit(870);
   const defaultValuesRef = useRef<UserDefaultValues>({
-    fullName: user?.fullName,
-    address: user?.address,
-    bornDate: user?.bornDate.substring(0, 10),
-    cellphone: user?.cellphone,
-    cpf: user?.cpf,
-    email: user?.email,
+    ...user,
+    id: undefined,
     userId: user?.id,
-    rg: user?.rg,
-    type: user?.type,
+    bornDate: user?.bornDate.substring(0, 10),
     newPassoword: '',
     currentPassword: '',
-    profilePicture: user?.profilePictureUrl,
     nationality: { label: user?.nationality, value: user?.nationality },
+    profilePicture: user?.profilePictureUrl,
   } as UserDefaultValues);
 
   async function handleUpdateAccount(data: UserDefaultValues) {
