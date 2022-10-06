@@ -27,7 +27,7 @@ const sizesButton = {
   `,
 
   'outline-filled-round': css`
-    padding: 10px 62px;
+    padding: 1rem 6.2rem;
     font-size: 14px;
     line-height: 24px;
     font-weight: 500;
@@ -78,6 +78,7 @@ export const StyleButton = styled.button<ButtonProps>`
   color: ${({ theme }) => theme.colors.grey[10]};
   border-radius: 5px;
   cursor: pointer;
+  text-align: left;
   text-decoration: none;
   transition: all .35s ease-in-out;
   &[disabled] {

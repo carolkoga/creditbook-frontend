@@ -19,6 +19,7 @@ export const Container = styled.aside<ContainerProps>`
   overflow-y: scroll;
   width: ${({ collapsed }) => (collapsed ? '23rem' : '9.3rem')};
   padding: auto;
+  text-align: left;
 
   .button__logout {
     width: 32px;
