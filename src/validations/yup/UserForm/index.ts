@@ -1,18 +1,7 @@
 import * as yup from 'yup';
-import { setLocale } from 'yup';
 import {
   validateCep, validateCNPJ, validateCPF, validateUF,
 } from 'validations-br';
-
-setLocale({
-  string: {
-    email: 'Digite um e-mail válido',
-  },
-
-  mixed: {
-    required: 'Campo obrigatório',
-  },
-});
 
 const addressValidationSchema = yup.object().shape({
   cep: yup.string()
@@ -38,12 +27,7 @@ export const corporationValidation = {
 };
 
 const passwordValidation = {
-  password: yup.string()
-    .required('Campo obrigatório')
-    .test('Least a uppercase letter', 'No mínimo uma letra maiúscula', (value: any) => (/[A-Z]/).test(value))
-    .test('Least a non-alphanumeric', 'No mínimo um caracter especial', (value: any) => (/\W/).test(value))
-    .test('Least a number', 'No mínimo um número', (value: any) => (/\d/).test(value))
-    .min(8, 'Sua senha precisa ter no mínimo 8 caracteres'),
+  password: yup.string().validatePassword(),
   passwordConfirmation: yup.string()
     .required('Campo obrigatório')
     .oneOf([yup.ref('password')], 'As senhas não correspondem'),
@@ -62,7 +46,7 @@ export const commonValidationSchema = {
       ),
     )
     .required('Campo obrigatório'),
-  nationality: yup.object().typeError('Campo obrigatório'),
+  nationality: yup.mixed().typeError('Campo obrigatório'),
   cellphone: yup.string().required('Campo obrigatório'),
   fullName: yup.string().required('Campo obrigatório'),
 
@@ -77,6 +61,13 @@ export const commonValidationSchema = {
       (value: any) => validateCPF(value),
     ),
 
+  address: addressValidationSchema,
+};
+
+export const registerPersonAccountSchema = yup.object({
+  ...commonValidationSchema,
+  ...passwordValidation,
+
   bornDate: yup
     .string()
     .required('Campo obrigatório')
@@ -89,17 +80,13 @@ export const commonValidationSchema = {
         return (currentYear - bornYear) >= 18;
       },
     ),
-
-  address: addressValidationSchema,
-};
-
-export const registerPersonAccountSchema = yup.object({
-  ...commonValidationSchema,
-  ...passwordValidation,
 });
 
 export const registerCorporationAccountSchema = yup.object({
   ...commonValidationSchema,
   ...passwordValidation,
   ...corporationValidation,
+  bornDate: yup
+    .string()
+    .required('Campo obrigatório'),
 });
