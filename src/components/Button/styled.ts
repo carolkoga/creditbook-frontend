@@ -64,8 +64,8 @@ const variantsButton = {
   `,
 
   danger: css`
-    background: #F16565;
-    color: #FFF;
+    background: ${({ theme }) => theme.colors.others.actions.danger};
+    color: ${({ theme }) => theme.colors.grey[10]};
   `,
 };
 

@@ -19,6 +19,10 @@ export const light = {
     },
 
     others: {
+      actions: {
+        danger: '#F16565',
+      },
+
       status: {
         fiscal: '#CFEAEC',
         labor: '#F3DFC2',
