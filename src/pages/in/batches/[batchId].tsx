@@ -19,7 +19,7 @@ interface IProps {
   initialBatch: BatchParams
 }
 
-export default function BatchInformation({ initialBatch }: IProps) {
+export default function ShowBatchPage({ initialBatch }: IProps) {
   const router = useRouter();
   const [batch, setBatch] = useState(initialBatch);
   const [modalBatchBeingDelete, setModalBatchBeingDelete] = useState<boolean>(false);
