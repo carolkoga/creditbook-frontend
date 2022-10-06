@@ -1,22 +1,9 @@
-import { validateCNPJ, validateCPF } from 'validations-br';
-import { addMethod, string } from 'yup';
+import { addMethod, mixed } from 'yup';
 
-addMethod(string, 'cpfOrcnpj', function validateCPForCNPJ(messageError?: string) {
-  return this.test({
-    message: messageError || 'CPF or CNPJ é inválido',
-    name: 'CPF or CNPJ is invalid',
-    test(value: any) {
-      return (
-        value.length > 14 ? validateCNPJ(value) : validateCPF(value)
-      );
-    },
-  });
+addMethod(mixed, 'selectOptionValue', function selectOptionValue() {
+  return this.transform((option: any) => option.value);
 });
 
-addMethod(string, 'validatePassword', function validatePassword() {
-  return this
-    .test('Least a uppercase letter', 'No mínimo uma letra maiúscula', (value: any) => (/[A-Z]/).test(value))
-    .test('Least a non-alphanumeric', 'No mínimo um caracter especial', (value: any) => (/\W/).test(value))
-    .test('Least a number', 'No mínimo um número', (value: any) => (/\d/).test(value))
-    .min(8, 'Sua senha precisa ter no mínimo 8 caracteres');
+addMethod(mixed, 'singleFile', function getSingleFile() {
+  return this.transform((files: any) => files[0]);
 });

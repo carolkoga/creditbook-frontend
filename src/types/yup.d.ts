@@ -12,7 +12,12 @@ declare module 'yup' {
     validatePassword(): StringSchema<TType, TContext>;
   }
 
-  interface MixedSchema extends yup.BaseSchema {
-    selectValueOption(): MixedSchema;
+  interface MixedSchema<
+    TType extends Maybe<any> = any | undefined,
+    TContext extends AnyObject = AnyObject,
+    TOut extends TType = TType,
+  > extends yup.BaseSchema<TType, TContext, TOut> {
+    selectOptionValue(): MixedSchema<TType, TContext>;
+    singleFile(): MixedSchema<TType, TContext>;
   }
 }
