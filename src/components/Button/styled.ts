@@ -32,6 +32,10 @@ const sizesButton = {
     line-height: 24px;
     font-weight: 500;
     border-radius: 10px;
+
+    @media (max-width: 520px) {
+      padding: 1rem 3.2rem;
+    }
   `,
 
   'x-large': css`
