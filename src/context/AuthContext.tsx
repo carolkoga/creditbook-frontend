@@ -10,6 +10,7 @@ import { authCreditBookService } from '@services/creditbook/auth';
 import { LoginParams } from '@type/creditbook/auth/login';
 import { creditbookApi } from '@api/creditbookApi';
 import { commonToastProps } from '@configs/toast';
+import { userCreditbookService } from '@services/creditbook/user';
 
 interface IProps {
   children: ReactNode,
@@ -77,10 +78,14 @@ export function AuthProvider({ children }: IProps) {
     setUser((oldState) => Object.assign(data, oldState));
   }
 
-  async function getUserInformation() {
+  async function getUserInformation(token?: string) {
     const { 'nextauth.user': userDataSaved } = parseCookies();
     if (userDataSaved) {
       setUser(JSON.parse(userDataSaved));
+      if (token) {
+        const { data } = await userCreditbookService.getUserInformation({ token });
+        setUser({ ...data, password: undefined });
+      }
     } else {
       handleSignOut();
     }
@@ -90,7 +95,7 @@ export function AuthProvider({ children }: IProps) {
     if (Router.pathname === '/login' || Router.pathname.startsWith('/in/')) {
       const { 'nextauth.token': nextAuthToken } = parseCookies();
       if (nextAuthToken) {
-        getUserInformation();
+        getUserInformation(nextAuthToken);
         setAuthorizationHeader(nextAuthToken);
       } else {
         setUser(null);
