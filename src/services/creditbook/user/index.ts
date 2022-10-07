@@ -42,7 +42,7 @@ class UserCreditbookService {
 
     formData.forEach((itemValue, keyItem) => dataParsed.push({ [keyItem]: itemValue }));
 
-    return await creditbookApi.put('/user', formData, {
+    return await creditbookApi.patch('/user', formData, {
       headers: {
         'content-type': 'multipart/form-data',
       },
