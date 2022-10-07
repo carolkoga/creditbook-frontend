@@ -34,13 +34,13 @@ export function AuthProvider({ children }: IProps) {
 
   function handleSignOut() {
     setUser(null);
+    Router.push('/');
     destroyCookie(undefined, 'nextauth.token', {
       path: '/',
     });
     destroyCookie(undefined, 'nextauth.user', {
       path: '/',
     });
-    Router.push('/');
   }
 
   async function handleSignIn(data: LoginParams) {
