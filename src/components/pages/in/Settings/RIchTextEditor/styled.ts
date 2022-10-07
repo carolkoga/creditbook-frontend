@@ -1,17 +1,25 @@
 import styled from 'styled-components';
 
 export const WrapperEditor = styled.div`
-  max-width: 1365px;
   width: 100%;
-  height: 100%;
-  max-height: 328px;
   overflow-y: hidden;
 
   .quill {
+    overflow-y: scroll;
     border-radius: 10px;
     height: 100%;
+    min-height: 450px;
+    position: relative;
 
     .ql-toolbar {
+      position: sticky;
+      z-index: 10;
+      top: 5px;
+      left: 0;
+      width: 90%;
+      margin: auto;
+      background: #fff;
+      border: none;
       display: flex;
       flex-direction: row;
       border-radius: 10px;
@@ -25,9 +33,6 @@ export const WrapperEditor = styled.div`
       border: none;
 
       .ql-editor {
-        max-height: 328px;
-        height: 100%;
-        overflow-y: scroll;
         margin-top: 14px;
         border: 1px solid ${({ theme }) => theme.colors.grey[30]};
         border-radius: 10px;
@@ -43,8 +48,17 @@ export const WrapperEditor = styled.div`
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
+  align-items: flex-start;
   gap: 24px;
   justify-content: flex-start;
   height: 100%;
+
+  max-width: 1080px;
+  .actions {
+    width: 100%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+
+  }
 `;
