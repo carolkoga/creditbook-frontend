@@ -45,7 +45,7 @@ class AuthCreditBookService {
   }
 
   async login({ email, password }: LoginParams) {
-    const data = { password, email };
+    const data = { password, email, role: 'user' };
     return await creditbookApi.post('/auth/login', data);
   }
 }
