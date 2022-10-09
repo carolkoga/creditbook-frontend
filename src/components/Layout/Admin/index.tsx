@@ -1,0 +1,44 @@
+import { ReactNode } from 'react';
+import { Layout } from 'antd';
+
+import NavBarAdmin from '@components/pages/admin/NavBar';
+import SidebarAdmin from '@components/pages/admin/Sidebar';
+import TopicsMenu, { TopicProps } from '@components/pages/admin/TopicsMenu';
+import { Content, Header } from './styled';
+
+interface IProps {
+  children: ReactNode
+}
+
+const adminRoutesPrefix = '/admin';
+
+const adminRoutes: TopicProps[] = [
+  {
+    label: 'Gerenciar Anúncios',
+    link: `${adminRoutesPrefix}/manage-announcements`,
+  },
+
+  {
+    label: 'Dashboard',
+    link: `${adminRoutesPrefix}/dashboard`,
+  },
+];
+
+export default function AdminLayout({ children }: IProps) {
+  return (
+    <Layout>
+      <SidebarAdmin>
+        <TopicsMenu topics={adminRoutes} />
+      </SidebarAdmin>
+      <Layout className="site-layout">
+        <Header>
+          <NavBarAdmin menu={adminRoutes} />
+        </Header>
+        <Content>
+          <h1>Admin Teste</h1>
+          {children}
+        </Content>
+      </Layout>
+    </Layout>
+  );
+}
