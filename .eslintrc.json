@@ -33,7 +33,10 @@
       "jsx-a11y/anchor-is-valid": "off",
       "import/no-unresolved": "off",
       "import/extensions": ["error", {
-        ".ts": "never"
+        ".ts": "never",
+        ".tsx": "never",
+        ".js": "never",
+        ".jsx": "never"
       }],
       "consistent-return": "off",
       "no-return-await": "off",
