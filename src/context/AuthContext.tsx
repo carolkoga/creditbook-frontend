@@ -11,6 +11,7 @@ import { LoginParams } from '@type/creditbook/auth/login';
 import { creditbookApi } from '@api/creditbookApi';
 import { commonToastProps } from '@configs/toast';
 import { userCreditbookService } from '@services/creditbook/user';
+import { handleCatchErrorRequest } from '@utils/handleCatchErrorRequest';
 
 interface IProps {
   children: ReactNode,
@@ -50,7 +51,6 @@ export function AuthProvider({ children }: IProps) {
         {
           pending: 'Estamos verificando seus dados, aguarde um momento...',
           success: 'Login realizado com sucessso!',
-          error: 'Ops. verifique e-mail e senha estão certo.',
         },
         customToastProps,
       );
@@ -64,13 +64,16 @@ export function AuthProvider({ children }: IProps) {
       setUser(userSignIn);
       setAuthorizationHeader(token);
 
-      setCookie(undefined, 'nextauth.user', JSON.stringify({ ...userSignIn, password: undefined }), {
+      setCookie(undefined, 'nextauth.user', JSON.stringify({
+        ...userSignIn,
+        password: undefined,
+        role: userSignIn.role,
+      }), {
         maxAge: 60 * 60 * 24 * 30, // 30 days
         path: '/',
       });
     } catch (error) {
-      // eslint-disable-next-line no-console
-      console.debug('...');
+      handleCatchErrorRequest(error as never);
     }
   }
 
