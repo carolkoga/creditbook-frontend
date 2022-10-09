@@ -10,6 +10,7 @@ import 'swiper/css/scrollbar';
 import 'react-lite-youtube-embed/dist/LiteYouTubeEmbed.css';
 import 'react-toastify/dist/ReactToastify.css';
 import 'react-quill/dist/quill.snow.css';
+import 'antd/dist/antd.css';
 import '@validations/yup/methods';
 
 import { light } from '@styles/themes/light';
