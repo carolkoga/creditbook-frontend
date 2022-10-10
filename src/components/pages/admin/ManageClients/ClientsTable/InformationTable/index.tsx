@@ -1,0 +1,87 @@
+/* eslint-disable react/no-unstable-nested-components */
+import { Address } from '@type/creditbook';
+import formatPhone from '@utils/formatPhone';
+import { Table } from 'antd';
+
+interface DataType extends Address{
+  key: string,
+  cellPhone: string,
+  type: 'person' | 'corporation',
+  reasonForInactivation: string | null,
+}
+
+interface IProps {
+  dataSource: DataType | {},
+}
+
+const translationAccountType = { person: 'Física', corporation: 'Juridica' };
+
+const columns = [
+  {
+    title: 'Pessoa',
+    dataIndex: 'type',
+    key: 'type',
+    render: (accountType: 'person' | 'corporation') => translationAccountType[accountType],
+  },
+
+  {
+    title: 'Celular',
+    dataIndex: 'cellPhone',
+    key: 'cellPhone',
+    render: (cellPhone: string) => formatPhone(cellPhone),
+  },
+
+  {
+    title: 'Rua',
+    dataIndex: 'address',
+    key: 'address',
+  },
+
+  {
+    title: 'Número',
+    dataIndex: 'number',
+    key: 'number',
+  },
+
+  {
+    title: 'Cidade',
+    dataIndex: 'city',
+    key: 'city',
+  },
+
+  {
+    title: 'CEP',
+    dataIndex: 'cep',
+    key: 'cep',
+  },
+
+  {
+    title: 'UF',
+    dataIndex: 'uf',
+    key: 'uf',
+  },
+
+  {
+    title: 'Complemento',
+    dataIndex: 'complement',
+    key: 'complement',
+  },
+
+  {
+    title: 'Motivo da desativação',
+    dataIndex: 'reasonForInactivation',
+    key: 'reasonForInactivation',
+    render: (reason: string) => (reason && <p>{reason}</p>),
+  },
+];
+
+export default function InformationTable({ dataSource }: IProps) {
+  return (
+    <Table
+      columns={columns}
+      dataSource={[dataSource]}
+      pagination={false}
+      size="small"
+    />
+  );
+}
