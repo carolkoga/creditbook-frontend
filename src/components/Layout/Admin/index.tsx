@@ -14,13 +14,18 @@ const adminRoutesPrefix = '/admin';
 
 const adminRoutes: TopicProps[] = [
   {
+    label: 'Dashboard',
+    link: `${adminRoutesPrefix}/dashboard`,
+  },
+
+  {
     label: 'Gerenciar Anúncios',
     link: `${adminRoutesPrefix}/manage-announcements`,
   },
 
   {
-    label: 'Dashboard',
-    link: `${adminRoutesPrefix}/dashboard`,
+    label: 'Gerenciar Clientes',
+    link: `${adminRoutesPrefix}/manage-clients`,
   },
 ];
 
