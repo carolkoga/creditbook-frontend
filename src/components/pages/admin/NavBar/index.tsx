@@ -60,6 +60,7 @@ export default function NavBarAdmin({ menu }: IProps) {
           type="link"
           icon={<Power weight="bold" size={24} />}
           onClick={handleSignOut}
+          title="Logout"
         />
       </div>
     </Nav>

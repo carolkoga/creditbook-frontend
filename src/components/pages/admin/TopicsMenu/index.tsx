@@ -1,6 +1,7 @@
 import { Menu } from 'antd';
 import Link from 'next/link';
-import { ReactNode, useState } from 'react';
+import { useRouter } from 'next/router';
+import { ReactNode, useEffect, useState } from 'react';
 import { Route } from './styled';
 
 export interface TopicProps {
@@ -14,13 +15,21 @@ interface IProps {
 }
 
 export default function TopicsMenu({ topics }: IProps) {
-  const [currentRouteSelected, setCurrentRouteSelected] = useState('0');
+  const router = useRouter();
+  const [currentRouteSelected, setCurrentRouteSelected] = useState(topics[0].link);
+
+  useEffect(() => {
+    setCurrentRouteSelected(router.pathname);
+  }, []);
 
   return (
     <Menu mode="inline" selectedKeys={[currentRouteSelected]}>
-      {topics.map((topic, index) => (
+      {topics.map((topic) => (
         // eslint-disable-next-line react/no-array-index-key
-        <Menu.Item key={index} onClick={() => setCurrentRouteSelected(index.toString())}>
+        <Menu.Item
+          key={topic.link}
+          onClick={() => setCurrentRouteSelected(topic.link)}
+        >
           <Link href={topic.link}>
             <Route>
               {topic?.icon && (
