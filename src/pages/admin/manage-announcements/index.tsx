@@ -2,6 +2,7 @@ import { useMemo } from 'react';
 import { Tabs } from 'antd';
 
 import AnnouncementsTable from '@components/pages/admin/ManageAnnouncements/AnnouncementsTable';
+import { Section } from '@components/Section';
 
 export default function ManageAnnouncements() {
   const filterTabs = useMemo(() => ([
@@ -21,7 +22,7 @@ export default function ManageAnnouncements() {
     },
 
     {
-      label: 'Aceitos',
+      label: 'Aprovados',
       key: 'accepted',
       children: <AnnouncementsTable dataSource={[]} />,
     },
@@ -35,7 +36,7 @@ export default function ManageAnnouncements() {
 
   return (
     <>
-      <h1>Gerenciar Anúncios</h1>
+      <Section.Title as="h1" textColor="dark">Gerenciar Anúncios</Section.Title>
       <Tabs defaultActiveKey="pending" items={filterTabs} />
     </>
   );
