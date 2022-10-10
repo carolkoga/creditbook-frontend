@@ -35,7 +35,6 @@ export default function AdminLayout({ children }: IProps) {
           <NavBarAdmin menu={adminRoutes} />
         </Header>
         <Content>
-          <h1>Admin Teste</h1>
           {children}
         </Content>
       </Layout>
