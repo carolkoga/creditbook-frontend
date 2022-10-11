@@ -41,7 +41,7 @@ export default function Profile() {
       delete dataParsed.profilePicture;
       delete dataParsed.newPassoword;
 
-      const response = await userCreditbookService.update(dataParsed);
+      const response = await userCreditbookService.update(dataParsed, user);
 
       handleUpdateUser(response.data);
       setIsLoading(false);

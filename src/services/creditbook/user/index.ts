@@ -9,7 +9,7 @@ class UserCreditbookService {
     });
   }
 
-  async update(data: any) {
+  async update(data: any, originalData: any) {
     const formData = new FormData();
     Object.entries(data).forEach((field) => {
       const [key, value] = field;
@@ -21,6 +21,17 @@ class UserCreditbookService {
       }
 
       if (key === 'id' || key === 'userId') return;
+
+      if (key === 'currentPassword') {
+        if (!value) return;
+      }
+
+      if (key === 'newPassword') {
+        if (!value) return;
+      }
+
+      if (originalData[key] === value) return;
+
       formData.append(key, (value as string | Blob));
     });
 
