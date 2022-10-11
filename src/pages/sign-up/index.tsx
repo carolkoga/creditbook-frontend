@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { AxiosError } from 'axios';
 import { ToastOptions } from 'react-toastify';
 
 import { Button } from '@components/Button';
@@ -42,7 +41,7 @@ export default function SignUp() {
         password: data.password,
       });
     } catch (error) {
-      handleCatchErrorRequest(error as AxiosError, customToastPropsToSignUp);
+      handleCatchErrorRequest(error as never, customToastPropsToSignUp);
       setIsLoading(false);
     }
   }
@@ -59,7 +58,7 @@ export default function SignUp() {
         password: data.password,
       });
     } catch (error) {
-      handleCatchErrorRequest(error as AxiosError);
+      handleCatchErrorRequest(error as never);
       setIsLoading(false);
     }
   }

@@ -1,6 +1,6 @@
-export enum AnnouncementTypes {
-  'physical' = 'physical',
-  'digital' = 'digital',
+export interface AnnouncementTypes {
+  physical: 'physical',
+  digital: 'digital',
 }
 export interface AnnouncementGender {
   civel: 'civel',
