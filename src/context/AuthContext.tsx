@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import {
-  createContext, ReactNode, useEffect, useMemo, useState,
+  createContext, ReactNode, useCallback, useEffect, useMemo, useState,
 } from 'react';
 import { toast, ToastOptions } from 'react-toastify';
 import { setCookie, parseCookies, destroyCookie } from 'nookies';
@@ -77,9 +77,9 @@ export function AuthProvider({ children }: IProps) {
     }
   }
 
-  function updateUser(data: any) {
-    setUser((oldState) => Object.assign(data, oldState));
-  }
+  const updateUser = useCallback((data: any) => {
+    setUser(data);
+  }, [user]);
 
   async function getUserInformation(token?: string) {
     const { 'nextauth.user': userDataSaved } = parseCookies();
@@ -115,7 +115,7 @@ export function AuthProvider({ children }: IProps) {
     handleSignIn,
     handleSignOut,
     handleUpdateUser: (data: AuthenticatedUserData) => updateUser(data),
-  }), [isAuthenticated, user]);
+  }), [isAuthenticated, user, updateUser]);
 
   return (
     <AuthContext.Provider value={values}>
