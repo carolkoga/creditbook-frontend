@@ -12,8 +12,7 @@ export type Address = {
 };
 
 export interface UserUpdateParams extends Omit<AccountCommonParams, 'passwordConfirmation' | 'password' | 'profilePicture'> {
-  userId: string,
-  newPassoword?: string | null,
+  newPassword?: string | null,
   currentPassword?: string | null,
   profilePicture?: string,
 }
