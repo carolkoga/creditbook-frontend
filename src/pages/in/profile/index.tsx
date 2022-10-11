@@ -1,16 +1,25 @@
-import { useRef, useState } from 'react';
+import {
+  useCallback, useEffect, useMemo, useState,
+} from 'react';
+import { toast } from 'react-toastify';
+import { FormProvider, useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
 
 import LegalEntity from '@components/UserForm/LegalEntity';
 import PrivateIndividual from '@components/UserForm/PrivateIndividual';
+import { Section } from '@components/Section';
+
+import useAuth from '@hooks/useAuth';
+import useDimensions from '@hooks/useDimensions';
+
+import { UserDefaultValues } from '@type/creditbook';
+
+import { userCreditbookService } from '@services/creditbook/user';
 
 import { Direction } from '@styles/pages/home';
-import { Section } from '@components/Section';
-import useDimensions from '@hooks/useDimensions';
-import useAuth from 'hooks/useAuth';
-import { userCreditbookService } from '@services/creditbook/user';
-import { UserDefaultValues } from '@type/creditbook';
+
+import { updateCorporationAccountSchema, updatePersonAccountSchema } from '@validations/yup/UserForm/update';
 import { handleCatchErrorRequest } from '@utils/handleCatchErrorRequest';
-import { toast } from 'react-toastify';
 import { commonToastProps } from '@configs/toast';
 
 export default function Profile() {
@@ -18,16 +27,51 @@ export default function Profile() {
   const [isLoading, setIsLoading] = useState(false);
   const { dimensionsOverlimit } = useDimensions();
   const { widthOverlimit } = dimensionsOverlimit(870);
-  const defaultValuesRef = useRef<UserDefaultValues>({
+  const defaultValues = useMemo(() => ({
     ...user,
-    id: undefined,
-    userId: user?.id,
     bornDate: user?.bornDate.substring(0, 10),
-    newPassoword: null,
+    newPassword: null,
     currentPassword: null,
     nationality: { label: user?.nationality, value: user?.nationality },
     profilePicture: user?.profilePictureUrl,
-  } as UserDefaultValues);
+  }), [user]);
+
+  const methodsCorporations = useForm({
+    resolver: yupResolver(updateCorporationAccountSchema),
+    mode: 'onBlur',
+    reValidateMode: 'onChange',
+    defaultValues,
+  });
+
+  const methodsPerson = useForm({
+    resolver: yupResolver(updatePersonAccountSchema),
+    mode: 'onBlur',
+    reValidateMode: 'onChange',
+    defaultValues,
+  });
+
+  const reloadDefaultValues = useCallback(() => {
+    methodsCorporations.reset({
+      ...user,
+      bornDate: user?.bornDate.substring(0, 10),
+      newPassword: null,
+      currentPassword: null,
+      nationality: { label: user?.nationality, value: user?.nationality },
+      profilePicture: user?.profilePictureUrl,
+    });
+    methodsPerson.reset({
+      ...user,
+      bornDate: user?.bornDate.substring(0, 10),
+      newPassword: null,
+      currentPassword: null,
+      nationality: { label: user?.nationality, value: user?.nationality },
+      profilePicture: user?.profilePictureUrl,
+    });
+  }, [user]);
+
+  useEffect(() => {
+    reloadDefaultValues();
+  }, [reloadDefaultValues]);
 
   async function handleUpdateAccount(data: UserDefaultValues) {
     try {
@@ -38,8 +82,6 @@ export default function Profile() {
         bornDate: (new Date(data.bornDate)).toISOString(),
         address: JSON.stringify(data.address),
       };
-      delete dataParsed.profilePicture;
-      delete dataParsed.newPassoword;
 
       const response = await userCreditbookService.update(dataParsed, user);
 
@@ -61,25 +103,27 @@ export default function Profile() {
       </Section.Header>
 
       {user?.type === 'person' && (
-        <PrivateIndividual
-          validation="update"
-          onSubmit={handleUpdateAccount}
-          loading={isLoading}
-          formGroupDirection={widthOverlimit ? 'horizontal' : 'vertical'}
-          label={isLoading ? 'Atualizando' : 'Atualizar'}
-          defaultValues={defaultValuesRef.current}
-        />
+        <FormProvider {...methodsPerson}>
+          <PrivateIndividual
+            validation="update"
+            onSubmit={methodsPerson.handleSubmit(handleUpdateAccount)}
+            loading={isLoading}
+            formGroupDirection={widthOverlimit ? 'horizontal' : 'vertical'}
+            label={isLoading ? 'Atualizando' : 'Atualizar'}
+          />
+        </FormProvider>
       )}
 
       {user?.type === 'corporation' && (
-        <LegalEntity
-          validation="update"
-          onSubmit={handleUpdateAccount}
-          loading={isLoading}
-          formGroupDirection={widthOverlimit ? 'horizontal' : 'vertical'}
-          label={isLoading ? 'Atualizando' : 'Atualizar'}
-          defaultValues={defaultValuesRef.current}
-        />
+        <FormProvider {...methodsCorporations}>
+          <LegalEntity
+            validation="update"
+            onSubmit={methodsCorporations.handleSubmit(handleUpdateAccount)}
+            loading={isLoading}
+            formGroupDirection={widthOverlimit ? 'horizontal' : 'vertical'}
+            label={isLoading ? 'Atualizando' : 'Atualizar'}
+          />
+        </FormProvider>
       )}
     </>
   );

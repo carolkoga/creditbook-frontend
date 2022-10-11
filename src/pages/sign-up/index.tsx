@@ -1,19 +1,27 @@
 import { useState } from 'react';
+import { FormProvider, useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
 import { ToastOptions } from 'react-toastify';
 
 import { Button } from '@components/Button';
 import LegalEntity from '@components/UserForm/LegalEntity';
 import PrivateIndividual from '@components/UserForm/PrivateIndividual';
 
-import { Direction } from '@styles/pages/home';
 import { Section } from '@components/Section';
-import { authCreditBookService } from '@services/creditbook/auth';
-import { AccountTypes } from '@type/creditbook';
+
 import useDimensions from '@hooks/useDimensions';
-import useAuth from 'hooks/useAuth';
-import { commonToastProps } from '@configs/toast';
+import useAuth from '@hooks/useAuth';
+
+import { Direction } from '@styles/pages/home';
+
+import { authCreditBookService } from '@services/creditbook/auth';
+
+import { AccountTypes } from '@type/creditbook';
 import { AccountCorporation, AccountPerson } from '@type/creditbook/auth/register';
+
+import { commonToastProps } from '@configs/toast';
 import { handleCatchErrorRequest } from '@utils/handleCatchErrorRequest';
+import { registerCorporationAccountSchema, registerPersonAccountSchema } from '@validations/yup/UserForm';
 
 const customToastPropsToSignUp: ToastOptions = {
   ...commonToastProps,
@@ -26,6 +34,15 @@ export default function SignUp() {
   const { handleSignIn } = useAuth();
   const { dimensionsOverlimit } = useDimensions();
   const { widthOverlimit } = dimensionsOverlimit(870);
+  const methodsPersonAccount = useForm<AccountPerson>({
+    resolver: yupResolver(registerPersonAccountSchema),
+    mode: 'onBlur',
+  });
+
+  const methodsCorporationAccount = useForm<AccountCorporation>({
+    resolver: yupResolver(registerCorporationAccountSchema),
+    mode: 'onBlur',
+  });
 
   function handleToggleRegisterAccountType() {
     setRegisterAccountType((oldState) => (oldState === 'person' ? 'corporation' : 'person'));
@@ -77,23 +94,27 @@ export default function SignUp() {
       </Section.Header>
 
       {registerAccountType === 'person' && (
-        <PrivateIndividual
-          validation="register"
-          onSubmit={handleSignUpPersonAccount}
-          loading={isLoading}
-          formGroupDirection={widthOverlimit ? 'horizontal' : 'vertical'}
-          label={isLoading ? 'Cadastrando' : 'Cadastrar'}
-        />
+        <FormProvider {...methodsPersonAccount}>
+          <PrivateIndividual
+            validation="register"
+            onSubmit={methodsPersonAccount.handleSubmit(handleSignUpPersonAccount)}
+            loading={isLoading}
+            formGroupDirection={widthOverlimit ? 'horizontal' : 'vertical'}
+            label={isLoading ? 'Cadastrando' : 'Cadastrar'}
+          />
+        </FormProvider>
       )}
 
       {registerAccountType === 'corporation' && (
-        <LegalEntity
-          validation="register"
-          onSubmit={handleSignUpCorporationAccount}
-          loading={isLoading}
-          formGroupDirection={widthOverlimit ? 'horizontal' : 'vertical'}
-          label={isLoading ? 'Cadastrando' : 'Cadastrar'}
-        />
+        <FormProvider {...methodsCorporationAccount}>
+          <LegalEntity
+            validation="register"
+            onSubmit={methodsCorporationAccount.handleSubmit(handleSignUpCorporationAccount)}
+            loading={isLoading}
+            formGroupDirection={widthOverlimit ? 'horizontal' : 'vertical'}
+            label={isLoading ? 'Cadastrando' : 'Cadastrar'}
+          />
+        </FormProvider>
       )}
     </>
   );
