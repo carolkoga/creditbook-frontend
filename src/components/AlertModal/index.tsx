@@ -1,3 +1,4 @@
+/* eslint-disable react/no-danger */
 /* eslint-disable react/require-default-props */
 /* eslint-disable react/default-props-match-prop-types */
 /* eslint-disable react/no-unescaped-entities */
@@ -5,21 +6,24 @@ import { Overlay } from '@components/Overlay';
 import ReactPortal from '@components/ReactPortal';
 import { Button } from '@components/Button';
 
-import { Container } from './styled';
+import { Container, Title } from './styled';
 
 interface IProps {
   title: string,
   description?: string | null,
   type: 'danger' | 'default',
+  titleColor?: 'warning'
   isVisible: boolean,
-  isLoading: boolean,
+  isLoading?: boolean,
+
+  width?: string,
 
   confirm: {
     label: string,
     onConfirmButton: () => void,
   },
 
-  cancel: {
+  cancel?: {
     label: string,
     onCancelButton: () => void,
   },
@@ -33,6 +37,8 @@ export default function AlertModal({
   isLoading,
   confirm,
   cancel,
+  width,
+  titleColor,
 }: IProps) {
   if (!isVisible) {
     return null;
@@ -41,24 +47,26 @@ export default function AlertModal({
   return (
     <ReactPortal>
       <Overlay>
-        <Container>
+        <Container width={width}>
           <div className="header__modal">
-            <h1>{title}</h1>
+            <Title color={titleColor}>{title}</Title>
           </div>
 
           {description && (
             <div className="body__modal">
-              <p>{description}</p>
+              <p dangerouslySetInnerHTML={{ __html: description }} />
             </div>
           )}
 
           <div className="footer__modal">
-            <Button
-              variant="white"
-              onClick={() => cancel.onCancelButton()}
-            >
-              {cancel.label}
-            </Button>
+            {cancel?.label && (
+              <Button
+                variant="white"
+                onClick={() => cancel.onCancelButton()}
+              >
+                {cancel.label}
+              </Button>
+            )}
             <Button
               variant={type}
               onClick={() => confirm.onConfirmButton()}

@@ -1,28 +1,38 @@
 import styled from 'styled-components';
 
-export const Container = styled.div`
+interface ContainerProps {
+  width?: string,
+}
+
+interface TitleProps {
+  color?: 'warning'
+}
+
+const titleColor = {
+  warning: '#BD7100',
+};
+
+export const Container = styled.div<ContainerProps>`
   display: flex;
   flex-direction: column;
   padding: 3.2rem;
   background: ${({ theme }) => theme.colors.grey[10]};
   border-radius: 1rem;
+  width: ${({ width }) => (!width ? 'auto' : width)};
 
   gap: 2.4rem;
   max-width: 531rem;
 
   transition: all .30s ease;
 
-  .header__modal {
-    > h1 {
-      color: ${({ theme }) => theme.colors.grey[50]};
-      text-align: left;
-    }
-  }
-
   .body__modal {
     color: ${({ theme }) => theme.colors.grey[50]};
     font-size: 1.2rem;
     font-weight: 400;
+
+    .red {
+      color: ${({ theme }) => theme.colors.others.actions.danger};
+    }
   }
 
   .footer__modal {
@@ -30,6 +40,14 @@ export const Container = styled.div`
     align-items: center;
     justify-content: flex-end;
     gap: 8px;
+  }
+
+  @media (max-width: 1250px) {
+    width: 55%;
+  }
+
+  @media (max-width: 750px) {
+    width: 85%;
   }
 
   @media (max-width: 318px) {
@@ -50,4 +68,9 @@ export const Container = styled.div`
       }
     }
   }
+`;
+
+export const Title = styled.h1<TitleProps>`
+  color: ${({ color, theme }) => (color ? titleColor[color] : theme.colors.grey[50])};
+  text-align: left;
 `;
