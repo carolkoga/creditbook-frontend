@@ -13,7 +13,7 @@ class UserCreditbookService {
     const formData = new FormData();
     Object.entries(data).forEach((field) => {
       const [key, value] = field;
-      if (key === 'profilePictureKey' || key === 'profilePictureUrl') {
+      if (key === 'profilePictureKey' || key === 'profilePictureUrl' || key === 'profilePicture') {
         const profilePictureKey = value;
         if (typeof profilePictureKey === 'string') {
           return;
