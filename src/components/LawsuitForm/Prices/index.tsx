@@ -8,7 +8,7 @@ import { Fieldset } from '../components/Fieldset';
 import useLawsuitForm from '../hooks/useLawsuitForm';
 
 export default function Prices() {
-  const { control } = useFormContext();
+  const { control, formState: { errors } } = useFormContext();
   const { formGroupDirection } = useLawsuitForm();
 
   return (
@@ -17,7 +17,7 @@ export default function Prices() {
       <Direction direction="horizontal">
         <Controller
           control={control}
-          name="ownOrAttorney"
+          name="processPrice"
           render={({ field }) => (
             <FormGroup
               direction={formGroupDirection}
@@ -25,10 +25,11 @@ export default function Prices() {
                 title: 'Valor estimado da ação',
                 forId: 'processPrice',
               }}
+              error={errors?.processPrice?.message}
             >
               <InputCurrency
                 inputMode="numeric"
-                id="own"
+                id="processPrice"
                 {...field}
               />
             </FormGroup>
@@ -37,7 +38,7 @@ export default function Prices() {
 
         <Controller
           control={control}
-          name="ownOrAttorney"
+          name="prices"
           render={({ field }) => (
             <FormGroup
               direction={formGroupDirection}
@@ -45,10 +46,11 @@ export default function Prices() {
                 title: 'Preço de venda',
                 forId: 'income',
               }}
+              error={errors?.income?.message}
             >
               <InputCurrency
                 inputMode="numeric"
-                id="attorney"
+                id="income"
                 {...field}
               />
             </FormGroup>

@@ -72,6 +72,33 @@ export const newLawsuitSchemaValidation = yup.object().shape({
       otherwise: (rule) => rule.transform(() => null),
     }),
 
+  acceptNegotiation: yup.string(),
+  ownOrAttorney: yup.string(),
+  pledgeOrGuarantee: yup.string(),
+  processPrice: yup.string().required(),
+  income: yup.string()
+    .nullable()
+    .required()
+    .when('processPrice', (processPrice, schema) => {
+      function convertToNumber(value: string) {
+        const valuParsed = value.trim().replaceAll(/\D/g, '');
+        return Number(valueParsed);
+      }
+      console.log(processPrice);
+
+      const processPriceParsed = convertToNumber(processPrice as string);
+      if (processPriceParsed) {
+        return schema.test(
+          'Income can not be hiher than process price',
+          'O preço de venda não pode ser maior que valor do processo',
+          (value: any) => {
+            const incomeParsed = convertToNumber(value as string);
+            return incomeParsed > processPriceParsed;
+          },
+        );
+      }
+    }),
+
   // Files
   inicialPetition: yup.mixed()
     .nullable()
