@@ -1,5 +1,4 @@
 import { useRef, useState } from 'react';
-import { AxiosError } from 'axios';
 
 import LegalEntity from '@components/UserForm/LegalEntity';
 import PrivateIndividual from '@components/UserForm/PrivateIndividual';
@@ -24,8 +23,8 @@ export default function Profile() {
     id: undefined,
     userId: user?.id,
     bornDate: user?.bornDate.substring(0, 10),
-    newPassoword: '',
-    currentPassword: '',
+    newPassoword: null,
+    currentPassword: null,
     nationality: { label: user?.nationality, value: user?.nationality },
     profilePicture: user?.profilePictureUrl,
   } as UserDefaultValues);
@@ -48,7 +47,7 @@ export default function Profile() {
       setIsLoading(false);
       toast.success('Pefil Atualizado!', commonToastProps);
     } catch (error) {
-      handleCatchErrorRequest(error as AxiosError);
+      handleCatchErrorRequest(error as never);
       setIsLoading(false);
     }
   }
