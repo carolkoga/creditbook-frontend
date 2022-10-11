@@ -1,15 +1,29 @@
 import styled from 'styled-components';
 
 export const FormLayout = styled.form`
-  display: grid;
+  /* display: grid;
   grid-template-columns: 45% 45%;
-  grid-template-rows: repeat(2, auto);
-  grid-template-areas: "lawsuitInfo uploadDocuments" "authors defendants";
+  grid-template-rows: repeat(5, fit-content);
   gap: 24px 32px;
-  position: relative;
+  position: relative; */
+  display: flex;
+  flex-direction: row;
+  gap: 24px;
 
-  > fieldset {
+  .left__content, .right__content {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    width: 45%;
+  }
+
+  .right__content {
+    gap: 72px;
+  }
+
+  .left__content > fieldset {
     &:nth-child(1) {
+      /* grid-area: 1 / 1 / 1 / 1; */
       display: flex;
       flex-direction: row;
       align-items: center;
@@ -45,29 +59,17 @@ export const FormLayout = styled.form`
           }
         }
       }
-      grid-area: lawsuitInfo;
-    }
-
-    &:nth-child(2) {
-      grid-area: authors;
-    }
-
-    &:nth-child(3) {
-      grid-area: uploadDocuments;
     }
   }
 
   > button {
     width: 105px;
-    grid-area: uploadDocuments;
-
-    position: absolute;
-    right: 0;
-    bottom: -180px;
+    grid-area: 5 / 2 / 5 / 2;
+    margin-left: auto;
   }
 
   @media (max-width: 975px) {
-    > fieldset {
+    .left__content > fieldset {
       &:nth-child(1) {
         > div {
           &.wrapper--selects {
@@ -78,18 +80,28 @@ export const FormLayout = styled.form`
     }
   }
 
-  @media (max-width: 671px) {
+  @media (max-width: 673px) {
     display: flex;
     flex-direction: column;
+
+    .left__content, .right__content {
+      width: 80%;
+    }
 
     > button {
       position: static;
     }
   }
 
+  @media (max-width: 540px) {
+    .left__content, .right__content {
+      width: 100%;
+    }
+  }
+
 
   @media (max-width: 460px) {
-    > fieldset {
+    .left__content > fieldset {
       &:nth-child(1) {
         row-gap: none;
         > div {
