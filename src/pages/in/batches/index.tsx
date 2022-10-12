@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { BatchCard } from '@components/BatchCard/Card';
 import { Button } from '@components/Button';
 import { Direction } from '@components/Direction';
-import { ListBatchs } from '@components/ListBatchs';
+import { ListBatches } from '@components/ListBatches';
 import { NewBatchFormModal } from '@components/pages/in/batches/NewBatchFormModal';
 import { Section } from '@components/Section';
 import { batchServices } from '@services/creditbook/batch';
@@ -47,7 +47,7 @@ export default function Batches({ initialBatches }: IProps) {
           <Button onClick={handleOpenNewBatchModal}>Novo Lote</Button>
         </Direction>
       </Section.Header>
-      <ListBatchs>
+      <ListBatches>
         {batches && batches.map((currentBatch) => (
           <BatchCard
             key={currentBatch.id}
@@ -55,7 +55,7 @@ export default function Batches({ initialBatches }: IProps) {
             batch={currentBatch}
           />
         ))}
-      </ListBatchs>
+      </ListBatches>
       <NewBatchFormModal
         isVisible={newBatchModalIsVisible}
         onCloseModal={handleCloseNewBatchModal}
