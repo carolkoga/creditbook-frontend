@@ -146,4 +146,13 @@ export const newLawsuitSchemaValidation = yup.object().shape({
     .nullable()
     .transform((val: any) => val[0])
     .when('type', fileNotRequired),
+
+  procuration: yup.mixed()
+    .nullable()
+    .transform((val: any) => val[0])
+    .when('ownOrAttorney', {
+      is: (value: any) => value.toLowerCase() === 'attorney',
+      then: (rule: MixedSchema) => rule.required(),
+      otherwise: (rule: MixedSchema) => rule.transform(() => null),
+    }),
 });
