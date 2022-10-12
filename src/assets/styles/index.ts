@@ -59,3 +59,8 @@ export const MainWithSideBar = styled(Main)`
     padding-top: 36px;
   }
 `;
+
+export const ContainerLayout = styled.div`
+  max-width: 1365px;
+  margin: auto;
+`;

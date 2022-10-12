@@ -1,3 +1,4 @@
+import { ContainerLayout } from '@styles/index';
 import useAuth from 'hooks/useAuth';
 import { useRouter } from 'next/router';
 import { ReactNode } from 'react';
@@ -14,7 +15,7 @@ export default function Layout({ children }: IProps) {
   const router = useRouter();
 
   return (
-    <>
+    <ContainerLayout>
       {(!isAuthenticated && router.pathname.startsWith('/admin')) && (
         <AdminLayout>
           {children}
@@ -33,6 +34,6 @@ export default function Layout({ children }: IProps) {
         </LayoutNotLogged>
       )}
 
-    </>
+    </ContainerLayout>
   );
 }
