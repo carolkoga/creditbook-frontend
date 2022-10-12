@@ -29,6 +29,14 @@ export interface LawsuitParams {
   secondaryDefendantCpjOrCnpj?: string;
   secondaryDefendantCorporationNameOrName?: string;
 
+  isPremium: boolean;
+  isFavorite?: boolean;
+  processPrice: number;
+  income: number;
+  pledgeOrGuarantee: boolean;
+  acceptNegotiation: boolean;
+  ownOrAttorney: 'own' | 'attorney';
+
   inicialPetition: File;
   judgmentOfApprovalOfLaborCalculations?: File;
   anotherRelevantParts?: File;
@@ -37,9 +45,15 @@ export interface LawsuitParams {
   resources?: File;
   accordion?: File;
   sentence?: File;
+  procuration?: File;
 }
 
 export interface LawsuitParamsID extends LawsuitParams {
   id: string
   owner: string,
+}
+
+export interface NewLawsuitParams extends Omit<LawsuitParams, 'batchId' | 'pledgeOrGuarantee' | 'acceptNegotiation'> {
+  pledgeOrGuarantee: 'yes' | 'no';
+  acceptNegotiation: 'yes' | 'no';
 }

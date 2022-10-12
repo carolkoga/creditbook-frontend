@@ -14,12 +14,11 @@ export default function AcceptNegotiation() {
       <legend>6. Aceita Negociação</legend>
       <Direction direction="horizontal">
         <div>
-          <RadioLabel htmlFor="YesAcceptNegotiation">
+          <RadioLabel htmlFor="field-yes">
             <Input
               type="radio"
               value="yes"
-              id="YesAcceptNegotiation"
-              checked
+              id="field-yes"
               {...register('acceptNegotiation')}
             />
             Sim
@@ -27,11 +26,11 @@ export default function AcceptNegotiation() {
         </div>
 
         <div>
-          <RadioLabel htmlFor="noAcceptNegotiation">
+          <RadioLabel htmlFor="field-no">
             <input
               type="radio"
               value="no"
-              id="noAcceptNegotiation"
+              id="field-no"
               {...register('acceptNegotiation')}
             />
             Não

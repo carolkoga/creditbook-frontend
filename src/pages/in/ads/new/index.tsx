@@ -20,20 +20,26 @@ import Prices from '@components/LawsuitForm/Prices';
 import { lawsuitService } from '@services/creditbook/lawsuit';
 import { newLawsuitSchemaValidation } from '@validations/yup/LawsuitForm';
 
-import { LawsuitParams } from '@type/creditbook/Lawsuits';
+import { NewLawsuitParams } from '@type/creditbook/Lawsuits';
 import { handleCatchErrorRequest } from '@utils/handleCatchErrorRequest';
+import ProcurationField from '@components/LawsuitForm/ProcurationField';
 
 export default function NewLawsuit() {
   const [loading, setLoading] = useState(false);
   const [stepForm, setStepForm] = useState('1');
-  const methods = useForm<Omit<LawsuitParams, 'batchId'>>({
+  const methods = useForm<NewLawsuitParams>({
     resolver: yupResolver(newLawsuitSchemaValidation),
     mode: 'all',
     reValidateMode: 'onBlur',
     defaultValues: {
       type: 'digital',
+      acceptNegotiation: 'yes',
+      pledgeOrGuarantee: 'yes',
+      ownOrAttorney: 'own',
     },
   });
+  const ownOrAttorneyField = methods.watch('ownOrAttorney');
+  console.log(ownOrAttorneyField === 'attorney');
 
   async function handleSubmitNewLawsuit(data: any) {
     try {
@@ -71,6 +77,9 @@ export default function NewLawsuit() {
                 <PledgeOrGuarantee />
                 <AcceptNegotiation />
                 <Prices />
+                {ownOrAttorneyField === 'attorney' && (
+                  <ProcurationField />
+                )}
                 <Button
                   type="submit"
                   isLoading={loading}

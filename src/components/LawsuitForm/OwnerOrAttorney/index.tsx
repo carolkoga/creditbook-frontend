@@ -13,12 +13,11 @@ export default function OwnerOrAttorney() {
       <legend>4. Quem está cadastrando o anúncio</legend>
       <Direction direction="horizontal">
         <div>
-          <RadioLabel htmlFor="own">
+          <RadioLabel htmlFor="field-own">
             <input
               type="radio"
               value="own"
-              id="own"
-              checked
+              id="field-own"
               {...register('ownOrAttorney')}
             />
             Própria parte
@@ -26,11 +25,11 @@ export default function OwnerOrAttorney() {
         </div>
 
         <div>
-          <RadioLabel htmlFor="attorney">
+          <RadioLabel htmlFor="field-attorney">
             <input
               type="radio"
               value="attorney"
-              id="attorney"
+              id="field-attorney"
               {...register('ownOrAttorney')}
             />
             Procurador

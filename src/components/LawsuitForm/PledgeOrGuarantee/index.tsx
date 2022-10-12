@@ -19,7 +19,6 @@ export default function PledgeOrGuarantee() {
               type="radio"
               value="yes"
               id="YesPledgeOrGuarantee"
-              checked
               {...register('pledgeOrGuarantee')}
             />
             Sim
