@@ -38,7 +38,7 @@ export default function Prices() {
 
         <Controller
           control={control}
-          name="prices"
+          name="income"
           render={({ field }) => (
             <FormGroup
               direction={formGroupDirection}
