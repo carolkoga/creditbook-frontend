@@ -1,7 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { toast } from 'react-toastify';
 
 import { Button } from '@components/Button';
 import { Section } from '@components/Section';
@@ -23,7 +22,6 @@ import { newLawsuitSchemaValidation } from '@validations/yup/LawsuitForm';
 
 import { LawsuitParams } from '@type/creditbook/Lawsuits';
 import { handleCatchErrorRequest } from '@utils/handleCatchErrorRequest';
-import { commonToastProps } from '@configs/toast';
 
 export default function NewLawsuit() {
   const [loading, setLoading] = useState(false);
@@ -47,11 +45,6 @@ export default function NewLawsuit() {
     }
   }
 
-  useEffect(() => {
-    if (methods.formState.errors?.inicialPetition) {
-      toast.error('Arquivo de PETIÇÃO INICIAL é obrigatório', commonToastProps);
-    }
-  }, [methods.formState.errors]);
   return (
     <>
       <Section.Header>

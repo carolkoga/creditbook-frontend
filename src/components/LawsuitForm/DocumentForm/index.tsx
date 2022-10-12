@@ -1,6 +1,7 @@
 import { Button } from '@components/Button';
 import { Direction } from '@components/Direction';
 import FormGroup from '@components/FormGroup';
+import { ErrorMessage } from '@components/FormGroup/styled';
 import { Input } from '@components/Input';
 import { commonToastProps } from '@configs/toast';
 import { useState } from 'react';
@@ -105,9 +106,14 @@ export default function DocumentForm() {
         )}
 
         {lawsuitType === 'physical' && (
-          <Button variant="white" size="small" type="button" onClick={handleOpenUploadDocumentsModal}>
-            Adicionar Arquivos
-          </Button>
+          <>
+            {errors?.inicialPetition && (
+              <ErrorMessage>{errors.inicialPetition.message && 'Existe arquivos obrigatórios'}</ErrorMessage>
+            )}
+            <Button variant="white" size="small" type="button" onClick={handleOpenUploadDocumentsModal}>
+              Adicionar Arquivos
+            </Button>
+          </>
         )}
 
         <ModalUploadDocuments
