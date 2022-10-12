@@ -94,7 +94,7 @@ export const newLawsuitSchemaValidation = yup.object().shape({
           message: 'O preço de venda não pode ser maior que valor do processo',
           test: (value: any) => {
             const incomeParsed = convertToNumber(value as string);
-            console.log({ incomeParsed, processPriceParsed });
+
             return incomeParsed < processPriceParsed;
           },
         });

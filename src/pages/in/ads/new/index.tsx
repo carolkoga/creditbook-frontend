@@ -39,7 +39,6 @@ export default function NewLawsuit() {
     },
   });
   const ownOrAttorneyField = methods.watch('ownOrAttorney');
-  console.log(ownOrAttorneyField === 'attorney');
 
   async function handleSubmitNewLawsuit(data: any) {
     try {
