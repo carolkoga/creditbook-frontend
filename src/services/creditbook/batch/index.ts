@@ -1,19 +1,18 @@
-import { creditbookApi } from '@api/creditbookApi';
-import { NewBatchParams } from '@type/creditbook/Batch';
 import { AxiosInstance } from 'axios';
+import { NewBatchParams } from '@type/creditbook/Batch';
+import { HttpClient } from '../http';
 
 interface UpdateParams {
   id: string,
   batch: NewBatchParams,
 }
 
-export class BatchServices {
-  private httpClient: AxiosInstance;
-
-  constructor(customAPI?: AxiosInstance) {
-    this.httpClient = !customAPI
-      ? creditbookApi
-      : customAPI;
+export class BatchServices extends HttpClient {
+  constructor(api?: AxiosInstance) {
+    super();
+    if (api) {
+      this.httpClient = api;
+    }
   }
 
   async create(batch: NewBatchParams) {

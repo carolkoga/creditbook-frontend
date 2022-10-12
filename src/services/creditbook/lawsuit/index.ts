@@ -1,9 +1,38 @@
-import { creditbookApi } from '@api/creditbookApi';
+import { AxiosInstance } from 'axios';
+import { HttpClient } from '../http';
 
-class LawsuitService {
+class LawsuitService extends HttpClient {
+  private customHeaders: object;
+
+  constructor(api?: AxiosInstance) {
+    super();
+    if (api) {
+      this.httpClient = api;
+    }
+
+    this.customHeaders = {
+      'content-type': 'multipart/form-data',
+    };
+  }
+
   async createLawsuit(data: any) {
+    const formData = this._convertToFormData(data);
+
+    return await this.httpClient.post('/announcement', formData, {
+      headers: { ...this.customHeaders },
+    });
+  }
+
+  async changeFavorite(isFavorite: '1' | '0') {
+    const formData = this._convertToFormData({ isFavorite });
+
+    return await this.httpClient.post('/announcement', formData, {
+      headers: { ...this.customHeaders },
+    });
+  }
+
+  private _convertToFormData(data: any) {
     const formData = new FormData();
-    console.log({ data });
 
     Object.entries(data).forEach((field) => {
       const [key, value] = field;
@@ -11,11 +40,7 @@ class LawsuitService {
       formData.append(key, (value as string | Blob));
     });
 
-    return await creditbookApi.post('/announcement', formData, {
-      headers: {
-        'content-type': 'multipart/form-data',
-      },
-    });
+    return formData;
   }
 }
 
