@@ -4,7 +4,7 @@ import { Overlay } from '@components/Overlay';
 import ReactPortal from '@components/ReactPortal';
 import { Section } from '@components/Section';
 import { useFormContext } from 'react-hook-form';
-import FieldFile from './components/FieldFile';
+import FieldFile from '@components/LawsuitForm/components/FieldFile';
 import { ContentWrapper } from './styled';
 
 interface IProps {
