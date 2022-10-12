@@ -17,7 +17,7 @@ export default function PledgeOrGuarantee() {
           <RadioLabel htmlFor="YesPledgeOrGuarantee">
             <Input
               type="radio"
-              value="yes"
+              value="1"
               id="YesPledgeOrGuarantee"
               {...register('pledgeOrGuarantee')}
             />
@@ -29,7 +29,7 @@ export default function PledgeOrGuarantee() {
           <RadioLabel htmlFor="noPledgeOrGuarantee">
             <input
               type="radio"
-              value="no"
+              value="0"
               id="noPledgeOrGuarantee"
               {...register('pledgeOrGuarantee')}
             />

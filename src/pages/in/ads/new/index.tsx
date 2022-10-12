@@ -33,9 +33,11 @@ export default function NewLawsuit() {
     reValidateMode: 'onBlur',
     defaultValues: {
       type: 'digital',
-      acceptNegotiation: 'yes',
-      pledgeOrGuarantee: 'yes',
+      acceptNegotiation: '1',
+      pledgeOrGuarantee: '1',
       ownOrAttorney: 'own',
+      isFavorite: '0',
+      isPremium: '0',
     },
   });
   const ownOrAttorneyField = methods.watch('ownOrAttorney');

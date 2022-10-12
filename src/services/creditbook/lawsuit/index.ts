@@ -3,9 +3,11 @@ import { creditbookApi } from '@api/creditbookApi';
 class LawsuitService {
   async createLawsuit(data: any) {
     const formData = new FormData();
+    console.log({ data });
 
     Object.entries(data).forEach((field) => {
       const [key, value] = field;
+
       formData.append(key, (value as string | Blob));
     });
 

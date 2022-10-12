@@ -53,7 +53,9 @@ export interface LawsuitParamsID extends LawsuitParams {
   owner: string,
 }
 
-export interface NewLawsuitParams extends Omit<LawsuitParams, 'batchId' | 'pledgeOrGuarantee' | 'acceptNegotiation'> {
-  pledgeOrGuarantee: 'yes' | 'no';
-  acceptNegotiation: 'yes' | 'no';
+export interface NewLawsuitParams extends Omit<LawsuitParams, 'batchId' | 'pledgeOrGuarantee' | 'acceptNegotiation' | 'isFavorite' | 'isPremium'> {
+  pledgeOrGuarantee: '1' | '0';
+  acceptNegotiation: '1' | '0';
+  isFavorite: '1' | '0';
+  isPremium: '1' | '0';
 }

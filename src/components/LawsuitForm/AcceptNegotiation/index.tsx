@@ -17,7 +17,7 @@ export default function AcceptNegotiation() {
           <RadioLabel htmlFor="field-yes">
             <Input
               type="radio"
-              value="yes"
+              value="1"
               id="field-yes"
               {...register('acceptNegotiation')}
             />
@@ -29,7 +29,7 @@ export default function AcceptNegotiation() {
           <RadioLabel htmlFor="field-no">
             <input
               type="radio"
-              value="no"
+              value="0"
               id="field-no"
               {...register('acceptNegotiation')}
             />
