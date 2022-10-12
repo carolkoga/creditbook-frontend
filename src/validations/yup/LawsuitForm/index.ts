@@ -1,6 +1,7 @@
 import { MixedSchema } from 'yup/lib/mixed';
 import { validateUF } from 'validations-br';
 import * as yup from 'yup';
+import { StringSchema } from 'yup';
 
 const fileNotRequired = {
   is: (value: any) => value.toLowerCase() !== 'digital',
@@ -78,26 +79,28 @@ export const newLawsuitSchemaValidation = yup.object().shape({
   processPrice: yup.string().required(),
   income: yup.string()
     .nullable()
-    .required()
-    .when('processPrice', (processPrice, schema) => {
+    .when('processPrice', (processPrice, schema: StringSchema | any) => {
+      if (!processPrice) return;
+
       function convertToNumber(value: string) {
-        const valuParsed = value.trim().replaceAll(/\D/g, '');
+        const valueParsed = value?.trim()?.replaceAll(/\D/g, '');
         return Number(valueParsed);
       }
-      console.log(processPrice);
 
-      const processPriceParsed = convertToNumber(processPrice as string);
+      const processPriceParsed = convertToNumber(processPrice);
       if (processPriceParsed) {
-        return schema.test(
-          'Income can not be hiher than process price',
-          'O preço de venda não pode ser maior que valor do processo',
-          (value: any) => {
+        return schema.test({
+          name: 'Income can not be higher than process price',
+          message: 'O preço de venda não pode ser maior que valor do processo',
+          test: (value: any) => {
             const incomeParsed = convertToNumber(value as string);
-            return incomeParsed > processPriceParsed;
+            console.log({ incomeParsed, processPriceParsed });
+            return incomeParsed < processPriceParsed;
           },
-        );
+        });
       }
-    }),
+    })
+    .required(),
 
   // Files
   inicialPetition: yup.mixed()
