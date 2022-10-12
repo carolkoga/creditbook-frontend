@@ -43,7 +43,7 @@ export default function Batches({ initialBatches }: IProps) {
     <>
       <Section.Header>
         <Direction direction="horizontal" alignItems="center">
-          <Section.Title>Meus Lotes</Section.Title>
+          <Section.Title style={{ marginBottom: 0 }}>Meus Lotes</Section.Title>
           <Button onClick={handleOpenNewBatchModal}>Novo Lote</Button>
         </Direction>
       </Section.Header>
