@@ -23,8 +23,10 @@ import { newLawsuitSchemaValidation } from '@validations/yup/LawsuitForm';
 import { NewLawsuitParams } from '@type/creditbook/Lawsuits';
 import { handleCatchErrorRequest } from '@utils/handleCatchErrorRequest';
 import ProcurationField from '@components/LawsuitForm/ProcurationField';
+import { useRouter } from 'next/router';
 
 export default function NewLawsuit() {
+  const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [stepForm, setStepForm] = useState('1');
   const methods = useForm<NewLawsuitParams>({
@@ -41,7 +43,9 @@ export default function NewLawsuit() {
     },
   });
   const ownOrAttorneyField = methods.watch('ownOrAttorney');
-
+  function handleNavigateToHome() {
+    router.push('/in/home');
+  }
   async function handleSubmitNewLawsuit(data: any) {
     try {
       setLoading(true);
@@ -115,6 +119,10 @@ export default function NewLawsuit() {
         confirm={{
           label: 'Entendi, continuar',
           onConfirmButton: () => setStepForm('2'),
+        }}
+        cancel={{
+          label: 'Voltar para página principal',
+          onCancelButton: () => handleNavigateToHome(),
         }}
         isVisible={stepForm === '1'}
       />
