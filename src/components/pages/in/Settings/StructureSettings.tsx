@@ -7,16 +7,6 @@ const routes = [
     label: 'Configurações em Geral',
     link: '/in/settings',
   },
-
-  {
-    label: 'Termos de Uso',
-    link: '/in/settings/terms-of-services',
-  },
-
-  {
-    label: 'FAQ',
-    link: '/in/settings/FAQ',
-  },
 ];
 
 export function StructureSettings({ children }: { children: ReactNode }) {
