@@ -1,9 +1,13 @@
-import { Button } from '@components/Button';
+import { ReactNode } from 'react';
 import FormGroup from '@components/FormGroup';
 import { Input } from '@components/Input';
 import { Container, WrapperInput, Actions } from './styled';
 
-export default function CreditCardForm() {
+interface IProps {
+  children: ReactNode
+}
+
+export default function CreditCardForm({ children }: IProps) {
   return (
     <Container>
       <WrapperInput>
@@ -52,9 +56,11 @@ export default function CreditCardForm() {
         </FormGroup>
       </WrapperInput>
 
-      <Actions>
-        <Button>Teste</Button>
-      </Actions>
+      {children && (
+        <Actions>
+          {children}
+        </Actions>
+      )}
     </Container>
   );
 }
