@@ -35,7 +35,7 @@ export const ActionsContainer = styled.div`
   flex-wrap: wrap;
   gap: 2px;
   button {
-    padding: 6px 16px;
+    padding: 3px 16px;
     border-radius: 10px;
   }
 `;
