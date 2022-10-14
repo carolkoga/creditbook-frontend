@@ -60,7 +60,7 @@ export default function ShowBatchPage({ initialBatch }: IProps) {
     }
   }
 
-  async function handlUpdateBatch(updateBatch: NewBatchParams) {
+  async function handleUpdateBatch(updateBatch: NewBatchParams) {
     try {
       setUpdatingLoading(true);
       const { data } = await batchServices.update({
@@ -87,7 +87,7 @@ export default function ShowBatchPage({ initialBatch }: IProps) {
         <Direction>
           <Section.Title as="h1">Lote: {batch.name}</Section.Title>
           <FormProvider {...methods}>
-            <BatchForm onSubmit={methods.handleSubmit(handlUpdateBatch)}>
+            <BatchForm onSubmit={methods.handleSubmit(handleUpdateBatch)}>
               <WrapperActionsForm>
                 <Button type="submit" isLoading={updatingLoading}>
                   Salvar
