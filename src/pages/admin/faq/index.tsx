@@ -5,7 +5,6 @@ import {
 } from '@components/Accordion';
 
 import { Button } from '@components/Button';
-import { StructureSettings } from '@components/pages/in/Settings/StructureSettings';
 import { Section } from '@components/Section';
 import { Direction } from '@components/Direction';
 import { useCallback, useState } from 'react';
@@ -106,7 +105,7 @@ export default function FAQ({ initialQuestions }: IProps) {
   }
 
   return (
-    <StructureSettings>
+    <>
       <Section.Header>
         <Direction direction="horizontal" alignItems="center">
           <Section.Title as="h1" textColor="dark">Perguntas Frequentes</Section.Title>
@@ -192,7 +191,7 @@ export default function FAQ({ initialQuestions }: IProps) {
         isLoading={loading}
       />
 
-    </StructureSettings>
+    </>
   );
 }
 

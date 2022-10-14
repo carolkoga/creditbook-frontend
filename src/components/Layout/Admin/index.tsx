@@ -27,6 +27,16 @@ const adminRoutes: TopicProps[] = [
     label: 'Gerenciar Clientes',
     link: `${adminRoutesPrefix}/manage-clients`,
   },
+
+  {
+    label: 'Termos de uso',
+    link: `${adminRoutesPrefix}/terms-of-services`,
+  },
+
+  {
+    label: 'FAQ',
+    link: `${adminRoutesPrefix}/faq`,
+  },
 ];
 
 export default function AdminLayout({ children }: IProps) {

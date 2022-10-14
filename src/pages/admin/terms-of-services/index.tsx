@@ -5,7 +5,6 @@ import { toast } from 'react-toastify';
 import { termsService } from '@services/creditbook/support/term';
 
 import { Section } from '@components/Section';
-import { StructureSettings } from '@components/pages/in/Settings/StructureSettings';
 import { RIchTextEditor } from '@components/pages/in/Settings/RIchTextEditor';
 
 import { TermsParams } from '@type/creditbook/support/term';
@@ -34,7 +33,7 @@ export default function TermsOfServices({ terms }: IProps) {
   }
 
   return (
-    <StructureSettings>
+    <>
       <Section.Header>
         <Section.Title as="h1" textColor="dark">Termos de Uso</Section.Title>
       </Section.Header>
@@ -46,7 +45,7 @@ export default function TermsOfServices({ terms }: IProps) {
           isLoading: loading,
         }}
       />
-    </StructureSettings>
+    </>
   );
 }
 
