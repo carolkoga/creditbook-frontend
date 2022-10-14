@@ -64,6 +64,7 @@ const InformationContent = styled.small`
 
 export const Footer = styled.div`
   display: flex;
+  flex-wrap: wrap;
   flex-direction: row;
   align-items: center;
   justify-content: center;
@@ -71,7 +72,16 @@ export const Footer = styled.div`
   button, a {
     padding-left: 24px;
     padding-right: 24px;
+
+    @media (max-width: 342px) {
+      width: 100%;
+    }
   }
+
+
+    @media (max-width: 342px) {
+      gap: 8px;
+    }
 `;
 
 export const Information = {
