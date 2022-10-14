@@ -4,7 +4,7 @@ import { Input } from '@components/Input';
 import { Container, WrapperInput, Actions } from './styled';
 
 interface IProps {
-  children: ReactNode
+  children?: ReactNode
 }
 
 export default function CreditCardForm({ children }: IProps) {
@@ -64,3 +64,7 @@ export default function CreditCardForm({ children }: IProps) {
     </Container>
   );
 }
+
+CreditCardForm.defaultProps = {
+  children: null,
+};
