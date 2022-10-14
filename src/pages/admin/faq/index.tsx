@@ -108,7 +108,9 @@ export default function FAQ({ initialQuestions }: IProps) {
     <>
       <Section.Header>
         <Direction direction="horizontal" alignItems="center">
-          <Section.Title as="h1" textColor="dark">Perguntas Frequentes</Section.Title>
+          <Section.Title as="h1" textColor="dark" style={{ marginBottom: 0 }}>
+            Perguntas Frequentes
+          </Section.Title>
           <Button variant="secondary" onClick={handleOpenModalNewFAQ}>
             Nova Pergunta
           </Button>
