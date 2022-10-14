@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 import { termsService } from '@services/creditbook/support/term';
 
 import { Section } from '@components/Section';
-import { RIchTextEditor } from '@components/pages/in/Settings/RIchTextEditor';
+import { RIchTextEditor } from '@components/pages/admin/RIchTextEditor';
 
 import { TermsParams } from '@type/creditbook/support/term';
 

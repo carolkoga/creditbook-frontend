@@ -8,7 +8,7 @@ import { Button } from '@components/Button';
 import { Section } from '@components/Section';
 import { Direction } from '@components/Direction';
 import { useCallback, useState } from 'react';
-import FAQForm from '@components/pages/in/Settings/FAQ/FAQForm';
+import FAQForm from '@components/pages/admin/FAQ/FAQForm';
 import { FaqService, FAQService } from '@services/creditbook/support/faq';
 import { handleCatchErrorRequest } from '@utils/handleCatchErrorRequest';
 import { GetServerSideProps } from 'next';
@@ -18,7 +18,7 @@ import { AccordionList } from '@styles/AccordionList';
 import { translationSectionFAQ } from '@mocks/FAQ';
 import { FAQResponseType, QuestionResponseType, SectionFaqParams } from '@type/creditbook/support/faq';
 
-const AccordionTriggerSetting = dynamic(() => import('@components/pages/in/Settings/FAQ/AccordionTriggerSetting'), { ssr: false });
+const AccordionTriggerSetting = dynamic(() => import('@components/pages/admin/FAQ/AccordionTriggerSetting'), { ssr: false });
 
 interface IProps {
   initialQuestions: FAQResponseType;
