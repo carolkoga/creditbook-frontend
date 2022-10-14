@@ -2,12 +2,17 @@ import {
   Divider, Row, Col, Space,
 } from 'antd';
 import { File } from 'phosphor-react';
+import { ReactNode } from 'react';
 
 import {
   Container, Title, Description, DescriptionWrapper,
 } from './styled';
 
-export default function LawsuitView() {
+interface IProps {
+  children?: ReactNode
+}
+
+export default function LawsuitView({ children }: IProps) {
   return (
     <Container>
       <Divider orientation="left">Dados do processo</Divider>
@@ -194,6 +199,12 @@ export default function LawsuitView() {
           </Space>
         </Col>
       </Row>
+
+      {children}
     </Container>
   );
 }
+
+LawsuitView.defaultProps = {
+  children: null,
+};
