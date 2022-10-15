@@ -2,10 +2,17 @@ import { Direction } from '@components/Direction';
 import NavigationTab from '@components/NavigationTab';
 import { ReactNode } from 'react';
 
+const PREFIX = '/in/settings';
+
 const routes = [
   {
     label: 'Configurações em Geral',
-    link: '/in/settings',
+    link: PREFIX,
+  },
+
+  {
+    label: 'Cartões',
+    link: `${PREFIX}/credit-card`,
   },
 ];
 
