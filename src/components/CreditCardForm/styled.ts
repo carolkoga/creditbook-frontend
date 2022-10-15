@@ -5,6 +5,13 @@ export const Container = styled.form`
   border-radius: 10px;
   padding: 22px 32px;
   max-width: 308px;
+  display: flex;
+  flex-direction: column;
+
+  strong.title {
+    font-size: 28px;
+    margin-bottom: 32px;
+  }
 `;
 
 export const WrapperInput = styled.div`
