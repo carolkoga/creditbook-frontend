@@ -2,6 +2,7 @@ import Head from 'next/head';
 import type { AppProps } from 'next/app';
 import { ThemeProvider } from 'styled-components';
 import { ToastContainer } from 'react-toastify';
+import NextNProgress from 'nextjs-progressbar';
 
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -38,7 +39,7 @@ Precisando de dinheiro? Procurando uma forma lucrativa para investir? Chegou a p
         <ThemeProvider theme={light}>
           <SidebarContextProvider>
             <GlobalStyle />
-
+            <NextNProgress color="#29D" startPosition={0.3} stopDelayMs={200} height={3} showOnShallow />
             <ToastContainer />
             <Layout>
               <Component {...pageProps} />
