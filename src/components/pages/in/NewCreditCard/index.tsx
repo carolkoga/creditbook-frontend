@@ -11,10 +11,11 @@ interface IProps {
   onSubmit: () => void,
   submitLabel: string,
   title?: string | null,
+  loading?: boolean,
 }
 
 export default function NewCreditCard({
-  isVisible, onCancel, onSubmit, title, submitLabel,
+  isVisible, onCancel, onSubmit, title, submitLabel, loading,
 }: IProps) {
   if (!isVisible) return null;
 
@@ -24,7 +25,7 @@ export default function NewCreditCard({
         <Content>
           <CreditCardForm title={title} onSubmit={onSubmit}>
             <Direction direction="horizontal" gap="5px" className="actions">
-              <Button>
+              <Button isLoading={loading}>
                 {submitLabel}
               </Button>
 
@@ -41,4 +42,5 @@ export default function NewCreditCard({
 
 NewCreditCard.defaultProps = {
   title: null,
+  loading: false,
 };
