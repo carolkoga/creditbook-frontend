@@ -44,6 +44,10 @@ const HeaderSection = styled.header<HeaderSectionProps>`
   justify-content: ${({ justifyContent }) => (!justifyContent ? 'flex-start' : justifyContent)};
   gap: ${({ gap }) => (!gap ? '1.6rem' : gap)};
   margin-bottom: 32px;
+
+  h1, h2, h3, h4, h5, h6 {
+    margin-bottom: 0;
+  }
 `;
 
 export const Section = {
