@@ -10,10 +10,26 @@ import NewCreditCard from '@components/pages/in/NewCreditCard';
 import { StructureSettings } from '@components/pages/in/Settings/StructureSettings';
 import { Section } from '@components/Section';
 import DebitAndCreditCard from '@components/pages/in/DebitAndCreditCard';
+import { NewPaymentParams, PaymentParams } from '@type/creditbook/payment';
+import { handleCatchErrorRequest } from '@utils/handleCatchErrorRequest';
+import { PaymentServices, paymentServices } from '@services/creditbook/payments';
+import { GetServerSideProps } from 'next';
+import { setupAPIClient } from '@api/creditbookApi';
+import { ListCreditCard } from '@components/pages/in/ListCreditCard';
+import AlertModal from '@components/AlertModal';
 
-export default function CreditCard() {
+interface IProps {
+  initialPayments: PaymentParams[],
+}
+
+export default function CreditCard({ initialPayments }: IProps) {
   const [isVisibleCreditCardModal, setIsVisibleCreditCardModal] = useState(false);
-  const methodsToCreateCard = useForm({
+  const [creatingPaymentLoader, setCreatingPaymentLoader] = useState(false);
+  const [creditCards, setCreditCards] = useState(initialPayments as PaymentParams[]);
+  const [creditCardBeingDeleted, setCreditCardBeingDeleted] = useState({} as PaymentParams | null);
+  const [deleteModalCreditCard, setDeleteModalCreditCard] = useState(false);
+  const [deletingCreditCard, setDeletingCreditCard] = useState(false);
+  const methodsToCreateCard = useForm<NewPaymentParams>({
     resolver: yupResolver(creditCardSchemaValidation),
     mode: 'onBlur',
   });
@@ -28,8 +44,40 @@ export default function CreditCard() {
     methodsToCreateCard.reset();
   }
 
-  function handleRegisterCreditCard(data: any) {
-    console.log(data);
+  function handleCloseVisibilityModalToDeleteCreditCard() {
+    setDeleteModalCreditCard(false);
+    setCreditCardBeingDeleted(null);
+  }
+
+  function handleOpenVisibilityModalToDeleteCreditCard(card: PaymentParams) {
+    setDeleteModalCreditCard(true);
+    setCreditCardBeingDeleted(card);
+  }
+
+  async function handleRegisterCreditCard(data: NewPaymentParams) {
+    try {
+      setCreatingPaymentLoader(true);
+      const { data: paymentRegistered } = await paymentServices.createPayment(data);
+      setCreditCards((oldState) => ([...oldState, paymentRegistered]));
+      handleCloseVisibilityCreditCardModal();
+    } catch (error) {
+      handleCatchErrorRequest(error as never);
+    } finally {
+      setCreatingPaymentLoader(false);
+    }
+  }
+
+  async function handleDeleteCreditCard(id: string) {
+    try {
+      setDeletingCreditCard(true);
+      await paymentServices.deletePayment(id);
+      setCreditCards((oldState) => oldState.filter((currentCredit) => currentCredit.id !== id));
+      setDeleteModalCreditCard(false);
+    } catch (error) {
+      handleCatchErrorRequest(error as never);
+    } finally {
+      setDeletingCreditCard(false);
+    }
   }
 
   return (
@@ -37,7 +85,7 @@ export default function CreditCard() {
       <Section.Container>
         <Section.Header>
           <Direction direction="horizontal" alignItems="center">
-            <Section.Title as="h1">
+            <Section.Title as="h1" textColor="dark">
               Cartões
             </Section.Title>
             <Button onClick={handleOpenVisibilityCreditCardModal} variant="secondary">
@@ -46,18 +94,63 @@ export default function CreditCard() {
           </Direction>
         </Section.Header>
 
-        <DebitAndCreditCard />
+        <ListCreditCard>
+          {creditCards && creditCards.map((card) => (
+            <li key={card.id}>
+              <DebitAndCreditCard
+                buttonLabel="Excluir"
+                buttonProps={{
+                  variant: 'danger',
+                  onClick: () => handleOpenVisibilityModalToDeleteCreditCard(card),
+                }}
+                card={card}
+              />
+            </li>
+          ))}
+        </ListCreditCard>
       </Section.Container>
 
       <FormProvider {...methodsToCreateCard}>
         <NewCreditCard
-          submitLabel="Criar"
+          submitLabel={!creatingPaymentLoader ? 'Criar' : 'Criando'}
           isVisible={isVisibleCreditCardModal}
           title="Adicionar Cartão"
           onSubmit={methodsToCreateCard.handleSubmit(handleRegisterCreditCard)}
           onCancel={handleCloseVisibilityCreditCardModal}
+          loading={creatingPaymentLoader}
         />
       </FormProvider>
+
+      <AlertModal
+        type="danger"
+        isVisible={deleteModalCreditCard}
+        title={`
+          O cartão ${creditCardBeingDeleted?.cardNumber?.split(' ')?.at(1)}
+           ******* ${creditCardBeingDeleted?.cardNumber?.split(' ')?.at(-1)}
+           está preste a ser deletado, você tem certeza disso?
+        `}
+        confirm={{
+          label: 'Sim, deletar',
+          onConfirmButton: () => handleDeleteCreditCard(creditCardBeingDeleted?.id!),
+        }}
+        cancel={{
+          label: 'Cancelar',
+          onCancelButton: () => handleCloseVisibilityModalToDeleteCreditCard(),
+        }}
+        isLoading={deletingCreditCard}
+      />
     </StructureSettings>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+  const api = setupAPIClient(req.cookies['nextauth.token']);
+  const paymentsServices = new PaymentServices(api);
+  const { data } = await paymentsServices.listPayments();
+
+  return {
+    props: {
+      initialPayments: data,
+    },
+  };
+};
