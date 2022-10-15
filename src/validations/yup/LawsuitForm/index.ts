@@ -17,6 +17,8 @@ export const newLawsuitSchemaValidation = yup.object().shape({
     .test('uf', 'Digite um UF válido', (val: any) => validateUF(val))
     .transform((val: any) => val.value),
 
+  plan: yup.string().required(),
+
   city: yup.mixed()
     .transform((val: any) => val.value)
     .required('Campo obrigatório'),
