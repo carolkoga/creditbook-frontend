@@ -4,8 +4,6 @@ import {
   CurrencyCircleDollar,
   Heart,
   Star,
-  User,
-  CreditCard,
   Gear,
   DiceSix,
   DiceTwo,
@@ -49,21 +47,9 @@ export const routes = [
   },
 
   {
-    label: 'Meu Perfil',
-    icon: <User size={24} weight="regular" />,
-    link: '/profile',
-  },
-
-  {
     label: 'Meus Favoritos',
     icon: <Heart size={24} weight="regular" />,
     link: '/my-favorites',
-  },
-
-  {
-    label: 'Cartões',
-    icon: <CreditCard size={24} weight="regular" />,
-    link: '/cards',
   },
 
   {
