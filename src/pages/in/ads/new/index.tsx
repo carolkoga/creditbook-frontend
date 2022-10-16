@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useRouter } from 'next/router';
 import { useForm, FormProvider } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
@@ -23,7 +24,7 @@ import { newLawsuitSchemaValidation } from '@validations/yup/LawsuitForm';
 import { NewLawsuitParams } from '@type/creditbook/Lawsuits';
 import { handleCatchErrorRequest } from '@utils/handleCatchErrorRequest';
 import ProcurationField from '@components/LawsuitForm/ProcurationField';
-import { useRouter } from 'next/router';
+import ModalToSelectPlan from '@components/LawsuitForm/ModalToSelectPlan';
 
 export default function NewLawsuit() {
   const router = useRouter();
@@ -43,6 +44,8 @@ export default function NewLawsuit() {
     },
   });
   const ownOrAttorneyField = methods.watch('ownOrAttorney');
+  const isValidToContinue = methods.watch('income');
+
   function handleNavigateToHome() {
     router.push('/in/home');
   }
@@ -82,15 +85,21 @@ export default function NewLawsuit() {
                 <PledgeOrGuarantee />
                 <AcceptNegotiation />
                 <Prices />
+                <ModalToSelectPlan
+                  isVisible={stepForm === '4'}
+                  onBack={() => setStepForm('0')}
+                  loading={loading}
+                  label={!loading ? 'Cadastrar' : 'Cadastrando'}
+                />
                 {ownOrAttorneyField === 'attorney' && (
                   <ProcurationField />
                 )}
                 <Button
-                  type="submit"
-                  isLoading={loading}
+                  type="button"
+                  onClick={() => setStepForm('4')}
+                  disabled={!isValidToContinue}
                 >
-                  {!loading && 'Cadastrar'}
-                  {loading && 'Cadastrando'}
+                  Escolher o plano
                 </Button>
               </div>
             </FormLayout>
