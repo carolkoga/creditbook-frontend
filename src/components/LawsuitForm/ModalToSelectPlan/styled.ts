@@ -81,20 +81,6 @@ export const PlanHeader = styled.div<PlanProps>`
 export const PlanContent = styled.div`
   width: 100%;
   padding: 38px 16px 10px 16px;
-  button {
-    padding: 7px 24px;
-    background: ${({ theme }) => theme.colors.secondary.main};
-    border: none;
-    border-radius: 5px;
-    color: ${({ theme }) => theme.colors.grey[10]};
-    font-weight: 500;
-    width: 100%;
-    font-size: 14px;
-    :hover {
-      transition: all .35s ease;
-      opacity: .8;
-    }
-  }
 `;
 
 export const CheckoutContainer = styled.div`
@@ -161,6 +147,7 @@ export const Actions = styled.div`
     font-weight: 500;
     width: 40%;
     font-size: 14px;
+
     :hover {
       transition: all .35s ease;
       opacity: .8;
@@ -170,12 +157,40 @@ export const Actions = styled.div`
       background: #E2EBEA;
       color: #3A3A3A;
     }
+
   }
 
   @media (max-width: 310px) {
     flex-direction: column;
     button {
       width: 100%;
+    }
+  }
+`;
+
+interface ButtonSelectProps {
+  selected?: boolean,
+}
+
+export const ButtonSelect = styled.button<ButtonSelectProps>`
+  padding: 7px 24px;
+  background: ${({ theme, selected }) => (!selected ? theme.colors.secondary.main : theme.colors.grey[40])};
+  border: none;
+  border-radius: 5px;
+  color: ${({ theme }) => theme.colors.grey[10]};
+  font-weight: 500;
+  width: 100%;
+  font-size: 14px;
+  :hover {
+    transition: all .35s ease;
+    opacity: ${({ selected }) => (!selected ? '.8' : '1')};
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    background: ${({ theme }) => theme.colors.grey[40]};
+    :hover {
+      opacity: 1;
     }
   }
 `;

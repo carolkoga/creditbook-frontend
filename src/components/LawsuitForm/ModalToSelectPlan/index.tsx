@@ -1,10 +1,12 @@
 import { Overlay } from '@components/Overlay';
 import { Section } from '@components/Section';
-import { useCallback, useEffect, useState } from 'react';
+import convertToCurrency from '@utils/convertToCurrency';
+import { useMemo, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 
 import {
   Actions,
+  ButtonSelect,
   CheckoutContainer,
   CheckoutPriceSingle,
   CheckoutWrapper,
@@ -12,48 +14,54 @@ import {
 } from './styled';
 
 export default function ModalToSelectPlan() {
-  const { setValue } = useFormContext();
-  const [byMonth, setByMonth] = useState<boolean>(false);
-  const [byPercent, setByPercent] = useState<boolean>(false);
+  const { setValue, watch } = useFormContext();
+  const income = watch('income');
+  const price = useMemo(() => {
+    const incomeParsed = Number(income?.replace('R$ ', ''));
+
+    if (incomeParsed > 50000 && incomeParsed < 300000) return 120;
+    if (incomeParsed > 300000) return 180;
+
+    return 69.90;
+  }, [income]);
+  const [byMonth, setByMonth] = useState<boolean>(price === 180);
+  const [byPercent, setByPercent] = useState<boolean>(price === 180);
   const [isPremium, setIsPremium] = useState<boolean>(false);
+  const subtotal = useMemo(() => {
+    let subtotalPremium = 0;
 
-  const handleVerifyIsBothPlan = useCallback(() => {
-    if (byPercent && byMonth) {
-      setValue('plan', 'both');
-      return;
+    if (isPremium) {
+      subtotalPremium = price * 2;
     }
 
-    if (byPercent) {
-      setValue('plan', 'byPercent');
-      return;
-    }
+    if (isPremium && byPercent) return `${convertToCurrency(subtotalPremium + price)} + 8%`;
 
-    if (byMonth) {
+    if (isPremium) return convertToCurrency(subtotalPremium + price);
+
+    if (byPercent) return '8%';
+
+    return convertToCurrency(price);
+  }, [price, isPremium, byPercent]);
+  const canChangePlan = price === 180;
+
+  function handleSelectPlan(plan: 'byMonth' | 'byPercent') {
+    if (plan === 'byMonth') {
+      setByMonth(true);
+      setByPercent(false);
       setValue('plan', 'byMonth');
-      return;
     }
 
-    if (!byMonth && !byPercent) {
-      setValue('plan', '');
+    if (plan === 'byPercent') {
+      setByMonth(false);
+      setByPercent(true);
+      setValue('plan', 'byPercent');
     }
-  }, [byPercent, byMonth]);
-
-  function handleSelectPlanByMonth() {
-    setByMonth((oldState) => !oldState);
-  }
-
-  function handleSelectPlanByPercent() {
-    setByPercent((oldState) => !oldState);
   }
 
   function handleSelectPremium() {
     setIsPremium((oldState) => !oldState);
     setValue('isPremium', isPremium ? '1' : '0');
   }
-
-  useEffect(() => {
-    handleVerifyIsBothPlan();
-  }, [handleVerifyIsBothPlan]);
 
   return (
     <Overlay>
@@ -67,28 +75,37 @@ export default function ModalToSelectPlan() {
             <PlanContainer>
               <PlanHeader>
                 <h2>
-                  Plano Mensal por apenas R$ 69.90
+                  Plano Mensal por apenas
+                  {' '}
+                  {convertToCurrency(price)}
                 </h2>
               </PlanHeader>
 
               <PlanContent>
-                <button type="button" onClick={() => handleSelectPlanByMonth()}>
-                  {!byMonth ? 'Escolher' : 'Escolhido'}
-                </button>
+                <ButtonSelect
+                  type="button"
+                  onClick={() => handleSelectPlan('byMonth')}
+                  disabled={canChangePlan}
+                  selected={byMonth}
+                >
+                  {!byMonth || canChangePlan ? 'Escolher' : 'Escolhido'}
+                </ButtonSelect>
               </PlanContent>
             </PlanContainer>
 
             <PlanContainer highlight>
               <PlanHeader highlight>
                 <h2>
-                  Aumente visiblidade por apenas R$ 69.90
+                  Aumente visiblidade por apenas
+                  {' '}
+                  {convertToCurrency(price)}
                 </h2>
               </PlanHeader>
 
               <PlanContent>
-                <button type="button" onClick={handleSelectPremium}>
+                <ButtonSelect type="button" onClick={handleSelectPremium} selected={isPremium}>
                   {!isPremium ? 'Adicionar Premium' : 'Adicionado'}
-                </button>
+                </ButtonSelect>
               </PlanContent>
             </PlanContainer>
 
@@ -100,9 +117,14 @@ export default function ModalToSelectPlan() {
               </PlanHeader>
 
               <PlanContent>
-                <button type="button" onClick={() => handleSelectPlanByPercent()}>
-                  {!byPercent ? 'Escolher' : 'Escolhido'}
-                </button>
+                <ButtonSelect
+                  type="button"
+                  onClick={() => handleSelectPlan('byPercent')}
+                  disabled={canChangePlan}
+                  selected={byPercent}
+                >
+                  {!byPercent || canChangePlan ? 'Escolher' : 'Escolhido'}
+                </ButtonSelect>
               </PlanContent>
             </PlanContainer>
           </PlanList>
@@ -111,17 +133,29 @@ export default function ModalToSelectPlan() {
             <CheckoutWrapper>
               <CheckoutPriceSingle>
                 <span>Plano</span>
-                <small>R$ 69.90</small>
+                {price === 180 && (
+                  <small>{convertToCurrency(price)} + 8%</small>
+                )}
+
+                {price !== 180 && (
+                  <small>{convertToCurrency(price)}</small>
+                )}
               </CheckoutPriceSingle>
 
               <CheckoutPriceSingle>
                 <span>Premium</span>
-                <small>R$ 00.00</small>
+                {isPremium && (
+                  <small>{convertToCurrency(price)}</small>
+                )}
+
+                {!isPremium && (
+                  <small>{convertToCurrency(0)}</small>
+                )}
               </CheckoutPriceSingle>
 
               <CheckoutPriceSingle subtotal>
                 <span>Total</span>
-                <small>R$ 69.90</small>
+                <small>{subtotal}</small>
               </CheckoutPriceSingle>
             </CheckoutWrapper>
           </CheckoutContainer>
