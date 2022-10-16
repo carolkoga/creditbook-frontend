@@ -151,6 +151,8 @@ export const Actions = styled.div`
     :hover {
       transition: all .35s ease;
       opacity: .8;
+      filter: brightness(1);
+
     }
 
     :first-child {
