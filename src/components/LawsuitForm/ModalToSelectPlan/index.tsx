@@ -1,3 +1,4 @@
+import { Button } from '@components/Button';
 import { Overlay } from '@components/Overlay';
 import { Section } from '@components/Section';
 import convertToCurrency from '@utils/convertToCurrency';
@@ -13,18 +14,30 @@ import {
   Container, PlanContainer, PlanContent, PlanHeader, PlanList,
 } from './styled';
 
-export default function ModalToSelectPlan() {
+interface IProps {
+  isVisible: boolean,
+  loading?: boolean,
+  onBack: () => void,
+  label: string,
+}
+
+export default function ModalToSelectPlan({
+  isVisible, loading, label, onBack,
+}: IProps) {
   const { setValue, watch } = useFormContext();
-  const income = watch('income');
+  const income: string = watch('income');
   const price = useMemo(() => {
-    const incomeParsed = Number(income?.replace('R$ ', ''));
+    const incomeParsed = Number(income?.replaceAll(/\D/g, ''));
 
     if (incomeParsed > 50000 && incomeParsed < 300000) return 120;
-    if (incomeParsed > 300000) return 180;
-
+    if (incomeParsed > 300000) {
+      setValue('plan', 'both');
+      return 180;
+    }
+    setValue('plan', 'byMonth');
     return 69.90;
   }, [income]);
-  const [byMonth, setByMonth] = useState<boolean>(price === 180);
+  const [byMonth, setByMonth] = useState<boolean>(price === 69.90 || price === 180);
   const [byPercent, setByPercent] = useState<boolean>(price === 180);
   const [isPremium, setIsPremium] = useState<boolean>(false);
   const subtotal = useMemo(() => {
@@ -33,6 +46,8 @@ export default function ModalToSelectPlan() {
     if (isPremium) {
       subtotalPremium = price * 2;
     }
+
+    if (price === 180) return `${convertToCurrency(subtotalPremium + price)} + 8%`;
 
     if (isPremium && byPercent) return `${convertToCurrency(subtotalPremium + price)} + 8%`;
 
@@ -43,6 +58,7 @@ export default function ModalToSelectPlan() {
     return convertToCurrency(price);
   }, [price, isPremium, byPercent]);
   const canChangePlan = price === 180;
+  if (!isVisible) return null;
 
   function handleSelectPlan(plan: 'byMonth' | 'byPercent') {
     if (plan === 'byMonth') {
@@ -137,8 +153,12 @@ export default function ModalToSelectPlan() {
                   <small>{convertToCurrency(price)} + 8%</small>
                 )}
 
-                {price !== 180 && (
+                {(price !== 180 && !byPercent) && (
                   <small>{convertToCurrency(price)}</small>
+                )}
+
+                {(price !== 180 && byPercent) && (
+                  <small>8%</small>
                 )}
               </CheckoutPriceSingle>
 
@@ -161,16 +181,20 @@ export default function ModalToSelectPlan() {
           </CheckoutContainer>
 
           <Actions>
-            <button type="button">
+            <button type="button" onClick={() => onBack()}>
               Voltar
             </button>
 
-            <button type="submit">
-              Cadastrar
-            </button>
+            <Button type="submit" isLoading={loading}>
+              {label}
+            </Button>
           </Actions>
         </Container>
       </Section.Container>
     </Overlay>
   );
 }
+
+ModalToSelectPlan.defaultProps = {
+  loading: false,
+};
