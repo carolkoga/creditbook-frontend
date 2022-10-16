@@ -25,6 +25,7 @@ import { NewLawsuitParams } from '@type/creditbook/Lawsuits';
 import { handleCatchErrorRequest } from '@utils/handleCatchErrorRequest';
 import ProcurationField from '@components/LawsuitForm/ProcurationField';
 import ModalToSelectPlan from '@components/LawsuitForm/ModalToSelectPlan';
+import { toast } from 'react-toastify';
 
 export default function NewLawsuit() {
   const router = useRouter();
@@ -33,7 +34,6 @@ export default function NewLawsuit() {
   const methods = useForm<NewLawsuitParams>({
     resolver: yupResolver(newLawsuitSchemaValidation),
     mode: 'all',
-    reValidateMode: 'onBlur',
     defaultValues: {
       type: 'digital',
       acceptNegotiation: '1',
@@ -49,6 +49,14 @@ export default function NewLawsuit() {
   function handleNavigateToHome() {
     router.push('/in/home');
   }
+
+  function handleOpenModalToSelectPlan() {
+    setStepForm('4');
+    if (!methods.formState.isValid) {
+      toast.error('Existe algum campo não preenchido ou incorreto');
+    }
+  }
+
   async function handleSubmitNewLawsuit(data: any) {
     try {
       setLoading(true);
@@ -96,7 +104,7 @@ export default function NewLawsuit() {
                 )}
                 <Button
                   type="button"
-                  onClick={() => setStepForm('4')}
+                  onClick={handleOpenModalToSelectPlan}
                   disabled={!isValidToContinue}
                 >
                   Escolher o plano
