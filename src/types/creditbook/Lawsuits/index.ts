@@ -46,6 +46,8 @@ export interface LawsuitParams {
   accordion?: File;
   sentence?: File;
   procuration?: File;
+
+  plan: 'byMonth' | 'byPercent' | 'both',
 }
 
 export interface LawsuitParamsID extends LawsuitParams {
