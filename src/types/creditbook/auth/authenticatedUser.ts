@@ -19,6 +19,7 @@ export type AuthenticatedUserData = Omit<UnionAccountType, 'password'> & {
   id: string,
   profilePictureKey: string,
   profilePictureUrl: string,
+  role: 'admin' | 'user',
 }
 
 export interface AuthContextType {
