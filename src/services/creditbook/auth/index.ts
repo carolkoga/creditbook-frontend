@@ -48,6 +48,26 @@ class AuthCreditBookService {
     const data = { password, email, role: role || 'user' };
     return await creditbookApi.post('/auth/login', data);
   }
+
+  async multipleLogin({ email, password }: Omit<LoginParams, 'role'>) {
+    const data = { password, email };
+    const [user, admin] = await Promise.allSettled([
+      creditbookApi.post('/auth/login', { ...data, role: 'user' }),
+      creditbookApi.post('/auth/login', { ...data, role: 'admin' }),
+    ]);
+
+    if (user.status === 'fulfilled') {
+      return user.value;
+    } if (user.status === 'rejected') {
+      return user.reason;
+    }
+
+    if (admin.status === 'fulfilled') {
+      return admin.value;
+    } if (admin.status === 'rejected') {
+      return admin.reason;
+    }
+  }
 }
 
 export const authCreditBookService = new AuthCreditBookService();
