@@ -52,7 +52,6 @@ export const Container = styled.div`
   align-items: flex-start;
   gap: 24px;
   justify-content: flex-start;
-  height: 100%;
 
   max-width: 1080px;
   .actions {
