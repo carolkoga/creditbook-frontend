@@ -24,6 +24,16 @@ const customToastProps: ToastOptions = {
   position: 'bottom-center',
 };
 
+function destroyAuthCookies() {
+  destroyCookie(undefined, 'nextauth.token', {
+    path: '/',
+  });
+
+  destroyCookie(undefined, 'nextauth.user', {
+    path: '/',
+  });
+}
+
 function setAuthorizationHeader(token: string) {
   creditbookApi.defaults.headers.common.Authorization = `Bearer ${token}`;
 }
@@ -36,18 +46,13 @@ export function AuthProvider({ children }: IProps) {
   function handleSignOut() {
     setUser(null);
     Router.push('/');
-    destroyCookie(undefined, 'nextauth.token', {
-      path: '/',
-    });
-    destroyCookie(undefined, 'nextauth.user', {
-      path: '/',
-    });
+    destroyAuthCookies();
   }
 
   async function handleSignIn(data: LoginParams) {
     try {
       const response = await toast.promise(
-        authCreditBookService.login(data),
+        authCreditBookService.multipleLogin(data),
         {
           pending: 'Estamos verificando seus dados, aguarde um momento...',
           success: 'Login realizado com sucessso!',
@@ -102,9 +107,7 @@ export function AuthProvider({ children }: IProps) {
         setAuthorizationHeader(nextAuthToken);
       } else {
         setUser(null);
-        destroyCookie(undefined, 'nextauth.token', {
-          path: '/',
-        });
+        destroyAuthCookies();
       }
     }
   }, [Router.pathname]);
