@@ -5,10 +5,11 @@ export const WrapperEditor = styled.div`
   overflow-y: hidden;
 
   .quill {
-    overflow-y: scroll;
+    overflow-y: visible;
     border-radius: 10px;
     height: 100%;
     min-height: 450px;
+    max-height: 650px;
     position: relative;
 
     .ql-toolbar {
