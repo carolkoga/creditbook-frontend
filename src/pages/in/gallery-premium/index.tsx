@@ -1,7 +1,4 @@
-import LawsuitCardList from '@components/LawsuitCard';
-import { ListLayoutSingleLawsuits } from '@components/ListsLayout';
 import SearchBox from '@components/Search';
-import { lawsuitsMock } from '@mocks/suits';
 import { Section } from '@components/Section';
 import SelectAdsFilters from '@components/SelectAdsFilters';
 
@@ -15,9 +12,7 @@ export default function GalleryPremium() {
       </Section.Header>
 
       <Section.Container>
-        <ListLayoutSingleLawsuits>
-          <LawsuitCardList lawsuits={lawsuitsMock} />
-        </ListLayoutSingleLawsuits>
+        <Section.Title textColor="dark">Sem anúncios na galeria premium</Section.Title>
       </Section.Container>
     </>
   );
