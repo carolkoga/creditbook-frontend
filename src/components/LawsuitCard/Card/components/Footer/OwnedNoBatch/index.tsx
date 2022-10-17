@@ -16,7 +16,7 @@ export default function OwnedNoBatch({ lawsuitId }: CommonPropsTypes) {
   return (
     <Actions>
       <Content>
-        <Link href={`/ads/${lawsuitId}`} size="small-large" variant="secondary">
+        <Link href={`/in/ads/${lawsuitId}`} size="small-large" variant="secondary">
           Informação
         </Link>
         <DropdownMenu.Root>

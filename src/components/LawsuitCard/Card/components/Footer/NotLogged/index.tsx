@@ -5,10 +5,10 @@ export default function FooterNotLogged() {
   return (
     <Actions>
       <Content>
-        <Link href="/informacao" size="small-large" variant="secondary">
+        <Link href="/sign-up" size="small-large" variant="secondary">
           Cadastrar
         </Link>
-        <Link href="/" size="small-large" variant="default">
+        <Link href="/login" size="small-large" variant="default">
           Entrar
         </Link>
       </Content>

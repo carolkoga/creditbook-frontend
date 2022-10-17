@@ -6,10 +6,10 @@ export default function LoggedFooter({ lawsuitId }: Pick<CommonPropsTypes, 'laws
   return (
     <Actions>
       <Content>
-        <Link href={`/ads/${lawsuitId}`} size="small-large" variant="secondary">
+        <Link href={`/in/ads/${lawsuitId}`} size="small-large" variant="secondary">
           Informação
         </Link>
-        <Link href={`/ads/buy/${lawsuitId}`} size="small-large" variant="default">
+        <Link href={`/in/ads/buy/${lawsuitId}`} size="small-large" variant="default">
           Comprar
         </Link>
       </Content>
