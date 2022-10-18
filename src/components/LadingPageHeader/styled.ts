@@ -38,6 +38,9 @@ export const Content = styled.div`
 
 export const Navigation = styled.nav`
   width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   ul {
     display: flex;
     align-items: center;
