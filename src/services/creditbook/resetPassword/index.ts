@@ -18,11 +18,19 @@ class ResetPasswordService extends HttpClient {
   }
 
   async verifyCredentials({ email }: { email: string }) {
-    return this.httpClient.post(`${USER_PREFIX}/request-reset-password`, email);
+    return this.httpClient.post(`${USER_PREFIX}/request-reset-password`, email, {
+      headers: {
+        'content-type': 'application/json',
+      },
+    });
   }
 
   async resetPassword(data: ResetPasswordParams) {
-    return this.httpClient.post(`${USER_PREFIX}/request-reset-password`, data);
+    return this.httpClient.patch(`${USER_PREFIX}/request-reset-password`, data, {
+      headers: {
+        'content-type': 'application/json',
+      },
+    });
   }
 }
 
