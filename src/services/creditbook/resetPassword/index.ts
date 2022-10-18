@@ -11,10 +11,7 @@ const USER_PREFIX = '/user';
 
 class ResetPasswordService extends HttpClient {
   constructor(api?: AxiosInstance) {
-    super();
-    if (api) {
-      this.httpClient = api;
-    }
+    super(api);
   }
 
   async verifyCredentials({ email }: { email: string }) {

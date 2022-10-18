@@ -6,10 +6,7 @@ import { HttpClient } from '../http';
 
 export class PaymentServices extends HttpClient {
   constructor(api?: AxiosInstance) {
-    super();
-    if (api) {
-      this.httpClient = api;
-    }
+    super(api);
   }
 
   async listPayments() {

@@ -5,10 +5,7 @@ class LawsuitService extends HttpClient {
   private customHeaders: object;
 
   constructor(api?: AxiosInstance) {
-    super();
-    if (api) {
-      this.httpClient = api;
-    }
+    super(api);
 
     this.customHeaders = {
       'content-type': 'multipart/form-data',

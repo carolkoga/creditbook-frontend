@@ -9,10 +9,7 @@ interface UpdateParams {
 
 export class BatchServices extends HttpClient {
   constructor(api?: AxiosInstance) {
-    super();
-    if (api) {
-      this.httpClient = api;
-    }
+    super(api);
   }
 
   async create(batch: NewBatchParams) {
