@@ -10,6 +10,7 @@ export function middleware(req: NextRequest) {
     let user: { role: 'user' | 'admin' } | null = null;
     const token = req.cookies.get('nextauth.token');
     const userDataAsJSON = req.cookies.get('nextauth.user');
+
     if (userDataAsJSON) {
       user = JSON.parse(userDataAsJSON as string);
     }
