@@ -89,6 +89,7 @@ export default function ProcessInfoForm() {
                 id="uf"
                 instanceId="uf"
                 className="selects"
+                isSearchable={false}
                 {...field}
               />
             </FormGroup>
@@ -141,6 +142,7 @@ export default function ProcessInfoForm() {
                   : [{ label: 'Selecione um estado', value: '' }]}
                 placeholder="Tribunal"
                 id="tribunal"
+                isSearchable={false}
                 instanceId="tribunal"
                 className="selects"
                 {...field}
@@ -165,6 +167,7 @@ export default function ProcessInfoForm() {
                 options={lawsuitKind}
                 placeholder="Espécie"
                 id="kind"
+                isSearchable={false}
                 instanceId="kind"
                 className="selects"
                 {...field}
@@ -191,6 +194,7 @@ export default function ProcessInfoForm() {
                 id="processGender"
                 instanceId="processGender"
                 className="selects"
+                isSearchable={false}
                 {...field}
               />
             </FormGroup>
@@ -212,6 +216,7 @@ export default function ProcessInfoForm() {
               <Select
                 options={lawsuitActionPhase}
                 placeholder="Fase de ação"
+                isSearchable={false}
                 id="actionPhase"
                 instanceId="actionPhase"
                 className="selects"
