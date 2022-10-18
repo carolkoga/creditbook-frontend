@@ -11,6 +11,7 @@ export const FormLayout = styled.form`
 
   .actions {
     margin-top: 12px;
+    width: 100%;
     button {
       width: 100%;
     }

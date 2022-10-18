@@ -34,7 +34,7 @@ export function PasswordForm({ isDisabled, isLoading, onSubmit }: CommonPropsTyp
         }}
       >
         <Input
-          {...register('confirmPassword')}
+          {...register('newPasswordConfirmation')}
           type="password"
           id="confirm-password"
         />

@@ -6,5 +6,5 @@ export const EmailFormValidationSchema = yup.object().shape({
 
 export const PasswordFormValidationSchema = yup.object().shape({
   newPassword: yup.string().required('Campo obrigatório').validatePassword(),
-  confirmPassword: yup.string().oneOf([yup.ref('newPassword')], 'Senhas não conferem'),
+  newPasswordConfirmation: yup.string().oneOf([yup.ref('newPassword')], 'Senhas não conferem'),
 });
