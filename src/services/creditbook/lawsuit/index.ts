@@ -1,7 +1,7 @@
 import { AxiosInstance } from 'axios';
 import { HttpClient } from '../http';
 
-class LawsuitService extends HttpClient {
+export class LawsuitService extends HttpClient {
   private customHeaders: object;
 
   constructor(api?: AxiosInstance) {
@@ -26,6 +26,10 @@ class LawsuitService extends HttpClient {
     return await this.httpClient.post('/announcement', formData, {
       headers: { ...this.customHeaders },
     });
+  }
+
+  async getById(id: string) {
+    return await this.httpClient.get(`/announcement/${id}`);
   }
 
   private _convertToFormData(data: any) {
