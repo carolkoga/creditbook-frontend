@@ -1,3 +1,5 @@
+import { processKindTranslation } from '@components/LawsuitCard/Card/utils/processKindTranslation';
+import { LawsuitParams } from '@type/creditbook/Lawsuits';
 import {
   Divider, Row, Col, Space,
 } from 'antd';
@@ -9,10 +11,11 @@ import {
 } from './styled';
 
 interface IProps {
-  children?: ReactNode
+  children?: ReactNode,
+  announcement: LawsuitParams
 }
 
-export default function LawsuitView({ children }: IProps) {
+export default function LawsuitView({ children, announcement }: IProps) {
   return (
     <Container>
       <Divider orientation="left">Dados do processo</Divider>
@@ -26,7 +29,7 @@ export default function LawsuitView({ children }: IProps) {
           <Space direction="vertical" size="middle">
             <Title>Número do processo</Title>
             <DescriptionWrapper>
-              <Description>51605485620228192646</Description>
+              <Description>{announcement.processNumber}</Description>
             </DescriptionWrapper>
           </Space>
         </Col>
@@ -35,7 +38,7 @@ export default function LawsuitView({ children }: IProps) {
           <Space direction="vertical" size="middle">
             <Title>Tribunal</Title>
             <DescriptionWrapper>
-              <Description>superior Tribunal de Justiça</Description>
+              <Description>{announcement.tribunal}</Description>
             </DescriptionWrapper>
           </Space>
         </Col>
@@ -44,7 +47,9 @@ export default function LawsuitView({ children }: IProps) {
           <Space direction="vertical" size="middle">
             <Title>Tipo de crédito</Title>
             <DescriptionWrapper>
-              <Description>Trabalhista</Description>
+              <Description>
+                {processKindTranslation[announcement.kind]}
+              </Description>
             </DescriptionWrapper>
           </Space>
         </Col>
@@ -53,7 +58,7 @@ export default function LawsuitView({ children }: IProps) {
           <Space direction="vertical" size="middle">
             <Title>Estado</Title>
             <DescriptionWrapper>
-              <Description>AL</Description>
+              <Description>{announcement.uf}</Description>
             </DescriptionWrapper>
           </Space>
         </Col>
@@ -62,7 +67,7 @@ export default function LawsuitView({ children }: IProps) {
           <Space direction="vertical" size="middle">
             <Title>Cidade</Title>
             <DescriptionWrapper>
-              <Description>Amaturá</Description>
+              <Description>{announcement.city}</Description>
             </DescriptionWrapper>
           </Space>
         </Col>
@@ -71,7 +76,7 @@ export default function LawsuitView({ children }: IProps) {
           <Space direction="vertical" size="middle">
             <Title>Autor Principal:</Title>
             <DescriptionWrapper>
-              <Description>BRENO NATHAN JUAN MONTEIRO</Description>
+              <Description>{announcement.mainActorCorporationNameOrName.toUpperCase()}</Description>
             </DescriptionWrapper>
           </Space>
         </Col>
@@ -80,10 +85,35 @@ export default function LawsuitView({ children }: IProps) {
           <Space direction="vertical" size="middle">
             <Title>CPF/CNPJ:</Title>
             <DescriptionWrapper>
-              <Description>443.176.651-07</Description>
+              <Description>{announcement.mainActorCpfOrCnpj}</Description>
             </DescriptionWrapper>
           </Space>
         </Col>
+
+        {announcement?.secondaryActorCorporationNameOrName && (
+          <Col>
+            <h3>Reú Secundario</h3>
+            <Space size="large">
+              <Space direction="vertical" size="middle">
+                <Title>Nome</Title>
+                <DescriptionWrapper>
+                  <Description>
+                    {announcement.secondaryActorCorporationNameOrName}
+                  </Description>
+                </DescriptionWrapper>
+              </Space>
+
+              <Space direction="vertical" size="middle">
+                <Title>CPF/CNPJ</Title>
+                <DescriptionWrapper>
+                  <Description>
+                    {announcement.secondaryActorCpfOrCnpj}
+                  </Description>
+                </DescriptionWrapper>
+              </Space>
+            </Space>
+          </Col>
+        )}
       </Row>
 
       <Divider orientation="left">Processo Digital</Divider>
@@ -93,27 +123,35 @@ export default function LawsuitView({ children }: IProps) {
         }}
         align="middle"
       >
-        <Col>
-          <Space direction="vertical" size="middle">
-            <Title>Link do processo</Title>
-            <DescriptionWrapper>
-              <Description as="a" href="#procuracao">https://test.com</Description>
-            </DescriptionWrapper>
-          </Space>
-        </Col>
+
+        {announcement?.digitalProcessUrl && (
+          <Col>
+            <Space direction="vertical" size="middle">
+              <Title>Link do processo</Title>
+              <DescriptionWrapper>
+                <Description as="a" href={announcement.digitalProcessUrl}>
+                  {announcement.digitalProcessUrl}
+                </Description>
+              </DescriptionWrapper>
+            </Space>
+          </Col>
+        )}
 
         {/* Para processo fisicos */}
-        <Col>
-          <Space direction="vertical" size="middle">
-            <Title>Petição Inicial</Title>
-            <DescriptionWrapper>
-              <Description as="a" href="#procuracao" download="procuracao" title="Clique para fazer download">
-                <File size={18} />
-                Sim
-              </Description>
-            </DescriptionWrapper>
-          </Space>
-        </Col>
+
+        {!announcement?.digitalProcessUrl && (
+          <Col>
+            <Space direction="vertical" size="middle">
+              <Title>Petição Inicial</Title>
+              <DescriptionWrapper>
+                <Description as="a" href="#procuracao" download="procuracao" title="Clique para fazer download">
+                  <File size={18} />
+                  Sim
+                </Description>
+              </DescriptionWrapper>
+            </Space>
+          </Col>
+        )}
       </Row>
 
       <Divider orientation="left">Dados da parte adversa</Divider>
@@ -129,37 +167,47 @@ export default function LawsuitView({ children }: IProps) {
             <Space direction="vertical" size="middle">
               <Title>Nome</Title>
               <DescriptionWrapper>
-                <Description>Carlos</Description>
+                <Description>
+                  {announcement.mainDefendantCorporationNameOrName.toUpperCase()}
+                </Description>
               </DescriptionWrapper>
             </Space>
 
             <Space direction="vertical" size="middle">
               <Title>CPF/CNPJ</Title>
               <DescriptionWrapper>
-                <Description>3243434324234</Description>
+                <Description>
+                  {announcement.mainDefendantCpjOrCnpj}
+                </Description>
               </DescriptionWrapper>
             </Space>
           </Space>
         </Col>
 
-        <Col>
-          <h3>Reú Secundario</h3>
-          <Space size="large">
-            <Space direction="vertical" size="middle">
-              <Title>Nome</Title>
-              <DescriptionWrapper>
-                <Description>Carlos</Description>
-              </DescriptionWrapper>
-            </Space>
+        {announcement?.secondaryDefendantCorporationNameOrName && (
+          <Col>
+            <h3>Reú Secundario</h3>
+            <Space size="large">
+              <Space direction="vertical" size="middle">
+                <Title>Nome</Title>
+                <DescriptionWrapper>
+                  <Description>
+                    {announcement.secondaryDefendantCorporationNameOrName.toUpperCase()}
+                  </Description>
+                </DescriptionWrapper>
+              </Space>
 
-            <Space direction="vertical" size="middle">
-              <Title>CPF/CNPJ</Title>
-              <DescriptionWrapper>
-                <Description>3243434324234</Description>
-              </DescriptionWrapper>
+              <Space direction="vertical" size="middle">
+                <Title>CPF/CNPJ</Title>
+                <DescriptionWrapper>
+                  <Description>
+                    {announcement.secondaryDefendantCpjOrCnpj}
+                  </Description>
+                </DescriptionWrapper>
+              </Space>
             </Space>
-          </Space>
-        </Col>
+          </Col>
+        )}
       </Row>
 
       <Divider orientation="left">Outras informações</Divider>
@@ -173,7 +221,9 @@ export default function LawsuitView({ children }: IProps) {
           <Space direction="vertical" size="middle">
             <Title>Penhora ou outra garantia</Title>
             <DescriptionWrapper>
-              <Description>Sim</Description>
+              <Description>
+                {announcement.pledgeOrGuarantee ? 'Sim' : 'Não'}
+              </Description>
             </DescriptionWrapper>
           </Space>
         </Col>
@@ -182,22 +232,31 @@ export default function LawsuitView({ children }: IProps) {
           <Space direction="vertical" size="middle">
             <Title>Aceita negociação</Title>
             <DescriptionWrapper>
-              <Description>Sim</Description>
-            </DescriptionWrapper>
-          </Space>
-        </Col>
-
-        <Col>
-          <Space direction="vertical" size="middle">
-            <Title>Procuração</Title>
-            <DescriptionWrapper>
-              <Description as="a" href="#procuracao" download="procuracao" title="Clique para fazer download">
-                <File size={18} />
-                Sim
+              <Description>
+                {announcement.acceptNegotiation ? 'Sim' : 'Não'}
               </Description>
             </DescriptionWrapper>
           </Space>
         </Col>
+
+        {announcement?.procurationUrl && (
+          <Col>
+            <Space direction="vertical" size="middle">
+              <Title>Procuração</Title>
+              <DescriptionWrapper>
+                <Description
+                  as="a"
+                  href={announcement.procurationUrl}
+                  download={`procuracao-do-processo-${announcement.processNumber}`}
+                  title="Clique para fazer download"
+                >
+                  <File size={18} />
+                  Sim
+                </Description>
+              </DescriptionWrapper>
+            </Space>
+          </Col>
+        )}
       </Row>
 
       {children}
