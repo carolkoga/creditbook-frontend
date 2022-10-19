@@ -1,8 +1,21 @@
+import { AnnouncementStatus } from './AnnouncementStatus';
 import {
   AnnouncementActionPhase, AnnouncementGender, AnnouncementKind, AnnouncementTypes,
 } from './AnnouncementTypes';
 
-export interface LawsuitParams {
+interface LawsuitFiles {
+  inicialPetition: File;
+  judgmentOfApprovalOfLaborCalculations?: File;
+  anotherRelevantParts?: File;
+  finalCertificate?: File;
+  contestation?: File;
+  resources?: File;
+  accordion?: File;
+  sentence?: File;
+  procuration?: File;
+}
+
+interface Lawsuit {
   mainDefendantCorporationNameOrName: string;
   mainDefendantCpjOrCnpj: string;
 
@@ -36,26 +49,18 @@ export interface LawsuitParams {
   pledgeOrGuarantee: boolean;
   acceptNegotiation: boolean;
   ownOrAttorney: 'own' | 'attorney';
-
-  inicialPetition: File;
-  judgmentOfApprovalOfLaborCalculations?: File;
-  anotherRelevantParts?: File;
-  finalCertificate?: File;
-  contestation?: File;
-  resources?: File;
-  accordion?: File;
-  sentence?: File;
-  procuration?: File;
-
   plan: 'byMonth' | 'byPercent' | 'both',
 }
 
-export interface LawsuitParamsID extends LawsuitParams {
-  id: string
-  owner: string,
+export interface LawsuitParams extends LawsuitFiles, Omit<Lawsuit, 'digitalProcess' | 'procuration'> {
+ id: string,
+ userId: string,
+ status: AnnouncementStatus,
+ digitalProcessUrl: string,
+ procurationUrl: string,
 }
 
-export interface NewLawsuitParams extends Omit<LawsuitParams, 'batchId' | 'pledgeOrGuarantee' | 'acceptNegotiation' | 'isFavorite' | 'isPremium'> {
+export interface NewLawsuitParams extends Omit<Lawsuit, 'batchId' | 'pledgeOrGuarantee' | 'acceptNegotiation' | 'isFavorite' | 'isPremium'> {
   pledgeOrGuarantee: '1' | '0';
   acceptNegotiation: '1' | '0';
   isFavorite: '1' | '0';
