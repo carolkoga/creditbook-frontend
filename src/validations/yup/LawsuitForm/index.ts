@@ -78,7 +78,9 @@ export const newLawsuitSchemaValidation = yup.object().shape({
   acceptNegotiation: yup.string(),
   ownOrAttorney: yup.string(),
   pledgeOrGuarantee: yup.string(),
-  processPrice: yup.string().required(),
+  processPrice: yup.string()
+    .transform((value) => value?.trim()?.replaceAll(/\D/g, ''))
+    .required(),
   income: yup.string()
     .nullable()
     .when('processPrice', (processPrice, schema: StringSchema | any) => {
@@ -102,6 +104,7 @@ export const newLawsuitSchemaValidation = yup.object().shape({
         });
       }
     })
+    .transform((value) => value?.trim()?.replaceAll(/\D/g, ''))
     .required(),
 
   // Files
