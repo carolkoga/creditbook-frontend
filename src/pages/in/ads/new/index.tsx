@@ -25,7 +25,6 @@ import { NewLawsuitParams } from '@type/creditbook/Lawsuits';
 import { handleCatchErrorRequest } from '@utils/handleCatchErrorRequest';
 import ProcurationField from '@components/LawsuitForm/ProcurationField';
 import ModalToSelectPlan from '@components/LawsuitForm/ModalToSelectPlan';
-import { toast } from 'react-toastify';
 
 export default function NewLawsuit() {
   const router = useRouter();
@@ -52,18 +51,17 @@ export default function NewLawsuit() {
 
   function handleOpenModalToSelectPlan() {
     setStepForm('4');
-    if (!methods.formState.isValid) {
-      toast.error('Existe algum campo não preenchido ou incorreto');
-    }
   }
 
   async function handleSubmitNewLawsuit(data: any) {
     try {
       setLoading(true);
-      await lawsuitService.createLawsuit(data);
+      const response = await lawsuitService.createLawsuit(data);
+      router.push(`/in/ads/${response.data.id}`);
     } catch (error) {
-      setLoading(false);
       handleCatchErrorRequest(error as any);
+    } finally {
+      setLoading(false);
     }
   }
 
