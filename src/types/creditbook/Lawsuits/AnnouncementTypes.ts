@@ -1,7 +1,4 @@
-export interface AnnouncementTypes {
-  physical: 'physical',
-  digital: 'digital',
-}
+export type AnnouncementTypes = 'physical' | 'digital'
 export interface AnnouncementGender {
   civel: 'civel',
   trabalhista: 'trabalhista',

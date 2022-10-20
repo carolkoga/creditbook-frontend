@@ -32,7 +32,7 @@ interface Lawsuit {
   actionPhase: keyof AnnouncementActionPhase;
   kind: keyof AnnouncementKind;
 
-  type: keyof AnnouncementTypes | string;
+  type: AnnouncementTypes;
 
   digitalProcess?: string;
 
