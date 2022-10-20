@@ -8,8 +8,15 @@ import SelectAdsFilters from '@components/SelectAdsFilters';
 import { Direction } from '@components/Direction';
 
 import { Link } from '@components/Button';
+import { GetServerSideProps } from 'next';
+import { lawsuitService } from '@services/creditbook/lawsuit';
+import { LawsuitParams } from '@type/creditbook/Lawsuits';
 
-export default function Home() {
+interface IProps {
+  announcements: LawsuitParams[],
+}
+
+export default function Home({ announcements }: IProps) {
   return (
     <>
       <Section.Container bg="light">
@@ -19,7 +26,7 @@ export default function Home() {
             Ver Todos
           </Link>
         </Direction>
-        <LawsuitCardSwiper lawsuits={lawsuitsMock} />
+        <LawsuitCardSwiper lawsuits={lawsuitsMock as any} />
       </Section.Container>
 
       <Section.Container>
@@ -29,9 +36,24 @@ export default function Home() {
         </Section.Header>
 
         <ListLayoutSingleLawsuits>
-          <LawsuitCardList lawsuits={lawsuitsMock} />
+          <LawsuitCardList lawsuits={announcements} />
         </ListLayoutSingleLawsuits>
       </Section.Container>
     </>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  const { data } = await lawsuitService.listAll();
+
+  return {
+    props: {
+      announcements: data,
+    },
+    notFound: '/in/settings',
+    redirect: {
+      destination: '/in/settings',
+      permanent: false,
+    },
+  };
+};
