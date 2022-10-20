@@ -5,5 +5,5 @@ export type LawsuitCardProps = {
 };
 
 export type LawsuitCardListProps = {
-  lawsuits: LawsuitParams[]
+  lawsuits: LawsuitParams[] | null
 };
