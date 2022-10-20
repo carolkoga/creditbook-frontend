@@ -116,7 +116,7 @@ export default function LawsuitView({ children, announcement }: IProps) {
         )}
       </Row>
 
-      {announcement?.digitalProcessUrl && (
+      {announcement.type === 'digital' && (
       <>
         <Divider orientation="left">Processo Digital</Divider>
         <Row
@@ -139,8 +139,7 @@ export default function LawsuitView({ children, announcement }: IProps) {
       </>
       )}
 
-      {/* Para processo fisicos */}
-      {!announcement?.digitalProcessUrl && (
+      {announcement.type === 'physical' && (
       <>
         <Divider>Processo Fisico</Divider>
         <Row>
