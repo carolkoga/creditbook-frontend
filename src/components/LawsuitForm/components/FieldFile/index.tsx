@@ -6,12 +6,13 @@ import { ContainerInputFile, Filename, Wrapper } from './styled';
 
 interface IProps extends InputHTMLAttributes<HTMLInputElement> {
   file: File | undefined,
+  fileName?: string | null,
   label: string,
   error?: any,
 }
 
 const FieldFile = forwardRef(({
-  file, label, error, ...registerField
+  file, fileName, label, error, ...registerField
 }: IProps, ref) => {
   const { formGroupDirection } = useLawsuitForm();
 
@@ -38,12 +39,22 @@ const FieldFile = forwardRef(({
             <UploadSimple size={30} weight="bold" />
           </ContainerInputFile>
           {file?.name && (
+            <Filename>
+              <span>
+                Arquivo escolhido:
+                {' '}
+              </span>
+              {file?.name?.toLowerCase()}
+            </Filename>
+          )}
+
+          {(fileName && !file?.name) && (
           <Filename>
             <span>
               Arquivo escolhido:
               {' '}
             </span>
-            {file.name.toLowerCase() }
+            {fileName.toLowerCase()}
           </Filename>
           )}
         </>
@@ -56,4 +67,5 @@ export default FieldFile;
 
 FieldFile.defaultProps = {
   error: null,
+  fileName: null,
 };
