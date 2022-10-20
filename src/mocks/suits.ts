@@ -1,6 +1,4 @@
-import { LawsuitParamsID } from '@type/creditbook/Lawsuits';
-
-export const lawsuitsMock: LawsuitParamsID[] = [
+export const lawsuitsMock = [
   {
     id: '1',
     processGender: 'civel',
@@ -10,7 +8,7 @@ export const lawsuitsMock: LawsuitParamsID[] = [
     kind: 'acaoCondenatoria',
     owner: 'Rebeca Elisa Cecilia Nascimento',
 
-  } as LawsuitParamsID,
+  },
 
   {
     id: '2',
@@ -19,7 +17,7 @@ export const lawsuitsMock: LawsuitParamsID[] = [
     city: 'Ribeirão preto',
     uf: 'sp',
     kind: 'falencia',
-  } as LawsuitParamsID,
+  },
 
   {
     id: '3',
@@ -29,7 +27,7 @@ export const lawsuitsMock: LawsuitParamsID[] = [
     uf: 'sp',
     kind: 'creditoFalimenter',
     batchId: '12',
-  } as LawsuitParamsID,
+  },
 
   {
     id: '4',
@@ -40,7 +38,7 @@ export const lawsuitsMock: LawsuitParamsID[] = [
     kind: 'reclamacaoTrabalhista',
     owner: 'Rebeca Elisa Cecilia Nascimento',
     batchId: '12',
-  } as LawsuitParamsID,
+  },
 
   {
     id: '5',
@@ -51,7 +49,7 @@ export const lawsuitsMock: LawsuitParamsID[] = [
     kind: 'reclamacaoTrabalhista',
     owner: 'Rebeca Elisa Cecilia Nascimento',
 
-  } as LawsuitParamsID,
+  },
 
   {
     id: '6',
@@ -62,5 +60,5 @@ export const lawsuitsMock: LawsuitParamsID[] = [
     kind: 'acaoIndenizatoria',
     owner: 'Rebeca Elisa Cecilia Nascimento',
     batchId: '12',
-  } as LawsuitParamsID,
+  },
 ];

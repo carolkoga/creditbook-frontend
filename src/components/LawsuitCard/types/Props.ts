@@ -1,9 +1,9 @@
-import type { LawsuitParamsID } from '@type/creditbook/Lawsuits';
+import type { LawsuitParams } from '@type/creditbook/Lawsuits';
 
 export type LawsuitCardProps = {
-  lawsuit: LawsuitParamsID
+  lawsuit: LawsuitParams
 };
 
 export type LawsuitCardListProps = {
-  lawsuits: LawsuitParamsID[]
+  lawsuits: LawsuitParams[]
 };
