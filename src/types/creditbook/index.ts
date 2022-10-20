@@ -20,3 +20,12 @@ export interface UserUpdateParams extends Omit<AccountCommonParams, 'passwordCon
 export interface UserDefaultValues extends Omit<UserUpdateParams, 'nationality'> {
   nationality: { label: string, value: string },
 }
+
+export interface ContactAnnouncerParams {
+  name: string,
+  email: string,
+  phone: string,
+  message: string,
+  type: 'batch' | 'announcement',
+  creditId: string,
+}
