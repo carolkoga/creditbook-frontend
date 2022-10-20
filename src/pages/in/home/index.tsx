@@ -1,9 +1,8 @@
 // import LawsuitCardList from '@components/LawsuitCard';
-import LawsuitCardSwiper from '@components/LawsuitCard/LawsuitCardSwiper/index';
+// import LawsuitCardSwiper from '@components/LawsuitCard/LawsuitCardSwiper/index';
 // import { ListLayoutSingleLawsuits } from '@components/ListsLayout';
 import { Section } from '@components/Section';
 
-import { lawsuitsMock } from '@mocks/suits';
 import SelectAdsFilters from '@components/SelectAdsFilters';
 import { Direction } from '@components/Direction';
 
@@ -26,7 +25,7 @@ export default function Home() {
             Ver Todos
           </Link>
         </Direction>
-        <LawsuitCardSwiper lawsuits={lawsuitsMock as any} />
+        {/* <LawsuitCardSwiper lawsuits={lawsuitsMock as any} /> */}
       </Section.Container>
 
       <Section.Container>

@@ -1,7 +1,7 @@
-import LawsuitCardList from '@components/LawsuitCard';
-import { ListLayoutSingleLawsuits } from '@components/ListsLayout';
 import SearchBox from '@components/Search';
-import { lawsuitsMock } from '@mocks/suits';
+// import { lawsuitsMock } from '@mocks/suits';
+// import LawsuitCardList from '@components/LawsuitCard';
+import { ListLayoutSingleLawsuits } from '@components/ListsLayout';
 import { Section } from '@components/Section';
 import SelectAdsFilters from '@components/SelectAdsFilters';
 import { Direction } from '@components/Direction';
@@ -19,7 +19,7 @@ export default function SellAds() {
 
       <Section.Container>
         <ListLayoutSingleLawsuits>
-          <LawsuitCardList lawsuits={lawsuitsMock as any} />
+          {/* <LawsuitCardList lawsuits={lawsuitsMock as any} /> */}
         </ListLayoutSingleLawsuits>
       </Section.Container>
     </>
