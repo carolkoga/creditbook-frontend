@@ -148,7 +148,7 @@ export default function LawsuitView({ children, announcement }: IProps) {
 
       {announcement.type === 'physical' && (
       <>
-        <Divider>Processo Fisico</Divider>
+        <Divider orientation="left">Processo Fisico</Divider>
         <Row>
           {announcement.files.map((file) => (
             <Col>
