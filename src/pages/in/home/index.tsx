@@ -1,21 +1,21 @@
-// import LawsuitCardList from '@components/LawsuitCard';
+import LawsuitCardList from '@components/LawsuitCard';
 // import LawsuitCardSwiper from '@components/LawsuitCard/LawsuitCardSwiper/index';
-// import { ListLayoutSingleLawsuits } from '@components/ListsLayout';
+import { ListLayoutSingleLawsuits } from '@components/ListsLayout';
 import { Section } from '@components/Section';
 
 import SelectAdsFilters from '@components/SelectAdsFilters';
 import { Direction } from '@components/Direction';
 
 import { Link } from '@components/Button';
-// import { LawsuitParams } from '@type/creditbook/Lawsuits';
-// import { GetServerSideProps } from 'next';
-// import { lawsuitService } from '@services/creditbook/lawsuit';
+import { LawsuitParams } from '@type/creditbook/Lawsuits';
+import { GetServerSideProps } from 'next';
+import { lawsuitService } from '@services/creditbook/lawsuit';
 
-// interface IProps {
-//   announcements: LawsuitParams[],
-// }
+interface IProps {
+  announcements: LawsuitParams[],
+}
 
-export default function Home() {
+export default function Home({ announcements }: IProps) {
   return (
     <>
       <Section.Container bg="light">
@@ -34,25 +34,21 @@ export default function Home() {
           <SelectAdsFilters />
         </Section.Header>
 
-        {/* <ListLayoutSingleLawsuits>
+        <ListLayoutSingleLawsuits>
           <LawsuitCardList lawsuits={announcements} />
-        </ListLayoutSingleLawsuits> */}
+        </ListLayoutSingleLawsuits>
       </Section.Container>
     </>
   );
 }
 
-// export const getServerSideProps: GetServerSideProps = async () => {
-//   const { data } = await lawsuitService.listAll();
+export const getServerSideProps: GetServerSideProps = async () => {
+  const { data } = await lawsuitService.listAll();
+  console.log(data);
 
-//   return {
-//     props: {
-//       announcements: data,
-//     },
-//     notFound: '/in/settings',
-//     redirect: {
-//       destination: '/in/settings',
-//       permanent: false,
-//     },
-//   };
-// };
+  return {
+    props: {
+      announcements: data,
+    },
+  };
+};
