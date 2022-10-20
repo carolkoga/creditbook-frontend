@@ -11,13 +11,10 @@ import {
   ContainerVideoAndInfo,
 } from '@styles/pages/home';
 
-import LawsuitCardSwiper from '@components/LawsuitCard/LawsuitCardSwiper/index';
 import { Section } from '@components/Section';
 import { Actions } from '@components/ActionLink';
 import { Link } from '@components/Button';
 import { WrapperVideo } from '@components/WrapperVideo';
-
-import { lawsuitsMock } from '@mocks/suits';
 
 export default function HomeLadingPage() {
   return (
@@ -164,7 +161,6 @@ export default function HomeLadingPage() {
             </Link>
           </Direction>
         </Section.Header>
-        <LawsuitCardSwiper lawsuits={lawsuitsMock} />
       </Section.Container>
     </>
   );
