@@ -16,7 +16,7 @@ export default function BuyAds() {
 
       <Section.Container>
         <ListLayoutSingleLawsuits>
-          <LawsuitCardList lawsuits={lawsuitsMock} />
+          <LawsuitCardList lawsuits={lawsuitsMock as any} />
         </ListLayoutSingleLawsuits>
       </Section.Container>
     </>
