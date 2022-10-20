@@ -1,4 +1,3 @@
-import { LawsuitParams } from '@type/creditbook/Lawsuits';
 import { AxiosInstance } from 'axios';
 import { HttpClient } from '../http';
 
