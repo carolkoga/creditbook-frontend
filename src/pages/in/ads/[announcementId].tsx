@@ -20,7 +20,7 @@ export default function AnnouncementId({ announcement }: IProps) {
   return (
     <Section.Container>
       <Section.Header>
-        <Section.Title>Sobre o Anuncio</Section.Title>
+        <Section.Title>Sobre o Anúncio</Section.Title>
       </Section.Header>
       <Section.Container as="main">
         <Direction alignItems="center" justifyContent="center">
