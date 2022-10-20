@@ -24,8 +24,8 @@ export default function DocumentForm() {
   }
 
   async function handleCloseUploadDocumentsModal() {
-    const isValidInicialPetition = await trigger('inicialPetition');
-    if (!isValidInicialPetition) {
+    const isValidPetition = await trigger('initialPetition');
+    if (!isValidPetition) {
       toast.warning('O arquivo de Petição Inicial é obrigatório', commonToastProps);
     }
 
@@ -107,8 +107,8 @@ export default function DocumentForm() {
 
         {lawsuitType === 'physical' && (
           <>
-            {errors?.inicialPetition && (
-              <ErrorMessage>{errors.inicialPetition.message && 'Existe arquivos obrigatórios'}</ErrorMessage>
+            {errors?.initialPetition && (
+              <ErrorMessage>{errors.initialPetition.message && 'Existe arquivos obrigatórios'}</ErrorMessage>
             )}
             <Button variant="white" size="small" type="button" onClick={handleOpenUploadDocumentsModal}>
               Adicionar Arquivos

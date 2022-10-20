@@ -108,7 +108,7 @@ export const newLawsuitSchemaValidation = yup.object().shape({
     .required(),
 
   // Files
-  inicialPetition: yup.mixed()
+  initialPetition: yup.mixed()
     .nullable()
     .transform((val: any) => val[0])
     .when('type', {

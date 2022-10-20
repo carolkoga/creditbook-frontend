@@ -1,10 +1,11 @@
+import { FileTranslationTypes } from '@utils/translation/announcement/fileTranslation';
 import { AnnouncementStatus } from './AnnouncementStatus';
 import {
   AnnouncementActionPhase, AnnouncementGender, AnnouncementKind, AnnouncementTypes,
 } from './AnnouncementTypes';
 
 interface LawsuitFiles {
-  inicialPetition: File;
+  initialPetition: File;
   judgmentOfApprovalOfLaborCalculations?: File;
   anotherRelevantParts?: File;
   finalCertificate?: File;
@@ -52,15 +53,19 @@ interface Lawsuit {
   plan: 'byMonth' | 'byPercent' | 'both',
 }
 
-export interface LawsuitParams extends LawsuitFiles, Omit<Lawsuit, 'digitalProcess' | 'procuration'> {
+export interface LawsuitParams extends Omit<Lawsuit, 'digitalProcess' | 'procuration'> {
  id: string,
  userId: string,
  status: AnnouncementStatus,
  digitalProcessUrl: string,
  procurationUrl: string,
+ files: {
+  name: keyof FileTranslationTypes,
+  url: string,
+ }[]
 }
 
-export interface NewLawsuitParams extends Omit<Lawsuit, 'batchId' | 'pledgeOrGuarantee' | 'acceptNegotiation' | 'isFavorite' | 'isPremium'> {
+export interface NewLawsuitParams extends LawsuitFiles, Omit<Lawsuit, 'batchId' | 'pledgeOrGuarantee' | 'acceptNegotiation' | 'isFavorite' | 'isPremium'> {
   pledgeOrGuarantee: '1' | '0';
   acceptNegotiation: '1' | '0';
   isFavorite: '1' | '0';

@@ -17,7 +17,7 @@ export default function ModalUploadDocuments({ isVisible, onCloseModal }: IProps
     return null;
   }
   const { register, watch, formState: { errors } } = useFormContext();
-  const initialPetition = watch('inicialPetition');
+  const initialPetition = watch('initialPetition');
   const sentence = watch('sentence');
   const resources = watch('resources');
   const contestation = watch('contestation');
@@ -43,8 +43,8 @@ export default function ModalUploadDocuments({ isVisible, onCloseModal }: IProps
 
           <div className="uploads">
             <FieldFile
-              {...register('inicialPetition')}
-              error={errors?.inicialPetition?.message}
+              {...register('initialPetition')}
+              error={errors?.initialPetition?.message}
               file={initialPetition?.[0]}
               label="Petição inicial (obrigatório)"
             />
