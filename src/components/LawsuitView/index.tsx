@@ -1,5 +1,6 @@
 import { processKindTranslation } from '@components/LawsuitCard/Card/utils/processKindTranslation';
 import { LawsuitParams } from '@type/creditbook/Lawsuits';
+import { fileTranslation } from '@utils/translation/announcement/fileTranslation';
 import {
   Divider, Row, Col, Space,
 } from 'antd';
@@ -90,31 +91,37 @@ export default function LawsuitView({ children, announcement }: IProps) {
           </Space>
         </Col>
 
-        {announcement?.secondaryActorCorporationNameOrName && (
-          <Col>
-            <h3>Reú Secundario</h3>
-            <Space size="large">
-              <Space direction="vertical" size="middle">
-                <Title>Nome</Title>
-                <DescriptionWrapper>
-                  <Description>
-                    {announcement.secondaryActorCorporationNameOrName}
-                  </Description>
-                </DescriptionWrapper>
-              </Space>
-
-              <Space direction="vertical" size="middle">
-                <Title>CPF/CNPJ</Title>
-                <DescriptionWrapper>
-                  <Description>
-                    {announcement.secondaryActorCpfOrCnpj}
-                  </Description>
-                </DescriptionWrapper>
-              </Space>
-            </Space>
-          </Col>
-        )}
       </Row>
+
+      {announcement?.secondaryActorCorporationNameOrName && (
+        <>
+          <Divider orientation="left">Autor Secundario</Divider>
+          <Row>
+            <Col>
+              <h3>Reú Secundario</h3>
+              <Space size="large">
+                <Space direction="vertical" size="middle">
+                  <Title>Nome</Title>
+                  <DescriptionWrapper>
+                    <Description>
+                      {announcement.secondaryActorCorporationNameOrName}
+                    </Description>
+                  </DescriptionWrapper>
+                </Space>
+
+                <Space direction="vertical" size="middle">
+                  <Title>CPF/CNPJ</Title>
+                  <DescriptionWrapper>
+                    <Description>
+                      {announcement.secondaryActorCpfOrCnpj}
+                    </Description>
+                  </DescriptionWrapper>
+                </Space>
+              </Space>
+            </Col>
+          </Row>
+        </>
+      )}
 
       {announcement.type === 'digital' && (
       <>
@@ -143,17 +150,25 @@ export default function LawsuitView({ children, announcement }: IProps) {
       <>
         <Divider>Processo Fisico</Divider>
         <Row>
-          <Col>
-            <Space direction="vertical" size="middle">
-              <Title>Petição Inicial</Title>
-              <DescriptionWrapper>
-                <Description as="a" href="#procuracao" download="procuracao" title="Clique para fazer download">
-                  <File size={18} />
-                  Sim
-                </Description>
-              </DescriptionWrapper>
-            </Space>
-          </Col>
+          {announcement.files.map((file) => (
+            <Col>
+              <Space direction="vertical" size="middle">
+                <Title>
+                  {fileTranslation[file.name]}
+                </Title>
+                <DescriptionWrapper>
+                  <Description
+                    as="a"
+                    href={file.url}
+                    title="Clique para fazer download"
+                  >
+                    <File size={18} />
+                    {`${fileTranslation[file.name]}-${announcement.processNumber}`.slice(0, 22)}...
+                  </Description>
+                </DescriptionWrapper>
+              </Space>
+            </Col>
+          ))}
         </Row>
       </>
       )}
@@ -251,11 +266,10 @@ export default function LawsuitView({ children, announcement }: IProps) {
                 <Description
                   as="a"
                   href={announcement.procurationUrl}
-                  download={`procuracao-do-processo-${announcement.processNumber}`}
                   title="Clique para fazer download"
                 >
                   <File size={18} />
-                  Sim
+                  {`Procuracao-${announcement.processNumber}`.slice(0, 22)}...
                 </Description>
               </DescriptionWrapper>
             </Space>
