@@ -1,5 +1,5 @@
 import { useState } from 'react';
-// import { useRouter } from 'next/router';
+import { useRouter } from 'next/router';
 import { useForm, FormProvider } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
@@ -55,7 +55,7 @@ interface CustomUpdateLawsuitParams extends Omit<UpdateLawsuitParams,
 }
 
 export default function EditLawsuitByIdPage({ announcement }: IProps) {
-  // const router = useRouter();
+  const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [stepForm, setStepForm] = useState('1');
   const methods = useForm<CustomUpdateLawsuitParams>({
@@ -90,8 +90,8 @@ export default function EditLawsuitByIdPage({ announcement }: IProps) {
   async function handleSubmitNewLawsuit(data: any) {
     try {
       setLoading(true);
-      await lawsuitService.update(data, announcement);
-      console.log({ data });
+      const response = await lawsuitService.update(data, announcement);
+      router.push(`/in/ads/${response.data.id}`);
     } catch (error) {
       handleCatchErrorRequest(error as any);
     } finally {
@@ -102,6 +102,9 @@ export default function EditLawsuitByIdPage({ announcement }: IProps) {
   return (
     <>
       <Section.Header>
+        <Button variant="white" size="small-large" onClick={() => router.back()}>
+          Voltar
+        </Button>
         <Section.Title as="h1" textColor="dark">Atualizar anúncio</Section.Title>
       </Section.Header>
 

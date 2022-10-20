@@ -1,4 +1,5 @@
 import React from 'react';
+import { useRouter } from 'next/router';
 import { GetServerSideProps } from 'next';
 
 import { setupAPIClient } from '@api/creditbookApi';
@@ -8,7 +9,7 @@ import { LawsuitParams } from '@type/creditbook/Lawsuits';
 import { Section } from '@components/Section';
 import { Direction } from '@components/Direction';
 import useAuth from '@hooks/useAuth';
-import { Link } from '@components/Button';
+import { Button, Link } from '@components/Button';
 
 interface IProps {
   announcement: LawsuitParams,
@@ -16,10 +17,13 @@ interface IProps {
 
 export default function AnnouncementId({ announcement }: IProps) {
   const { user } = useAuth();
-  console.log({ announcement });
+  const router = useRouter();
   return (
     <Section.Container>
       <Section.Header>
+        <Button variant="white" size="small-large" onClick={() => router.back()}>
+          Voltar
+        </Button>
         <Section.Title>Sobre o Anúncio</Section.Title>
       </Section.Header>
       <Section.Container as="main">
