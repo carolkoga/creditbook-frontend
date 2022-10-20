@@ -26,6 +26,7 @@ export default function ModalToSelectPlan({
 }: IProps) {
   const { setValue, watch } = useFormContext();
   const income: string = watch('income');
+  const [defaultPlan, defaultIsPremium] = watch(['plan', 'isPremium']);
   const price = useMemo(() => {
     const incomeParsed = Number(income?.replaceAll(/\D/g, ''));
 
@@ -37,9 +38,9 @@ export default function ModalToSelectPlan({
     setValue('plan', 'byMonth');
     return 69.90;
   }, [income]);
-  const [byMonth, setByMonth] = useState<boolean>(price === 69.90 || price === 180);
-  const [byPercent, setByPercent] = useState<boolean>(price === 180);
-  const [isPremium, setIsPremium] = useState<boolean>(false);
+  const [byMonth, setByMonth] = useState<boolean>(defaultPlan === 'byMonth' || defaultPlan === 'both' || price === 69.90 || price === 180);
+  const [byPercent, setByPercent] = useState<boolean>(defaultPlan === 'byPercent' || defaultPlan === 'both' || price === 180);
+  const [isPremium, setIsPremium] = useState<boolean>(defaultIsPremium || false);
   const subtotal = useMemo(() => {
     let subtotalPremium = 0;
 

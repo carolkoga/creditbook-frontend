@@ -6,7 +6,7 @@ import { WarningMessage } from './styled';
 
 export default function ProcurationField() {
   const { formState: { errors }, watch, register } = useFormContext();
-  const procuration = watch('procuration');
+  const [procuration, procurationUrl] = watch(['procuration', 'procurationUrl']);
   return (
     <Fieldset>
       <legend>8. Procuração</legend>
@@ -14,6 +14,7 @@ export default function ProcurationField() {
         label="Anexar Procuração"
         error={errors?.procuration?.message}
         file={procuration?.[0]}
+        fileName={procurationUrl}
         {...register('procuration')}
       />
       <WarningMessage>

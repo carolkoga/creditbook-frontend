@@ -13,9 +13,9 @@ import ModalUploadDocuments from './components/ModalUploadDocuments';
 
 export default function DocumentForm() {
   const {
-    control, register, setValue, formState: { errors }, trigger,
+    control, register, setValue, formState: { errors }, trigger, watch,
   } = useFormContext();
-  const [lawsuitType, setLawsuitType] = useState<'digital' | 'physical'>('digital');
+  const [lawsuitType, setLawsuitType] = useState<'digital' | 'physical'>(watch('type') || 'digital');
   const [uploadDocumentsModalIsVisible, setUploadDocumentsModalIsVisible] = useState(false);
 
   function handleChangeLawsuitType(value: 'digital' | 'physical') {
@@ -25,6 +25,7 @@ export default function DocumentForm() {
 
   async function handleCloseUploadDocumentsModal() {
     const isValidPetition = await trigger('initialPetition');
+
     if (!isValidPetition) {
       toast.warning('O arquivo de Petição Inicial é obrigatório', commonToastProps);
     }
