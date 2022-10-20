@@ -1,3 +1,4 @@
+import { AnnouncementActionPhase, AnnouncementGender, AnnouncementKind } from '@type/creditbook/Lawsuits/AnnouncementTypes';
 import { AccountCommonParams } from './auth/register';
 
 export type AccountTypes = 'person' | 'corporation';
@@ -28,4 +29,32 @@ export interface ContactAnnouncerParams {
   message: string,
   type: 'batch' | 'announcement',
   creditId: string,
+}
+
+export interface PersonSearchParams {
+  corporationNameOrName?: string;
+  cpfOrcnpj?: string
+}
+
+export interface QueriesToIndexAnnouncements {
+  personType?: 'person' | 'corporation';
+  type?: 'single' | 'batch';
+
+  actionPhase?: keyof AnnouncementActionPhase;
+  processGender?: keyof AnnouncementGender;
+  kind?: keyof AnnouncementKind;
+
+  processNumber?: string;
+  tribunal?: string;
+  city?: string;
+  uf?: string;
+
+  minPrice?: number;
+  maxPrice?: number;
+
+  actors?: PersonSearchParams[];
+
+  defendants?: PersonSearchParams[];
+
+  isPremium?: boolean;
 }

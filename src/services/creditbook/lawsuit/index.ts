@@ -1,3 +1,6 @@
+/* eslint-disable default-param-last */
+import { QueriesToIndexAnnouncements } from '@type/creditbook';
+import { LawsuitParams } from '@type/creditbook/Lawsuits';
 import { AxiosInstance } from 'axios';
 import { HttpClient } from '../http';
 
@@ -10,6 +13,14 @@ export class LawsuitService extends HttpClient {
     this.customHeaders = {
       'content-type': 'multipart/form-data',
     };
+  }
+
+  async listAll(page?: number, options?: QueriesToIndexAnnouncements) {
+    return await this.httpClient.get<LawsuitParams[]>(`/announcement?page=${page || 1}`, {
+      params: {
+        ...options,
+      },
+    });
   }
 
   async createLawsuit(data: any) {
