@@ -85,6 +85,11 @@ export const StyleButton = styled.button<ButtonProps>`
   text-align: left;
   text-decoration: none;
   transition: all .35s ease-in-out;
+
+  :hover {
+    color: ${({ theme }) => theme.colors.grey[10]};
+  }
+
   &[disabled] {
     cursor: not-allowed;
     filter: brightness(0.7);
