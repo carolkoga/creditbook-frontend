@@ -42,10 +42,11 @@ export const Navigation = styled.nav`
   align-items: center;
   justify-content: center;
   ul {
-    width: 10%;
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    margin-bottom: 0;
 
     li {
       list-style: none;
