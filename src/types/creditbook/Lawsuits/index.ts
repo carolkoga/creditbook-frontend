@@ -1,5 +1,6 @@
 import { FileTranslationTypes } from '@utils/translation/announcement/fileTranslation';
 import { AnnouncementStatus } from './AnnouncementStatus';
+
 import {
   AnnouncementActionPhase, AnnouncementGender, AnnouncementKind, AnnouncementTypes,
 } from './AnnouncementTypes';
@@ -18,7 +19,7 @@ interface LawsuitFiles {
 
 interface Lawsuit {
   mainDefendantCorporationNameOrName: string;
-  mainDefendantCpjOrCnpj: string;
+  mainDefendantCpfOrCnpj: string;
 
   mainActorCorporationNameOrName: string;
   mainActorCpfOrCnpj: string;
@@ -40,7 +41,7 @@ interface Lawsuit {
   secondaryActorCpfOrCnpj?: string;
   secondaryActorCorporationNameOrName?: string;
 
-  secondaryDefendantCpjOrCnpj?: string;
+  secondaryDefendantCpfOrCnpj?: string;
   secondaryDefendantCorporationNameOrName?: string;
 
   isPremium: boolean;
@@ -70,4 +71,16 @@ export interface NewLawsuitParams extends LawsuitFiles, Omit<Lawsuit, 'batchId' 
   acceptNegotiation: '1' | '0';
   isFavorite: '1' | '0';
   isPremium: '1' | '0';
+}
+
+export interface UpdateLawsuitParams extends NewLawsuitParams {
+  initialPetitionUrl?: string | null;
+  judgmentOfApprovalOfLaborCalculationsUrl?: string | null;
+  anotherRelevantPartsUrl?: string | null;
+  finalCertificateUrl?: string | null;
+  contestationUrl?: string | null;
+  resourcesUrl?: string | null;
+  accordionUrl?: string | null;
+  sentenceUrl?: string | null;
+  procurationUrl?: string | null;
 }

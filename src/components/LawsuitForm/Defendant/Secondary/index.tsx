@@ -12,7 +12,7 @@ export default function SecondaryDefendant() {
         Réu Secundário (opcional):
       </Section.Title>
 
-      <FieldCPForCNPJ name="secondaryDefendantCpjOrCnpj" />
+      <FieldCPForCNPJ name="secondaryDefendantCpfOrCnpj" />
       <FieldCorporationNameOrName
         {...register('secondaryDefendantCorporationNameOrName')}
       />

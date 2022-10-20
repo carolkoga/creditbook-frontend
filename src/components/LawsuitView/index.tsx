@@ -196,7 +196,7 @@ export default function LawsuitView({ children, announcement }: IProps) {
               <Title>CPF/CNPJ</Title>
               <DescriptionWrapper>
                 <Description>
-                  {announcement.mainDefendantCpjOrCnpj}
+                  {announcement.mainDefendantCpfOrCnpj}
                 </Description>
               </DescriptionWrapper>
             </Space>
@@ -220,7 +220,7 @@ export default function LawsuitView({ children, announcement }: IProps) {
                 <Title>CPF/CNPJ</Title>
                 <DescriptionWrapper>
                   <Description>
-                    {announcement.secondaryDefendantCpjOrCnpj}
+                    {announcement.secondaryDefendantCpfOrCnpj}
                   </Description>
                 </DescriptionWrapper>
               </Space>
