@@ -1,3 +1,4 @@
+import { LawsuitParams } from '@type/creditbook/Lawsuits';
 import { AxiosInstance } from 'axios';
 import { HttpClient } from '../http';
 
@@ -20,10 +21,18 @@ export class LawsuitService extends HttpClient {
     });
   }
 
+  async update(data: any, currentData: any) {
+    const formData = this._convertToFormData(data, 'update', currentData);
+
+    return await this.httpClient.patch('/announcement', formData, {
+      headers: { ...this.customHeaders },
+    });
+  }
+
   async changeFavorite(isFavorite: '1' | '0') {
     const formData = this._convertToFormData({ isFavorite });
 
-    return await this.httpClient.post('/announcement', formData, {
+    return await this.httpClient.patch('/announcement', formData, {
       headers: { ...this.customHeaders },
     });
   }
@@ -32,11 +41,39 @@ export class LawsuitService extends HttpClient {
     return await this.httpClient.get(`/announcement/${id}`);
   }
 
-  private _convertToFormData(data: any) {
+  private _convertToFormData(
+    newData: any,
+    type?: 'new' | 'update',
+    currentData?: any,
+  ) {
     const formData = new FormData();
 
-    Object.entries(data).forEach((field) => {
+    if (type === 'update') {
+      Object.entries(newData).forEach((field) => {
+        const [key, value] = field;
+
+        if (key === 'digitalProcess') {
+          if (currentData.digitalProcessUrl === value) return;
+        }
+
+        if (key === 'pledgeOrGuarantee' || key === 'acceptNegotiation' || key === 'isFavorite' || key === 'isPremium') {
+          if (currentData[key] === !!Number(value)) return;
+        }
+
+        if (currentData[key] === value) return;
+
+        if (key === 'files') return;
+
+        formData.append(key, (value as string | Blob));
+      });
+
+      return formData;
+    }
+
+    Object.entries(newData).forEach((field) => {
       const [key, value] = field;
+      if (key === 'files') return;
+      if (!value) return;
 
       formData.append(key, (value as string | Blob));
     });
