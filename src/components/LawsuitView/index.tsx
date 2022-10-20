@@ -116,15 +116,15 @@ export default function LawsuitView({ children, announcement }: IProps) {
         )}
       </Row>
 
-      <Divider orientation="left">Processo Digital</Divider>
-      <Row
-        gutter={{
-          xs: 8, sm: 16, md: 24, lg: 32,
-        }}
-        align="middle"
-      >
-
-        {announcement?.digitalProcessUrl && (
+      {announcement?.digitalProcessUrl && (
+      <>
+        <Divider orientation="left">Processo Digital</Divider>
+        <Row
+          gutter={{
+            xs: 8, sm: 16, md: 24, lg: 32,
+          }}
+          align="middle"
+        >
           <Col>
             <Space direction="vertical" size="middle">
               <Title>Link do processo</Title>
@@ -135,11 +135,15 @@ export default function LawsuitView({ children, announcement }: IProps) {
               </DescriptionWrapper>
             </Space>
           </Col>
-        )}
+        </Row>
+      </>
+      )}
 
-        {/* Para processo fisicos */}
-
-        {!announcement?.digitalProcessUrl && (
+      {/* Para processo fisicos */}
+      {!announcement?.digitalProcessUrl && (
+      <>
+        <Divider>Processo Fisico</Divider>
+        <Row>
           <Col>
             <Space direction="vertical" size="middle">
               <Title>Petição Inicial</Title>
@@ -151,8 +155,9 @@ export default function LawsuitView({ children, announcement }: IProps) {
               </DescriptionWrapper>
             </Space>
           </Col>
-        )}
-      </Row>
+        </Row>
+      </>
+      )}
 
       <Divider orientation="left">Dados da parte adversa</Divider>
       <Row
