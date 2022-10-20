@@ -4,7 +4,7 @@ import useAuth from '@hooks/useAuth';
 
 import { Direction } from '@components/Direction';
 
-import { LawsuitParamsID } from '@type/creditbook/Lawsuits';
+import { LawsuitParams } from '@type/creditbook/Lawsuits';
 import convertToCurrency from '@utils/convertToCurrency';
 
 import Footer from './components/Footer';
@@ -12,11 +12,11 @@ import { Lawsuit } from './styled';
 import { processCategoryTranslation, actionPhaseTranslation, processKindTranslation } from './utils/translations';
 
 interface IProps {
-  lawsuit: LawsuitParamsID,
+  lawsuit: LawsuitParams,
 }
 
 export default function LawsuitNewCard({ lawsuit }: IProps) {
-  const { user } = useAuth();
+  const { user, isAuthenticated } = useAuth();
   return (
     <Lawsuit.Wrapper>
       <Lawsuit.Header.Container category={lawsuit.processGender}>
@@ -25,10 +25,17 @@ export default function LawsuitNewCard({ lawsuit }: IProps) {
         </Lawsuit.Header.Title>
 
         <Direction direction="horizontal" gap="8px" alignItems="center">
-          <Lawsuit.Header.PremiumTitle>Premium</Lawsuit.Header.PremiumTitle>
-          <button type="button">
-            <Heart size={24} color="#F16565" />
-          </button>
+          {lawsuit.isPremium && (
+            <Lawsuit.Header.PremiumTitle>Premium</Lawsuit.Header.PremiumTitle>
+          )}
+
+          {isAuthenticated && (
+            <button type="button">
+              {lawsuit.isFavorite
+                ? <Heart size={24} weight="fill" color="#F16565" />
+                : <Heart size={24} weight="regular" color="#F16565" />}
+            </button>
+          )}
         </Direction>
       </Lawsuit.Header.Container>
 
@@ -62,7 +69,7 @@ export default function LawsuitNewCard({ lawsuit }: IProps) {
           <Lawsuit.Info.Container>
             <Lawsuit.Info.KeyInformation>Valor do Processo:</Lawsuit.Info.KeyInformation>
             <Lawsuit.Info.ValueInformation>
-              {convertToCurrency(1253564)}
+              {convertToCurrency(lawsuit.processPrice)}
             </Lawsuit.Info.ValueInformation>
           </Lawsuit.Info.Container>
 
@@ -71,7 +78,7 @@ export default function LawsuitNewCard({ lawsuit }: IProps) {
               Valor de liquidação:
             </Lawsuit.Info.KeyInformation>
             <Lawsuit.Info.ValueInformation bold>
-              {convertToCurrency(125321564)}
+              {convertToCurrency(lawsuit.income)}
             </Lawsuit.Info.ValueInformation>
           </Lawsuit.Info.Container>
         </Lawsuit.Content>
@@ -79,7 +86,7 @@ export default function LawsuitNewCard({ lawsuit }: IProps) {
         <Footer
           batchId={lawsuit.batchId}
           lawsuitId={lawsuit.id}
-          mine={lawsuit.owner?.toLowerCase() === user?.fullName.toLowerCase()}
+          mine={lawsuit.userId?.toLowerCase() === user?.id.toLowerCase()}
         />
       </Lawsuit.WrapperContent>
     </Lawsuit.Wrapper>
