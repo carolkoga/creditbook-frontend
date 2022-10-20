@@ -6,7 +6,7 @@ export interface FileTranslationTypes {
   procurationUrl: string,
   contestationUrl: string,
   finalCertificateUrl: string,
-  anotherRelevantPartsUrlUrl: string,
+  anotherRelevantPartsUrl: string,
   judgmentOfApprovalOfLaborCalculationsUrl: string,
 }
 
@@ -18,6 +18,6 @@ export const fileTranslation: FileTranslationTypes = {
   procurationUrl: 'Procuração',
   contestationUrl: 'Contestação',
   finalCertificateUrl: 'Cert. transitado em julgado',
-  anotherRelevantPartsUrlUrl: 'Outras peças relevantes',
+  anotherRelevantPartsUrl: 'Outras peças relevantes',
   judgmentOfApprovalOfLaborCalculationsUrl: 'Sentença de homologação de cálculos trabalhistas',
 };
