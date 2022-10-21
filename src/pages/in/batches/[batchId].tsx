@@ -14,6 +14,7 @@ import { WrapperActionsForm } from '@styles/pages/in/batches';
 import AlertModal from '@components/AlertModal';
 import { toast } from 'react-toastify';
 import { handleCatchErrorRequest } from '@utils/handleCatchErrorRequest';
+import { Alert } from 'antd';
 
 interface IProps {
   initialBatch: BatchParams
@@ -81,6 +82,20 @@ export default function ShowBatchPage({ initialBatch }: IProps) {
     <>
       <Section.Header>
         <Button variant="white" onClick={backToLastRoute}>Voltar</Button>
+        <Alert
+          message="Atenção - Plano percentual (8% sobre a venda)"
+          description="Os anúncios em lote oferecem apenas o plano percentual como forma de pagamento. Lembramos que os anúncios feitos em lote farão parte automaticamente da Galeria Premium."
+          type="warning"
+          showIcon
+          closable={false}
+        />
+        <Alert
+          message="Atenção"
+          description="O lote será ativado automaticamente após adicionar ao menos um anúncio"
+          type="warning"
+          showIcon
+          closable={false}
+        />
       </Section.Header>
 
       <Section.Container>
