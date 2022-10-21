@@ -44,11 +44,10 @@ export default function Home({ announcements }: IProps) {
 
 export const getServerSideProps: GetServerSideProps = async () => {
   const { data } = await lawsuitService.listAll();
-  console.log(data);
 
   return {
     props: {
-      announcements: data,
+      announcements: data.announcements,
     },
   };
 };
