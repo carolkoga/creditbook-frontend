@@ -60,5 +60,6 @@ export interface QueriesToIndexAnnouncements {
     defendants?: PersonSearchParams[];
 
     isPremium?: boolean;
+    isFavorite?: boolean;
   }
 }
