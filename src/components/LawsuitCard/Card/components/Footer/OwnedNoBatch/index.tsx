@@ -63,7 +63,7 @@ export default function OwnedNoBatch({ lawsuitId }: CommonPropsTypes) {
               <DropdownArrow />
               <DropdownMenuRadioGroup value={value} onValueChange={handleAddBatch}>
                 {batches?.map((batch: BatchParams) => (
-                  <DropdownMenuRadioItem value={batch.id}>
+                  <DropdownMenuRadioItem key={batch.id} value={batch.id}>
                     {batch.name}
                   </DropdownMenuRadioItem>
                 ))}
