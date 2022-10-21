@@ -112,7 +112,7 @@ export default function ShowBatchPage({ initialBatch }: IProps) {
                   variant="danger"
                   onClick={handleOpenModalCanDeleteBatchConfirmation}
                 >
-                  Deletar
+                  Inativar
                 </Button>
               </WrapperActionsForm>
             </BatchForm>
@@ -121,13 +121,12 @@ export default function ShowBatchPage({ initialBatch }: IProps) {
       </Section.Container>
 
       <AlertModal
-        title={`Você está preste a deletar o lote ${batch.name}`}
-        description="Essa ação não pode ser desfeita futuramente"
+        title={`Você está preste a inativar o lote ${batch.name}`}
         isLoading={deletingLoading}
         isVisible={modalBatchBeingDelete}
-        type="danger"
+        type="default"
         confirm={{
-          label: 'Sim, excluir o lote',
+          label: 'Sim, inativar o lote',
           onConfirmButton: handleDeleteBatch,
         }}
         cancel={{
