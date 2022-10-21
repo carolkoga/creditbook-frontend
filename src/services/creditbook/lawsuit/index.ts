@@ -4,6 +4,11 @@ import { LawsuitParams } from '@type/creditbook/Lawsuits';
 import { AxiosInstance } from 'axios';
 import { HttpClient } from '../http';
 
+interface ResponseListAllAnnouncements {
+  pages: number,
+  announcements: LawsuitParams[],
+}
+
 export class LawsuitService extends HttpClient {
   private customHeaders: object;
 
@@ -15,10 +20,10 @@ export class LawsuitService extends HttpClient {
     };
   }
 
-  async listAll(page?: number, options?: QueriesToIndexAnnouncements) {
-    return await this.httpClient.get<LawsuitParams[]>(`/announcement?page=${page || 1}`, {
+  async listAll(options?: QueriesToIndexAnnouncements) {
+    return await this.httpClient.get<ResponseListAllAnnouncements>('/announcement', {
       params: {
-        ...options,
+        ...options?.params,
       },
     });
   }
@@ -76,6 +81,10 @@ export class LawsuitService extends HttpClient {
 
         if (key === 'pledgeOrGuarantee' || key === 'acceptNegotiation' || key === 'isFavorite' || key === 'isPremium') {
           if (currentData[key] === !!Number(value)) return;
+        }
+
+        if (key === 'id') {
+          return formData.append(key, value as string);
         }
 
         if (currentData[key] === value) return;
