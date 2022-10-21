@@ -37,24 +37,28 @@ export interface PersonSearchParams {
 }
 
 export interface QueriesToIndexAnnouncements {
-  personType?: 'person' | 'corporation';
-  type?: 'single' | 'batch';
+  params: {
+    personType?: 'person' | 'corporation';
+    type?: 'single' | 'batch';
 
-  actionPhase?: keyof AnnouncementActionPhase;
-  processGender?: keyof AnnouncementGender;
-  kind?: keyof AnnouncementKind;
+    page?: number;
 
-  processNumber?: string;
-  tribunal?: string;
-  city?: string;
-  uf?: string;
+    actionPhase?: keyof AnnouncementActionPhase;
+    processGender?: keyof AnnouncementGender;
+    kind?: keyof AnnouncementKind;
 
-  minPrice?: number;
-  maxPrice?: number;
+    processNumber?: string;
+    tribunal?: string;
+    city?: string;
+    uf?: string;
 
-  actors?: PersonSearchParams[];
+    minPrice?: number;
+    maxPrice?: number;
 
-  defendants?: PersonSearchParams[];
+    actors?: PersonSearchParams[];
 
-  isPremium?: boolean;
+    defendants?: PersonSearchParams[];
+
+    isPremium?: boolean;
+  }
 }
