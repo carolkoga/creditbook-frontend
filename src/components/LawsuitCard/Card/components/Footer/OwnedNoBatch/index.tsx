@@ -1,7 +1,14 @@
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 
 import { Link } from '@components/Button';
+
+import { batchServices } from '@services/creditbook/batch';
+import { handleCatchErrorRequest } from '@utils/handleCatchErrorRequest';
+
+import { BatchParams } from '@type/creditbook/Batch';
+
+import { lawsuitService } from '@services/creditbook/lawsuit';
 import {
   DropdownArrow,
   DropdownButton,
@@ -12,7 +19,35 @@ import { Actions, Content } from '../styled';
 import { CommonPropsTypes } from '..';
 
 export default function OwnedNoBatch({ lawsuitId }: CommonPropsTypes) {
+  const [batches, setBatches] = useState(null || []);
   const [value, setValue] = useState('1');
+
+  const loadBatches = useCallback(async () => {
+    try {
+      const response = await batchServices.list();
+      setBatches(response.data);
+    } catch (error) {
+      handleCatchErrorRequest(error as never);
+      setBatches(null as any);
+    }
+  }, []);
+
+  const handleAddBatch = useCallback(async (batchId: string) => {
+    try {
+      const response = await lawsuitService.changeBatch({
+        id: lawsuitId,
+        batchId,
+      });
+      setValue(response.data.id);
+    } catch (error) {
+      handleCatchErrorRequest(error as never);
+      setBatches(null as any);
+    }
+  }, []);
+
+  useEffect(() => {
+    loadBatches();
+  }, [loadBatches]);
   return (
     <Actions>
       <Content>
@@ -26,20 +61,26 @@ export default function OwnedNoBatch({ lawsuitId }: CommonPropsTypes) {
           <DropdownMenu.Portal>
             <DropdownMenu.Content>
               <DropdownArrow />
-              <DropdownMenuRadioGroup value={value} onValueChange={setValue}>
+              <DropdownMenuRadioGroup value={value} onValueChange={handleAddBatch}>
+                {batches?.map((batch: BatchParams) => (
+                  <DropdownMenuRadioItem value={batch.id}>
+                    {batch.name}
+                  </DropdownMenuRadioItem>
+                ))}
 
-                <DropdownMenuRadioItem value="1">
-                  Item 1
-                </DropdownMenuRadioItem>
+                {!batches && (
+                  <DropdownMenuRadioItem value="0">
+                    Aconteceu algum erro
+                    <br />
+                    recarrega a pagina
+                  </DropdownMenuRadioItem>
+                )}
 
-                <DropdownMenuRadioItem value="2">
-                  Item 2
-                </DropdownMenuRadioItem>
-
-                <DropdownMenuRadioItem value="3">
-                  Item 3
-                </DropdownMenuRadioItem>
-
+                {batches?.length === 0 && (
+                  <DropdownMenuRadioItem value="0">
+                    Não existe nenhum lote
+                  </DropdownMenuRadioItem>
+                )}
               </DropdownMenuRadioGroup>
             </DropdownMenu.Content>
           </DropdownMenu.Portal>

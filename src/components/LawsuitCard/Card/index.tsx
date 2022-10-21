@@ -1,22 +1,37 @@
+import { useCallback, useMemo } from 'react';
 import { Heart } from 'phosphor-react';
+
+import { lawsuitService } from '@services/creditbook/lawsuit';
 
 import useAuth from '@hooks/useAuth';
 
 import { Direction } from '@components/Direction';
 
-import { LawsuitParams } from '@type/creditbook/Lawsuits';
+import { handleCatchErrorRequest } from '@utils/handleCatchErrorRequest';
 import convertToCurrency from '@utils/convertToCurrency';
 
 import Footer from './components/Footer';
 import { Lawsuit } from './styled';
 import { processCategoryTranslation, actionPhaseTranslation, processKindTranslation } from './utils/translations';
+import { LawsuitCardProps } from '../types/Props';
 
-interface IProps {
-  lawsuit: LawsuitParams,
-}
+interface IProps extends LawsuitCardProps { }
 
-export default function LawsuitNewCard({ lawsuit }: IProps) {
+export default function LawsuitNewCard({ lawsuit: originalLawsuit }: IProps) {
   const { user, isAuthenticated } = useAuth();
+  const lawsuit = useMemo(() => originalLawsuit, [originalLawsuit]);
+  const handleChangeFavorite = useCallback(async (announcementId: string, isFavorite: boolean) => {
+    try {
+      const { data } = await lawsuitService.changeFavorite({
+        id: announcementId,
+        isFavorite: !isFavorite ? '0' : '1',
+      });
+      Object.assign(lawsuit, { isFavorite: data.isFavorite });
+    } catch (error) {
+      handleCatchErrorRequest(error as never);
+    }
+  }, []);
+
   return (
     <Lawsuit.Wrapper>
       <Lawsuit.Header.Container category={lawsuit.processGender}>
@@ -30,7 +45,10 @@ export default function LawsuitNewCard({ lawsuit }: IProps) {
           )}
 
           {isAuthenticated && (
-            <button type="button">
+            <button
+              type="button"
+              onClick={() => handleChangeFavorite(lawsuit.id, lawsuit.isFavorite as boolean)}
+            >
               {lawsuit.isFavorite
                 ? <Heart size={24} weight="fill" color="#F16565" />
                 : <Heart size={24} weight="regular" color="#F16565" />}
