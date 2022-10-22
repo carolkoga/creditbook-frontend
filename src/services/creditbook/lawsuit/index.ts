@@ -40,7 +40,7 @@ export class LawsuitService extends HttpClient {
   }
 
   async changeFavorite({ id, isFavorite }: { id: string, isFavorite: '1' | '0' }) {
-    const formData = this._convertToFormData({ isFavorite, id });
+    const formData = this._convertToFormData({ isFavorite, announcementId: id });
 
     return await this.httpClient.patch('/announcement', formData, {
       headers: { ...this.customHeaders },
@@ -48,7 +48,7 @@ export class LawsuitService extends HttpClient {
   }
 
   async changeBatch({ id, batchId }: { id: string, batchId: string }) {
-    const formData = this._convertToFormData({ batchId, id });
+    const formData = this._convertToFormData({ batchId, announcementId: id });
 
     return await this.httpClient.patch('/announcement', formData, {
       headers: { ...this.customHeaders },
