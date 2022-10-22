@@ -151,7 +151,7 @@ export default function LawsuitView({ children, announcement }: IProps) {
         <Divider orientation="left">Processo Fisico</Divider>
         <Row>
           {announcement.files.map((file) => (
-            <Col>
+            <Col key={file.name}>
               <Space direction="vertical" size="middle">
                 <Title>
                   {fileTranslation[file.name]}
