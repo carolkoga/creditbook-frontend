@@ -1,4 +1,4 @@
-import { useCallback, useMemo } from 'react';
+import { useCallback, useState } from 'react';
 import { Heart } from 'phosphor-react';
 
 import { lawsuitService } from '@services/creditbook/lawsuit';
@@ -17,16 +17,20 @@ import { LawsuitCardProps } from '../types/Props';
 
 interface IProps extends LawsuitCardProps { }
 
-export default function LawsuitNewCard({ lawsuit: originalLawsuit }: IProps) {
+export default function LawsuitNewCard({
+  lawsuit: originalLawsuit,
+  addToBatchId,
+  moreAboutOnly,
+}: IProps) {
   const { user, isAuthenticated } = useAuth();
-  const lawsuit = useMemo(() => originalLawsuit, [originalLawsuit]);
+  const [lawsuit, setLawsuit] = useState(originalLawsuit);
   const handleChangeFavorite = useCallback(async (announcementId: string, isFavorite: boolean) => {
     try {
       const { data } = await lawsuitService.changeFavorite({
         id: announcementId,
-        isFavorite: !isFavorite ? '0' : '1',
+        isFavorite: isFavorite ? '0' : '1',
       });
-      Object.assign(lawsuit, { isFavorite: data.isFavorite });
+      setLawsuit(data);
     } catch (error) {
       handleCatchErrorRequest(error as never);
     }
@@ -48,6 +52,11 @@ export default function LawsuitNewCard({ lawsuit: originalLawsuit }: IProps) {
             <button
               type="button"
               onClick={() => handleChangeFavorite(lawsuit.id, lawsuit.isFavorite as boolean)}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
             >
               {lawsuit.isFavorite
                 ? <Heart size={24} weight="fill" color="#F16565" />
@@ -102,11 +111,17 @@ export default function LawsuitNewCard({ lawsuit: originalLawsuit }: IProps) {
         </Lawsuit.Content>
 
         <Footer
-          batchId={lawsuit.batchId}
-          lawsuitId={lawsuit.id}
+          lawsuit={lawsuit}
           mine={lawsuit.userId?.toLowerCase() === user?.id.toLowerCase()}
+          originalBatchId={addToBatchId}
+          moreAboutOnly={moreAboutOnly}
         />
       </Lawsuit.WrapperContent>
     </Lawsuit.Wrapper>
   );
 }
+
+LawsuitNewCard.defaultProps = {
+  addToBatchId: '',
+  moreAboutOnly: false,
+};
