@@ -1,13 +1,8 @@
 /* eslint-disable default-param-last */
 import { QueriesToIndexAnnouncements } from '@type/creditbook';
-import { LawsuitParams } from '@type/creditbook/Lawsuits';
+import { ResponseListAllAnnouncements } from '@type/creditbook/Lawsuits';
 import { AxiosInstance } from 'axios';
 import { HttpClient } from '../http';
-
-interface ResponseListAllAnnouncements {
-  pages: number,
-  announcements: LawsuitParams[],
-}
 
 export class LawsuitService extends HttpClient {
   private customHeaders: object;
@@ -84,7 +79,7 @@ export class LawsuitService extends HttpClient {
         }
 
         if (key === 'id') {
-          return formData.append(key, value as string);
+          return formData.append('announcementId', value as string);
         }
 
         if (currentData[key] === value) return;

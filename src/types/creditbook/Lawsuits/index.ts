@@ -84,3 +84,8 @@ export interface UpdateLawsuitParams extends NewLawsuitParams {
   sentenceUrl?: string | null;
   procurationUrl?: string | null;
 }
+
+export interface ResponseListAllAnnouncements {
+  pages: number,
+  announcements: LawsuitParams[],
+}

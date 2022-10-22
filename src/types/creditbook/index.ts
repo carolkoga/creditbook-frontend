@@ -41,7 +41,10 @@ export interface QueriesToIndexAnnouncements {
     personType?: 'person' | 'corporation';
     type?: 'single' | 'batch';
 
+    batchId?: string;
+
     page?: number;
+    perPage?: number;
 
     actionPhase?: keyof AnnouncementActionPhase;
     processGender?: keyof AnnouncementGender;
