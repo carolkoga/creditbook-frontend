@@ -46,6 +46,7 @@ export default function LawsuitCardSwiper({ lawsuits }: LawsuitCardListProps) {
         modules={[Pagination, A11y]}
         pagination={{ dynamicBullets: true, clickable: true }}
         mousewheel
+        style={{ width: '100%' }}
       >
         {lawsuits?.map((lawsuit) => (
           <SwiperSlide key={lawsuit.id}>
