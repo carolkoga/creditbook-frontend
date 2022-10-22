@@ -9,8 +9,8 @@ export default function OwnedInBatch({ batchId, lawsuitId }: CommonPropsTypes) {
         <Link href={`/in/ads/${lawsuitId}`} size="small-large" variant="secondary">
           Informação
         </Link>
-        <Link href={`/in/batch/${batchId}`} size="small-large" variant="default">
-          Lote 1
+        <Link href={`/in/batches/${batchId}`} size="small-large" variant="default">
+          Ver Lote
         </Link>
       </Content>
     </Actions>

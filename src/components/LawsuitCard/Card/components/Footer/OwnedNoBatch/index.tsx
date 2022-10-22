@@ -21,6 +21,7 @@ import { CommonPropsTypes } from '..';
 export default function OwnedNoBatch({ lawsuitId }: CommonPropsTypes) {
   const [batches, setBatches] = useState(null || []);
   const [value, setValue] = useState('1');
+  const [hasBatch, setHasBatch] = useState<boolean>(false);
 
   const loadBatches = useCallback(async () => {
     try {
@@ -34,11 +35,12 @@ export default function OwnedNoBatch({ lawsuitId }: CommonPropsTypes) {
 
   const handleAddBatch = useCallback(async (batchId: string) => {
     try {
-      const response = await lawsuitService.changeBatch({
+      await lawsuitService.changeBatch({
         id: lawsuitId,
         batchId,
       });
-      setValue(response.data.id);
+      setValue(batchId);
+      setHasBatch(true);
     } catch (error) {
       handleCatchErrorRequest(error as never);
       setBatches(null as any);
@@ -56,7 +58,8 @@ export default function OwnedNoBatch({ lawsuitId }: CommonPropsTypes) {
         </Link>
         <DropdownMenu.Root>
           <DropdownButton>
-            Adicionar Lote
+            {!hasBatch && 'Adicionar Lote'}
+            {hasBatch && 'Adicionado'}
           </DropdownButton>
           <DropdownMenu.Portal>
             <DropdownMenu.Content>
@@ -69,7 +72,7 @@ export default function OwnedNoBatch({ lawsuitId }: CommonPropsTypes) {
                 ))}
 
                 {!batches && (
-                  <DropdownMenuRadioItem value="0">
+                  <DropdownMenuRadioItem value="0" disabled>
                     Aconteceu algum erro
                     <br />
                     recarrega a pagina
@@ -77,7 +80,7 @@ export default function OwnedNoBatch({ lawsuitId }: CommonPropsTypes) {
                 )}
 
                 {batches?.length === 0 && (
-                  <DropdownMenuRadioItem value="0">
+                  <DropdownMenuRadioItem value="0" disabled>
                     Não existe nenhum lote
                   </DropdownMenuRadioItem>
                 )}
