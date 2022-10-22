@@ -77,7 +77,7 @@ const PremiumTitle = styled.small`
 // Content
 
 const WrapperContent = styled.div`
-  padding: 24px;
+  padding: 14px;
   padding-bottom: 0;
 `;
 
