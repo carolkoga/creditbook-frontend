@@ -1,5 +1,4 @@
 import LawsuitCardList from '@components/LawsuitCard';
-import { ListLayoutSingleLawsuits } from '@components/ListsLayout';
 import SearchBox from '@components/Search';
 import { Section } from '@components/Section';
 import SelectAdsFilters from '@components/SelectAdsFilters';
@@ -24,9 +23,7 @@ export default function GalleryPremium({ announcementsPremium }: IProps) {
         {!announcementsPremium && (
           <Section.Title textColor="dark">Sem anúncios na galeria premium</Section.Title>
         )}
-        <ListLayoutSingleLawsuits>
-          <LawsuitCardList lawsuits={announcementsPremium} />
-        </ListLayoutSingleLawsuits>
+        <LawsuitCardList lawsuits={announcementsPremium} />
       </Section.Container>
     </>
   );

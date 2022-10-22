@@ -1,5 +1,4 @@
 import LawsuitCardList from '@components/LawsuitCard';
-import { ListLayoutSingleLawsuits } from '@components/ListsLayout';
 import SearchBox from '@components/Search';
 import { Section } from '@components/Section';
 import SelectAdsFilters from '@components/SelectAdsFilters';
@@ -24,9 +23,7 @@ export default function MyFavorites({ announcementsFavorites }: IProps) {
         {!announcementsFavorites && (
           <Section.Title textColor="dark">Sem anúncios favoritado</Section.Title>
         )}
-        <ListLayoutSingleLawsuits>
-          <LawsuitCardList lawsuits={announcementsFavorites} />
-        </ListLayoutSingleLawsuits>
+        <LawsuitCardList lawsuits={announcementsFavorites} />
       </Section.Container>
     </>
   );

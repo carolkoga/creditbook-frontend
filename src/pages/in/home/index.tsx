@@ -1,6 +1,5 @@
 import LawsuitCardList from '@components/LawsuitCard';
 import LawsuitCardSwiper from '@components/LawsuitCard/LawsuitCardSwiper/index';
-import { ListLayoutSingleLawsuits } from '@components/ListsLayout';
 import { Section } from '@components/Section';
 
 import SelectAdsFilters from '@components/SelectAdsFilters';
@@ -10,46 +9,29 @@ import { Link } from '@components/Button';
 import { LawsuitParams } from '@type/creditbook/Lawsuits';
 import { GetServerSideProps } from 'next';
 import { lawsuitService } from '@services/creditbook/lawsuit';
-import { Pagination } from 'antd';
-import { useMemo, useState } from 'react';
+import { PaginationLawsuitProps } from '@components/LawsuitCard/types/Props';
 
 interface IProps {
-  announcements: LawsuitParams[],
-  totalPages: number,
+  announcements: {
+    result: LawsuitParams[],
+    pagination: PaginationLawsuitProps
+  },
   announcementsPremium: LawsuitParams[],
 }
 
-export default function Home({ announcements, totalPages, announcementsPremium }: IProps) {
-  const [page, setPage] = useState(1);
-  const announcementsFilteredByPage = useMemo(() => {
-    (async () => {
-      try {
-        const response = await lawsuitService.listAll({
-          params: {
-            page,
-          },
-        });
-        return response.data.announcements;
-      } catch {
-        return null;
-      }
-    })();
-  }, [page]) as unknown as LawsuitParams[] | null;
-
-  function handleChangePage(currentPage: number) {
-    setPage(() => currentPage);
-  }
-
+export default function Home({ announcements, announcementsPremium }: IProps) {
   return (
     <>
       {announcementsPremium?.length > 0 && (
         <Section.Container bg="light">
-          <Direction direction="horizontal" alignItems="center">
-            <Section.Title as="h3">Galeria Premium</Section.Title>
-            <Link href="/in/gallery-premium" variant="dark">
-              Ver Todos
-            </Link>
-          </Direction>
+          <Section.Header>
+            <Direction direction="horizontal" alignItems="center">
+              <Section.Title as="h3">Galeria Premium</Section.Title>
+              <Link href="/in/gallery-premium" variant="dark">
+                Ver Todos
+              </Link>
+            </Direction>
+          </Section.Header>
           <LawsuitCardSwiper lawsuits={announcementsPremium} />
         </Section.Container>
       )}
@@ -60,23 +42,21 @@ export default function Home({ announcements, totalPages, announcementsPremium }
           <SelectAdsFilters />
         </Section.Header>
 
-        <ListLayoutSingleLawsuits>
-          {announcementsFilteredByPage && (
-            <LawsuitCardList lawsuits={announcementsFilteredByPage} />
-          )}
+        {(announcements.result.length > 0) && (
+          <LawsuitCardList lawsuits={announcements.result} pagination={announcements.pagination} />
+        )}
 
-          {!announcementsFilteredByPage && (
-            <LawsuitCardList lawsuits={announcements} />
-          )}
-        </ListLayoutSingleLawsuits>
-        <Pagination defaultCurrent={1} total={totalPages} onChange={handleChangePage} />
+        {(announcements.result.length <= 0) && (
+          <Section.Title as="strong" textColor="dark">Não existe nenhum anuncio ainda</Section.Title>
+        )}
       </Section.Container>
     </>
   );
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const { data } = await lawsuitService.listAll();
+  const perPageAnnouncements = 10;
+  const { data } = await lawsuitService.listAll({ params: { perPage: perPageAnnouncements } });
   const { data: filterAsPremium } = await lawsuitService.listAll({
     params: {
       isPremium: true,
@@ -85,8 +65,13 @@ export const getServerSideProps: GetServerSideProps = async () => {
 
   return {
     props: {
-      announcements: data.announcements,
-      totalPages: data.pages,
+      announcements: {
+        result: data.announcements,
+        pagination: {
+          total: data.pages,
+          perPage: perPageAnnouncements,
+        },
+      },
       announcementsPremium: filterAsPremium.announcements,
     },
   };
