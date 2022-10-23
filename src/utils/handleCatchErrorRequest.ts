@@ -16,7 +16,7 @@ export function handleCatchErrorRequest(
 
   if (typeof error?.response?.status === 'number') {
     if (error?.response?.data?.error.toLowerCase() === 'invalid param: email or password') {
-      return toast.error('Verique a sua senha ou e-mail foi inserido corretamente');
+      return toast.error('Verifique a sua senha ou e-mail foi inserido corretamente');
     }
 
     if (error?.response?.data?.error.toLowerCase() === 'user is invactive') {

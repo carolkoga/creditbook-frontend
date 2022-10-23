@@ -55,7 +55,7 @@ export function AuthProvider({ children }: IProps) {
         authCreditBookService.multipleLogin(data),
         {
           pending: 'Estamos verificando seus dados, aguarde um momento...',
-          success: 'Login realizado com sucessso!',
+          success: 'Login realizado com sucesso!',
         },
         customToastProps,
       );
