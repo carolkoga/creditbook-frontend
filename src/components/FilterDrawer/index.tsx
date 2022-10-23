@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm, Controller } from 'react-hook-form';
 import { FunnelSimple } from 'phosphor-react';
@@ -9,7 +9,7 @@ import { InputCPForCNPJ } from '@components/Form/Input/Mask/InputCPForCNPJ';
 import { InputCurrency } from '@components/Form/Input/Mask/InputCurrency';
 import FormGroup from '@components/FormGroup';
 import { Input } from '@components/Input';
-import { Select } from '@components/Select';
+import { AsyncSelect, Select } from '@components/Select';
 
 import { UFListAsOptionSelect } from '@mocks/ReactSelectOptions/BrazilStatesInUF';
 import { lawsuitActionPhase } from '@mocks/ReactSelectOptions/LawsuitActionPhase';
@@ -27,6 +27,9 @@ import { handleCatchErrorRequest } from '@utils/handleCatchErrorRequest';
 import { LawsuitParams } from '@type/creditbook/Lawsuits';
 import { BatchParams } from '@type/creditbook/Batch';
 
+import { factoryOptionReactSelect } from '@utils/factoryOptionReactSelect';
+import { UFList } from '@type/brazil/BrazilStatesInUFTypes';
+import { IBGEService } from '@services/ibge';
 import {
   Title, Header, RadioLabel, Form,
 } from './styled';
@@ -55,17 +58,34 @@ const rangePrice = [
 
 export function FilterDrawer({ onGetResponseResults, filter }: IProps) {
   const {
-    register, control, handleSubmit,
+    register, control, handleSubmit, watch,
   } = useForm({ resolver: yupResolver(filterSchemaValidation) });
   const [open, setOpen] = useState(false);
+  const uf = watch('uf') as any;
+  const [citiesOptions, setCitiesOptions] = useState([{ label: 'Selecione um estado', value: '' }]);
 
-  const showDrawer = () => {
+  const loadCitiesOptions = useCallback(() => {
+    (async () => {
+      if (uf) {
+        const selectUF = uf.value;
+        const { data: cities } = await IBGEService.municipalitiesByUF(selectUF as keyof UFList);
+        const options = cities.map((_: any, index: any, array: any) => {
+          const asPath = `${index}.nome`;
+          return factoryOptionReactSelect(asPath, asPath, array);
+        });
+
+        setCitiesOptions(options);
+      }
+    })();
+  }, [uf]);
+
+  function showDrawer() {
     setOpen(true);
-  };
+  }
 
-  const onClose = () => {
+  function onClose() {
     setOpen(false);
-  };
+  }
 
   async function handleFilterCredits(data: any) {
     try {
@@ -121,6 +141,10 @@ export function FilterDrawer({ onGetResponseResults, filter }: IProps) {
     }
   }
 
+  useEffect(() => {
+    loadCitiesOptions();
+  }, [loadCitiesOptions]);
+
   return (
     <>
       <Button onClick={showDrawer}>Filtro</Button>
@@ -171,6 +195,31 @@ export function FilterDrawer({ onGetResponseResults, filter }: IProps) {
 
             <Controller
               control={control}
+              name="city"
+              render={({ field }) => (
+                <FormGroup
+                  label={{
+                    forId: 'city',
+                    title: 'Cidade',
+                  }}
+                >
+                  <AsyncSelect
+                    className="custom-react-select-style"
+                    placeholder="Cidade"
+                    id="city"
+                    instanceId="city"
+                    cacheOptions
+                    isSearchable={false}
+                    defaultOptions={citiesOptions}
+                    loadOptions={loadCitiesOptions}
+                    {...field}
+                  />
+                </FormGroup>
+              )}
+            />
+
+            <Controller
+              control={control}
               name="tribunal"
               render={({ field }) => (
                 <FormGroup
@@ -182,6 +231,7 @@ export function FilterDrawer({ onGetResponseResults, filter }: IProps) {
                   <Select
                     className="custom-react-select-style"
                     options={courtsOptions.AC}
+                    isSearchable={false}
                     placeholder="Selecione o tribunal"
                     {...field}
                   />
@@ -202,6 +252,7 @@ export function FilterDrawer({ onGetResponseResults, filter }: IProps) {
                   <Select
                     className="custom-react-select-style"
                     options={lawsuitCategories}
+                    isSearchable={false}
                     placeholder="Selecione uma categoria"
                     {...field}
                   />
@@ -221,6 +272,7 @@ export function FilterDrawer({ onGetResponseResults, filter }: IProps) {
                 >
                   <Select
                     className="custom-react-select-style"
+                    isSearchable={false}
                     options={lawsuitKind}
                     placeholder="Selecione um Espécie da ação"
                     {...field}
@@ -241,6 +293,7 @@ export function FilterDrawer({ onGetResponseResults, filter }: IProps) {
                 >
                   <Select
                     className="custom-react-select-style"
+                    isSearchable={false}
                     options={lawsuitActionPhase}
                     placeholder="Selecione um fase da ação"
                     {...field}
