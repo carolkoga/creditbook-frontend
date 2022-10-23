@@ -45,6 +45,7 @@
       "react/default-props-match-prop-types": "off",
       "react/jsx-one-expression-per-line": "off",
       "no-underscore-dangle": "off",
-      "no-useless-constructor": "off"
+      "no-useless-constructor": "off",
+      "no-return-assign": "off"
     }
 }
