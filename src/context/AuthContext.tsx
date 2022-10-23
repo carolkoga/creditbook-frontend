@@ -11,7 +11,6 @@ import { LoginParams } from '@type/creditbook/auth/login';
 import { creditbookApi } from '@api/creditbookApi';
 import { commonToastProps } from '@configs/toast';
 import { userCreditbookService } from '@services/creditbook/user';
-import { handleCatchErrorRequest } from '@utils/handleCatchErrorRequest';
 
 interface IProps {
   children: ReactNode,
@@ -50,15 +49,10 @@ export function AuthProvider({ children }: IProps) {
   }
 
   async function handleSignIn(data: LoginParams) {
+    const toastId = toast.loading('Estamos verificando seus dados, aguarde um momento...', customToastProps);
     try {
-      const response = await toast.promise(
-        authCreditBookService.multipleLogin(data),
-        {
-          pending: 'Estamos verificando seus dados, aguarde um momento...',
-          success: 'Login realizado com sucesso!',
-        },
-        customToastProps,
-      );
+      const response = await authCreditBookService.multipleLogin(data);
+      console.debug('arrived here');
 
       const { token, user: userSignIn } = response.data;
       setCookie(undefined, 'nextauth.token', token, {
@@ -77,8 +71,13 @@ export function AuthProvider({ children }: IProps) {
         maxAge: 60 * 60 * 24 * 30, // 30 days
         path: '/',
       });
+      toast.update(toastId, {
+        render: 'Login realizado com sucesso!', type: 'success', isLoading: false, ...customToastProps,
+      });
     } catch (error) {
-      handleCatchErrorRequest(error as never);
+      toast.update(toastId, {
+        render: 'Verifique suas credenciais', type: 'error', isLoading: false, ...customToastProps,
+      });
     }
   }
 
