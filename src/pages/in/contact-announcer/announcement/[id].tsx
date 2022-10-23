@@ -51,7 +51,12 @@ export default function ContactAnnouncementAnnouncer() {
             <Textarea {...register('message')} id="message" />
           </FormGroup>
 
-          <Button type="submit">Enviar Mensagem</Button>
+          <Direction direction="horizontal">
+            <Button type="submit">Enviar Mensagem</Button>
+            <Button type="button" variant="white" size="small-large" onClick={() => router.back()}>
+              Voltar
+            </Button>
+          </Direction>
         </Form>
       </Section.Container>
     </Direction>
