@@ -39,7 +39,7 @@ export default function ProcessInfoForm() {
     (async () => {
       if (uf) {
         const selectUF = uf.value;
-        const { data: cities } = await IBGEService.munipilitiesByUF(selectUF as keyof UFList);
+        const { data: cities } = await IBGEService.municipalitiesByUF(selectUF as keyof UFList);
         const options = cities.map((_: any, index: any, array: any) => {
           const asPath = `${index}.nome`;
           return factoryOptionReactSelect(asPath, asPath, array);
