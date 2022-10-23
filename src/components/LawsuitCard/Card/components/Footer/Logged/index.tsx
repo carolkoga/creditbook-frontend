@@ -9,7 +9,7 @@ export default function LoggedFooter({ lawsuitId }: Pick<CommonPropsTypes, 'laws
         <Link href={`/in/ads/${lawsuitId}`} size="small-large" variant="secondary">
           Informação
         </Link>
-        <Link href={`/in/ads/buy/${lawsuitId}`} size="small-large" variant="default">
+        <Link href={`/in/contact-announcer/announcement/${lawsuitId}`} size="small-large" variant="default">
           Comprar
         </Link>
       </Content>

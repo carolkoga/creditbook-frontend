@@ -38,7 +38,7 @@ export default function AnnouncementId({ announcement }: IProps) {
             size="large"
             href={user?.id === announcement.userId
               ? `/in/ads/edit/${announcement.id}`
-              : `/in/contact-announcer/ads/${announcement.id}`}
+              : `/in/contact-announcer/announcement/${announcement.id}`}
           >
             {user?.id === announcement.userId
               ? 'Editar'
