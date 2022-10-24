@@ -11,6 +11,7 @@ import { LoginParams } from '@type/creditbook/auth/login';
 import { creditbookApi } from '@api/creditbookApi';
 import { commonToastProps } from '@configs/toast';
 import { userCreditbookService } from '@services/creditbook/user';
+import Loader from '@components/Loader';
 
 interface IProps {
   children: ReactNode,
@@ -39,10 +40,20 @@ function setAuthorizationHeader(token: string) {
 
 export function AuthProvider({ children }: IProps) {
   const [user, setUser] = useState<AuthenticatedUserData | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
   const Router = useRouter();
   const isAuthenticated = !!user;
 
+  function handleAddCustomLoadingScreen() {
+    Router.events.on('routeChangeStart', () => setIsLoading(true));
+    Router.events.on('routeChangeComplete', () => setIsLoading(false));
+
+    Router.events.off('routeChangeStart', () => setIsLoading(true));
+    Router.events.off('routeChangeComplete', () => setIsLoading(false));
+  }
+
   function handleSignOut() {
+    handleAddCustomLoadingScreen();
     setUser(null);
     Router.push('/');
     destroyAuthCookies();
@@ -51,6 +62,8 @@ export function AuthProvider({ children }: IProps) {
   async function handleSignIn(data: LoginParams) {
     const toastId = toast.loading('Estamos verificando seus dados, aguarde um momento...', customToastProps);
     try {
+      setIsLoading(true);
+      handleAddCustomLoadingScreen();
       const response = await authCreditBookService.multipleLogin(data);
 
       const { token, user: userSignIn } = response.data;
@@ -59,7 +72,11 @@ export function AuthProvider({ children }: IProps) {
         path: '/',
       });
 
-      if (Router.asPath === '/login' && userSignIn.role === 'user' && !Router.asPath.startsWith('/in')) {
+      if (
+        (Router.asPath === '/login'
+        && userSignIn.role === 'user'
+        && !Router.asPath.startsWith('/in'))
+        || Router.asPath === '/') {
         Router.push('/in/home');
       } else if (Router.asPath === '/login' && userSignIn.role === 'admin' && !Router.asPath.startsWith('/admin')) {
         Router.push('/admin/dashboard');
@@ -84,6 +101,8 @@ export function AuthProvider({ children }: IProps) {
       toast.update(toastId, {
         render: 'Verifique suas credenciais', type: 'error', isLoading: false, ...customToastProps,
       });
+    } finally {
+      setIsLoading(false);
     }
   }
 
@@ -128,6 +147,7 @@ export function AuthProvider({ children }: IProps) {
   return (
     <AuthContext.Provider value={values}>
       {children}
+      <Loader loading={isLoading} />
     </AuthContext.Provider>
   );
 }

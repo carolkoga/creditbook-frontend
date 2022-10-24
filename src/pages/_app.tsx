@@ -39,7 +39,7 @@ Precisando de dinheiro? Procurando uma forma lucrativa para investir? Chegou a p
         <ThemeProvider theme={light}>
           <SidebarContextProvider>
             <GlobalStyle />
-            <NextNProgress color="#29D" startPosition={0.3} stopDelayMs={200} height={3} showOnShallow />
+            <NextNProgress color="#29D" startPosition={0.3} height={3} />
             <ToastContainer />
             <Layout>
               <Component {...pageProps} />
