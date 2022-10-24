@@ -52,14 +52,20 @@ export function AuthProvider({ children }: IProps) {
     const toastId = toast.loading('Estamos verificando seus dados, aguarde um momento...', customToastProps);
     try {
       const response = await authCreditBookService.multipleLogin(data);
-      console.debug('arrived here');
 
       const { token, user: userSignIn } = response.data;
       setCookie(undefined, 'nextauth.token', token, {
         maxAge: 60 * 60 * 24 * 30, // 30 days
         path: '/',
       });
-      Router.push('/in/home');
+
+      if (Router.asPath === '/login' && userSignIn.role === 'user' && !Router.asPath.startsWith('/in')) {
+        Router.push('/in/home');
+      } else if (Router.asPath === '/login' && userSignIn.role === 'admin' && !Router.asPath.startsWith('/admin')) {
+        Router.push('/admin/dashboard');
+      } else {
+        Router.push(Router.asPath);
+      }
       setUser(userSignIn);
       setAuthorizationHeader(token);
 
