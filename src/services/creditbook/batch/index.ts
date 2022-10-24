@@ -25,6 +25,10 @@ export class BatchServices extends HttpClient {
     return await this.httpClient.get('/batch/all');
   }
 
+  async listUserBatches() {
+    return await this.httpClient.get('/batch');
+  }
+
   async show(id: string) {
     return await this.httpClient.get(`/batch/${id}`);
   }
