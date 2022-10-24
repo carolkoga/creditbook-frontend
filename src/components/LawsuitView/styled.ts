@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   text-align: left;
+  width: 100%;
   .ant-row {
     row-gap: 32px;
 
@@ -14,6 +15,18 @@ export const Container = styled.div`
 
     & + .ant-divider {
       margin-top: 42px;
+    }
+
+
+    @media (max-width: 590px) {
+      .ant-space {
+        flex-wrap: wrap;
+      }
+      & {
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+      }
     }
   }
 `;
@@ -43,5 +56,9 @@ export const Description = styled.p`
   margin-bottom: 0;
   ::first-letter {
     text-transform: uppercase;
+  }
+
+  @media (max-width: 590px) {
+    width: fit-content;
   }
 `;
