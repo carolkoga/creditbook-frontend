@@ -57,7 +57,7 @@ export default function Home({ announcements, announcementsPremium }: IProps) {
               ? 'Anúncios gerais'
               : 'Anúncios relacionados ao filtro'}
           </Section.Title>
-          <FilterDrawer filter="announcements" onGetResponseResults={handleProcessAnnouncementsFiltered} />
+          <FilterDrawer onGetResponseResults={handleProcessAnnouncementsFiltered} />
         </Section.Header>
 
         {filteredAnnouncements?.length > 0 && (

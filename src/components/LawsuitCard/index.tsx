@@ -16,6 +16,17 @@ export default function LawsuitCardList({
 
   async function loadAnnouncementsFiltered(currentPage: number) {
     try {
+      if (pagination?.paginateByAnnouncementsUser) {
+        const response = await lawsuitService.listAnnouncementsUser({
+          params: {
+            page: currentPage,
+            perPage: pagination?.perPage || 1,
+          },
+        });
+        setLawsuits(response.data.announcements as any);
+        return;
+      }
+
       const response = await lawsuitService.listAll({
         params: {
           page: currentPage,

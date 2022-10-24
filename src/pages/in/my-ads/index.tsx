@@ -8,8 +8,9 @@ import { PaginationLawsuitProps } from '@components/LawsuitCard/types/Props';
 
 import { Section } from '@components/Section';
 
-import { lawsuitService } from '@services/creditbook/lawsuit';
+import { LawsuitService } from '@services/creditbook/lawsuit';
 import { LawsuitParams } from '@type/creditbook/Lawsuits';
+import { setupAPIClient } from '@api/creditbookApi';
 
 interface IProps {
   announcements: {
@@ -35,7 +36,7 @@ export default function MyAds({ announcements }: IProps) {
     <>
       <Section.Header>
         <Section.Title as="h1">Meus anúncios</Section.Title>
-        <FilterDrawer onGetResponseResults={handleGetResponse} filter="announcements" />
+        <FilterDrawer onGetResponseResults={handleGetResponse} />
       </Section.Header>
 
       <Section.Container>
@@ -58,18 +59,15 @@ export default function MyAds({ announcements }: IProps) {
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async () => {
-  const perPageAnnouncements = 10;
-  const { data } = await lawsuitService.listAll({ params: { perPage: perPageAnnouncements } });
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+  const api = setupAPIClient(req.cookies['nextauth.token']);
+  const lawsuitServicesSSR = new LawsuitService(api);
+  const { data } = await lawsuitServicesSSR.listAnnouncementsUser();
 
   return {
     props: {
       announcements: {
-        result: data.announcements,
-        pagination: {
-          total: data.pages,
-          perPage: perPageAnnouncements,
-        },
+        result: data,
       },
     },
   };

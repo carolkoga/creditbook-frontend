@@ -36,7 +36,7 @@ export default function BuyAnnouncements({ announcements }: IProps) {
     <TabBatchAnnouncement announcementLink="/in/buy-credits" batchLink="/in/buy-credits/batches">
       <Section.Header>
         <Section.Title as="h1">Comprar anúncios</Section.Title>
-        <FilterDrawer onGetResponseResults={handleGetResponse} filter="announcements" />
+        <FilterDrawer onGetResponseResults={handleGetResponse} />
       </Section.Header>
 
       <Section.Container>
