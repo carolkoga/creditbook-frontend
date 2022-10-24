@@ -13,10 +13,7 @@ export const creditCardSchemaValidation = yup.object().shape({
     .test(
       'Invalid expiration date',
       'Data de expiração inválida',
-      (value: any) => {
-        console.log({ validateTest: value });
-        return credit.expirationDate(value).isPotentiallyValid;
-      },
+      (value: any) => credit.expirationDate(value).isPotentiallyValid,
     )
     .required(),
 
@@ -24,10 +21,7 @@ export const creditCardSchemaValidation = yup.object().shape({
     .test({
       name: 'Invalid secure code',
       message: 'Digito de segurança invalido',
-      test: (value: any) => {
-        console.log({ secureCode: value });
-        return credit.cvv(value).isPotentiallyValid;
-      },
+      test: (value: any) => credit.cvv(value).isPotentiallyValid,
     }),
 
   completeName: yup.string()

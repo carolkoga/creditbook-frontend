@@ -241,7 +241,6 @@ export const updateLawsuitSchemaValidation = yup.object()
       .transform((val: any) => val[0])
       .when(['ownOrAttorney', 'procurationUrl'], {
         is: (ownOrAttorney: 'own' | 'attorney', procurationUrl: string) => {
-          console.log({ ownOrAttorney, procurationUrl });
           if (!procurationUrl) {
             if (ownOrAttorney === 'attorney') {
               return true;
