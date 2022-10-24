@@ -23,6 +23,14 @@ export class LawsuitService extends HttpClient {
     });
   }
 
+  async listAnnouncementsUser(options?: QueriesToIndexAnnouncements) {
+    return await this.httpClient.get<ResponseListAllAnnouncements>('/announcement/user', {
+      params: {
+        ...options?.params,
+      },
+    });
+  }
+
   async createLawsuit(data: any) {
     const formData = this._convertToFormData(data);
 
