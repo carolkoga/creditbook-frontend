@@ -94,9 +94,7 @@ export function AuthProvider({ children }: IProps) {
         maxAge: 60 * 60 * 24 * 30, // 30 days
         path: '/',
       });
-      toast.update(toastId, {
-        render: 'Login realizado com sucesso!', type: 'success', isLoading: false, ...customToastProps,
-      });
+      toast.dismiss(toastId);
     } catch (error) {
       toast.update(toastId, {
         render: 'Verifique suas credenciais', type: 'error', isLoading: false, ...customToastProps,
