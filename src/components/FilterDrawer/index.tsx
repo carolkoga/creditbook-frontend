@@ -29,6 +29,7 @@ import { BatchParams } from '@type/creditbook/Batch';
 import { factoryOptionReactSelect } from '@utils/factoryOptionReactSelect';
 import { UFList } from '@type/brazil/BrazilStatesInUFTypes';
 import { IBGEService } from '@services/ibge';
+import { QueriesToIndexAnnouncements } from '@type/creditbook';
 import {
   Title, Header, RadioLabel, Form,
 } from './styled';
@@ -41,6 +42,7 @@ export type ResponseFilterCreditsProps<T = 'batches' | 'announcements'> = {
 interface IProps {
   // eslint-disable-next-line no-unused-vars
   onGetResponseResults: (data: ResponseFilterCreditsProps<'announcements'>) => void,
+  customQuery?: QueriesToIndexAnnouncements['params'],
 }
 
 const rangePrice = [
@@ -54,7 +56,7 @@ const rangePrice = [
   'R$ 12.102.255,00 - R$ 13.446.950,00',
 ];
 
-export function FilterDrawer({ onGetResponseResults }: IProps) {
+export function FilterDrawer({ onGetResponseResults, customQuery }: IProps) {
   const {
     register, control, handleSubmit, watch,
   } = useForm({ resolver: yupResolver(filterSchemaValidation) });
@@ -114,7 +116,9 @@ export function FilterDrawer({ onGetResponseResults }: IProps) {
         Object.assign(filterOptionsParse, { [key]: value });
       });
 
-      const response = await lawsuitService.listAll({ params: filterOptionsParse });
+      const response = await lawsuitService.listAll({
+        params: { ...filterOptionsParse, ...customQuery },
+      });
       onGetResponseResults({
         results: response.data.announcements,
         pages: response.data.pages,
@@ -469,3 +473,7 @@ export function FilterDrawer({ onGetResponseResults }: IProps) {
     </>
   );
 }
+
+FilterDrawer.defaultProps = {
+  customQuery: null,
+};
