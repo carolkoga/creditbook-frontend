@@ -1,35 +1,69 @@
+import { FilterDrawer, ResponseFilterCreditsProps } from '@components/FilterDrawer';
 import LawsuitCardList from '@components/LawsuitCard';
-import SearchBox from '@components/Search';
+
 import { Section } from '@components/Section';
-import SelectAdsFilters from '@components/SelectAdsFilters';
 import { lawsuitService } from '@services/creditbook/lawsuit';
+import { CustomResponseAnnouncements } from '@type/creditbook';
 import { LawsuitParams } from '@type/creditbook/Lawsuits';
 import { GetServerSideProps } from 'next';
+import { useState } from 'react';
+import { toast } from 'react-toastify';
 
 interface IProps {
-  announcementsPremium: LawsuitParams[] | null,
+  announcementsPremium: CustomResponseAnnouncements,
 }
 
 export default function GalleryPremium({ announcementsPremium }: IProps) {
+  const [filteredAnnouncements, setFilteredAnnouncements] = useState<LawsuitParams[]>([]);
+  const [totalPagesFilteredAnnouncements, setTotalPagesFilteredAnnouncements] = useState(1);
+
+  function handleProcessAnnouncementsFiltered(lawsuit: ResponseFilterCreditsProps<'announcements'>) {
+    if (lawsuit?.results.length <= 0) {
+      return toast.info('Ops, Não existe nenhum relacionado a suas preferências');
+    }
+
+    setFilteredAnnouncements(lawsuit?.results);
+    setTotalPagesFilteredAnnouncements(lawsuit.pages);
+  }
+
   return (
     <>
       <Section.Header>
-        <Section.Title as="h1">Galeria Premium</Section.Title>
-        <SearchBox onSearch={() => console.log('olá')} />
-        <SelectAdsFilters />
+        <Section.Title as="h3">
+          {(announcementsPremium?.result?.length > 0 && !filteredAnnouncements?.length)
+            ? 'Galeria Premium'
+            : 'Anúncios relacionados ao filtro'}
+        </Section.Title>
+        <FilterDrawer
+          onGetResponseResults={handleProcessAnnouncementsFiltered}
+          customQuery={{ isPremium: true }}
+        />
       </Section.Header>
 
       <Section.Container>
-        {!announcementsPremium && (
-          <Section.Title textColor="dark">Sem anúncios na galeria premium</Section.Title>
+        {filteredAnnouncements?.length > 0 && (
+          <LawsuitCardList
+            lawsuits={filteredAnnouncements}
+            pagination={{ total: totalPagesFilteredAnnouncements }}
+          />
         )}
-        <LawsuitCardList lawsuits={announcementsPremium} />
+
+        {(announcementsPremium?.result?.length > 0 && !filteredAnnouncements?.length) && (
+          <LawsuitCardList
+            lawsuits={announcementsPremium.result}
+            pagination={announcementsPremium.pagination}
+          />
+        )}
+
+        {(announcementsPremium?.result?.length <= 0) && (
+          <Section.Title as="strong" textColor="dark">Não existe nenhum anuncio ainda</Section.Title>
+        )}
       </Section.Container>
     </>
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getServerSideProps: GetServerSideProps<IProps> = async () => {
   const { data } = await lawsuitService.listAll({
     params: {
       isPremium: true,
@@ -38,7 +72,12 @@ export const getServerSideProps: GetServerSideProps = async () => {
 
   return {
     props: {
-      announcementsPremium: data.announcements,
+      announcementsPremium: {
+        result: data.announcements,
+        pagination: {
+          total: data.pages,
+        },
+      },
     },
   };
 };

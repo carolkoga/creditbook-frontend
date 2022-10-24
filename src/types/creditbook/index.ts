@@ -1,5 +1,7 @@
+import { PaginationLawsuitProps } from '@components/LawsuitCard/types/Props';
 import { AnnouncementActionPhase, AnnouncementGender, AnnouncementKind } from '@type/creditbook/Lawsuits/AnnouncementTypes';
 import { AccountCommonParams } from './auth/register';
+import { LawsuitParams } from './Lawsuits';
 
 export type AccountTypes = 'person' | 'corporation';
 
@@ -65,4 +67,9 @@ export interface QueriesToIndexAnnouncements {
     isPremium?: boolean;
     isFavorite?: boolean;
   }
+}
+
+export interface CustomResponseAnnouncements {
+  result: LawsuitParams[],
+  pagination: PaginationLawsuitProps
 }
