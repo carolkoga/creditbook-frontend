@@ -1,25 +1,24 @@
 import { GetServerSideProps } from 'next';
+import { useRouter } from 'next/router';
 import { useState } from 'react';
 
-import { BatchCard } from '@components/BatchCard/Card';
 import { Button } from '@components/Button';
 import { Direction } from '@components/Direction';
-import { ListBatches } from '@components/ListBatches';
 import { NewBatchFormModal } from '@components/pages/in/batches/NewBatchFormModal';
 import { Section } from '@components/Section';
-import { batchServices } from '@services/creditbook/batch';
+import { BatchServices, batchServices } from '@services/creditbook/batch';
 import { BatchParams, NewBatchParams } from '@type/creditbook/Batch';
 import { handleCatchErrorRequest } from '@utils/handleCatchErrorRequest';
-import useAuth from '@hooks/useAuth';
+import { setupAPIClient } from '@api/creditbookApi';
+import BatchesList from '@components/BatchCard';
 
 interface IProps {
   initialBatches: BatchParams[],
 }
 
 export default function Batches({ initialBatches }: IProps) {
+  const router = useRouter();
   const [newBatchModalIsVisible, setNewBatchModalIsVisible] = useState(false);
-  const [batches, setBatches] = useState<BatchParams[]>(initialBatches);
-  const { user } = useAuth();
 
   function handleOpenNewBatchModal() {
     setNewBatchModalIsVisible(true);
@@ -32,8 +31,8 @@ export default function Batches({ initialBatches }: IProps) {
   async function handleCreateABatch(data: NewBatchParams) {
     try {
       const { data: newestBatch } = await batchServices.create(data);
-      setBatches((oldBatches) => ([...oldBatches, newestBatch]));
       setNewBatchModalIsVisible(false);
+      router.push(`/in/batches/${newestBatch.id}`);
     } catch (error) {
       handleCatchErrorRequest(error as any);
     }
@@ -47,15 +46,13 @@ export default function Batches({ initialBatches }: IProps) {
           <Button onClick={handleOpenNewBatchModal}>Novo Lote</Button>
         </Direction>
       </Section.Header>
-      <ListBatches>
-        {batches && batches.map((currentBatch) => (
-          <BatchCard
-            key={currentBatch.id}
-            mine={currentBatch.userId === user?.id}
-            batch={currentBatch}
-          />
-        ))}
-      </ListBatches>
+      {initialBatches.length > 0 && <BatchesList batches={initialBatches} />}
+
+      {!initialBatches.length && (
+        <Direction alignItems="center" justifyContent="center" style={{ height: '90%' }}>
+          <Section.Title textColor="dark">Você não possui nenhum lote</Section.Title>
+        </Direction>
+      )}
       <NewBatchFormModal
         isVisible={newBatchModalIsVisible}
         onCloseModal={handleCloseNewBatchModal}
@@ -65,8 +62,10 @@ export default function Batches({ initialBatches }: IProps) {
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async () => {
-  const { data } = await batchServices.list();
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+  const api = setupAPIClient(req.cookies['nextauth.token']);
+  const batchServicesSSR = new BatchServices(api);
+  const { data } = await batchServicesSSR.listUserBatches();
 
   return {
     props: {
