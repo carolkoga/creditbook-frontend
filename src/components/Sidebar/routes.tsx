@@ -19,13 +19,13 @@ export const routes = [
   {
     label: 'Comprar',
     icon: <ShoppingCart size={24} weight="regular" />,
-    link: '/buy-ads',
+    link: '/buy-credits',
   },
 
   {
-    label: 'Vender',
+    label: 'Meus Anúncios',
     icon: <CurrencyCircleDollar size={24} weight="regular" />,
-    link: '/sell-ads',
+    link: '/my-ads',
   },
 
   {

@@ -18,7 +18,7 @@ interface IProps {
   }
 }
 
-export default function SellAds({ announcements }: IProps) {
+export default function MyAds({ announcements }: IProps) {
   const [filteredAnnouncements, setFilteredAnnouncements] = useState<LawsuitParams[]>([]);
   const [totalPagesFilteredAnnouncements, setTotalPagesFilteredAnnouncements] = useState(1);
 
@@ -34,7 +34,7 @@ export default function SellAds({ announcements }: IProps) {
   return (
     <>
       <Section.Header>
-        <Section.Title as="h1">Vender anúncios</Section.Title>
+        <Section.Title as="h1">Meus anúncios</Section.Title>
         <FilterDrawer onGetResponseResults={handleGetResponse} filter="announcements" />
       </Section.Header>
 
