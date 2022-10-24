@@ -9,6 +9,7 @@ export type LawsuitCardProps = {
 export interface PaginationLawsuitProps {
   perPage?: number,
   total: number,
+  paginateByAnnouncementsUser?: boolean,
 }
 
 export type LawsuitCardListProps = {
