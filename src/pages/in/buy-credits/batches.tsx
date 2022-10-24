@@ -31,7 +31,7 @@ export default function BuyBatches({ initialBatches }: IProps) {
   return (
     <TabBatchAnnouncement announcementLink="/in/buy-credits" batchLink="/in/buy-credits/batches">
       <Section.Header>
-        <Section.Title as="h1">Comprar anúncios</Section.Title>
+        <Section.Title as="h1">Comprar lotes</Section.Title>
         <FilterDrawer onGetResponseResults={handleGetResponse} filter="batches" />
       </Section.Header>
 
