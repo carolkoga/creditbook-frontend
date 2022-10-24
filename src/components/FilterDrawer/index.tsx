@@ -20,7 +20,6 @@ import { courtsOptions } from '@mocks/ReactSelectOptions/CourtsOptions';
 import { filterSchemaValidation } from '@validations/yup/Filter';
 
 import { lawsuitService } from '@services/creditbook/lawsuit';
-import { batchServices } from '@services/creditbook/batch';
 
 import { handleCatchErrorRequest } from '@utils/handleCatchErrorRequest';
 
@@ -41,8 +40,7 @@ export type ResponseFilterCreditsProps<T = 'batches' | 'announcements'> = {
 
 interface IProps {
   // eslint-disable-next-line no-unused-vars
-  onGetResponseResults: (data: ResponseFilterCreditsProps) => void,
-  filter: 'batches' | 'announcements',
+  onGetResponseResults: (data: ResponseFilterCreditsProps<'announcements'>) => void,
 }
 
 const rangePrice = [
@@ -56,7 +54,7 @@ const rangePrice = [
   'R$ 12.102.255,00 - R$ 13.446.950,00',
 ];
 
-export function FilterDrawer({ onGetResponseResults, filter }: IProps) {
+export function FilterDrawer({ onGetResponseResults }: IProps) {
   const {
     register, control, handleSubmit, watch,
   } = useForm({ resolver: yupResolver(filterSchemaValidation) });
@@ -115,15 +113,6 @@ export function FilterDrawer({ onGetResponseResults, filter }: IProps) {
 
         Object.assign(filterOptionsParse, { [key]: value });
       });
-
-      if (filter === 'batches') {
-        const response = await batchServices.list();
-
-        onGetResponseResults({
-          results: response.data.announcements,
-          pages: response.data.pages,
-        } as ResponseFilterCreditsProps<'batches'>);
-      }
 
       const response = await lawsuitService.listAll({ params: filterOptionsParse });
       onGetResponseResults({
