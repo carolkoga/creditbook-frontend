@@ -6,6 +6,8 @@ interface ErrorResponse {
   error: string,
 }
 
+const prefixErrorMessageParamInUse = 'param in use:';
+
 export function handleCatchErrorRequest(
   error: AxiosError<ErrorResponse>,
   customToast?: ToastOptions | null,
@@ -24,6 +26,17 @@ export function handleCatchErrorRequest(
     }
 
     if (error?.response?.status >= 400 && error?.response?.status <= 499) {
+      if (error?.response?.data?.error.toLowerCase() === `${prefixErrorMessageParamInUse} email`) {
+        return toast.error('O e-mail já está em uso');
+      }
+
+      if (
+        error?.response?.data?.error.toLowerCase() === `${prefixErrorMessageParamInUse} cnpj`
+        || error?.response?.data?.error.toLowerCase() === `${prefixErrorMessageParamInUse} cpf`
+      ) {
+        return toast.error('O CPF ou CNPJ já está em uso');
+      }
+
       toast.warning('Verifique se não há nenhum dado errado.', customToast ?? commonToastProps);
     }
   }
