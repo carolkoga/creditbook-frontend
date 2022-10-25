@@ -21,13 +21,21 @@ export function handleCatchErrorRequest(
       return toast.error('Verifique a sua senha ou e-mail foi inserido corretamente');
     }
 
-    if (error?.response?.data?.error.toLowerCase() === 'user is invactive') {
+    if (error?.response?.data?.error.toLowerCase() === 'user is inactive') {
       return toast.error('A sua conta está desativada. Entre em contato com suporte para saber mais sobre.');
     }
 
     if (error?.response?.status >= 400 && error?.response?.status <= 499) {
       if (error?.response?.data?.error.toLowerCase() === `${prefixErrorMessageParamInUse} email`) {
         return toast.error('O e-mail já está em uso');
+      }
+
+      if (error?.response?.data?.error.toLowerCase() === `${prefixErrorMessageParamInUse} rg`) {
+        return toast.error('O RG já está em uso');
+      }
+
+      if (error?.response?.data?.error.toLowerCase() === `${prefixErrorMessageParamInUse} corporationName`) {
+        return toast.error('A razão social já está em uso');
       }
 
       if (
