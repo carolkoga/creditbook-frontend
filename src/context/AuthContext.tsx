@@ -76,7 +76,8 @@ export function AuthProvider({ children }: IProps) {
         (Router.asPath === '/login'
         && userSignIn.role === 'user'
         && !Router.asPath.startsWith('/in'))
-        || Router.asPath === '/') {
+        || Router.asPath === '/'
+        || Router.asPath === '/sign-up') {
         Router.push('/in/home');
       } else if (Router.asPath === '/login' && userSignIn.role === 'admin' && !Router.asPath.startsWith('/admin')) {
         Router.push('/admin/dashboard');
