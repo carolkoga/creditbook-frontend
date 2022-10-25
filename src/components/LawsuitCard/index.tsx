@@ -14,7 +14,7 @@ export default function LawsuitCardList({
   const [page, setPage] = useState(1);
   const [lawsuits, setLawsuits] = useState(originalLawsuit);
 
-  async function loadAnnouncementsFiltered(currentPage: number) {
+  async function loadAnnouncementsByPage(currentPage: number) {
     try {
       if (pagination?.paginateByAnnouncementsUser) {
         const response = await lawsuitService.listAnnouncementsUser({
@@ -41,7 +41,7 @@ export default function LawsuitCardList({
 
   function handleChangePage(currentPage: number) {
     setPage(() => currentPage);
-    loadAnnouncementsFiltered(currentPage);
+    loadAnnouncementsByPage(currentPage);
   }
 
   return (
