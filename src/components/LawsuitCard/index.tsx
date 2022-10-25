@@ -1,18 +1,43 @@
 /* eslint-disable react/jsx-no-useless-fragment */
+import { Direction } from '@components/Direction';
 import { ListLayoutSingleLawsuits } from '@components/ListsLayout';
+import { Section } from '@components/Section';
 import { lawsuitService } from '@services/creditbook/lawsuit';
 import { Pagination } from 'antd';
-import { useState } from 'react';
+import React, { forwardRef, useImperativeHandle, useState } from 'react';
 import LawsuitCard from './Card';
 import { LawsuitCardListProps } from './types/Props';
 
-export default function LawsuitCardList({
+export interface LawsuitListRefParams {
+  // eslint-disable-next-line no-unused-vars
+  handleSetLawsuits: (data: any[]) => void,
+  // eslint-disable-next-line no-unused-vars
+  handleSetPagination: (data: LawsuitCardListProps['pagination']) => void,
+  // eslint-disable-next-line no-unused-vars
+  handleIsFiltered: (data: boolean) => void,
+  isFiltered: boolean,
+}
+
+const LawsuitCardList = forwardRef<any, LawsuitCardListProps>(({
   lawsuits: originalLawsuit,
-  pagination,
+  pagination: originalPagination,
   lawsuitCardProps,
-}: LawsuitCardListProps) {
+}, ref) => {
   const [page, setPage] = useState(1);
-  const [lawsuits, setLawsuits] = useState(originalLawsuit);
+  const [pagination, setPagination] = useState(originalPagination as LawsuitCardListProps['pagination']);
+  const [lawsuits, setLawsuits] = useState(originalLawsuit || []);
+  const [isFiltered, setIsFiltered] = useState<boolean>(false);
+
+  useImperativeHandle(
+    ref,
+    () => ({
+      handleSetLawsuits: setLawsuits,
+      handleSetPagination: (data: LawsuitCardListProps['pagination']) => setPagination(data),
+      handleIsFiltered: setIsFiltered,
+      isFiltered,
+    }),
+    [],
+  );
 
   async function loadAnnouncementsByPage(currentPage: number) {
     try {
@@ -44,11 +69,19 @@ export default function LawsuitCardList({
     loadAnnouncementsByPage(currentPage);
   }
 
+  if (lawsuits.length <= 0) {
+    return (
+      <Direction style={{ width: '100%', height: '98%' }} alignItems="center" justifyContent="center">
+        <Section.Title>Ops, não foi possível encontrar nenhum anúncio</Section.Title>
+      </Direction>
+    );
+  }
+
   return (
     <>
       {lawsuits?.length && (
         <>
-          <ListLayoutSingleLawsuits>
+          <ListLayoutSingleLawsuits ref={ref}>
             {lawsuits.map((lawsuit) => (
               <LawsuitCard
                 key={lawsuit.id}
@@ -72,8 +105,6 @@ export default function LawsuitCardList({
       )}
     </>
   );
-}
+});
 
-LawsuitCardList.defaultProps = {
-  pagination: null,
-};
+export default LawsuitCardList;
