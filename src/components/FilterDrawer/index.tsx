@@ -3,6 +3,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm, Controller } from 'react-hook-form';
 import { FunnelSimple } from 'phosphor-react';
 import { Drawer, Space } from 'antd';
+import { toast } from 'react-toastify';
 
 import { Button } from '@components/Button';
 import { InputCPForCNPJ } from '@components/Form/Input/Mask/InputCPForCNPJ';
@@ -30,6 +31,7 @@ import { factoryOptionReactSelect } from '@utils/factoryOptionReactSelect';
 import { UFList } from '@type/brazil/BrazilStatesInUFTypes';
 import { IBGEService } from '@services/ibge';
 import { QueriesToIndexAnnouncements } from '@type/creditbook';
+
 import {
   Title, Header, RadioLabel, Form,
 } from './styled';
@@ -119,6 +121,11 @@ export function FilterDrawer({ onGetResponseResults, customQuery }: IProps) {
       const response = await lawsuitService.listAll({
         params: { ...filterOptionsParse, ...customQuery },
       });
+
+      if (response.data.announcements.length <= 0) {
+        return toast.info('Ops, Não existe nenhum relacionado a suas preferências');
+      }
+
       onGetResponseResults({
         results: response.data.announcements,
         pages: response.data.pages,
