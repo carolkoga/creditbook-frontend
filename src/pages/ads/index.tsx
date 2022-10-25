@@ -23,9 +23,7 @@ export default function SingleLawsuits({ announcements }: IProps) {
       </Section.Header>
 
       <Section.Container>
-        {(announcements?.result?.length) && (
-          <LawsuitCardList lawsuits={announcements.result} pagination={announcements.pagination} />
-        )}
+        <LawsuitCardList lawsuits={announcements.result} pagination={announcements.pagination} />
       </Section.Container>
     </TabBatchAnnouncement>
   );

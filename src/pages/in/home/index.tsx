@@ -51,7 +51,7 @@ export default function Home({ announcements, announcementsPremium }: IProps) {
       <Section.Container>
         <Section.Header>
           <Section.Title as="h3">
-            {!isFiltered && 'Anúncios relacionados ao filtro'}
+            {!isFiltered && 'Anúncios Gerais'}
             {isFiltered && 'Anúncios relacionados ao filtro'}
           </Section.Title>
           <FilterDrawer onGetResponseResults={handleProcessAnnouncementsFiltered} />

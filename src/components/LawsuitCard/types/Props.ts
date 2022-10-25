@@ -1,3 +1,4 @@
+import { QueriesToIndexAnnouncements } from '@type/creditbook';
 import type { LawsuitParams } from '@type/creditbook/Lawsuits';
 
 export type LawsuitCardProps = {
@@ -15,5 +16,6 @@ export interface PaginationLawsuitProps {
 export type LawsuitCardListProps = {
   lawsuits: LawsuitParams[] | null
   pagination?: PaginationLawsuitProps,
-  lawsuitCardProps?: Omit<LawsuitCardProps, 'lawsuit'>
+  lawsuitCardProps?: Omit<LawsuitCardProps, 'lawsuit'>,
+  customQuery?: QueriesToIndexAnnouncements['params']
 }

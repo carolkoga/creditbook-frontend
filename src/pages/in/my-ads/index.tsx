@@ -1,9 +1,8 @@
-import { useState } from 'react';
+import { useRef } from 'react';
 import { GetServerSideProps } from 'next';
-import { toast } from 'react-toastify';
 
 import { FilterDrawer, ResponseFilterCreditsProps } from '@components/FilterDrawer';
-import LawsuitCardList from '@components/LawsuitCard';
+import LawsuitCardList, { LawsuitListRefParams } from '@components/LawsuitCard';
 import { PaginationLawsuitProps } from '@components/LawsuitCard/types/Props';
 
 import { Section } from '@components/Section';
@@ -20,40 +19,29 @@ interface IProps {
 }
 
 export default function MyAds({ announcements }: IProps) {
-  const [filteredAnnouncements, setFilteredAnnouncements] = useState<LawsuitParams[]>([]);
-  const [totalPagesFilteredAnnouncements, setTotalPagesFilteredAnnouncements] = useState(1);
+  const lawsuitListRef = useRef<LawsuitListRefParams>({} as LawsuitListRefParams);
+  const { isFiltered } = lawsuitListRef.current;
 
-  function handleGetResponse(lawsuit: ResponseFilterCreditsProps<'announcements'>) {
-    if (lawsuit?.results.length <= 0) {
-      return toast.info('Ops, Não existe nenhum relacionado a suas preferências');
-    }
-
-    setFilteredAnnouncements(lawsuit?.results);
-    setTotalPagesFilteredAnnouncements(lawsuit.pages);
+  function handleProcessAnnouncementsFiltered(lawsuit: ResponseFilterCreditsProps<'announcements'>) {
+    lawsuitListRef.current.handleSetLawsuits(lawsuit?.results);
+    lawsuitListRef.current.handleIsFiltered(true);
   }
 
   return (
     <>
       <Section.Header>
-        <Section.Title as="h1">Meus anúncios</Section.Title>
-        <FilterDrawer onGetResponseResults={handleGetResponse} />
+        <Section.Title as="h1">
+          {!isFiltered && 'Meus anúncios'}
+          {isFiltered && 'Anúncios relacionados ao filtro'}
+        </Section.Title>
+        <FilterDrawer onGetResponseResults={handleProcessAnnouncementsFiltered} />
       </Section.Header>
 
       <Section.Container>
-        {filteredAnnouncements?.length > 0 && (
-          <LawsuitCardList
-            lawsuits={filteredAnnouncements}
-            pagination={{ total: totalPagesFilteredAnnouncements }}
-          />
-        )}
-
-        {(announcements?.result?.length > 0 && !filteredAnnouncements?.length) && (
-          <LawsuitCardList lawsuits={announcements.result} pagination={announcements.pagination} />
-        )}
-
-        {(announcements?.result?.length <= 0) && (
-          <Section.Title as="strong" textColor="dark">Não existe nenhum anuncio ainda</Section.Title>
-        )}
+        <LawsuitCardList
+          ref={lawsuitListRef}
+          lawsuits={announcements.result}
+        />
       </Section.Container>
     </>
   );

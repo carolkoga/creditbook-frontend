@@ -22,6 +22,7 @@ const LawsuitCardList = forwardRef<any, LawsuitCardListProps>(({
   lawsuits: originalLawsuit,
   pagination: originalPagination,
   lawsuitCardProps,
+  customQuery,
 }, ref) => {
   const [page, setPage] = useState(1);
   const [pagination, setPagination] = useState(originalPagination as LawsuitCardListProps['pagination']);
@@ -56,6 +57,7 @@ const LawsuitCardList = forwardRef<any, LawsuitCardListProps>(({
         params: {
           page: currentPage,
           perPage: pagination?.perPage || 1,
+          ...customQuery,
         },
       });
       setLawsuits(response.data.announcements as any);
