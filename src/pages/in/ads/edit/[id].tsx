@@ -133,6 +133,11 @@ export default function EditLawsuitByIdPage({ announcement }: IProps) {
                   onBack={() => setStepForm('0')}
                   loading={loading}
                   label={!loading ? 'Atualizar' : 'Atualizando'}
+                  defaultValues={{
+                    income: announcement.income,
+                    plan: announcement.plan,
+                    premium: announcement.isPremium,
+                  }}
                 />
                 {ownOrAttorneyField === 'attorney' && (
                   <ProcurationField />

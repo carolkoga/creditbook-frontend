@@ -19,14 +19,19 @@ interface IProps {
   loading?: boolean,
   onBack: () => void,
   label: string,
+  defaultValues?: {
+    income: number,
+    plan: string,
+    premium: boolean | null,
+  }
 }
 
 export default function ModalToSelectPlan({
-  isVisible, loading, label, onBack,
+  isVisible, loading, label, onBack, defaultValues,
 }: IProps) {
   const { setValue, watch } = useFormContext();
   const income: string = watch('income');
-  const [defaultPlan, defaultIsPremium] = watch(['plan', 'isPremium']);
+
   const price = useMemo(() => {
     const incomeParsed = Number(income?.replaceAll(/\D/g, ''));
 
@@ -38,9 +43,42 @@ export default function ModalToSelectPlan({
     setValue('plan', 'byMonth');
     return 69.90;
   }, [income]);
-  const [byMonth, setByMonth] = useState<boolean>(defaultPlan === 'byMonth' || defaultPlan === 'both' || price === 69.90 || price === 180);
-  const [byPercent, setByPercent] = useState<boolean>(defaultPlan === 'byPercent' || defaultPlan === 'both' || price === 180);
-  const [isPremium, setIsPremium] = useState<boolean>(defaultIsPremium || false);
+
+  const defaultPlanMonth = useMemo(() => {
+    if (defaultValues?.income !== Number(income?.replaceAll(/\D/g, ''))) {
+      return price === 69.90 || price === 180;
+    }
+
+    if (defaultValues?.plan === 'both') {
+      return true;
+    }
+
+    if (defaultValues?.plan === 'byMonth') {
+      return true;
+    }
+
+    return false;
+  }, [defaultValues, price]);
+
+  const defaultPlanPercent = useMemo(() => {
+    if (defaultValues?.income !== Number(income?.replaceAll(/\D/g, ''))) {
+      return price === 180;
+    }
+
+    if (defaultValues?.plan === 'both') {
+      return true;
+    }
+
+    if (defaultValues?.plan === 'byPercent') {
+      return true;
+    }
+
+    return false;
+  }, [defaultValues, price]);
+
+  const [byMonth, setByMonth] = useState<boolean>(defaultPlanMonth);
+  const [byPercent, setByPercent] = useState<boolean>(defaultPlanPercent);
+  const [isPremium, setIsPremium] = useState<boolean>(defaultValues?.premium ?? false);
   const subtotal = useMemo(() => {
     let subtotalPremium = 0;
 
@@ -198,4 +236,5 @@ export default function ModalToSelectPlan({
 
 ModalToSelectPlan.defaultProps = {
   loading: false,
+  defaultValues: null,
 };
