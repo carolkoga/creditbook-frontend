@@ -1,18 +1,13 @@
 import { useRef } from 'react';
-import { GetServerSideProps } from 'next';
 
 import { FilterDrawer, ResponseFilterCreditsProps } from '@components/FilterDrawer';
 import LawsuitCardList, { LawsuitListRefParams } from '@components/LawsuitCard';
 import { Section } from '@components/Section';
 
-import { lawsuitService } from '@services/creditbook/lawsuit';
-import { CustomResponseAnnouncements } from '@type/creditbook';
+import useUserAnnouncements from '@services/creditbook/lawsuit/hooks/useUserAnnouncements';
 
-interface IProps {
-  announcementsFavorites: CustomResponseAnnouncements,
-}
-
-export default function MyFavorites({ announcementsFavorites }: IProps) {
+export default function MyFavorites() {
+  const { announcements, isLoading } = useUserAnnouncements('my_announcements_favorites');
   const lawsuitListRef = useRef<LawsuitListRefParams>({} as LawsuitListRefParams);
   const { isFiltered } = lawsuitListRef.current;
 
@@ -35,31 +30,13 @@ export default function MyFavorites({ announcementsFavorites }: IProps) {
       </Section.Header>
 
       <Section.Container>
-        <LawsuitCardList
-          ref={lawsuitListRef}
-          lawsuits={announcementsFavorites.result}
-          pagination={announcementsFavorites.pagination}
-        />
+        {isLoading && (
+          <LawsuitCardList
+            ref={lawsuitListRef}
+            lawsuits={announcements?.results as never}
+          />
+        )}
       </Section.Container>
     </>
   );
 }
-
-export const getServerSideProps: GetServerSideProps = async () => {
-  const { data } = await lawsuitService.listAll({
-    params: {
-      isFavorite: true,
-    },
-  });
-
-  return {
-    props: {
-      announcementsFavorites: {
-        result: data.announcements,
-        pagination: {
-          total: data.pages,
-        },
-      },
-    },
-  };
-};
