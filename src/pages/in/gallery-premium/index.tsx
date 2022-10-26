@@ -1,18 +1,13 @@
 import { useRef } from 'react';
-import { GetServerSideProps } from 'next';
 
 import { FilterDrawer, ResponseFilterCreditsProps } from '@components/FilterDrawer';
 import LawsuitCardList, { LawsuitListRefParams } from '@components/LawsuitCard';
 
 import { Section } from '@components/Section';
-import { lawsuitService } from '@services/creditbook/lawsuit';
-import { CustomResponseAnnouncements } from '@type/creditbook';
+import useListAnnouncements from '@services/creditbook/lawsuit/hooks/useListAnnouncements';
 
-interface IProps {
-  announcementsPremium: CustomResponseAnnouncements,
-}
-
-export default function GalleryPremium({ announcementsPremium }: IProps) {
+export default function GalleryPremium() {
+  const { announcements } = useListAnnouncements('announcements_premium', { params: { isPremium: true } });
   const lawsuitListRef = useRef<LawsuitListRefParams>({} as LawsuitListRefParams);
   const { isFiltered } = lawsuitListRef.current;
 
@@ -35,32 +30,15 @@ export default function GalleryPremium({ announcementsPremium }: IProps) {
       </Section.Header>
 
       <Section.Container>
-        <LawsuitCardList
-          ref={lawsuitListRef}
-          lawsuits={announcementsPremium.result}
-          pagination={announcementsPremium.pagination}
-          customQuery={{ isPremium: true }}
-        />
+        {announcements.results && (
+          <LawsuitCardList
+            ref={lawsuitListRef}
+            lawsuits={announcements.results}
+            pagination={{ total: announcements.pages }}
+            customQuery={{ isPremium: true }}
+          />
+        )}
       </Section.Container>
     </>
   );
 }
-
-export const getServerSideProps: GetServerSideProps<IProps> = async () => {
-  const { data } = await lawsuitService.listAll({
-    params: {
-      isPremium: true,
-    },
-  });
-
-  return {
-    props: {
-      announcementsPremium: {
-        result: data.announcements,
-        pagination: {
-          total: data.pages,
-        },
-      },
-    },
-  };
-};

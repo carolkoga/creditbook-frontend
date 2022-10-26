@@ -1,24 +1,15 @@
 import { useRef } from 'react';
-import { GetServerSideProps } from 'next';
 
 import { FilterDrawer, ResponseFilterCreditsProps } from '@components/FilterDrawer';
 import LawsuitCardList, { LawsuitListRefParams } from '@components/LawsuitCard';
-import { PaginationLawsuitProps } from '@components/LawsuitCard/types/Props';
 
 import { Section } from '@components/Section';
 import TabBatchAnnouncement from '@components/TabBatchAnnouncement';
 
-import { lawsuitService } from '@services/creditbook/lawsuit';
-import { LawsuitParams } from '@type/creditbook/Lawsuits';
+import useListAnnouncements from '@services/creditbook/lawsuit/hooks/useListAnnouncements';
 
-interface IProps {
-  announcements: {
-    result: LawsuitParams[],
-    pagination: PaginationLawsuitProps
-  }
-}
-
-export default function BuyAnnouncements({ announcements }: IProps) {
+export default function BuyAnnouncements() {
+  const { announcements, isLoading } = useListAnnouncements('get_all_announcements');
   const lawsuitListRef = useRef<LawsuitListRefParams>({} as LawsuitListRefParams);
   const { isFiltered } = lawsuitListRef.current;
 
@@ -41,29 +32,14 @@ export default function BuyAnnouncements({ announcements }: IProps) {
       </Section.Header>
 
       <Section.Container>
-        <LawsuitCardList
-          ref={lawsuitListRef}
-          lawsuits={announcements.result}
-          pagination={announcements.pagination}
-        />
+        {!isLoading && (
+          <LawsuitCardList
+            ref={lawsuitListRef}
+            lawsuits={announcements.results}
+            pagination={{ total: announcements.pages }}
+          />
+        )}
       </Section.Container>
     </TabBatchAnnouncement>
   );
 }
-
-export const getServerSideProps: GetServerSideProps = async () => {
-  const perPageAnnouncements = 10;
-  const { data } = await lawsuitService.listAll({ params: { perPage: perPageAnnouncements } });
-
-  return {
-    props: {
-      announcements: {
-        result: data.announcements,
-        pagination: {
-          total: data.pages,
-          perPage: perPageAnnouncements,
-        },
-      },
-    },
-  };
-};
