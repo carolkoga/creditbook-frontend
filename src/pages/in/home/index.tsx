@@ -1,27 +1,17 @@
 import { useRef } from 'react';
-import { GetServerSideProps } from 'next';
 
 import LawsuitCardList, { LawsuitListRefParams } from '@components/LawsuitCard';
 import LawsuitCardSwiper from '@components/LawsuitCard/LawsuitCardSwiper/index';
 import { Section } from '@components/Section';
 
 import { Direction } from '@components/Direction';
-import { PaginationLawsuitProps } from '@components/LawsuitCard/types/Props';
 import { FilterDrawer, ResponseFilterCreditsProps } from '@components/FilterDrawer';
 import { Link } from '@components/Button';
+import useListAnnouncements from '@services/creditbook/lawsuit/hooks/useListAnnouncements';
 
-import { lawsuitService } from '@services/creditbook/lawsuit';
-import { LawsuitParams } from '@type/creditbook/Lawsuits';
-
-interface IProps {
-  announcements: {
-    result: LawsuitParams[],
-    pagination: PaginationLawsuitProps
-  },
-  announcementsPremium: LawsuitParams[],
-}
-
-export default function Home({ announcements, announcementsPremium }: IProps) {
+export default function Home() {
+  const { announcements } = useListAnnouncements('get_all_announcements');
+  const { announcements: announcementsPremium } = useListAnnouncements('get_all_announcements_premium', { params: { isPremium: true } });
   const lawsuitListRef = useRef<LawsuitListRefParams>({} as LawsuitListRefParams);
   const { isFiltered } = lawsuitListRef.current;
 
@@ -34,7 +24,7 @@ export default function Home({ announcements, announcementsPremium }: IProps) {
   }
   return (
     <>
-      {announcementsPremium?.length > 0 && (
+      {announcementsPremium.results && (
         <Section.Container bg="light">
           <Section.Header>
             <Direction direction="horizontal" alignItems="center">
@@ -44,7 +34,7 @@ export default function Home({ announcements, announcementsPremium }: IProps) {
               </Link>
             </Direction>
           </Section.Header>
-          <LawsuitCardSwiper lawsuits={announcementsPremium} />
+          <LawsuitCardSwiper lawsuits={announcementsPremium.results} />
         </Section.Container>
       )}
 
@@ -57,35 +47,15 @@ export default function Home({ announcements, announcementsPremium }: IProps) {
           <FilterDrawer onGetResponseResults={handleProcessAnnouncementsFiltered} />
         </Section.Header>
 
-        <LawsuitCardList
-          ref={lawsuitListRef}
-          lawsuits={announcements.result}
-          pagination={announcements.pagination}
-        />
+        {announcements?.results && (
+          <LawsuitCardList
+            ref={lawsuitListRef}
+            lawsuits={announcements?.results}
+            pagination={{ total: announcements?.pages }}
+          />
+        )}
+
       </Section.Container>
     </>
   );
 }
-
-export const getServerSideProps: GetServerSideProps = async () => {
-  const perPageAnnouncements = 10;
-  const { data } = await lawsuitService.listAll({ params: { perPage: perPageAnnouncements } });
-  const { data: filterAsPremium } = await lawsuitService.listAll({
-    params: {
-      isPremium: true,
-    },
-  });
-
-  return {
-    props: {
-      announcements: {
-        result: data.announcements,
-        pagination: {
-          total: data.pages,
-          perPage: perPageAnnouncements,
-        },
-      },
-      announcementsPremium: filterAsPremium.announcements,
-    },
-  };
-};
