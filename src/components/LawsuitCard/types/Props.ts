@@ -9,12 +9,13 @@ export type LawsuitCardProps = {
 
 export interface PaginationLawsuitProps {
   perPage?: number,
-  total: number,
+  total: number | undefined,
   paginateByAnnouncementsUser?: boolean,
 }
 
 export type LawsuitCardListProps = {
-  lawsuits: LawsuitParams[] | null
+  lawsuits?: LawsuitParams[] | null | undefined
+  fetchAnnouncements?: 'all' | 'holder'
   pagination?: PaginationLawsuitProps,
   lawsuitCardProps?: Omit<LawsuitCardProps, 'lawsuit'>,
   customQuery?: QueriesToIndexAnnouncements['params']

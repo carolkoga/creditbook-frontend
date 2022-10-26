@@ -97,7 +97,7 @@ const LawsuitCardList = forwardRef<any, LawsuitCardListProps>(({
             <>
               <br />
               <Pagination
-                total={pagination.total * 10}
+                total={(pagination.total ?? 1) * 10}
                 defaultCurrent={page}
                 onChange={handleChangePage}
               />
