@@ -4,10 +4,10 @@ import { FilterDrawer, ResponseFilterCreditsProps } from '@components/FilterDraw
 import LawsuitCardList, { LawsuitListRefParams } from '@components/LawsuitCard';
 
 import { Section } from '@components/Section';
-import useListAnnouncements from '@services/creditbook/lawsuit/hooks/useListAnnouncements';
+import useAnnouncements from '@services/creditbook/lawsuit/hooks/useAnnouncements';
 
 export default function GalleryPremium() {
-  const { announcements } = useListAnnouncements('announcements_premium', { params: { isPremium: true } });
+  const { announcements } = useAnnouncements('announcements_premium', { params: { isPremium: true } });
   const lawsuitListRef = useRef<LawsuitListRefParams>({} as LawsuitListRefParams);
   const { isFiltered } = lawsuitListRef.current;
 

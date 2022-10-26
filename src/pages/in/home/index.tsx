@@ -7,11 +7,11 @@ import { Section } from '@components/Section';
 import { Direction } from '@components/Direction';
 import { FilterDrawer, ResponseFilterCreditsProps } from '@components/FilterDrawer';
 import { Link } from '@components/Button';
-import useListAnnouncements from '@services/creditbook/lawsuit/hooks/useListAnnouncements';
+import useAnnouncements from '@services/creditbook/lawsuit/hooks/useAnnouncements';
 
 export default function Home() {
-  const { announcements } = useListAnnouncements('get_all_announcements');
-  const { announcements: announcementsPremium } = useListAnnouncements('get_all_announcements_premium', { params: { isPremium: true } });
+  const { announcements } = useAnnouncements('get_all_announcements');
+  const { announcements: announcementsPremium } = useAnnouncements('get_all_announcements_premium', { params: { isPremium: true } });
   const lawsuitListRef = useRef<LawsuitListRefParams>({} as LawsuitListRefParams);
   const { isFiltered } = lawsuitListRef.current;
 

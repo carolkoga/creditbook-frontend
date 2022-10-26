@@ -6,10 +6,10 @@ import LawsuitCardList, { LawsuitListRefParams } from '@components/LawsuitCard';
 import { Section } from '@components/Section';
 import TabBatchAnnouncement from '@components/TabBatchAnnouncement';
 
-import useListAnnouncements from '@services/creditbook/lawsuit/hooks/useListAnnouncements';
+import useAnnouncements from '@services/creditbook/lawsuit/hooks/useAnnouncements';
 
 export default function BuyAnnouncements() {
-  const { announcements, isLoading } = useListAnnouncements('get_all_announcements');
+  const { announcements, isLoading } = useAnnouncements('get_all_announcements');
   const lawsuitListRef = useRef<LawsuitListRefParams>({} as LawsuitListRefParams);
   const { isFiltered } = lawsuitListRef.current;
 
