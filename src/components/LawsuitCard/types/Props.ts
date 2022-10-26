@@ -14,8 +14,7 @@ export interface PaginationLawsuitProps {
 }
 
 export type LawsuitCardListProps = {
-  lawsuits?: LawsuitParams[] | null | undefined
-  fetchAnnouncements?: 'all' | 'holder'
+  lawsuits: LawsuitParams[] | undefined
   pagination?: PaginationLawsuitProps,
   lawsuitCardProps?: Omit<LawsuitCardProps, 'lawsuit'>,
   customQuery?: QueriesToIndexAnnouncements['params']
