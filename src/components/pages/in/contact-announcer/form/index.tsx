@@ -1,11 +1,12 @@
 import { ReactNode } from 'react';
-import { useFormContext } from 'react-hook-form';
+import { Controller, useFormContext } from 'react-hook-form';
 
 import { Direction } from '@components/Direction';
 import FormGroup from '@components/FormGroup';
 import { Textarea, Input } from '@components/Input';
 
 import { Form } from '@styles/pages/contact';
+import { InputPhone } from '@components/Form/Input/Mask/InputPhone';
 
 interface IProps {
   children: ReactNode,
@@ -13,7 +14,7 @@ interface IProps {
 }
 
 export default function ContactAnnouncerForm({ children, onSubmit }: IProps) {
-  const { register } = useFormContext();
+  const { register, control } = useFormContext();
   return (
     <Form noValidate onSubmit={onSubmit}>
       <FormGroup label={{ title: 'Nome', forId: 'name' }}>
@@ -24,9 +25,15 @@ export default function ContactAnnouncerForm({ children, onSubmit }: IProps) {
         <Input {...register('email')} id="email" type="email" disabled />
       </FormGroup>
 
-      <FormGroup label={{ title: 'Telefone', forId: 'phone' }}>
-        <Input {...register('phone')} id="phone" inputMode="numeric" />
-      </FormGroup>
+      <Controller
+        control={control}
+        name="phone"
+        render={({ field }) => (
+          <FormGroup label={{ title: 'Telefone', forId: 'phone' }}>
+            <InputPhone {...field} id="phone" inputMode="numeric" />
+          </FormGroup>
+        )}
+      />
 
       <FormGroup label={{ title: 'Mensagem', forId: 'message' }}>
         <Textarea {...register('message')} id="message" />
