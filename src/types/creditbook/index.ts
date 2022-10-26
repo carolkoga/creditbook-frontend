@@ -25,8 +25,7 @@ export interface UserDefaultValues extends Omit<UserUpdateParams, 'nationality'>
 }
 
 export interface ContactAnnouncerParams {
-  name: string,
-  email: string,
+  userId: string,
   phone: string,
   message: string,
   type: 'batch' | 'announcement',
