@@ -11,9 +11,11 @@ import ContactAnnouncerForm from '@components/pages/in/contact-announcer/form';
 export default function ContactBatchAnnouncer() {
   const router = useRouter();
   const { user } = useAuth();
-  const methods = useForm<ContactAnnouncerParams>({
+  const methods = useForm<ContactAnnouncerParams & { name: string, email: string }>({
     defaultValues: {
       userId: user?.id,
+      name: user?.fullName,
+      email: user?.email,
       phone: user?.cellphone,
       type: 'batch',
       creditId: router.query.id as string,
