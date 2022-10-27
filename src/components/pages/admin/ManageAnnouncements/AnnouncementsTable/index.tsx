@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { Info } from 'phosphor-react';
 import { Table } from 'antd';
+import { WrapperTable } from '../../WrapperTable';
 
 interface DataType {
   key: string,
@@ -51,6 +52,8 @@ const columns = [
 
 export default function AnnouncementsTable({ dataSource }: IProps) {
   return (
-    <Table columns={columns} dataSource={dataSource} />
+    <WrapperTable>
+      <Table columns={columns} dataSource={dataSource} />
+    </WrapperTable>
   );
 }

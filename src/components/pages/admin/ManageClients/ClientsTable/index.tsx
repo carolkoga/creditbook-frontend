@@ -1,6 +1,7 @@
 /* eslint-disable react/no-unstable-nested-components */
 import { Switch, Table } from 'antd';
 import { useMemo } from 'react';
+import { WrapperTable } from '../../WrapperTable';
 import InformationTable from './InformationTable';
 import { DataType } from './types';
 
@@ -49,24 +50,26 @@ export default function ClientsTable({ dataSource, onChangeStatus, changingStatu
   ]), [changingStatusLoader, dataSource]);
 
   return (
-    <Table
-      columns={columns}
-      dataSource={dataSource}
-      expandable={{
-        expandedRowRender: ({
-          address, cellphone, type, inactivationReason, key,
-        }: DataType) => (
-          <InformationTable
-            dataSource={{
-              ...address,
-              cellphone,
-              type,
-              inactivationReason,
-              key,
-            }}
-          />
-        ),
-      }}
-    />
+    <WrapperTable>
+      <Table
+        columns={columns}
+        dataSource={dataSource}
+        expandable={{
+          expandedRowRender: ({
+            address, cellphone, type, inactivationReason, key,
+          }: DataType) => (
+            <InformationTable
+              dataSource={{
+                ...address,
+                cellphone,
+                type,
+                inactivationReason,
+                key,
+              }}
+            />
+          ),
+        }}
+      />
+    </WrapperTable>
   );
 }
