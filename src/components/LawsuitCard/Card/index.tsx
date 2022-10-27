@@ -112,7 +112,7 @@ export default function LawsuitNewCard({
 
         <Footer
           lawsuit={lawsuit}
-          mine={lawsuit.userId?.toLowerCase() === user?.id.toLowerCase()}
+          mine={lawsuit.userId === user?.id}
           originalBatchId={addToBatchId}
           moreAboutOnly={moreAboutOnly}
         />
