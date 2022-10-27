@@ -16,17 +16,21 @@ export default function Layout({ children }: IProps) {
 
   if (isAuthenticated && user?.role === 'admin') {
     return (
-      <AdminLayout>
-        {children}
-      </AdminLayout>
+      <ContainerLayout>
+        <AdminLayout>
+          {children}
+        </AdminLayout>
+      </ContainerLayout>
     );
   }
 
   if (isAuthenticated) {
     return (
-      <LayoutLogged>
-        {children}
-      </LayoutLogged>
+      <ContainerLayout>
+        <LayoutLogged>
+          {children}
+        </LayoutLogged>
+      </ContainerLayout>
     );
   }
 
