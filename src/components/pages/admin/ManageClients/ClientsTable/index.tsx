@@ -32,12 +32,6 @@ export default function ClientsTable({ dataSource, onChangeStatus, changingStatu
     },
 
     {
-      title: 'Leads',
-      dataIndex: 'leads',
-      key: 'leads',
-    },
-
-    {
       title: 'Status',
       dataIndex: 'status',
       key: 'status',
@@ -60,14 +54,14 @@ export default function ClientsTable({ dataSource, onChangeStatus, changingStatu
       dataSource={dataSource}
       expandable={{
         expandedRowRender: ({
-          address, cellPhone, type, reasonForInactivation, key,
+          address, cellphone, type, inactivationReason, key,
         }: DataType) => (
           <InformationTable
             dataSource={{
               ...address,
-              cellPhone,
+              cellphone,
               type,
-              reasonForInactivation,
+              inactivationReason,
               key,
             }}
           />

@@ -5,11 +5,10 @@ export interface DataType {
   name: string,
   email: string,
   amountAnnouncements: number,
-  leads: number,
   status: 'active' | 'inactive',
 
-  cellPhone: string,
+  cellphone: string,
   type: 'person' | 'corporation',
   address: Address,
-  reasonForInactivation: string | null,
+  inactivationReason: string | null,
 }
