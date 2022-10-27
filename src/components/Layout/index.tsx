@@ -11,23 +11,27 @@ interface IProps {
 }
 
 export default function Layout({ children }: IProps) {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, user } = useAuth();
   const router = useRouter();
+
+  if (isAuthenticated && user?.role === 'admin') {
+    return (
+      <AdminLayout>
+        {children}
+      </AdminLayout>
+    );
+  }
+
+  if (isAuthenticated) {
+    return (
+      <LayoutLogged>
+        {children}
+      </LayoutLogged>
+    );
+  }
 
   return (
     <ContainerLayout>
-      {(!isAuthenticated && router.pathname.startsWith('/admin')) && (
-        <AdminLayout>
-          {children}
-        </AdminLayout>
-      )}
-
-      {isAuthenticated && (
-        <LayoutLogged>
-          {children}
-        </LayoutLogged>
-      )}
-
       {(!isAuthenticated && !router.pathname.startsWith('/admin')) && (
         <LayoutNotLogged>
           {children}
