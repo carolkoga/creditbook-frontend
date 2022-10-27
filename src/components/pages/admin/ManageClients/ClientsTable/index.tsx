@@ -2,7 +2,7 @@
 import { Switch, Table } from 'antd';
 import { useMemo } from 'react';
 import InformationTable from './InformationTable';
-import { DataType } from './tyoes';
+import { DataType } from './types';
 
 interface IProps {
   dataSource: DataType[] | [],
