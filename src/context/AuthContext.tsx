@@ -115,6 +115,7 @@ export function AuthProvider({ children }: IProps) {
       setUser(JSON.parse(userDataSaved));
       if (token) {
         const { data } = await userCreditbookService.getUserInformation({ token });
+
         setUser({ ...data, password: undefined });
       }
     } else {
