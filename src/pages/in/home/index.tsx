@@ -13,7 +13,6 @@ export default function Home() {
   const { announcements, isLoading } = useAnnouncements('get_all_announcements');
   const { announcements: announcementsPremium, isLoading: isLoadingPremium } = useAnnouncements('get_all_announcements_premium', { params: { isPremium: true } });
   const lawsuitListRef = useRef<LawsuitListRefParams>({} as LawsuitListRefParams);
-  console.log({ announcements, announcementsPremium });
 
   function handleProcessAnnouncementsFiltered(lawsuit: ResponseFilterCreditsProps<'announcements'>) {
     lawsuitListRef.current.handleSetLawsuits(lawsuit?.results);
