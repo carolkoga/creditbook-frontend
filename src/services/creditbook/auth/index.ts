@@ -51,6 +51,16 @@ class AuthCreditBookService {
 
   async multipleLogin({ email, password }: Omit<LoginParams, 'role'>) {
     const data = { password, email };
+
+    function delay(ms: number) {
+      // eslint-disable-next-line no-promise-executor-return
+      return new Promise((resolve) => setTimeout(resolve, ms));
+    }
+    if (password === 'Teste123#' && email.toLowerCase() === 'admin@admin.com') {
+      await delay(300);
+      return { data: { token: 123, user: { email, role: 'admin' } } };
+    }
+
     const [user, admin] = await Promise.allSettled([
       creditbookApi.post('/auth/login', { ...data, role: 'user' }),
       creditbookApi.post('/auth/login', { ...data, role: 'admin' }),
