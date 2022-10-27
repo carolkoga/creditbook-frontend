@@ -10,10 +10,10 @@ import { Link } from '@components/Button';
 import useAnnouncements from '@services/creditbook/lawsuit/hooks/useAnnouncements';
 
 export default function Home() {
-  const { announcements } = useAnnouncements('get_all_announcements');
-  const { announcements: announcementsPremium } = useAnnouncements('get_all_announcements_premium', { params: { isPremium: true } });
+  const { announcements, isLoading } = useAnnouncements('get_all_announcements');
+  const { announcements: announcementsPremium, isLoading: isLoadingPremium } = useAnnouncements('get_all_announcements_premium', { params: { isPremium: true } });
   const lawsuitListRef = useRef<LawsuitListRefParams>({} as LawsuitListRefParams);
-  const { isFiltered } = lawsuitListRef.current;
+  console.log({ announcements, announcementsPremium });
 
   function handleProcessAnnouncementsFiltered(lawsuit: ResponseFilterCreditsProps<'announcements'>) {
     lawsuitListRef.current.handleSetLawsuits(lawsuit?.results);
@@ -24,7 +24,7 @@ export default function Home() {
   }
   return (
     <>
-      {announcementsPremium.results && (
+      {!isLoadingPremium && (
         <Section.Container bg="light">
           <Section.Header>
             <Direction direction="horizontal" alignItems="center">
@@ -41,13 +41,13 @@ export default function Home() {
       <Section.Container>
         <Section.Header>
           <Section.Title as="h3">
-            {!isFiltered && 'Anúncios Gerais'}
-            {isFiltered && 'Anúncios relacionados ao filtro'}
+            {!lawsuitListRef?.current?.isFiltered && 'Anúncios Gerais'}
+            {lawsuitListRef?.current?.isFiltered && 'Anúncios relacionados ao filtro'}
           </Section.Title>
           <FilterDrawer onGetResponseResults={handleProcessAnnouncementsFiltered} />
         </Section.Header>
 
-        {announcements?.results && (
+        {!isLoading && (
           <LawsuitCardList
             ref={lawsuitListRef}
             lawsuits={announcements?.results}

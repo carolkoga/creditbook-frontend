@@ -11,7 +11,6 @@ import useAnnouncements from '@services/creditbook/lawsuit/hooks/useAnnouncement
 export default function BuyAnnouncements() {
   const { announcements, isLoading } = useAnnouncements('get_all_announcements');
   const lawsuitListRef = useRef<LawsuitListRefParams>({} as LawsuitListRefParams);
-  const { isFiltered } = lawsuitListRef.current;
 
   function handleProcessAnnouncementsFiltered(lawsuit: ResponseFilterCreditsProps<'announcements'>) {
     lawsuitListRef.current.handleSetLawsuits(lawsuit?.results);
@@ -25,8 +24,8 @@ export default function BuyAnnouncements() {
     <TabBatchAnnouncement announcementLink="/in/buy-credits" batchLink="/in/buy-credits/batches">
       <Section.Header>
         <Section.Title as="h1">
-          {!isFiltered && 'Comprar anúncios'}
-          {isFiltered && 'Anúncios relacionados ao filtro'}
+          {!lawsuitListRef?.current?.isFiltered && 'Comprar anúncios'}
+          {lawsuitListRef?.current?.isFiltered && 'Anúncios relacionados ao filtro'}
         </Section.Title>
         <FilterDrawer onGetResponseResults={handleProcessAnnouncementsFiltered} />
       </Section.Header>

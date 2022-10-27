@@ -7,9 +7,8 @@ import { Section } from '@components/Section';
 import useAnnouncements from '@services/creditbook/lawsuit/hooks/useAnnouncements';
 
 export default function GalleryPremium() {
-  const { announcements } = useAnnouncements('announcements_premium', { params: { isPremium: true } });
+  const { announcements, isLoading } = useAnnouncements('announcements_premium', { params: { isPremium: true } });
   const lawsuitListRef = useRef<LawsuitListRefParams>({} as LawsuitListRefParams);
-  const { isFiltered } = lawsuitListRef.current;
 
   function handleProcessAnnouncementsFiltered(lawsuit: ResponseFilterCreditsProps<'announcements'>) {
     lawsuitListRef.current.handleSetLawsuits(lawsuit?.results);
@@ -23,14 +22,14 @@ export default function GalleryPremium() {
     <>
       <Section.Header>
         <Section.Title as="h1">
-          {!isFiltered && 'Galeria Premium'}
-          {isFiltered && 'Anúncios relacionados ao filtro'}
+          {!lawsuitListRef?.current?.isFiltered && 'Galeria Premium'}
+          {lawsuitListRef?.current?.isFiltered && 'Anúncios relacionados ao filtro'}
         </Section.Title>
         <FilterDrawer onGetResponseResults={handleProcessAnnouncementsFiltered} />
       </Section.Header>
 
       <Section.Container>
-        {announcements.results && (
+        {!isLoading && (
           <LawsuitCardList
             ref={lawsuitListRef}
             lawsuits={announcements.results}

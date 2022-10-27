@@ -9,7 +9,6 @@ import useUserAnnouncements from '@services/creditbook/lawsuit/hooks/useUserAnno
 export default function MyFavorites() {
   const { announcements, isLoading } = useUserAnnouncements('my_announcements_favorites');
   const lawsuitListRef = useRef<LawsuitListRefParams>({} as LawsuitListRefParams);
-  const { isFiltered } = lawsuitListRef.current;
 
   function handleProcessAnnouncementsFiltered(lawsuit: ResponseFilterCreditsProps<'announcements'>) {
     lawsuitListRef.current.handleSetLawsuits(lawsuit?.results);
@@ -23,14 +22,14 @@ export default function MyFavorites() {
     <>
       <Section.Header>
         <Section.Title as="h1">
-          {!isFiltered && 'Meus anúncios'}
-          {isFiltered && 'Anúncios relacionados ao filtro'}
+          {!lawsuitListRef?.current?.isFiltered && 'Meus favoritos'}
+          {lawsuitListRef?.current?.isFiltered && 'Anúncios relacionados ao filtro'}
         </Section.Title>
         <FilterDrawer onGetResponseResults={handleProcessAnnouncementsFiltered} />
       </Section.Header>
 
       <Section.Container>
-        {isLoading && (
+        {!isLoading && (
           <LawsuitCardList
             ref={lawsuitListRef}
             lawsuits={announcements?.results as never}

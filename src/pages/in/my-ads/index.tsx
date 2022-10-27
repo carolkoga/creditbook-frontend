@@ -20,7 +20,6 @@ interface IProps {
 
 export default function MyAds({ announcements }: IProps) {
   const lawsuitListRef = useRef<LawsuitListRefParams>({} as LawsuitListRefParams);
-  const { isFiltered } = lawsuitListRef.current;
 
   function handleProcessAnnouncementsFiltered(lawsuit: ResponseFilterCreditsProps<'announcements'>) {
     lawsuitListRef.current.handleSetLawsuits(lawsuit?.results);
@@ -31,8 +30,8 @@ export default function MyAds({ announcements }: IProps) {
     <>
       <Section.Header>
         <Section.Title as="h1">
-          {!isFiltered && 'Meus anúncios'}
-          {isFiltered && 'Anúncios relacionados ao filtro'}
+          {!lawsuitListRef?.current?.isFiltered && 'Meus anúncios'}
+          {lawsuitListRef?.current?.isFiltered && 'Anúncios relacionados ao filtro'}
         </Section.Title>
         <FilterDrawer onGetResponseResults={handleProcessAnnouncementsFiltered} />
       </Section.Header>
