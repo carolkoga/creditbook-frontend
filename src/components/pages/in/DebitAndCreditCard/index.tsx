@@ -8,12 +8,12 @@ import { Container, WrapperImage } from './styled';
 interface IProps {
   card: PaymentParams,
   buttonProps?: Omit<IButtonProps, 'children'>,
-  buttonLabel: string,
+  buttonLabel?: string,
 }
 
 export default function DebitAndCreditCard({ card, buttonProps, buttonLabel }: IProps) {
   return (
-    <Container>
+    <Container className="credit__card-container">
       <div className="wrapper__content">
         <WrapperImage>
           <CreditCard size={64} />
@@ -24,13 +24,17 @@ export default function DebitAndCreditCard({ card, buttonProps, buttonLabel }: I
           {card.cardNumber.split(' ').at(-1)}
         </strong>
       </div>
-      <Button size="small" {...buttonProps}>
-        {buttonLabel}
-      </Button>
+
+      {buttonLabel && (
+        <Button size="small" {...buttonProps}>
+          {buttonLabel}
+        </Button>
+      )}
     </Container>
   );
 }
 
 DebitAndCreditCard.defaultProps = {
   buttonProps: {},
+  buttonLabel: '',
 };
