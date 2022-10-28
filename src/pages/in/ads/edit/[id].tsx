@@ -31,6 +31,7 @@ import { lawsuitActionPhase } from '@mocks/ReactSelectOptions/LawsuitActionPhase
 import { courtsOptions } from '@mocks/ReactSelectOptions/CourtsOptions';
 import { lawsuitKind } from '@mocks/ReactSelectOptions/LawsuitKind';
 import { lawsuitCategories } from '@mocks/ReactSelectOptions/LawsuitCategories';
+import ChooseCreditCard from '@components/LawsuitForm/ChooseCreditCard';
 
 interface IProps {
   announcement: LawsuitParams,
@@ -80,6 +81,7 @@ export default function EditLawsuitByIdPage({ announcement }: IProps) {
       kind: lawsuitKind.find((currentKind) => currentKind.value === announcement.kind),
     },
   });
+  const [plan, isPremium] = methods.watch(['plan', 'isPremium']);
   const ownOrAttorneyField = methods.watch('ownOrAttorney');
   const isValidToContinue = methods.watch('income');
 
@@ -128,17 +130,6 @@ export default function EditLawsuitByIdPage({ announcement }: IProps) {
                 <PledgeOrGuarantee />
                 <AcceptNegotiation />
                 <Prices />
-                <ModalToSelectPlan
-                  isVisible={stepForm === '4'}
-                  onBack={() => setStepForm('0')}
-                  loading={loading}
-                  label={!loading ? 'Atualizar' : 'Atualizando'}
-                  defaultValues={{
-                    income: announcement.income,
-                    plan: announcement.plan,
-                    premium: announcement.isPremium,
-                  }}
-                />
                 {ownOrAttorneyField === 'attorney' && (
                   <ProcurationField />
                 )}
@@ -150,6 +141,31 @@ export default function EditLawsuitByIdPage({ announcement }: IProps) {
                   Atualizar
                 </Button>
               </div>
+
+              <ChooseCreditCard
+                isVisible={stepForm === '5'}
+                onBack={() => setStepForm('4')}
+                loading={loading}
+                label={!loading ? 'Cadastrar' : 'Cadastrando'}
+              />
+
+              <ModalToSelectPlan isVisible={stepForm === '4'}>
+                <button type="button" onClick={() => setStepForm('0')}>
+                  Voltar
+                </button>
+
+                {(plan === 'byPercent' && isPremium === '0') && (
+                  <Button isLoading={loading} type="submit">
+                    {!loading ? 'Cadastrar' : 'Cadastrando'}
+                  </Button>
+                )}
+
+                {(plan !== 'byPercent' || isPremium === '1') && (
+                  <Button isLoading={loading} type="button" onClick={() => setStepForm('5')}>
+                    Escolher pagamento
+                  </Button>
+                )}
+              </ModalToSelectPlan>
             </FormLayout>
           </LawsuitFormProvider>
         </FormProvider>

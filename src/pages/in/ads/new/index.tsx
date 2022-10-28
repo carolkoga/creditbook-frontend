@@ -25,6 +25,7 @@ import { NewLawsuitParams } from '@type/creditbook/Lawsuits';
 import { handleCatchErrorRequest } from '@utils/handleCatchErrorRequest';
 import ProcurationField from '@components/LawsuitForm/ProcurationField';
 import ModalToSelectPlan from '@components/LawsuitForm/ModalToSelectPlan';
+import ChooseCreditCard from '@components/LawsuitForm/ChooseCreditCard';
 
 export default function NewLawsuit() {
   const router = useRouter();
@@ -44,6 +45,7 @@ export default function NewLawsuit() {
   });
   const ownOrAttorneyField = methods.watch('ownOrAttorney');
   const isValidToContinue = methods.watch('income');
+  const [plan, isPremium] = methods.watch(['plan', 'isPremium']);
 
   function handleNavigateToHome() {
     router.push('/in/home');
@@ -91,12 +93,6 @@ export default function NewLawsuit() {
                 <PledgeOrGuarantee />
                 <AcceptNegotiation />
                 <Prices />
-                <ModalToSelectPlan
-                  isVisible={stepForm === '4'}
-                  onBack={() => setStepForm('0')}
-                  loading={loading}
-                  label={!loading ? 'Cadastrar' : 'Cadastrando'}
-                />
                 {ownOrAttorneyField === 'attorney' && (
                   <ProcurationField />
                 )}
@@ -108,6 +104,31 @@ export default function NewLawsuit() {
                   Escolher o plano
                 </Button>
               </div>
+
+              <ChooseCreditCard
+                isVisible={stepForm === '5'}
+                onBack={() => setStepForm('4')}
+                loading={loading}
+                label={!loading ? 'Cadastrar' : 'Cadastrando'}
+              />
+
+              <ModalToSelectPlan isVisible={stepForm === '4'}>
+                <button type="button" onClick={() => setStepForm('0')}>
+                  Voltar
+                </button>
+
+                {(plan === 'byPercent' && isPremium === '0') && (
+                  <Button isLoading={loading} type="submit">
+                    {!loading ? 'Cadastrar' : 'Cadastrando'}
+                  </Button>
+                )}
+
+                {(plan !== 'byPercent' || isPremium === '1') && (
+                  <Button isLoading={loading} type="button" onClick={() => setStepForm('5')}>
+                    Escolher pagamento
+                  </Button>
+                )}
+              </ModalToSelectPlan>
             </FormLayout>
           </LawsuitFormProvider>
         </FormProvider>

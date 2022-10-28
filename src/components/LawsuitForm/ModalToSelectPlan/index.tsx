@@ -1,8 +1,7 @@
-import { Button } from '@components/Button';
 import { Overlay } from '@components/Overlay';
 import { Section } from '@components/Section';
 import convertToCurrency from '@utils/convertToCurrency';
-import { useMemo, useState } from 'react';
+import { ReactNode, useMemo, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 
 import {
@@ -16,9 +15,7 @@ import {
 
 interface IProps {
   isVisible: boolean,
-  loading?: boolean,
-  onBack: () => void,
-  label: string,
+  children?: ReactNode,
   defaultValues?: {
     income: number,
     plan: string,
@@ -27,7 +24,7 @@ interface IProps {
 }
 
 export default function ModalToSelectPlan({
-  isVisible, loading, label, onBack, defaultValues,
+  isVisible, defaultValues, children,
 }: IProps) {
   const { setValue, watch } = useFormContext();
   const income: string = watch('income');
@@ -81,14 +78,13 @@ export default function ModalToSelectPlan({
   const [isPremium, setIsPremium] = useState<boolean>(defaultValues?.premium ?? false);
   const subtotal = useMemo(() => {
     let subtotalPremium = 0;
-
     if (isPremium) {
-      subtotalPremium = price * 2;
+      subtotalPremium = price;
     }
 
     if (price === 180) return `${convertToCurrency(subtotalPremium + price)} + 8%`;
 
-    if (isPremium && byPercent) return `${convertToCurrency(subtotalPremium + price)} + 8%`;
+    if (isPremium && byPercent) return `${convertToCurrency(subtotalPremium)} + 8%`;
 
     if (isPremium) return convertToCurrency(subtotalPremium + price);
 
@@ -115,7 +111,7 @@ export default function ModalToSelectPlan({
 
   function handleSelectPremium() {
     setIsPremium((oldState) => !oldState);
-    setValue('isPremium', isPremium ? '1' : '0');
+    setValue('isPremium', isPremium ? '0' : '1');
   }
 
   return (
@@ -220,13 +216,7 @@ export default function ModalToSelectPlan({
           </CheckoutContainer>
 
           <Actions>
-            <button type="button" onClick={() => onBack()}>
-              Voltar
-            </button>
-
-            <Button type="submit" isLoading={loading}>
-              {label}
-            </Button>
+            {children}
           </Actions>
         </Container>
       </Section.Container>
@@ -235,6 +225,6 @@ export default function ModalToSelectPlan({
 }
 
 ModalToSelectPlan.defaultProps = {
-  loading: false,
   defaultValues: null,
+  children: null,
 };
