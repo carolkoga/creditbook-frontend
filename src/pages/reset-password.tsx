@@ -52,7 +52,7 @@ export default function ResetPssword() {
     try {
       setLoading(true);
       await resetPasswordService.resetPassword({ ...resetParams, token });
-      toast.success('Verifique o seu e-mail para continuar!', { position: 'bottom-center' });
+      toast.success('Senha alterada com sucesso!', { position: 'bottom-center' });
       setFormStep(1);
       router.push('/login');
     } catch (error) {
