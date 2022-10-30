@@ -72,18 +72,30 @@ export function AuthProvider({ children }: IProps) {
         path: '/',
       });
 
-      if (
-        (Router.asPath === '/login'
-        && userSignIn.role === 'user'
-        && !Router.asPath.startsWith('/in'))
-        || Router.asPath === '/'
-        || Router.asPath === '/sign-up') {
-        Router.push('/in/home');
-      } else if (Router.asPath === '/login' && userSignIn.role === 'admin' && !Router.asPath.startsWith('/admin')) {
-        Router.push('/admin/dashboard');
-      } else {
-        Router.push(Router.asPath);
+      if (userSignIn.role === 'user') {
+        if (Router.asPath === '/login') {
+          Router.replace('/in/home');
+        }
+
+        if (Router.asPath !== '/login' || !Router.asPath.startsWith('/in') || !Router.pathname.startsWith('/in')) {
+          Router.replace('/in/home');
+        }
+
+        Router.replace(Router.asPath);
       }
+
+      if (userSignIn.role === 'admin') {
+        if (Router.asPath === '/login') {
+          Router.replace('/admin/dashboard');
+        }
+
+        if (Router.asPath !== '/login' || !Router.asPath.startsWith('/admin') || !Router.pathname.startsWith('/admin')) {
+          Router.replace('/admin/dashboard');
+        }
+
+        Router.replace(Router.asPath);
+      }
+
       setUser(userSignIn);
       setAuthorizationHeader(token);
 
