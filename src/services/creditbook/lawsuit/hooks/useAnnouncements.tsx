@@ -8,6 +8,9 @@ export default function useAnnouncements(key: string, options?: QueriesToIndexAn
     async () => (
       await lawsuitService.listAll(options)
     ).data,
+    {
+      revalidateIfStale: true,
+    },
   );
 
   return {
