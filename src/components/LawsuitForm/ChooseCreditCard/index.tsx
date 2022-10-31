@@ -63,7 +63,10 @@ export default function ChooseCreditCard({
         <Container>
           <Section.Header>
             <Section.Title>Pagamento</Section.Title>
-            <Button type="button" onClick={handleOpenVisibilityCreditCardModal}>Novo Cartão</Button>
+
+            {(!payments || payments.length <= 0) && (
+              <Button type="button" onClick={handleOpenVisibilityCreditCardModal}>Novo Cartão</Button>
+            )}
           </Section.Header>
 
           <Section.Container>
@@ -79,11 +82,24 @@ export default function ChooseCreditCard({
                       type="radio"
                       id={payment.id}
                       value={payment.id}
-                      {...register('creditCard')}
+                      {...register('paymentMethodId')}
                     />
                   </RadioButton>
                 </li>
               ))}
+
+              {!(!isValidating && payments) && (
+                <Section.Title
+                  as="p"
+                  textColor="dark"
+                  style={{
+                    textAlign: 'left',
+                    fontSize: '18px',
+                  }}
+                >
+                  Cadastre um cartão para continuar
+                </Section.Title>
+              )}
             </ListContainerPayment>
           </Section.Container>
 

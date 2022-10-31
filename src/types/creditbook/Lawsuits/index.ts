@@ -71,6 +71,7 @@ export interface NewLawsuitParams extends LawsuitFiles, Omit<Lawsuit, 'batchId' 
   acceptNegotiation: '1' | '0';
   isFavorite: '1' | '0';
   isPremium: '1' | '0';
+  paymentMethodId: string;
 }
 
 export interface UpdateLawsuitParams extends NewLawsuitParams {

@@ -29,6 +29,18 @@ export const newLawsuitSchemaValidation = yup.object().shape({
     .transform((val: any) => val.value),
 
   plan: yup.string().required(),
+  paymentMethodId: yup
+    .mixed()
+    .when(['plan,', 'isPremium'], {
+      is: (plan: 'byPercent' | 'both' | 'byMonth', isPremium: '1' | '0') => {
+        if (plan !== 'byPercent' || isPremium === '1') {
+          return true;
+        }
+
+        return false;
+      },
+      then: (schema: MixedSchema) => schema.required(),
+    }),
 
   city: yup.mixed()
     .transform((val: any) => val.value)
