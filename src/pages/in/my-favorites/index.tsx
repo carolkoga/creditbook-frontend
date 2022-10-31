@@ -1,40 +1,45 @@
-import { useRef } from 'react';
-
 import { FilterDrawer, ResponseFilterCreditsProps } from '@components/FilterDrawer';
-import LawsuitCardList, { LawsuitListRefParams } from '@components/LawsuitCard';
 import { Section } from '@components/Section';
 
-import useUserAnnouncements from '@services/creditbook/lawsuit/hooks/useUserAnnouncements';
+import useAnnouncements from '@services/creditbook/lawsuit/hooks/useAnnouncements';
+import useAuth from '@hooks/useAuth';
+import AnnouncementList from '@components/LawsuitCard';
 
 export default function MyFavorites() {
-  const { announcements, isLoading } = useUserAnnouncements('my_announcements_favorites');
-  const lawsuitListRef = useRef<LawsuitListRefParams>({} as LawsuitListRefParams);
+  const { user } = useAuth();
+  const response = useAnnouncements({
+    params: {
+      userId: user?.id,
+      isFavorite: true,
+    },
+  });
 
-  function handleProcessAnnouncementsFiltered(lawsuit: ResponseFilterCreditsProps<'announcements'>) {
-    lawsuitListRef.current.handleSetLawsuits(lawsuit?.results);
-    lawsuitListRef.current.handleSetPagination({
-      total: lawsuit?.pages,
-    });
-    lawsuitListRef.current.handleIsFiltered(true);
+  function handleProcessAnnouncementsFiltered(lawsuit: ResponseFilterCreditsProps) {
+    response.mutate(lawsuit as never);
+    if (lawsuit.results.length <= 0) {
+      response.mutateIsFiltered(false);
+    }
+    response.mutateIsFiltered(true);
   }
 
   return (
     <>
       <Section.Header>
         <Section.Title as="h1">
-          {!lawsuitListRef?.current?.isFiltered && 'Meus favoritos'}
-          {lawsuitListRef?.current?.isFiltered && 'Anúncios relacionados ao filtro'}
+          {!response.isFiltered && 'Meus favoritos'}
+          {response.isFiltered && 'Anúncios relacionados ao filtro'}
         </Section.Title>
-        <FilterDrawer onGetResponseResults={handleProcessAnnouncementsFiltered} />
+        <FilterDrawer
+          onGetResponseResults={handleProcessAnnouncementsFiltered}
+          customQuery={{
+            userId: user?.id,
+            isFavorite: true,
+          }}
+        />
       </Section.Header>
 
       <Section.Container>
-        {!isLoading && (
-          <LawsuitCardList
-            ref={lawsuitListRef}
-            lawsuits={announcements?.results as never}
-          />
-        )}
+        <AnnouncementList {...response} />
       </Section.Container>
     </>
   );

@@ -1,6 +1,4 @@
-import { useRef } from 'react';
-
-import LawsuitCardList, { LawsuitListRefParams } from '@components/LawsuitCard';
+import AnnouncementList from '@components/LawsuitCard';
 import LawsuitCardSwiper from '@components/LawsuitCard/LawsuitCardSwiper/index';
 import { Section } from '@components/Section';
 
@@ -10,16 +8,18 @@ import { Link } from '@components/Button';
 import useAnnouncements from '@services/creditbook/lawsuit/hooks/useAnnouncements';
 
 export default function Home() {
-  const { announcements, isLoading } = useAnnouncements('get_all_announcements');
-  const { announcements: announcementsPremium, isLoading: isLoadingPremium } = useAnnouncements('get_all_announcements_premium', { params: { isPremium: true } });
-  const lawsuitListRef = useRef<LawsuitListRefParams>({} as LawsuitListRefParams);
+  const response = useAnnouncements();
+  const {
+    announcements: announcementsPremium,
+    isLoading: isLoadingPremium,
+  } = useAnnouncements({ params: { isPremium: true } });
 
-  function handleProcessAnnouncementsFiltered(lawsuit: ResponseFilterCreditsProps<'announcements'>) {
-    lawsuitListRef.current.handleSetLawsuits(lawsuit?.results);
-    lawsuitListRef.current.handleSetPagination({
-      total: lawsuit?.pages,
-    });
-    lawsuitListRef.current.handleIsFiltered(true);
+  function handleProcessAnnouncementsFiltered(lawsuit: ResponseFilterCreditsProps) {
+    response.mutate(lawsuit as never);
+    if (lawsuit.results.length <= 0) {
+      response.mutateIsFiltered(false);
+    }
+    response.mutateIsFiltered(true);
   }
   return (
     <>
@@ -40,20 +40,13 @@ export default function Home() {
       <Section.Container>
         <Section.Header>
           <Section.Title as="h3">
-            {!lawsuitListRef?.current?.isFiltered && 'Anúncios Gerais'}
-            {lawsuitListRef?.current?.isFiltered && 'Anúncios relacionados ao filtro'}
+            {!response.isFiltered && 'Anúncios Gerais'}
+            {response.isFiltered && 'Anúncios relacionados ao filtro'}
           </Section.Title>
           <FilterDrawer onGetResponseResults={handleProcessAnnouncementsFiltered} />
         </Section.Header>
 
-        {!isLoading && (
-          <LawsuitCardList
-            ref={lawsuitListRef}
-            lawsuits={announcements?.results}
-            pagination={{ total: announcements?.pages }}
-          />
-        )}
-
+        <AnnouncementList {...response} />
       </Section.Container>
     </>
   );

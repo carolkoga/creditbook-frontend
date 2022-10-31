@@ -1,7 +1,5 @@
-import { useRef } from 'react';
-
 import { FilterDrawer, ResponseFilterCreditsProps } from '@components/FilterDrawer';
-import LawsuitCardList, { LawsuitListRefParams } from '@components/LawsuitCard';
+import AnnouncementList from '@components/LawsuitCard';
 
 import { Section } from '@components/Section';
 import TabBatchAnnouncement from '@components/TabBatchAnnouncement';
@@ -9,35 +7,28 @@ import TabBatchAnnouncement from '@components/TabBatchAnnouncement';
 import useAnnouncements from '@services/creditbook/lawsuit/hooks/useAnnouncements';
 
 export default function BuyAnnouncements() {
-  const { announcements, isLoading } = useAnnouncements('get_all_announcements');
-  const lawsuitListRef = useRef<LawsuitListRefParams>({} as LawsuitListRefParams);
+  const response = useAnnouncements();
 
   function handleProcessAnnouncementsFiltered(lawsuit: ResponseFilterCreditsProps<'announcements'>) {
-    lawsuitListRef.current.handleSetLawsuits(lawsuit?.results);
-    lawsuitListRef.current.handleSetPagination({
-      total: lawsuit?.pages,
-    });
-    lawsuitListRef.current.handleIsFiltered(true);
+    response.mutate(lawsuit as never);
+    if (lawsuit.results.length <= 0) {
+      response.mutateIsFiltered(false);
+    }
+    response.mutateIsFiltered(true);
   }
 
   return (
     <TabBatchAnnouncement announcementLink="/in/buy-credits" batchLink="/in/buy-credits/batches">
       <Section.Header>
         <Section.Title as="h1">
-          {!lawsuitListRef?.current?.isFiltered && 'Comprar anúncios'}
-          {lawsuitListRef?.current?.isFiltered && 'Anúncios relacionados ao filtro'}
+          {!response.isFiltered && 'Comprar anúncios'}
+          {response.isFiltered && 'Anúncios relacionados ao filtro'}
         </Section.Title>
         <FilterDrawer onGetResponseResults={handleProcessAnnouncementsFiltered} />
       </Section.Header>
 
       <Section.Container>
-        {!isLoading && (
-          <LawsuitCardList
-            ref={lawsuitListRef}
-            lawsuits={announcements.results}
-            pagination={{ total: announcements.pages }}
-          />
-        )}
+        <AnnouncementList {...response} />
       </Section.Container>
     </TabBatchAnnouncement>
   );
