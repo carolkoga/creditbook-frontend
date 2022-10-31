@@ -43,6 +43,7 @@ export interface QueriesToIndexAnnouncements {
     type?: 'single' | 'batch';
 
     batchId?: string;
+    userId?: string;
 
     page?: number;
     perPage?: number;
