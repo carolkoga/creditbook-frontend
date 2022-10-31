@@ -2,6 +2,7 @@
 import { QueriesToIndexAnnouncements } from '@type/creditbook';
 import { ResponseListAllAnnouncements } from '@type/creditbook/Lawsuits';
 import { AxiosInstance } from 'axios';
+import { LawsuitParams } from '../../../types/creditbook/Lawsuits/index';
 import { HttpClient } from '../http';
 
 export class LawsuitService extends HttpClient {
@@ -23,12 +24,8 @@ export class LawsuitService extends HttpClient {
     });
   }
 
-  async listAnnouncementsUser(options?: QueriesToIndexAnnouncements) {
-    return await this.httpClient.get<ResponseListAllAnnouncements>('/announcement/user', {
-      params: {
-        ...options?.params,
-      },
-    });
+  async listAnnouncementsUser() {
+    return await this.httpClient.get<LawsuitParams[]>('/announcement/user');
   }
 
   async createLawsuit(data: any) {
