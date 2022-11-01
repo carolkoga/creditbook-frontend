@@ -24,4 +24,8 @@ export const sectionTextColors = {
   dark: css`
     color: ${({ theme }) => theme.colors.grey[50]};
   `,
+
+  white: css`
+    color: ${({ theme }) => theme.colors.grey[10]};
+  `,
 };

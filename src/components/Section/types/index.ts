@@ -5,7 +5,7 @@ export interface SectionContainerProps {
 }
 
 export interface SectionTitleProps {
-  textColor?: 'default' | 'secondary' | 'dark'
+  textColor?: 'default' | 'secondary' | 'dark' | 'white'
 }
 
 export interface HeaderSectionProps {
