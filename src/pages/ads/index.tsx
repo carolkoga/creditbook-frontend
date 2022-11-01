@@ -1,21 +1,22 @@
 import { GetServerSideProps } from 'next';
 
-import LawsuitCardList from '@components/LawsuitCard';
-import { PaginationLawsuitProps } from '@components/LawsuitCard/types/Props';
+import AnnouncementList from '@components/LawsuitCard';
 
 import { Section } from '@components/Section';
 import TabBatchAnnouncement from '@components/TabBatchAnnouncement';
 import { lawsuitService } from '@services/creditbook/lawsuit';
-import { LawsuitParams } from '@type/creditbook/Lawsuits';
+import { ResponseListAllAnnouncements } from '@type/creditbook/Lawsuits';
+import useAnnouncements from '@services/creditbook/lawsuit/hooks/useAnnouncements';
 
 interface IProps {
   announcements: {
-    result: LawsuitParams[],
-    pagination: PaginationLawsuitProps
+    results: ResponseListAllAnnouncements['announcements'],
+    pages: ResponseListAllAnnouncements['pages']
   }
 }
 
 export default function SingleLawsuits({ announcements }: IProps) {
+  const response = useAnnouncements(announcements);
   return (
     <TabBatchAnnouncement batchLink="/batches" announcementLink="/ads">
       <Section.Header>
@@ -23,7 +24,7 @@ export default function SingleLawsuits({ announcements }: IProps) {
       </Section.Header>
 
       <Section.Container>
-        <LawsuitCardList lawsuits={announcements.result} pagination={announcements.pagination} />
+        <AnnouncementList {...response} />
       </Section.Container>
     </TabBatchAnnouncement>
   );
@@ -36,11 +37,8 @@ export const getServerSideProps: GetServerSideProps = async () => {
   return {
     props: {
       announcements: {
-        result: data.announcements,
-        pagination: {
-          total: data.pages,
-          perPage: perPageAnnouncements,
-        },
+        results: data.announcements,
+        pages: data.pages,
       },
     },
   };

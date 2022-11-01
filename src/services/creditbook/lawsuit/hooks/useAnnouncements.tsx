@@ -23,10 +23,11 @@ export interface IUseAnnouncementResponse {
 }
 
 export default function useAnnouncements(
+  defaultValue?: AnnouncementResponse,
   fetcherOptions?: QueriesToIndexAnnouncements,
 ): IUseAnnouncementResponse {
   const [currentAnnouncements,
-    setCurrentAnnouncements] = useState({} as AnnouncementResponse);
+    setCurrentAnnouncements] = useState(defaultValue as AnnouncementResponse);
   const [isFiltered, setIsFiltered] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const loadAnnouncements = useCallback(async (page?: number) => {

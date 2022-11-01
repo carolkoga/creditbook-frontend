@@ -7,7 +7,7 @@ import AnnouncementList from '@components/LawsuitCard';
 
 export default function MyFavorites() {
   const { user } = useAuth();
-  const response = useAnnouncements({
+  const response = useAnnouncements(undefined, {
     params: {
       userId: user?.id,
       isFavorite: true,

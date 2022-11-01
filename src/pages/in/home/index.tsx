@@ -12,7 +12,7 @@ export default function Home() {
   const {
     announcements: announcementsPremium,
     isLoading: isLoadingPremium,
-  } = useAnnouncements({ params: { isPremium: true } });
+  } = useAnnouncements(undefined, { params: { isPremium: true } });
 
   function handleProcessAnnouncementsFiltered(lawsuit: ResponseFilterCreditsProps) {
     response.mutate(lawsuit as never);
@@ -23,7 +23,7 @@ export default function Home() {
   }
   return (
     <>
-      {!isLoadingPremium && (
+      {(!isLoadingPremium && announcementsPremium && announcementsPremium?.results) && (
         <Section.Container bg="light">
           <Section.Header>
             <Direction direction="horizontal" alignItems="center">

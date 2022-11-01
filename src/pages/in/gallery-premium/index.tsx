@@ -1,42 +1,35 @@
-import { useRef } from 'react';
-
 import { FilterDrawer, ResponseFilterCreditsProps } from '@components/FilterDrawer';
-import LawsuitCardList, { LawsuitListRefParams } from '@components/LawsuitCard';
+import LawsuitCardList from '@components/LawsuitCard';
 
 import { Section } from '@components/Section';
 import useAnnouncements from '@services/creditbook/lawsuit/hooks/useAnnouncements';
 
 export default function GalleryPremium() {
-  const { announcements, isLoading } = useAnnouncements('announcements_premium', { params: { isPremium: true } });
-  const lawsuitListRef = useRef<LawsuitListRefParams>({} as LawsuitListRefParams);
+  const response = useAnnouncements(undefined, { params: { isPremium: true } });
 
   function handleProcessAnnouncementsFiltered(lawsuit: ResponseFilterCreditsProps<'announcements'>) {
-    lawsuitListRef.current.handleSetLawsuits(lawsuit?.results);
-    lawsuitListRef.current.handleSetPagination({
-      total: lawsuit?.pages,
-    });
-    lawsuitListRef.current.handleIsFiltered(true);
+    response.mutate(lawsuit as never);
+    if (lawsuit.results.length <= 0) {
+      response.mutateIsFiltered(false);
+    }
+    response.mutateIsFiltered(true);
   }
 
   return (
     <>
       <Section.Header>
         <Section.Title as="h1">
-          {!lawsuitListRef?.current?.isFiltered && 'Galeria Premium'}
-          {lawsuitListRef?.current?.isFiltered && 'Anúncios relacionados ao filtro'}
+          {!response?.isFiltered && 'Galeria Premium'}
+          {response?.isFiltered && 'Anúncios relacionados ao filtro'}
         </Section.Title>
-        <FilterDrawer onGetResponseResults={handleProcessAnnouncementsFiltered} />
+        <FilterDrawer
+          onGetResponseResults={handleProcessAnnouncementsFiltered}
+          customQuery={{ isPremium: true }}
+        />
       </Section.Header>
 
       <Section.Container>
-        {!isLoading && (
-          <LawsuitCardList
-            ref={lawsuitListRef}
-            lawsuits={announcements.results}
-            pagination={{ total: announcements.pages }}
-            customQuery={{ isPremium: true }}
-          />
-        )}
+        <LawsuitCardList {...response} />
       </Section.Container>
     </>
   );

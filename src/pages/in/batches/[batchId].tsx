@@ -15,34 +15,31 @@ import { WrapperActionsForm } from '@styles/pages/in/batches';
 import AlertModal from '@components/AlertModal';
 import { toast } from 'react-toastify';
 import { handleCatchErrorRequest } from '@utils/handleCatchErrorRequest';
-import { lawsuitService } from '@services/creditbook/lawsuit';
-import { LawsuitParams } from '@type/creditbook/Lawsuits';
 import LawsuitCardList from '@components/LawsuitCard';
-import { PaginationLawsuitProps } from '@components/LawsuitCard/types/Props';
+import useAnnouncements from '@services/creditbook/lawsuit/hooks/useAnnouncements';
 
 interface IProps {
-  initialBatch: BatchParams,
-  announcementsInBatch: {
-    result: LawsuitParams[],
-    pagination: PaginationLawsuitProps,
-  },
-
-  announcements: {
-    result: LawsuitParams[],
-    pagination: PaginationLawsuitProps,
-  },
+  initialBatch: BatchParams
 }
 
 export default function ShowBatchPage({
   initialBatch,
-  announcementsInBatch,
-  announcements,
 }: IProps) {
   const router = useRouter();
   const [batch, setBatch] = useState(initialBatch);
   const [modalBatchBeingDelete, setModalBatchBeingDelete] = useState<boolean>(false);
   const [deletingLoading, setDeletingLoading] = useState<boolean>(false);
   const [updatingLoading, setUpdatingLoading] = useState<boolean>(false);
+  const announcementsInBatch = useAnnouncements(undefined, {
+    params: {
+      batchId: router.query.batchId as string,
+    },
+  });
+  const announcementsResponse = useAnnouncements(undefined, {
+    params: {
+      type: 'single',
+    },
+  });
 
   const methods = useForm<NewBatchParams>({
     defaultValues: {
@@ -137,11 +134,11 @@ export default function ShowBatchPage({
         </Direction>
       </Section.Container>
 
-      {announcementsInBatch.result.length !== 0 && (
+      {announcementsInBatch.announcements.results?.length !== 0 && (
         <Section.Container>
           <Section.Title>Anúncios desse lote</Section.Title>
           <LawsuitCardList
-            lawsuits={announcementsInBatch.result}
+            {...announcementsInBatch}
             lawsuitCardProps={{
               moreAboutOnly: true,
             }}
@@ -149,11 +146,11 @@ export default function ShowBatchPage({
         </Section.Container>
       )}
 
-      {announcements.result.length !== 0 && (
+      {announcementsResponse.announcements.results?.length !== 0 && (
         <Section.Container>
           <Section.Title>Adicionar Anúncios ao lote</Section.Title>
           <LawsuitCardList
-            lawsuits={announcements.result}
+            {...announcementsResponse}
             lawsuitCardProps={{
               addToBatchId: batch.id,
             }}
@@ -183,33 +180,10 @@ export const getServerSideProps: GetServerSideProps<IProps> = async ({ query, re
   const api = setupAPIClient(req.cookies['nextauth.token']);
   const batchService = new BatchServices(api);
   const { data } = await batchService.show(query.batchId as string);
-  const { data: announcementsInBatch } = await lawsuitService.listAll({
-    params: {
-      batchId: data.id,
-    },
-  });
-  const { data: announcements } = await lawsuitService.listAll({
-    params: {
-      type: 'single',
-    },
-  });
 
   return {
     props: {
       initialBatch: data,
-      announcementsInBatch: {
-        result: announcementsInBatch.announcements,
-        pagination: {
-          total: announcementsInBatch.pages,
-        },
-      },
-
-      announcements: {
-        result: announcements.announcements,
-        pagination: {
-          total: announcements.pages,
-        },
-      },
     },
   };
 };
