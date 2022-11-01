@@ -21,7 +21,7 @@ export default function NewCreditCard({
 
   return (
     <ReactPortal>
-      <Overlay>
+      <Overlay style={{ zIndex: 1000 }}>
         <Content>
           <CreditCardForm title={title} onSubmit={onSubmit}>
             <Direction direction="horizontal" gap="5px" className="actions">
