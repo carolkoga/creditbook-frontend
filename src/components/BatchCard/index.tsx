@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-useless-fragment */
 import { ListBatches } from '@components/ListBatches';
 import NotFoundData, { NotFoundDataProps } from '@components/NotFoundData';
 import useAuth from '@hooks/useAuth';
@@ -13,6 +14,12 @@ interface IProps {
 export default function BatchesList({ customMine, batches, notFoundProps }: IProps) {
   const { user } = useAuth();
 
+  if (batches?.length <= 0) {
+    return (
+      <NotFoundData title="Não existe dados cadastrados" reloadPage {...notFoundProps} />
+    );
+  }
+
   return (
     <>
       {batches?.length > 0 && (
@@ -25,10 +32,6 @@ export default function BatchesList({ customMine, batches, notFoundProps }: IPro
             />
           ))}
         </ListBatches>
-      )}
-
-      {batches?.length <= 0 && (
-        <NotFoundData title="Não existe dados cadastrados" reloadPage {...notFoundProps} />
       )}
     </>
   );

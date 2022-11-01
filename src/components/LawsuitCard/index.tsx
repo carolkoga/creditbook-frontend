@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
 import { Pagination } from 'antd';
 
-import { Direction } from '@components/Direction';
 import { ListLayoutSingleLawsuits } from '@components/ListsLayout';
-import { Section } from '@components/Section';
 
 import { AnnouncementResponse } from '@services/creditbook/lawsuit/hooks/useAnnouncements';
 
 import { LawsuitParams } from '@type/creditbook/Lawsuits';
 
+import NotFoundData, { NotFoundDataProps } from '@components/NotFoundData';
 import LawsuitCard from './Card';
 import { LawsuitCardProps } from './types/Props';
 
@@ -23,6 +22,7 @@ interface IProps {
   isFiltered?: boolean,
   isLoading: boolean,
   announcements: AnnouncementResponse,
+  notFoundProps?: NotFoundDataProps
 }
 
 export default function AnnouncementList({
@@ -30,6 +30,7 @@ export default function AnnouncementList({
   announcements,
   isLoading,
   loadMoreAnnouncement,
+  notFoundProps,
 }: IProps) {
   const [page, setPage] = useState(1);
 
@@ -44,9 +45,7 @@ export default function AnnouncementList({
 
   if (announcements?.results?.length <= 0 || !announcements?.results) {
     return (
-      <Direction style={{ width: '100%', height: '98%' }} alignItems="center" justifyContent="center">
-        <Section.Title>Ops, não foi possível encontrar nenhum anúncio</Section.Title>
-      </Direction>
+      <NotFoundData title="Não existe dados cadastrados" reloadPage {...notFoundProps} />
     );
   }
 
@@ -79,4 +78,5 @@ AnnouncementList.defaultProps = {
   isFiltered: null,
   mutateIsFiltered: () => {},
   loadMoreAnnouncement: () => {},
+  notFoundProps: null,
 };
