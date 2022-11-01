@@ -22,7 +22,8 @@ interface IProps {
   isFiltered?: boolean,
   isLoading: boolean,
   announcements: AnnouncementResponse,
-  notFoundProps?: NotFoundDataProps
+  notFoundProps?: NotFoundDataProps,
+  error?: boolean
 }
 
 export default function AnnouncementList({
@@ -31,6 +32,7 @@ export default function AnnouncementList({
   isLoading,
   loadMoreAnnouncement,
   notFoundProps,
+  error,
 }: IProps) {
   const [page, setPage] = useState(1);
 
@@ -44,6 +46,15 @@ export default function AnnouncementList({
   if (isLoading) return <span>Loading...</span>;
 
   if (announcements?.results?.length <= 0 || !announcements?.results) {
+    if (error) {
+      return (
+        <NotFoundData
+          title="Aconteceu algum erro para pegar os dados"
+          reloadPage
+        />
+      );
+    }
+
     return (
       <NotFoundData title="Não existe dados cadastrados" reloadPage {...notFoundProps} />
     );
@@ -79,4 +90,5 @@ AnnouncementList.defaultProps = {
   mutateIsFiltered: () => {},
   loadMoreAnnouncement: () => {},
   notFoundProps: null,
+  error: false,
 };

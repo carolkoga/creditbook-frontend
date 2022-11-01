@@ -19,7 +19,8 @@ export interface IUseAnnouncementResponse {
   isFiltered: boolean,
   announcements: AnnouncementResponse,
   // eslint-disable-next-line no-unused-vars
-  loadMoreAnnouncement: (page?: number) => void
+  loadMoreAnnouncement: (page?: number) => void,
+  error: boolean
 }
 
 export default function useAnnouncements(
@@ -30,6 +31,8 @@ export default function useAnnouncements(
     setCurrentAnnouncements] = useState(defaultValue as AnnouncementResponse);
   const [isFiltered, setIsFiltered] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(false);
+
   const loadAnnouncements = useCallback(async (page?: number) => {
     try {
       setIsLoading(true);
@@ -43,6 +46,8 @@ export default function useAnnouncements(
         pages: response.data.pages,
         results: response.data.announcements,
       });
+    } catch {
+      setError(true);
     } finally {
       setIsLoading(false);
     }
@@ -59,5 +64,6 @@ export default function useAnnouncements(
     isFiltered,
     announcements: currentAnnouncements,
     loadMoreAnnouncement: (page?: number) => loadAnnouncements(page),
+    error,
   };
 }
