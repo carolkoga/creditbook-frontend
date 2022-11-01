@@ -12,7 +12,7 @@ class IugoServices {
     const response = await iugoApi.post('/payment_token', {
       accountId: '3A43493BB13D9C30362A6FF0175329AE',
       method: 'credit_card',
-      test: true,
+      test: false,
       data: {
         number: creditCard.cardNumber,
         verification_value: creditCard.secureCode,
