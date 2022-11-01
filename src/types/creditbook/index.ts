@@ -30,6 +30,12 @@ export interface ContactAnnouncerParams {
   message: string,
   type: 'batch' | 'announcement',
   creditId: string,
+  name: string,
+}
+
+export interface ContactSupportParams extends Omit<ContactAnnouncerParams, 'userId' | 'type' | 'creditId'> {
+  subject: string,
+  email: string,
 }
 
 export interface PersonSearchParams {
