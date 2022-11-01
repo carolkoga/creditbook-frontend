@@ -19,7 +19,7 @@ interface IReloadPage {
 type UnionTypes = LinkAction | IReloadPage;
 
 export type NotFoundDataProps = UnionTypes & {
-  title: string,
+  title?: string,
   children?: ReactNode,
 }
 
@@ -64,4 +64,5 @@ export default function NotFoundData(props: NotFoundDataProps) {
 
 NotFoundData.defaultProps = {
   children: null,
+  title: '',
 };
