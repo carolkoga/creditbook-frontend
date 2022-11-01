@@ -20,6 +20,7 @@ export const Container = styled.article`
     h2 {
       font-size: 20px;
       text-align: center;
+      color: ${({ theme }) => theme.colors.grey[10]};
     }
   }
 `;
