@@ -1,6 +1,5 @@
-import { Direction } from '@components/Direction';
 import { ListBatches } from '@components/ListBatches';
-import { Section } from '@components/Section';
+import NotFoundData, { NotFoundDataProps } from '@components/NotFoundData';
 import useAuth from '@hooks/useAuth';
 import { BatchParams } from '@type/creditbook/Batch';
 import { BatchCard } from './Card';
@@ -8,9 +7,10 @@ import { BatchCard } from './Card';
 interface IProps {
   batches: BatchParams[],
   customMine?: boolean | null
+  notFoundProps?: NotFoundDataProps
 }
 
-export default function BatchesList({ customMine, batches }: IProps) {
+export default function BatchesList({ customMine, batches, notFoundProps }: IProps) {
   const { user } = useAuth();
 
   return (
@@ -28,9 +28,7 @@ export default function BatchesList({ customMine, batches }: IProps) {
       )}
 
       {batches?.length <= 0 && (
-        <Direction alignItems="center" justifyContent="center">
-          <Section.Title as="strong" textColor="dark">Ops, não foi possível encontrar nenhum lote</Section.Title>
-        </Direction>
+        <NotFoundData title="Não existe dados cadastrados" reloadPage {...notFoundProps} />
       )}
     </>
   );
@@ -38,4 +36,5 @@ export default function BatchesList({ customMine, batches }: IProps) {
 
 BatchesList.defaultProps = {
   customMine: null,
+  notFoundProps: null,
 };
