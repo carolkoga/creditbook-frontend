@@ -44,7 +44,7 @@ export default function NotFoundData(props: NotFoundDataProps) {
         src="/assets/images/errors/no-data.svg"
         alt={props.title}
         width="581px"
-        height="583px"
+        height="483px"
       />
 
       {(!props.children && !props.reloadPage) && (
