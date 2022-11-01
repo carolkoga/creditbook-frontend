@@ -23,7 +23,7 @@ export default function Home() {
   }
   return (
     <>
-      {(!isLoadingPremium && announcementsPremium && announcementsPremium?.results) && (
+      {(!isLoadingPremium && announcementsPremium && announcementsPremium?.results?.length > 0) && (
         <Section.Container bg="light">
           <Section.Header>
             <Direction direction="horizontal" alignItems="center">
