@@ -137,6 +137,9 @@ export const Actions = styled.div`
   justify-content: center;
   flex-wrap: wrap;
   margin-top: 22px;
+  > div {
+    width: 100%;
+  }
 
   button {
     padding: 7px 24px;
@@ -162,8 +165,11 @@ export const Actions = styled.div`
 
   }
 
-  @media (max-width: 310px) {
+  @media (max-width: 478px) {
     flex-direction: column;
+    > div {
+      gap: 8px;
+    }
     button {
       width: 100%;
     }

@@ -105,13 +105,6 @@ export default function NewLawsuit() {
                 </Button>
               </div>
 
-              <ChooseCreditCard
-                isVisible={stepForm === '5'}
-                onBack={() => setStepForm('4')}
-                loading={loading}
-                label={!loading ? 'Cadastrar' : 'Cadastrando'}
-              />
-
               <ModalToSelectPlan isVisible={stepForm === '4'}>
                 <button type="button" onClick={() => setStepForm('0')}>
                   Voltar
@@ -129,6 +122,14 @@ export default function NewLawsuit() {
                   </Button>
                 )}
               </ModalToSelectPlan>
+
+              <ChooseCreditCard
+                isVisible={stepForm === '5'}
+                onBack={() => setStepForm('4')}
+                loading={loading}
+                label={!loading ? 'Cadastrar' : 'Cadastrando'}
+              />
+
             </FormLayout>
           </LawsuitFormProvider>
         </FormProvider>
