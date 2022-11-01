@@ -58,8 +58,8 @@ export default function ChooseCreditCard({
   if (!isVisible) return null;
 
   return (
-    <ReactPortal containerId="creditCard">
-      <Overlay>
+    <ReactPortal>
+      <Overlay style={{ zIndex: '1000' }}>
         <Container>
           <Section.Header>
             <Section.Title>Pagamento</Section.Title>
@@ -88,7 +88,7 @@ export default function ChooseCreditCard({
                 </li>
               ))}
 
-              {!(!isValidating && payments) && (
+              {(payments && payments?.length <= 0) && (
                 <Section.Title
                   as="p"
                   textColor="dark"
