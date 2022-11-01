@@ -19,7 +19,7 @@ interface IProps {
   // eslint-disable-next-line no-unused-vars
   mutateIsFiltered?: (data: boolean) => void,
   // eslint-disable-next-line no-unused-vars
-  loadMoreAnnouncement: (page?: number) => void
+  loadMoreAnnouncement?: (page?: number) => void
   isFiltered?: boolean,
   isLoading: boolean,
   announcements: AnnouncementResponse,
@@ -35,7 +35,9 @@ export default function AnnouncementList({
 
   async function handleChangePage(currentPage: number) {
     setPage(currentPage);
-    loadMoreAnnouncement(currentPage);
+    if (loadMoreAnnouncement) {
+      loadMoreAnnouncement(currentPage);
+    }
   }
 
   if (isLoading) return <span>Loading...</span>;
@@ -76,4 +78,5 @@ AnnouncementList.defaultProps = {
   mutate: () => {},
   isFiltered: null,
   mutateIsFiltered: () => {},
+  loadMoreAnnouncement: () => {},
 };
