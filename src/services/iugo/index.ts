@@ -14,7 +14,7 @@ class IugoServices {
       method: 'credit_card',
       test: false,
       data: {
-        number: creditCard.cardNumber,
+        number: creditCard.cardNumber.replaceAll(' ', ''),
         verification_value: creditCard.secureCode,
         month: monthParsed,
         year: yearParsed,
