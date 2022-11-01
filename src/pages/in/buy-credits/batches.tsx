@@ -19,13 +19,7 @@ export default function BuyBatches({ initialBatches }: IProps) {
       </Section.Header>
 
       <Section.Container>
-        {(initialBatches?.length > 0) && (
-          <BatchesList batches={initialBatches} />
-        )}
-
-        {(initialBatches?.length <= 0) && (
-          <Section.Title as="strong" textColor="dark">Não existe nenhum anuncio ainda</Section.Title>
-        )}
+        <BatchesList batches={initialBatches} />
       </Section.Container>
     </TabBatchAnnouncement>
   );

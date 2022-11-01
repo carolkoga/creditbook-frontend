@@ -46,13 +46,9 @@ export default function Batches({ initialBatches }: IProps) {
           <Button onClick={handleOpenNewBatchModal}>Novo Lote</Button>
         </Direction>
       </Section.Header>
-      {initialBatches.length > 0 && <BatchesList batches={initialBatches} />}
 
-      {!initialBatches.length && (
-        <Direction alignItems="center" justifyContent="center" style={{ height: '90%' }}>
-          <Section.Title textColor="dark">Você não possui nenhum lote</Section.Title>
-        </Direction>
-      )}
+      <BatchesList batches={initialBatches} />
+
       <NewBatchFormModal
         isVisible={newBatchModalIsVisible}
         onCloseModal={handleCloseNewBatchModal}

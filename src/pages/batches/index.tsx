@@ -18,9 +18,7 @@ export default function Batches({ batches }: IProps) {
       </Section.Header>
 
       <Section.Container>
-        {(batches?.length) && (
-          <BatchesList batches={batches} />
-        )}
+        <BatchesList batches={batches} />
       </Section.Container>
     </TabBatchAnnouncement>
   );
