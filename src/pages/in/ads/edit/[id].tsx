@@ -85,11 +85,11 @@ export default function EditLawsuitByIdPage({ announcement }: IProps) {
   // eslint-disable-next-line no-unused-vars
   const [plan, isPremium] = methods.watch(['plan', 'isPremium']);
   const ownOrAttorneyField = methods.watch('ownOrAttorney');
-  const isValidToContinue = methods.watch('income');
+  // const isValidToContinue = methods.watch('income');
 
-  function handleOpenModalToSelectPlan() {
-    setStepForm('4');
-  }
+  // function handleOpenModalToSelectPlan() {
+  //   setStepForm('4');
+  // }
 
   async function handleSubmitNewLawsuit(data: any) {
     try {
@@ -135,18 +135,17 @@ export default function EditLawsuitByIdPage({ announcement }: IProps) {
                 {ownOrAttorneyField === 'attorney' && (
                   <ProcurationField />
                 )}
-                <Button
+                {/* <Button
                   type="button"
                   onClick={handleOpenModalToSelectPlan}
                   disabled={!isValidToContinue}
                 >
                   Atualizar
+                </Button> */}
+                <Button isLoading={loading} type="submit">
+                  {!loading ? 'Atualizar' : 'Atualizando'}
                 </Button>
               </div>
-
-              <Button isLoading={loading} type="submit">
-                {!loading ? 'Cadastrar' : 'Cadastrando'}
-              </Button>
 
               {/*
               <ChooseCreditCard
