@@ -32,14 +32,13 @@ export const newLawsuitSchemaValidation = yup.object().shape({
   paymentMethodId: yup
     .mixed()
     .nullable()
-    // @ts-ignore
-    .when(['plan,', 'isPremium'], (plan: 'byPercent' | 'both' | 'byMonth', isPremium: '1' | '0', schema) => {
-      console.log({ plan, isPremium });
-      if (isPremium === '1') return schema.required();
-
-      if (plan === 'byPercent') return schema.required();
-
-      return schema.notRequired();
+    .when('plan', {
+      is: (plan: 'byPercent' | 'byMonth' | 'both') => plan !== 'byPercent',
+      then: (rule) => rule.required(),
+    })
+    .when('isPremium', {
+      is: (isPremium: '1' | '0') => isPremium === '1',
+      then: (rule) => rule.required(),
     }),
 
   city: yup.mixed()
