@@ -24,14 +24,14 @@ import { updateLawsuitSchemaValidation } from '@validations/yup/LawsuitForm';
 import { LawsuitParams, UpdateLawsuitParams } from '@type/creditbook/Lawsuits';
 import { handleCatchErrorRequest } from '@utils/handleCatchErrorRequest';
 import ProcurationField from '@components/LawsuitForm/ProcurationField';
-import ModalToSelectPlan from '@components/LawsuitForm/ModalToSelectPlan';
+// import ModalToSelectPlan from '@components/LawsuitForm/ModalToSelectPlan';
 import { setupAPIClient } from '@api/creditbookApi';
 import { GetServerSideProps } from 'next';
 import { lawsuitActionPhase } from '@mocks/ReactSelectOptions/LawsuitActionPhase';
 import { courtsOptions } from '@mocks/ReactSelectOptions/CourtsOptions';
 import { lawsuitKind } from '@mocks/ReactSelectOptions/LawsuitKind';
 import { lawsuitCategories } from '@mocks/ReactSelectOptions/LawsuitCategories';
-import ChooseCreditCard from '@components/LawsuitForm/ChooseCreditCard';
+// import ChooseCreditCard from '@components/LawsuitForm/ChooseCreditCard';
 
 interface IProps {
   announcement: LawsuitParams,
@@ -58,6 +58,7 @@ interface CustomUpdateLawsuitParams extends Omit<UpdateLawsuitParams,
 export default function EditLawsuitByIdPage({ announcement }: IProps) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+  // eslint-disable-next-line no-unused-vars
   const [stepForm, setStepForm] = useState('1');
   const methods = useForm<CustomUpdateLawsuitParams>({
     resolver: yupResolver(updateLawsuitSchemaValidation),
@@ -81,6 +82,7 @@ export default function EditLawsuitByIdPage({ announcement }: IProps) {
       kind: lawsuitKind.find((currentKind) => currentKind.value === announcement.kind),
     },
   });
+  // eslint-disable-next-line no-unused-vars
   const [plan, isPremium] = methods.watch(['plan', 'isPremium']);
   const ownOrAttorneyField = methods.watch('ownOrAttorney');
   const isValidToContinue = methods.watch('income');
@@ -142,14 +144,19 @@ export default function EditLawsuitByIdPage({ announcement }: IProps) {
                 </Button>
               </div>
 
+              <Button isLoading={loading} type="submit">
+                {!loading ? 'Cadastrar' : 'Cadastrando'}
+              </Button>
+
+              {/*
               <ChooseCreditCard
                 isVisible={stepForm === '5'}
                 onBack={() => setStepForm('4')}
                 loading={loading}
                 label={!loading ? 'Cadastrar' : 'Cadastrando'}
-              />
+              /> */}
 
-              <ModalToSelectPlan isVisible={stepForm === '4'}>
+              {/* <ModalToSelectPlan isVisible={stepForm === '4'}>
                 <button type="button" onClick={() => setStepForm('0')}>
                   Voltar
                 </button>
@@ -165,7 +172,7 @@ export default function EditLawsuitByIdPage({ announcement }: IProps) {
                     Escolher pagamento
                   </Button>
                 )}
-              </ModalToSelectPlan>
+              </ModalToSelectPlan> */}
             </FormLayout>
           </LawsuitFormProvider>
         </FormProvider>
