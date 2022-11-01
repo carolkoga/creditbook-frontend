@@ -46,7 +46,14 @@ export default function Home() {
           <FilterDrawer onGetResponseResults={handleProcessAnnouncementsFiltered} />
         </Section.Header>
 
-        <AnnouncementList {...response} />
+        <AnnouncementList
+          {...response}
+          notFoundProps={{
+            reloadPage: false,
+            href: '/in/ads/new',
+            labelButton: 'Cadastrar Agora',
+          }}
+        />
       </Section.Container>
     </>
   );

@@ -16,7 +16,15 @@ export default function MyAds() {
       </Section.Header>
 
       <Section.Container>
-        <AnnouncementList {...response} />
+        <AnnouncementList
+          {...response}
+          notFoundProps={{
+            title: response.announcements?.results?.length <= 0 ? 'Ainda não possui anúncio cadastrado' : '',
+            reloadPage: false,
+            href: '/in/ads/new',
+            labelButton: 'Cadastrar Agora',
+          }}
+        />
       </Section.Container>
     </>
   );
