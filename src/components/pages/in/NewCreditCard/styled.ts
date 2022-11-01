@@ -5,6 +5,6 @@ export const Content = styled.div`
   border-radius: 10px;
 
   .actions {
-    button {}
+    width: 100%;
   }
 `;
