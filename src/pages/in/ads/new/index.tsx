@@ -158,7 +158,7 @@ export default function NewLawsuit() {
           onConfirmButton: () => setStepForm('2'),
         }}
         cancel={{
-          label: 'Voltar para página principal',
+          label: 'Pagina principal',
           onCancelButton: () => handleNavigateToHome(),
         }}
         isVisible={stepForm === '1'}
