@@ -26,6 +26,9 @@ export function handleCatchErrorRequest(
     }
 
     if (error?.response?.status >= 400 && error?.response?.status <= 499) {
+      if (error.response.status === 401) {
+        return;
+      }
       if (error?.response?.data?.error.toLowerCase() === `${prefixErrorMessageParamInUse} email`) {
         return toast.error('O e-mail já está em uso');
       }
