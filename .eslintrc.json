@@ -21,7 +21,7 @@
         "@typescript-eslint"
     ],
     "rules": {
-      "react/jsx-filename-extension": [1, { "extensions": [".ts", ".tsx"] }],
+      "react/jsx-filename-extension": [1, { "extensions": [".ts", ".tsx", ".js"] }],
       "react/react-in-jsx-scope": "off",
       "react/jsx-props-no-spreading": "off",
       "import/prefer-default-export": "off",
