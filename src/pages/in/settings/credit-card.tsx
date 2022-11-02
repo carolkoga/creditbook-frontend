@@ -15,7 +15,7 @@ import { handleCatchErrorRequest } from '@utils/handleCatchErrorRequest';
 import { paymentServices } from '@services/creditbook/payments';
 import { ListCreditCard } from '@components/pages/in/ListCreditCard';
 import AlertModal from '@components/AlertModal';
-import { toast } from 'react-toastify';
+import NotFoundData from '@components/NotFoundData';
 
 export default function CreditCard() {
   const [isVisibleCreditCardModal, setIsVisibleCreditCardModal] = useState(false);
@@ -31,9 +31,10 @@ export default function CreditCard() {
 
   const loadPayments = useCallback(async () => {
     try {
-      await paymentServices.listPayments();
-    } catch {
-      toast.error('Erro ao carregar os cartões cadastrados');
+      const response = await paymentServices.listPayments();
+      setCreditCards(response.data);
+    } catch (error) {
+      handleCatchErrorRequest(error as never);
     }
   }, []);
 
@@ -95,26 +96,33 @@ export default function CreditCard() {
             <Section.Title as="h1" textColor="dark">
               Cartões
             </Section.Title>
-            <Button onClick={handleOpenVisibilityCreditCardModal} variant="secondary">
-              Novo cartão
-            </Button>
           </Direction>
         </Section.Header>
 
-        <ListCreditCard>
-          {creditCards && creditCards.map((card) => (
-            <li key={card.id}>
-              <DebitAndCreditCard
-                buttonLabel="Excluir"
-                buttonProps={{
-                  variant: 'danger',
-                  onClick: () => handleOpenVisibilityModalToDeleteCreditCard(card),
-                }}
-                card={card}
-              />
-            </li>
-          ))}
-        </ListCreditCard>
+        {creditCards && (
+          <ListCreditCard>
+            {creditCards.map((card) => (
+              <li key={card.id}>
+                <DebitAndCreditCard
+                  buttonLabel="Excluir"
+                  buttonProps={{
+                    variant: 'danger',
+                    onClick: () => handleOpenVisibilityModalToDeleteCreditCard(card),
+                  }}
+                  card={card}
+                />
+              </li>
+            ))}
+          </ListCreditCard>
+        )}
+
+        {creditCards?.length <= 0 && (
+          <NotFoundData title="Você não possui ainda nenhum cartão cadastrado" reloadPage>
+            <Button onClick={handleOpenVisibilityCreditCardModal} size="outline-filled-round">
+              Novo cartão
+            </Button>
+          </NotFoundData>
+        )}
       </Section.Container>
 
       <FormProvider {...methodsToCreateCard}>
