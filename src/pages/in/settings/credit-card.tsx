@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm, FormProvider } from 'react-hook-form';
 
@@ -12,20 +12,15 @@ import { Section } from '@components/Section';
 import DebitAndCreditCard from '@components/pages/in/DebitAndCreditCard';
 import { NewPaymentParams, PaymentParams } from '@type/creditbook/payment';
 import { handleCatchErrorRequest } from '@utils/handleCatchErrorRequest';
-import { PaymentServices, paymentServices } from '@services/creditbook/payments';
-import { GetServerSideProps } from 'next';
-import { setupAPIClient } from '@api/creditbookApi';
+import { paymentServices } from '@services/creditbook/payments';
 import { ListCreditCard } from '@components/pages/in/ListCreditCard';
 import AlertModal from '@components/AlertModal';
+import { toast } from 'react-toastify';
 
-interface IProps {
-  initialPayments: PaymentParams[],
-}
-
-export default function CreditCard({ initialPayments }: IProps) {
+export default function CreditCard() {
   const [isVisibleCreditCardModal, setIsVisibleCreditCardModal] = useState(false);
   const [creatingPaymentLoader, setCreatingPaymentLoader] = useState(false);
-  const [creditCards, setCreditCards] = useState(initialPayments as PaymentParams[]);
+  const [creditCards, setCreditCards] = useState([] as PaymentParams[]);
   const [creditCardBeingDeleted, setCreditCardBeingDeleted] = useState({} as PaymentParams | null);
   const [deleteModalCreditCard, setDeleteModalCreditCard] = useState(false);
   const [deletingCreditCard, setDeletingCreditCard] = useState(false);
@@ -33,6 +28,14 @@ export default function CreditCard({ initialPayments }: IProps) {
     resolver: yupResolver(creditCardSchemaValidation),
     mode: 'onBlur',
   });
+
+  const loadPayments = useCallback(async () => {
+    try {
+      await paymentServices.listPayments();
+    } catch {
+      toast.error('Erro ao carregar os cartões cadastrados');
+    }
+  }, []);
 
   function handleOpenVisibilityCreditCardModal() {
     setIsVisibleCreditCardModal(true);
@@ -79,6 +82,10 @@ export default function CreditCard({ initialPayments }: IProps) {
       setDeletingCreditCard(false);
     }
   }
+
+  useEffect(() => {
+    loadPayments();
+  }, [loadPayments]);
 
   return (
     <StructureSettings>
@@ -142,15 +149,3 @@ export default function CreditCard({ initialPayments }: IProps) {
     </StructureSettings>
   );
 }
-
-export const getServerSideProps: GetServerSideProps = async ({ req }) => {
-  const api = setupAPIClient(req.cookies['nextauth.token']);
-  const paymentsServices = new PaymentServices(api);
-  const { data } = await paymentsServices.listPayments();
-
-  return {
-    props: {
-      initialPayments: data,
-    },
-  };
-};
