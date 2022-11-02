@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const Container = styled.form`
   background: ${({ theme }) => theme.colors.grey[10]};
   border-radius: 10px;
-  padding: 22px 32px;
+  padding: 18px;
   max-width: 308px;
   display: flex;
   flex-direction: column;
