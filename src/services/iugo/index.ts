@@ -10,9 +10,9 @@ class IugoServices {
     const lastName = fullNameParsed.slice(1, fullNameParsed.length).join(' ');
 
     const response = await iugoApi.post('/payment_token', {
-      accountId: '3A43493BB13D9C30362A6FF0175329AE',
+      accountId: process.env.NEXT_PUBLIC__IUGO_ACCOUNT_ID,
       method: 'credit_card',
-      test: false,
+      test: true,
       data: {
         number: creditCard.cardNumber.replaceAll(' ', ''),
         verification_value: creditCard.secureCode,
