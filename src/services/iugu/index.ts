@@ -1,7 +1,7 @@
-import { iugoApi } from '@api/iugo';
+import { iuguApi } from '@api/iugu';
 import { NewPaymentParams } from '@type/creditbook/payment';
 
-class IugoServices {
+class IuguServices {
   async createToken(creditCard: NewPaymentParams) {
     const monthParsed = creditCard.validate.split('/')[0];
     const yearParsed = creditCard.validate.split('/')[1];
@@ -9,8 +9,8 @@ class IugoServices {
     const firstName = fullNameParsed[0];
     const lastName = fullNameParsed.slice(1, fullNameParsed.length).join(' ');
 
-    const response = await iugoApi.post('/payment_token', {
-      accountId: process.env.NEXT_PUBLIC__IUGO_ACCOUNT_ID,
+    const response = await iuguApi.post('/payment_token', {
+      accountId: process.env.NEXT_PUBLIC__IUGu_ACCOUNT_ID,
       method: 'credit_card',
       test: true,
       data: {
@@ -27,4 +27,4 @@ class IugoServices {
   }
 }
 
-export const iugoServices = new IugoServices();
+export const iuguServices = new IuguServices();

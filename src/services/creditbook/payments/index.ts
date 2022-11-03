@@ -1,6 +1,6 @@
 import { AxiosInstance } from 'axios';
 
-import { iugoServices } from '@services/iugo';
+import { iuguServices } from '@services/iugu';
 import { NewPaymentParams } from '@type/creditbook/payment';
 
 import { HttpClient } from '../http';
@@ -15,7 +15,7 @@ export class PaymentServices extends HttpClient {
   }
 
   async createPayment(payment: NewPaymentParams) {
-    const token = await iugoServices.createToken(payment);
+    const token = await iuguServices.createToken(payment);
     return await this.httpClient.post('/payment', { ...payment, token });
   }
 
