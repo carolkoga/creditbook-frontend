@@ -40,12 +40,12 @@ interface IProps {
 interface IPropsSelect { label: string, value: string }
 
 interface CustomUpdateLawsuitParams extends Omit<UpdateLawsuitParams,
-  | 'tribunal'
-  | 'uf'
-  | 'city'
-  | 'actionPhase'
-  | 'kind'
-  | 'processGender'
+| 'tribunal'
+| 'uf'
+| 'city'
+| 'actionPhase'
+| 'kind'
+| 'processGender'
 > {
   tribunal: IPropsSelect;
   city: IPropsSelect;
@@ -59,7 +59,7 @@ export default function EditLawsuitByIdPage({ announcement }: IProps) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   // eslint-disable-next-line no-unused-vars
-  const [stepForm, setStepForm] = useState('1');
+  // const [stepForm, setStepForm] = useState('1');
   const methods = useForm<CustomUpdateLawsuitParams>({
     resolver: yupResolver(updateLawsuitSchemaValidation),
     mode: 'all',
@@ -83,7 +83,7 @@ export default function EditLawsuitByIdPage({ announcement }: IProps) {
     },
   });
   // eslint-disable-next-line no-unused-vars
-  const [plan, isPremium] = methods.watch(['plan', 'isPremium']);
+  // const [plan, isPremium] = methods.watch(['plan', 'isPremium']);
   const ownOrAttorneyField = methods.watch('ownOrAttorney');
   // const isValidToContinue = methods.watch('income');
 
