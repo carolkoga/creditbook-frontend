@@ -3,11 +3,11 @@ import { HttpClient } from '../http';
 
 class EmailServices extends HttpClient {
   async contactAnnouncer() {
-    return await this.httpClient.post('/suport');
+    return this.httpClient.post('/suport');
   }
 
   async contactSupport(contactParams: ContactSupportParams) {
-    return await this.httpClient.post('/support', contactParams);
+    return this.httpClient.post('/support', contactParams);
   }
 }
 

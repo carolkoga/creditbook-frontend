@@ -3,7 +3,7 @@ import { UFList } from '@type/brazil/BrazilStatesInUFTypes';
 
 class IbgeServices {
   async municipalitiesByUF(uf: keyof UFList) {
-    return await ibgeApi.get(`localidades/estados/${uf}/municipios?orderBy=nome`);
+    return ibgeApi.get(`localidades/estados/${uf}/municipios?orderBy=nome`);
   }
 }
 

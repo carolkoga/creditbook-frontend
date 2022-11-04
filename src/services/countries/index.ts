@@ -2,7 +2,7 @@ import { countriesApi } from '@api/countriesApi';
 
 class CountriesService {
   async listCountries() {
-    return await countriesApi.get('/all');
+    return countriesApi.get('/all');
   }
 }
 

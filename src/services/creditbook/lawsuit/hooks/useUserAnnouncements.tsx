@@ -4,7 +4,7 @@ import {
 import { lawsuitService } from '..';
 import { AnnouncementResponse, CommonHookParams } from './types';
 
-export interface IUseAnnouncementResponse extends Pick<CommonHookParams, 'mutate' | 'isLoading' | 'announcements' | 'error'>{
+export interface IUseAnnouncementResponse extends Pick<CommonHookParams, 'mutate' | 'isLoading' | 'announcements' | 'error'> {
   loadMoreAnnouncement: () => void
 }
 

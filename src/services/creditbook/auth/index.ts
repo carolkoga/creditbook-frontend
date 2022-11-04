@@ -37,7 +37,7 @@ class AuthCreditBookService {
 
     formData.forEach((itemValue, keyItem) => dataParsed.push({ [keyItem]: itemValue }));
 
-    return await creditbookApi.post('/auth/registration', formData, {
+    return creditbookApi.post('/auth/registration', formData, {
       headers: {
         'content-type': 'multipart/form-data',
       },
@@ -46,7 +46,7 @@ class AuthCreditBookService {
 
   async login({ email, password, role }: LoginParams) {
     const data = { password, email, role: role || 'user' };
-    return await creditbookApi.post('/auth/login', data);
+    return creditbookApi.post('/auth/login', data);
   }
 
   async multipleLogin({ email, password }: Omit<LoginParams, 'role'>) {

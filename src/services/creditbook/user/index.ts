@@ -2,7 +2,7 @@ import { creditbookApi } from '@api/creditbookApi';
 
 class UserCreditbookService {
   async getUserInformation({ token }: { token: string }) {
-    return await creditbookApi.get('/user', {
+    return creditbookApi.get('/user', {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -39,7 +39,7 @@ class UserCreditbookService {
 
     formData.forEach((itemValue, keyItem) => dataParsed.push({ [keyItem]: itemValue }));
 
-    return await creditbookApi.patch('/user', formData, {
+    return creditbookApi.patch('/user', formData, {
       headers: {
         'content-type': 'multipart/form-data',
       },

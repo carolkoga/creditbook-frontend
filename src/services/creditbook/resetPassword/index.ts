@@ -1,4 +1,3 @@
-import { AxiosInstance } from 'axios';
 import { HttpClient } from '../http/index';
 
 interface ResetPasswordParams {
@@ -10,10 +9,6 @@ interface ResetPasswordParams {
 const USER_PREFIX = '/user';
 
 class ResetPasswordService extends HttpClient {
-  constructor(api?: AxiosInstance) {
-    super(api);
-  }
-
   async verifyCredentials({ email }: { email: string }) {
     return this.httpClient.post(`${USER_PREFIX}/request-reset-password`, { email }, {
       headers: {

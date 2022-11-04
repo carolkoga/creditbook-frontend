@@ -17,7 +17,7 @@ export class LawsuitService extends HttpClient {
   }
 
   async listAll(options?: QueriesToIndexAnnouncements) {
-    return await this.httpClient.get<ResponseListAllAnnouncements>('/announcement', {
+    return this.httpClient.get<ResponseListAllAnnouncements>('/announcement', {
       params: {
         ...options?.params,
       },
@@ -25,13 +25,13 @@ export class LawsuitService extends HttpClient {
   }
 
   async listAnnouncementsUser() {
-    return await this.httpClient.get<LawsuitParams[]>('/announcement/user');
+    return this.httpClient.get<LawsuitParams[]>('/announcement/user');
   }
 
   async createLawsuit(data: any) {
     const formData = this._convertToFormData(data);
 
-    return await this.httpClient.post('/announcement', formData, {
+    return this.httpClient.post('/announcement', formData, {
       headers: { ...this.customHeaders },
     });
   }
@@ -39,7 +39,7 @@ export class LawsuitService extends HttpClient {
   async update(data: any, currentData: any) {
     const formData = this._convertToFormData(data, 'update', currentData);
 
-    return await this.httpClient.patch('/announcement', formData, {
+    return this.httpClient.patch('/announcement', formData, {
       headers: { ...this.customHeaders },
     });
   }
@@ -47,7 +47,7 @@ export class LawsuitService extends HttpClient {
   async changeFavorite({ id, isFavorite }: { id: string, isFavorite: '1' | '0' }) {
     const formData = this._convertToFormData({ isFavorite, announcementId: id });
 
-    return await this.httpClient.patch('/announcement', formData, {
+    return this.httpClient.patch('/announcement', formData, {
       headers: { ...this.customHeaders },
     });
   }
@@ -55,13 +55,13 @@ export class LawsuitService extends HttpClient {
   async changeBatch({ id, batchId }: { id: string, batchId: string }) {
     const formData = this._convertToFormData({ batchId, announcementId: id });
 
-    return await this.httpClient.patch('/announcement', formData, {
+    return this.httpClient.patch('/announcement', formData, {
       headers: { ...this.customHeaders },
     });
   }
 
   async getById(id: string) {
-    return await this.httpClient.get(`/announcement/${id}`);
+    return this.httpClient.get(`/announcement/${id}`);
   }
 
   private _convertToFormData(

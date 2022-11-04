@@ -23,7 +23,7 @@ class CepService {
   }
 
   async getAddressByCep(cep: string) {
-    return await this.httpClient.get<CepResponse>(`${cep}/json`);
+    return this.httpClient.get<CepResponse>(`${cep}/json`);
   }
 }
 
