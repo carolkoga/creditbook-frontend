@@ -25,7 +25,7 @@ import { Fieldset } from '../components/Fieldset';
 import useLawsuitForm from '../hooks/useLawsuitForm';
 
 type FormContextType = Pick<
-  LawsuitParams, 'uf' | 'city' | 'kind' | 'processNumber' | 'processGender' | 'tribunal' | 'actionPhase'>;
+LawsuitParams, 'uf' | 'city' | 'kind' | 'processNumber' | 'processGender' | 'tribunal' | 'actionPhase'>;
 
 export default function ProcessInfoForm() {
   const {

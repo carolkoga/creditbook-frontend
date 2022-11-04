@@ -8,7 +8,7 @@ export interface IPropsCommon extends ButtonProps {
   isLoading?: boolean,
 }
 
-export type IButtonProps = IPropsCommon & ButtonHTMLAttributes<HTMLButtonElement>
+export type IButtonProps = IPropsCommon & ButtonHTMLAttributes<HTMLButtonElement>;
 
 interface ILinkProps extends IPropsCommon, LinkProps {}
 

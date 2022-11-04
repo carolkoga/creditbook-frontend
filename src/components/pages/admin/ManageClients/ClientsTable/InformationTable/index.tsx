@@ -3,7 +3,7 @@ import { Address } from '@type/creditbook';
 import formatPhone from '@utils/formatPhone';
 import { Table } from 'antd';
 
-interface DataType extends Address{
+interface DataType extends Address {
   key: string,
   cellPhone: string,
   type: 'person' | 'corporation',

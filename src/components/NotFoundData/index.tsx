@@ -21,7 +21,7 @@ type UnionTypes = LinkAction | IReloadPage;
 export type NotFoundDataProps = UnionTypes & {
   title?: string,
   children?: ReactNode,
-}
+};
 
 export default function NotFoundData(props: NotFoundDataProps) {
   const router = useRouter();

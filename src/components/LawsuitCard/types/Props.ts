@@ -18,4 +18,4 @@ export type LawsuitCardListProps = {
   pagination?: PaginationLawsuitProps,
   lawsuitCardProps?: Omit<LawsuitCardProps, 'lawsuit'>,
   customQuery?: QueriesToIndexAnnouncements['params']
-}
+};

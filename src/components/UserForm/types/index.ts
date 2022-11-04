@@ -1,7 +1,7 @@
 import { UserDefaultValues } from '@type/creditbook';
 
 export interface AllCommonType {
- formGroupDirection: 'horizontal' | 'vertical',
+  formGroupDirection: 'horizontal' | 'vertical',
 }
 
 export interface FormCommonType extends AllCommonType {

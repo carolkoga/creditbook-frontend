@@ -39,7 +39,7 @@ import {
 export type ResponseFilterCreditsProps<T = 'batches' | 'announcements'> = {
   results: T extends 'batches' ? BatchParams[] : T extends 'announcements' ? LawsuitParams[] : unknown,
   pages: number,
-}
+};
 
 interface IProps {
   // eslint-disable-next-line no-unused-vars

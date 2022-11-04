@@ -4,7 +4,7 @@ import { Input } from '@components/Input';
 import useLawsuitForm from '@components/LawsuitForm/hooks/useLawsuitForm';
 import { CommonFieldTypes } from '../types';
 
-interface IProps extends CommonFieldTypes, InputHTMLAttributes<HTMLInputElement>{ }
+interface IProps extends CommonFieldTypes, InputHTMLAttributes<HTMLInputElement> { }
 
 const FieldCorporationNameOrName = forwardRef(({ error, ...registerField }: IProps, ref) => {
   const { formGroupDirection } = useLawsuitForm();
