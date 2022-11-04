@@ -55,15 +55,15 @@ interface Lawsuit {
 }
 
 export interface LawsuitParams extends Omit<Lawsuit, 'digitalProcess' | 'procuration'> {
- id: string,
- userId: string,
- status: AnnouncementStatus,
- digitalProcessUrl: string,
- procurationUrl: string,
- files: {
-  name: keyof FileTranslationTypes,
-  url: string,
- }[]
+  id: string,
+  userId: string,
+  status: AnnouncementStatus,
+  digitalProcessUrl: string,
+  procurationUrl: string,
+  files: {
+    name: keyof FileTranslationTypes,
+    url: string,
+  }[]
 }
 
 export interface NewLawsuitParams extends LawsuitFiles, Omit<Lawsuit, 'batchId' | 'pledgeOrGuarantee' | 'acceptNegotiation' | 'isFavorite' | 'isPremium'> {

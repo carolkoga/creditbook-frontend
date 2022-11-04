@@ -3,11 +3,11 @@ import { AccountCorporation, AccountPerson } from './register';
 
 type PersonAccountMainInformation = Omit<AccountPerson, 'profilePicture' | 'passwordConfirmation'> & {
   type: 'person'
-}
+};
 
 type CorporationAccountMainInformation = Omit<AccountCorporation, 'profilePicture' | 'passwordConfirmation'> & {
   type: 'corporation'
-}
+};
 
 interface UnionAccountType extends
   Omit<PersonAccountMainInformation, 'type'>,
@@ -20,7 +20,7 @@ export type AuthenticatedUserData = Omit<UnionAccountType, 'password'> & {
   profilePictureKey: string,
   profilePictureUrl: string,
   role: 'admin' | 'user',
-}
+};
 
 export interface AuthContextType {
   token: string,
