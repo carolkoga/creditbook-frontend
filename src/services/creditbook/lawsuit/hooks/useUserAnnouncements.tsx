@@ -1,20 +1,10 @@
 import {
   useCallback, useEffect, useState,
 } from 'react';
-import { ResponseListAllAnnouncements } from '@type/creditbook/Lawsuits';
 import { lawsuitService } from '..';
+import { AnnouncementResponse, CommonHookParams } from './types';
 
-interface AnnouncementResponse {
-  results: ResponseListAllAnnouncements['announcements'],
-  pages: ResponseListAllAnnouncements['pages']
-}
-
-export interface IUseAnnouncementResponse {
-  // eslint-disable-next-line no-unused-vars
-  mutate: (data: AnnouncementResponse) => void,
-  isLoading: boolean,
-  announcements: AnnouncementResponse,
-  // eslint-disable-next-line no-unused-vars
+export interface IUseAnnouncementResponse extends Pick<CommonHookParams, 'mutate' | 'isLoading' | 'announcements'>{
   loadMoreAnnouncement: () => void
 }
 

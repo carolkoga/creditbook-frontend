@@ -1,26 +1,15 @@
 import {
   useCallback, useEffect, useState,
 } from 'react';
+
 import { QueriesToIndexAnnouncements } from '@type/creditbook';
-import { ResponseListAllAnnouncements } from '@type/creditbook/Lawsuits';
+
 import { lawsuitService } from '..';
+import { AnnouncementResponse, CommonHookParams } from './types';
 
-export interface AnnouncementResponse {
-  results: ResponseListAllAnnouncements['announcements'],
-  pages: ResponseListAllAnnouncements['pages']
-}
-
-export interface IUseAnnouncementResponse {
-  // eslint-disable-next-line no-unused-vars
-  mutate: (data: AnnouncementResponse) => void,
-  isLoading: boolean,
-  // eslint-disable-next-line no-unused-vars
-  mutateIsFiltered: (data: boolean) => void,
-  isFiltered: boolean,
-  announcements: AnnouncementResponse,
+export interface IUseAnnouncementResponse extends CommonHookParams {
   // eslint-disable-next-line no-unused-vars
   loadMoreAnnouncement: (page?: number) => void,
-  error: boolean
 }
 
 export default function useAnnouncements(

@@ -3,11 +3,11 @@ import { Pagination } from 'antd';
 
 import { ListLayoutSingleLawsuits } from '@components/ListsLayout';
 
-import { AnnouncementResponse } from '@services/creditbook/lawsuit/hooks/useAnnouncements';
-
 import { LawsuitParams } from '@type/creditbook/Lawsuits';
 
 import NotFoundData, { NotFoundDataProps } from '@components/NotFoundData';
+import { AnnouncementResponse } from '@services/creditbook/lawsuit/hooks/types';
+
 import LawsuitCard from './Card';
 import { LawsuitCardProps } from './types/Props';
 
