@@ -86,14 +86,14 @@ export function AuthProvider({ children }: IProps) {
 
       if (userSignIn.role === 'admin') {
         if (Router.asPath === '/login') {
-          Router.replace('/admin/dashboard');
+          Router.push('/admin/dashboard');
         }
 
         if (Router.asPath !== '/login' || !Router.asPath.startsWith('/admin') || !Router.pathname.startsWith('/admin')) {
-          Router.replace('/admin/dashboard');
+          Router.push('/admin/dashboard');
         }
 
-        Router.replace(Router.asPath);
+        Router.push(Router.asPath);
       }
 
       setUser(userSignIn);
@@ -137,7 +137,7 @@ export function AuthProvider({ children }: IProps) {
   }
 
   useEffect(() => {
-    if (Router.pathname === '/login' || Router.pathname.startsWith('/in/')) {
+    if (Router.pathname === '/login' || Router.pathname.startsWith('/in/') || Router.pathname.startsWith('/admin/')) {
       const { 'nextauth.token': nextAuthToken } = parseCookies();
       if (nextAuthToken) {
         getUserInformation(nextAuthToken);
