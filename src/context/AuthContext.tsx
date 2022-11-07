@@ -123,14 +123,15 @@ export function AuthProvider({ children }: IProps) {
 
   async function getUserInformation(token?: string) {
     const { 'nextauth.user': userDataSaved } = parseCookies();
-    if (userDataSaved) {
-      setUser(JSON.parse(userDataSaved));
-      if (token) {
-        const { data } = await userCreditbookService.getUserInformation({ token });
+    if (!userDataSaved) return handleSignOut();
+    setUser(JSON.parse(userDataSaved));
+    if (!token) return handleSignOut();
 
-        setUser({ ...data, password: undefined });
-      }
-    } else {
+    try {
+      const { data } = await userCreditbookService.getUserInformation({ token });
+
+      setUser({ ...data, password: undefined });
+    } catch {
       handleSignOut();
     }
   }
