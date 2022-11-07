@@ -21,7 +21,7 @@ export type UpdateAnnouncementStatusParams = {
 };
 
 interface QueryPagination {
-  page: number,
+  page?: number,
   perPage?: number,
 }
 
@@ -40,9 +40,18 @@ interface UserChangeStatusParams {
 const PREFIX_ANNOUNCEMENT = '/announcement';
 const PREFIX_USER = '/user';
 
+export interface NewLawsuitParamsResponse {
+  createdAt: string,
+  processNumber: string,
+  plan: string,
+  id: string,
+}
+
+export type AnnouncementsAdminResponse = ResponseListAllAnnouncements<NewLawsuitParamsResponse>;
+
 export class AdminServices extends HttpClient {
   async indexAnnouncements(options?: AnnouncementQueriesOptions) {
-    return this.httpClient.get<ResponseListAllAnnouncements>(`${PREFIX_ANNOUNCEMENT}/admin`, {
+    return this.httpClient.get<AnnouncementsAdminResponse>(`${PREFIX_ANNOUNCEMENT}/admin`, {
       params: {
         ...options?.params,
       },
