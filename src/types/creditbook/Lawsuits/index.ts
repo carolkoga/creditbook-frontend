@@ -86,7 +86,7 @@ export interface UpdateLawsuitParams extends NewLawsuitParams {
   procurationUrl?: string | null;
 }
 
-export interface ResponseListAllAnnouncements {
+export interface ResponseListAllAnnouncements<NewType = 'undefined'> {
   pages: number,
-  announcements: LawsuitParams[],
+  announcements: NewType extends 'undefined' ? LawsuitParams[] : NewType[],
 }
