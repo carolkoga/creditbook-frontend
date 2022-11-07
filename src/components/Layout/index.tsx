@@ -1,6 +1,5 @@
 import { ContainerLayout } from '@styles/index';
 import useAuth from 'hooks/useAuth';
-import { useRouter } from 'next/router';
 import { ReactNode } from 'react';
 import AdminLayout from './Admin';
 import LayoutLogged from './Logged';
@@ -12,9 +11,18 @@ interface IProps {
 
 export default function Layout({ children }: IProps) {
   const { isAuthenticated, user } = useAuth();
-  const router = useRouter();
 
-  if (isAuthenticated && user?.role === 'admin') {
+  if (!isAuthenticated) {
+    return (
+      <ContainerLayout>
+        <LayoutNotLogged>
+          {children}
+        </LayoutNotLogged>
+      </ContainerLayout>
+    );
+  }
+
+  if (user?.role === 'admin') {
     return (
       <ContainerLayout>
         <AdminLayout>
@@ -24,24 +32,11 @@ export default function Layout({ children }: IProps) {
     );
   }
 
-  if (isAuthenticated) {
-    return (
-      <ContainerLayout>
-        <LayoutLogged>
-          {children}
-        </LayoutLogged>
-      </ContainerLayout>
-    );
-  }
-
   return (
     <ContainerLayout>
-      {(!isAuthenticated && !router.pathname.startsWith('/admin')) && (
-        <LayoutNotLogged>
-          {children}
-        </LayoutNotLogged>
-      )}
-
+      <LayoutLogged>
+        {children}
+      </LayoutLogged>
     </ContainerLayout>
   );
 }
