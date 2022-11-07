@@ -1,43 +1,51 @@
-import { useMemo } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Tabs } from 'antd';
 
 import AnnouncementsTable from '@components/pages/admin/ManageAnnouncements/AnnouncementsTable';
 import { Section } from '@components/Section';
+import { handleCatchErrorRequest } from '@utils/handleCatchErrorRequest';
+import { adminServices, AnnouncementsAdminResponse, AnnouncementStatus } from '@services/creditbook/admin';
 
 export default function ManageAnnouncements() {
-  const filterTabs = useMemo(() => ([
-    {
-      label: 'Pendentes',
-      key: 'pending',
-      children: <AnnouncementsTable dataSource={[
-        {
-          announcementId: '12',
-          key: '1',
-          plan: 'paid',
-          processNumber: '3156185185169',
-          announcementDate: '12 jun 2022',
+  const [active, setActive] = useState<AnnouncementStatus>('pending');
+  const [
+    announcements,
+    setAnnouncements] = useState<AnnouncementsAdminResponse>({ announcements: [], pages: 1 });
+
+  const loadAnnouncements = useCallback(async () => {
+    try {
+      const response = await adminServices.indexAnnouncements({
+        params: {
+          status: active,
         },
-      ]}
-      />,
-    },
+      });
 
-    {
-      label: 'Aprovados',
-      key: 'accepted',
-      children: <AnnouncementsTable dataSource={[]} />,
-    },
+      setAnnouncements(response.data);
+    } catch (err) {
+      handleCatchErrorRequest(err as never);
+    }
+  }, [active]);
 
-    {
-      label: 'Inativos',
-      key: 'inactive',
-      children: <AnnouncementsTable dataSource={[]} />,
-    },
-  ]), []);
+  useEffect(() => {
+    loadAnnouncements();
+  }, [loadAnnouncements]);
 
   return (
     <>
       <Section.Title as="h1" textColor="dark">Gerenciar Anúncios</Section.Title>
-      <Tabs defaultActiveKey="pending" items={filterTabs} />
+      <Tabs defaultActiveKey="pending" onChange={(key) => setActive(key as any)}>
+        <Tabs.TabPane tab="Pendente" key="pending">
+          <AnnouncementsTable dataSource={announcements.announcements} />
+        </Tabs.TabPane>
+
+        <Tabs.TabPane tab="Aceitos" key="accepted">
+          <AnnouncementsTable dataSource={announcements.announcements} />
+        </Tabs.TabPane>
+
+        <Tabs.TabPane tab="Inativos" key="inactive">
+          <AnnouncementsTable dataSource={announcements.announcements} />
+        </Tabs.TabPane>
+      </Tabs>
     </>
   );
 }
