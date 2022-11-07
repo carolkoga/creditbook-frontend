@@ -20,7 +20,7 @@ export default function TopicsMenu({ topics }: IProps) {
 
   useEffect(() => {
     setCurrentRouteSelected(router.pathname);
-  }, []);
+  }, [router.pathname]);
 
   return (
     <Menu mode="inline" selectedKeys={[currentRouteSelected]}>
