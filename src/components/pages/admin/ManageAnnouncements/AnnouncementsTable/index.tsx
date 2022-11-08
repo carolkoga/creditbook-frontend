@@ -1,10 +1,10 @@
 import Link from 'next/link';
 import { Info } from 'phosphor-react';
-import { Table } from 'antd';
+import { Table, TableProps } from 'antd';
 import { NewLawsuitParamsResponse } from '@services/creditbook/admin';
 import { WrapperTable } from '../../WrapperTable';
 
-interface IProps {
+interface IProps extends TableProps<any> {
   dataSource: NewLawsuitParamsResponse[] | [],
 }
 
@@ -81,10 +81,10 @@ const columns = [
 
 ];
 
-export default function AnnouncementsTable({ dataSource }: IProps) {
+export default function AnnouncementsTable({ dataSource, ...rest }: IProps) {
   return (
     <WrapperTable>
-      <Table columns={columns} dataSource={dataSource} />
+      <Table columns={columns} dataSource={dataSource} {...rest} />
     </WrapperTable>
   );
 }
