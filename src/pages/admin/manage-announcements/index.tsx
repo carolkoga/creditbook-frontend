@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { Tabs } from 'antd';
+import { TablePaginationConfig, Tabs } from 'antd';
 
 import AnnouncementsTable from '@components/pages/admin/ManageAnnouncements/AnnouncementsTable';
 import { Section } from '@components/Section';
@@ -8,6 +8,7 @@ import { adminServices, AnnouncementsAdminResponse, AnnouncementStatus } from '@
 
 export default function ManageAnnouncements() {
   const [active, setActive] = useState<AnnouncementStatus>('pending');
+  const [currentPage, setCurrentPage] = useState(1);
   const [
     announcements,
     setAnnouncements] = useState<AnnouncementsAdminResponse>({ announcements: [], pages: 1 });
@@ -17,6 +18,7 @@ export default function ManageAnnouncements() {
       const response = await adminServices.indexAnnouncements({
         params: {
           status: active,
+          page: currentPage,
         },
       });
 
@@ -24,7 +26,11 @@ export default function ManageAnnouncements() {
     } catch (err) {
       handleCatchErrorRequest(err as never);
     }
-  }, [active]);
+  }, [active, currentPage]);
+
+  function handleChangeTableValues(pagination: TablePaginationConfig) {
+    setCurrentPage(pagination.current ?? 1);
+  }
 
   useEffect(() => {
     loadAnnouncements();
@@ -35,19 +41,43 @@ export default function ManageAnnouncements() {
       <Section.Title as="h1" textColor="dark">Gerenciar Anúncios</Section.Title>
       <Tabs defaultActiveKey="pending" onChange={(key) => setActive(key as any)}>
         <Tabs.TabPane tab="Pendente" key="pending">
-          <AnnouncementsTable dataSource={announcements.announcements} />
+          <AnnouncementsTable
+            dataSource={announcements.announcements}
+            onChange={handleChangeTableValues}
+            pagination={{
+              total: announcements.pages,
+            }}
+          />
         </Tabs.TabPane>
 
         <Tabs.TabPane tab="Aceitos" key="accepted">
-          <AnnouncementsTable dataSource={announcements.announcements} />
+          <AnnouncementsTable
+            dataSource={announcements.announcements}
+            onChange={handleChangeTableValues}
+            pagination={{
+              total: announcements.pages,
+            }}
+          />
         </Tabs.TabPane>
 
-        <Tabs.TabPane tab="Inativos" key="rejected">
-          <AnnouncementsTable dataSource={announcements.announcements} />
+        <Tabs.TabPane tab="Reprovados" key="rejected">
+          <AnnouncementsTable
+            dataSource={announcements.announcements}
+            onChange={handleChangeTableValues}
+            pagination={{
+              total: announcements.pages,
+            }}
+          />
         </Tabs.TabPane>
 
         <Tabs.TabPane tab="Solicitação de edição" key="edition_requested">
-          <AnnouncementsTable dataSource={announcements.announcements} />
+          <AnnouncementsTable
+            dataSource={announcements.announcements}
+            onChange={handleChangeTableValues}
+            pagination={{
+              total: announcements.pages,
+            }}
+          />
         </Tabs.TabPane>
       </Tabs>
     </>
