@@ -46,7 +46,7 @@ export default function AnnouncementIdAdmin({ announcement }: IProps) {
         status: 'accepted',
       });
 
-      setAnnouncementUpdated(updated);
+      setAnnouncementUpdated((oldAnnouncement) => ({ ...oldAnnouncement, ...updated }));
     } catch (error) {
       handleCatchErrorRequest(error as never);
     } finally {
@@ -62,7 +62,7 @@ export default function AnnouncementIdAdmin({ announcement }: IProps) {
         status: 'rejected',
       });
 
-      setAnnouncementUpdated(updated);
+      setAnnouncementUpdated((oldAnnouncement) => ({ ...oldAnnouncement, ...updated }));
     } catch (error) {
       handleCatchErrorRequest(error as never);
     } finally {
@@ -79,7 +79,7 @@ export default function AnnouncementIdAdmin({ announcement }: IProps) {
         editionRequirements: messageEditionRequested,
       });
 
-      setAnnouncementUpdated(updated);
+      setAnnouncementUpdated((oldAnnouncement) => ({ ...oldAnnouncement, ...updated }));
     } catch (error) {
       handleCatchErrorRequest(error as never);
     } finally {
@@ -109,7 +109,7 @@ export default function AnnouncementIdAdmin({ announcement }: IProps) {
           <ButtonAntd
             type="ghost"
             danger
-            disabled={announcement?.status === 'rejected'}
+            disabled={announcementUpdated?.status === 'rejected'}
             onClick={handleChangeAnnouncementStatusToReject}
             loading={rejectingLoader}
           >
@@ -118,7 +118,7 @@ export default function AnnouncementIdAdmin({ announcement }: IProps) {
 
           <ButtonAntd
             type="primary"
-            disabled={announcement?.status === 'accepted'}
+            disabled={announcementUpdated?.status === 'accepted'}
             onClick={handleChangeAnnouncementStatusToAccepted}
             loading={approvingLoader}
           >
