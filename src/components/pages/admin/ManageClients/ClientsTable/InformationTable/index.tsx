@@ -5,7 +5,7 @@ import { Table } from 'antd';
 
 interface DataType extends Address {
   key: string,
-  cellPhone: string,
+  cellphone: string,
   type: 'person' | 'corporation',
   reasonForInactivation: string | null,
 }
@@ -26,9 +26,9 @@ const columns = [
 
   {
     title: 'Celular',
-    dataIndex: 'cellPhone',
-    key: 'cellPhone',
-    render: (cellPhone: string) => formatPhone(cellPhone),
+    dataIndex: 'cellphone',
+    key: 'cellphone',
+    render: (cellphone: string) => formatPhone(cellphone),
   },
 
   {
