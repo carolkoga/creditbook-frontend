@@ -16,8 +16,8 @@ export default function ClientsTable({ dataSource, onChangeStatus, changingStatu
   const columns = useMemo(() => ([
     {
       title: 'Nome',
-      dataIndex: 'name',
-      key: 'name',
+      dataIndex: 'fullName',
+      key: 'fullName',
     },
 
     {
@@ -42,7 +42,7 @@ export default function ClientsTable({ dataSource, onChangeStatus, changingStatu
           defaultChecked
           checkedChildren={isActive && 'Ativado'}
           unCheckedChildren={!isActive && 'Desativado'}
-          onClick={() => onChangeStatus(record.key)}
+          onClick={() => onChangeStatus(record.id)}
           loading={changingStatusLoader}
         />
       ),
@@ -52,11 +52,13 @@ export default function ClientsTable({ dataSource, onChangeStatus, changingStatu
   return (
     <WrapperTable>
       <Table
+        rowKey={(record) => record.email}
+        pagination={false}
         columns={columns}
         dataSource={dataSource}
         expandable={{
           expandedRowRender: ({
-            address, cellphone, type, inactivationReason, key,
+            address, cellphone, type, inactivationReason, id,
           }: DataType) => (
             <InformationTable
               dataSource={{
@@ -64,7 +66,7 @@ export default function ClientsTable({ dataSource, onChangeStatus, changingStatu
                 cellphone,
                 type,
                 inactivationReason,
-                key,
+                id,
               }}
             />
           ),

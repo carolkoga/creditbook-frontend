@@ -4,7 +4,7 @@ import formatPhone from '@utils/formatPhone';
 import { Table } from 'antd';
 
 interface DataType extends Address {
-  key: string,
+  id: string,
   cellphone: string,
   type: 'person' | 'corporation',
   reasonForInactivation: string | null,
@@ -78,6 +78,8 @@ const columns = [
 export default function InformationTable({ dataSource }: IProps) {
   return (
     <Table
+      // @ts-ignore
+      rowKey={(record) => record.id}
       columns={columns}
       dataSource={[dataSource]}
       pagination={false}
