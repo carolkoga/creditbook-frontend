@@ -42,7 +42,7 @@ export default function ManageAnnouncements() {
           <AnnouncementsTable dataSource={announcements.announcements} />
         </Tabs.TabPane>
 
-        <Tabs.TabPane tab="Inativos" key="inactive">
+        <Tabs.TabPane tab="Inativos" key="rejected">
           <AnnouncementsTable dataSource={announcements.announcements} />
         </Tabs.TabPane>
       </Tabs>
