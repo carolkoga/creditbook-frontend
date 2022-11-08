@@ -162,7 +162,7 @@ export default function AnnouncementIdAdmin({ announcement }: IProps) {
       </Section.Container>
 
       <Modal
-        title="Descreve a solicitação de edição"
+        title="Descreva a solicitação de edição"
         centered
         open={announcementBeingEditionRequested}
         onOk={handleChangeAnnouncementStatusToEditionRequested}
