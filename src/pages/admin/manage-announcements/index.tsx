@@ -45,6 +45,10 @@ export default function ManageAnnouncements() {
         <Tabs.TabPane tab="Inativos" key="rejected">
           <AnnouncementsTable dataSource={announcements.announcements} />
         </Tabs.TabPane>
+
+        <Tabs.TabPane tab="Solicitação de edição" key="edition_requested">
+          <AnnouncementsTable dataSource={announcements.announcements} />
+        </Tabs.TabPane>
       </Tabs>
     </>
   );
