@@ -15,6 +15,7 @@ import { Button } from '@components/Button';
 import { handleCatchErrorRequest } from '@utils/handleCatchErrorRequest';
 import { adminServices } from '@services/creditbook/admin';
 import { Textarea } from '@components/Input';
+import AlertModal from '@components/AlertModal';
 
 interface IProps {
   announcement: LawsuitParams,
@@ -25,8 +26,10 @@ export default function AnnouncementIdAdmin({ announcement }: IProps) {
   const [announcementUpdated, setAnnouncementUpdated] = useState(announcement as LawsuitParams);
   const [approvingLoader, setApprovingLoader] = useState(false);
   const [rejectingLoader, setRejectingLoader] = useState(false);
+  const [deletingLoader, setDeletingLoader] = useState(false);
   const [editionRequestedLoader, setEditionRequestedLoader] = useState(false);
   const [announcementBeingEditionRequested, setAnnouncementBeingEditionRequested] = useState(false);
+  const [isAnnouncementBeingDeleted, setIsAnnouncementBeingDeleted] = useState(false);
   const [messageEditionRequested, setMessageEditionRequested] = useState('');
   const hasMessageValid = messageEditionRequested.trim().length > 5;
 
@@ -36,6 +39,14 @@ export default function AnnouncementIdAdmin({ announcement }: IProps) {
 
   function handleCloseModalAnnouncementBeingEditionRequested() {
     setAnnouncementBeingEditionRequested(false);
+  }
+
+  function handleOpenModalAnnouncementBeingDeleted() {
+    setIsAnnouncementBeingDeleted(true);
+  }
+
+  function handleCloseModalAnnouncementBeingDeleted() {
+    setIsAnnouncementBeingDeleted(false);
   }
 
   async function handleChangeAnnouncementStatusToAccepted() {
@@ -89,6 +100,18 @@ export default function AnnouncementIdAdmin({ announcement }: IProps) {
     }
   }
 
+  async function handleDeleteAnnouncement() {
+    try {
+      setDeletingLoader(true);
+      await adminServices.deleteAnnouncementById(announcementUpdated.id);
+    } catch (error) {
+      handleCatchErrorRequest(error as never);
+    } finally {
+      handleCloseModalAnnouncementBeingDeleted();
+      setDeletingLoader(false);
+    }
+  }
+
   return (
     <Section.Container>
       <Section.Header>
@@ -105,7 +128,14 @@ export default function AnnouncementIdAdmin({ announcement }: IProps) {
 
       <Section.Container as="footer">
         <Direction direction="horizontal">
-          {/* <ButtonAntd type="primary" danger>Deletar</ButtonAntd> */}
+          <ButtonAntd
+            type="primary"
+            danger
+            onClick={handleOpenModalAnnouncementBeingDeleted}
+          >
+            Deletar
+          </ButtonAntd>
+
           <ButtonAntd
             type="ghost"
             danger
@@ -152,6 +182,22 @@ export default function AnnouncementIdAdmin({ announcement }: IProps) {
           onChange={(e) => setMessageEditionRequested(e.target.value)}
         />
       </Modal>
+
+      <AlertModal
+        title="Deseja realmente deletar esse anúncio?"
+        description="Tem certeza, absoluta? Após a confirmação essa ação não poderá ser revertida!"
+        type="danger"
+        isVisible={isAnnouncementBeingDeleted}
+        confirm={{
+          label: 'Sim, deletar',
+          onConfirmButton: handleDeleteAnnouncement,
+        }}
+        cancel={{
+          label: 'Cancelar',
+          onCancelButton: handleCloseModalAnnouncementBeingDeleted,
+        }}
+        isLoading={deletingLoader}
+      />
     </Section.Container>
   );
 }
