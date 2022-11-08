@@ -19,7 +19,7 @@ export function middleware(req: NextRequest) {
     return { token, user };
   }
 
-  if (req.nextUrl.pathname.startsWith('/admin')) {
+  if (req.nextUrl.pathname.startsWith('/admin') || req.nextUrl.pathname.startsWith('/login')) {
     const { token: isAuthenticated, user } = _getTokenAndUser();
 
     let path = !isAuthenticated ? '/login' : req.nextUrl.pathname;
