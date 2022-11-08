@@ -41,8 +41,9 @@ export default function ClientsTable({ dataSource, onChangeStatus, changingStatu
         <Switch
           defaultChecked
           checkedChildren={isActive && 'Ativado'}
-          unCheckedChildren={!isActive && 'Desativado'}
+          unCheckedChildren={isActive && 'Desativado'}
           onClick={() => onChangeStatus(record.id)}
+          style={{ width: '100%' }}
           loading={changingStatusLoader}
         />
       ),
