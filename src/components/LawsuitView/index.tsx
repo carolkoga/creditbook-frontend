@@ -77,7 +77,9 @@ export default function LawsuitView({ children, announcement }: IProps) {
           <Space direction="vertical" size="middle">
             <Title>Autor Principal:</Title>
             <DescriptionWrapper>
-              <Description>{announcement.mainActorCorporationNameOrName.toUpperCase()}</Description>
+              <Description>
+                {announcement.mainActorCorporationNameOrName?.toUpperCase()}
+              </Description>
             </DescriptionWrapper>
           </Space>
         </Col>
@@ -187,7 +189,7 @@ export default function LawsuitView({ children, announcement }: IProps) {
               <Title>Nome</Title>
               <DescriptionWrapper>
                 <Description>
-                  {announcement.mainDefendantCorporationNameOrName.toUpperCase()}
+                  {announcement.mainDefendantCorporationNameOrName?.toUpperCase()}
                 </Description>
               </DescriptionWrapper>
             </Space>
@@ -211,7 +213,7 @@ export default function LawsuitView({ children, announcement }: IProps) {
                 <Title>Nome</Title>
                 <DescriptionWrapper>
                   <Description>
-                    {announcement.secondaryDefendantCorporationNameOrName.toUpperCase()}
+                    {announcement.secondaryDefendantCorporationNameOrName?.toUpperCase()}
                   </Description>
                 </DescriptionWrapper>
               </Space>
