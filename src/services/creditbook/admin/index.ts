@@ -62,6 +62,10 @@ export class AdminServices extends HttpClient {
     return this.httpClient.put(`${PREFIX_ANNOUNCEMENT}/status`, updateAnnouncement);
   }
 
+  async deleteAnnouncementById(id: string) {
+    return this.httpClient.delete(`${PREFIX_ANNOUNCEMENT}/${id}`);
+  }
+
   async indexUsers() {
     return this.httpClient.get(`${PREFIX_USER}/all`);
   }
