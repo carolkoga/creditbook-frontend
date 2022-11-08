@@ -5,7 +5,7 @@ export interface DataType {
   name: string,
   email: string,
   amountAnnouncements: number,
-  status: 'active' | 'inactive',
+  isActive: boolean,
 
   cellphone: string,
   type: 'person' | 'corporation',

@@ -24,7 +24,7 @@ export default function ManageClients() {
             email: 'rebeca@mail.com',
             key: '1',
             inactivationReason: null,
-            status: 'active',
+            isActive: true,
             type: 'person',
           },
         ]}

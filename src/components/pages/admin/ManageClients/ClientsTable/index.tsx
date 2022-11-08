@@ -34,14 +34,14 @@ export default function ClientsTable({ dataSource, onChangeStatus, changingStatu
 
     {
       title: 'Status',
-      dataIndex: 'status',
-      key: 'status',
+      dataIndex: 'isActive',
+      key: 'isActive',
       width: '15%',
-      render: (status: 'active' | 'inactive', record: DataType) => (
+      render: (isActive: boolean, record: DataType) => (
         <Switch
           defaultChecked
-          checkedChildren={status === 'active' && 'Ativado'}
-          unCheckedChildren={status !== 'inactive' && 'Desativado'}
+          checkedChildren={isActive && 'Ativado'}
+          unCheckedChildren={!isActive && 'Desativado'}
           onClick={() => onChangeStatus(record.key)}
           loading={changingStatusLoader}
         />
