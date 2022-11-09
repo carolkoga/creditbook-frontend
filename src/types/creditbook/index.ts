@@ -79,3 +79,12 @@ export interface CustomResponseAnnouncements {
   result: LawsuitParams[],
   pagination: PaginationLawsuitProps
 }
+
+export type AnnouncementStatus = (
+  | 'accepted'
+  | 'deleted'
+  | 'rejected'
+  | 'pending'
+  | 'inactive'
+  | 'edition_requested'
+);
