@@ -4,7 +4,9 @@ import { TablePaginationConfig, Tabs } from 'antd';
 import AnnouncementsTable from '@components/pages/admin/ManageAnnouncements/AnnouncementsTable';
 import { Section } from '@components/Section';
 import { handleCatchErrorRequest } from '@utils/handleCatchErrorRequest';
-import { adminServices, AnnouncementsAdminResponse, AnnouncementStatus } from '@services/creditbook/admin';
+import { adminServices } from '@services/creditbook/admin';
+import { AnnouncementStatus } from '@type/creditbook';
+import { AnnouncementsAdminResponse } from '@type/creditbook/admin';
 
 export default function ManageAnnouncements() {
   const [active, setActive] = useState<AnnouncementStatus>('pending');
