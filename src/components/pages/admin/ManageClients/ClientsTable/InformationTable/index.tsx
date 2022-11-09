@@ -7,7 +7,7 @@ interface DataType extends Address {
   id: string,
   cellphone: string,
   type: 'person' | 'corporation',
-  reasonForInactivation: string | null,
+  deactivationReason: string | null,
 }
 
 interface IProps {
@@ -69,8 +69,8 @@ const columns = [
 
   {
     title: 'Motivo da desativação',
-    dataIndex: 'reasonForInactivation',
-    key: 'reasonForInactivation',
+    dataIndex: 'deactivationReason',
+    key: 'deactivationReason',
     render: (reason: string) => (reason && <p>{reason}</p>),
   },
 ];
