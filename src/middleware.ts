@@ -30,9 +30,8 @@ export function middleware(req: NextRequest) {
       }
     } else if (user?.role === 'user') {
       path = '/in/home';
-    } else {
-      path = '/';
     }
+
     return NextResponse.rewrite(new URL(path, req.url));
   }
 
@@ -45,6 +44,8 @@ export function middleware(req: NextRequest) {
       if (req.nextUrl.pathname === '/login') {
         path = '/in/home';
       }
+    } else if (user?.role === 'admin') {
+      path = '/admin/dashboard';
     }
 
     return NextResponse.rewrite(new URL(path, req.url));
