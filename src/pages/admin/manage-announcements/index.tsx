@@ -22,7 +22,10 @@ export default function ManageAnnouncements() {
         },
       });
 
-      setAnnouncements(response.data);
+      setAnnouncements({
+        announcements: response.data.announcements,
+        pages: response.data.pages === 0 ? 10 : response.data.pages * 10,
+      });
     } catch (err) {
       handleCatchErrorRequest(err as never);
     }
