@@ -28,8 +28,8 @@ export default function ClientsTable({ dataSource, onChangeStatus, changingStatu
 
     {
       title: 'Total de anúncios',
-      dataIndex: 'amountAnnouncements',
-      key: 'amountAnnouncements',
+      dataIndex: 'announcements',
+      key: 'announcements',
     },
 
     {
@@ -40,11 +40,12 @@ export default function ClientsTable({ dataSource, onChangeStatus, changingStatu
       render: (isActive: boolean, record: DataType) => (
         <Switch
           defaultChecked
-          checkedChildren={isActive && 'Ativado'}
-          unCheckedChildren={isActive && 'Desativado'}
+          checkedChildren={isActive ? 'Ativado' : 'Desativado'}
+          unCheckedChildren={!isActive && 'Desativado'}
           onClick={() => onChangeStatus(record.id)}
           style={{ width: '100%' }}
           loading={changingStatusLoader}
+          checked={isActive}
         />
       ),
     },
@@ -59,14 +60,14 @@ export default function ClientsTable({ dataSource, onChangeStatus, changingStatu
         dataSource={dataSource}
         expandable={{
           expandedRowRender: ({
-            address, cellphone, type, inactivationReason, id,
+            address, cellphone, type, deactivationReason, id,
           }: DataType) => (
             <InformationTable
               dataSource={{
                 ...address,
                 cellphone,
                 type,
-                inactivationReason,
+                deactivationReason,
                 id,
               }}
             />
