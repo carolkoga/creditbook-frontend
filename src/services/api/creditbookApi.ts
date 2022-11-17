@@ -1,9 +1,13 @@
 import axios from 'axios';
 
+// https://creditbook-api.herokuapp.com
+const isDev = false;
+const CREDITBOOK_URL = isDev ? 'http://localhost:3001' : 'https://creditbook-api.herokuapp.com';
+
 export function setupAPIClient(token: any = undefined) {
   if (token) {
     return axios.create({
-      baseURL: 'https://creditbook-api.herokuapp.com',
+      baseURL: CREDITBOOK_URL,
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -11,7 +15,7 @@ export function setupAPIClient(token: any = undefined) {
   }
 
   const api = axios.create({
-    baseURL: 'https://creditbook-api.herokuapp.com',
+    baseURL: CREDITBOOK_URL,
   });
 
   return api;

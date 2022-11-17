@@ -61,9 +61,12 @@ export default function CreditCard() {
   async function handleRegisterCreditCard(data: NewPaymentParams) {
     try {
       setCreatingPaymentLoader(true);
-      const { data: paymentRegistered } = await paymentServices.createPayment(data);
-      setCreditCards((oldState) => ([...oldState, paymentRegistered]));
-      handleCloseVisibilityCreditCardModal();
+      const { data: createdToken } = await paymentServices.createToken(data);
+      console.log(createdToken);
+      const { data: paymentRegistered } = await paymentServices.createPayment(createdToken);
+      console.log(paymentRegistered);
+      // setCreditCards((oldState) => ([...oldState, paymentRegistered]));
+      // handleCloseVisibilityCreditCardModal();
     } catch (error) {
       handleCatchErrorRequest(error as never);
     } finally {
