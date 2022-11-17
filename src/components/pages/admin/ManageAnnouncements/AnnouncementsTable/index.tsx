@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { Info } from 'phosphor-react';
 import { Table, TableProps } from 'antd';
-import { NewLawsuitParamsResponse } from '@services/creditbook/admin';
+import { NewLawsuitParamsResponse } from '@type/creditbook/admin';
 import { WrapperTable } from '../../WrapperTable';
 
 interface IProps extends TableProps<any> {

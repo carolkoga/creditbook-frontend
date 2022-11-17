@@ -45,7 +45,9 @@ export default function ChooseCreditCard({
   async function handleRegisterCreditCard(data: NewPaymentParams) {
     try {
       setCreatingPaymentLoader(true);
-      const { data: newPayment } = await paymentServices.createPayment(data);
+      const { data: createdToken } = await paymentServices.createToken(data);
+      console.log(createdToken);
+      const { data: newPayment } = await paymentServices.createPayment(createdToken);
       mutate(newPayment);
       handleCloseVisibilityCreditCardModal();
     } catch (error) {
