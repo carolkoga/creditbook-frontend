@@ -10,9 +10,9 @@ interface IProps {
 }
 
 export default function Layout({ children }: IProps) {
-  const { isAuthenticated, user } = useAuth();
+  const { user } = useAuth();
 
-  if (!isAuthenticated) {
+  if (!user) {
     return (
       <ContainerLayout>
         <LayoutNotLogged>
