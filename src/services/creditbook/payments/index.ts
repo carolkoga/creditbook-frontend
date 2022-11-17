@@ -2,7 +2,7 @@ import { NewPaymentParams } from '@type/creditbook/payment';
 
 import { HttpClient } from '../http';
 
-interface IuguTokenResponse {
+export interface IuguTokenResponse {
   extra_info: {
     bind: string,
     brand: string,
