@@ -2,6 +2,8 @@
 /* eslint-disable react/require-default-props */
 /* eslint-disable react/default-props-match-prop-types */
 /* eslint-disable react/no-unescaped-entities */
+import { CSSProperties } from 'styled-components';
+
 import { Overlay } from '@components/Overlay';
 import ReactPortal from '@components/ReactPortal';
 import { Button } from '@components/Button';
@@ -17,6 +19,7 @@ interface IProps {
   isLoading?: boolean,
 
   width?: string,
+  _css?: CSSProperties | undefined,
 
   confirm: {
     label: string,
@@ -39,6 +42,7 @@ export default function AlertModal({
   cancel,
   width,
   titleColor,
+  _css,
 }: IProps) {
   if (!isVisible) {
     return null;
@@ -47,7 +51,7 @@ export default function AlertModal({
   return (
     <ReactPortal>
       <Overlay>
-        <Container width={width}>
+        <Container width={width} style={_css}>
           <div className="header__modal">
             <Title color={titleColor}>{title}</Title>
           </div>
@@ -84,4 +88,5 @@ export default function AlertModal({
 AlertModal.defaultProps = {
   description: null,
   type: 'default',
+  _css: undefined,
 };
