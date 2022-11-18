@@ -47,11 +47,7 @@ export default function ManageClients() {
         deactivationReason,
       });
 
-      setClients((oldClients) => oldClients.filter((currentClient) => (
-        currentClient.id === currentId
-          ? { ...currentClient, isActive: action === 'active', deactivationReason }
-          : currentClient
-      )));
+      await loadClients();
     } catch (error) {
       handleCatchErrorRequest(error as never);
     } finally {
