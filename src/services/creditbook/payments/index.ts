@@ -21,10 +21,7 @@ export class PaymentServices extends HttpClient {
 
   async createPayment(payment: IuguTokenResponse) {
     return this.httpClient.post('/payment', {
-      extra_info: {
-        ...payment.extra_info,
-      },
-      token: payment.id,
+      token: payment,
     });
   }
 
@@ -33,6 +30,7 @@ export class PaymentServices extends HttpClient {
       ...payment,
       cardNumber: payment.cardNumber.replaceAll(' ', ''),
       validate: payment.validate.split('/').join('/20'),
+      method: 'credit_card',
     });
   }
 
