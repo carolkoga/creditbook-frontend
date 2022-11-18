@@ -5,8 +5,10 @@ export const Container = styled.div`
   align-items: center;
   flex-wrap: wrap;
   justify-content: space-between;
+  gap: 8px;
   padding: 16px 32px;
-  max-width: 398px;
+  flex-wrap: wrap;
+  max-width: 480px;
   border-radius: 10px;
   background: ${({ theme }) => theme.colors.grey[10]};
   .wrapper__content {
@@ -20,13 +22,9 @@ export const Container = styled.div`
   }
 
   @media (max-width: 467px) {
-    /* flex-direction: column; */
+    flex-direction: column;
     padding-left: 20px;
     padding-right: 20px;
-  }
-
-  @media (max-width: 418px) {
-    gap: 32px;
   }
 `;
 

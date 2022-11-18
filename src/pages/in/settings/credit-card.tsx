@@ -16,6 +16,7 @@ import { paymentServices } from '@services/creditbook/payments';
 import { ListCreditCard } from '@components/pages/in/ListCreditCard';
 import AlertModal from '@components/AlertModal';
 import NotFoundData from '@components/NotFoundData';
+import { Alert } from 'antd';
 
 export default function CreditCard() {
   const [isVisibleCreditCardModal, setIsVisibleCreditCardModal] = useState(false);
@@ -62,11 +63,9 @@ export default function CreditCard() {
     try {
       setCreatingPaymentLoader(true);
       const { data: createdToken } = await paymentServices.createToken(data);
-      console.log(createdToken);
       const { data: paymentRegistered } = await paymentServices.createPayment(createdToken);
-      console.log(paymentRegistered);
-      // setCreditCards((oldState) => ([...oldState, paymentRegistered]));
-      // handleCloseVisibilityCreditCardModal();
+      setCreditCards((oldState) => ([...oldState, paymentRegistered]));
+      handleCloseVisibilityCreditCardModal();
     } catch (error) {
       handleCatchErrorRequest(error as never);
     } finally {
@@ -102,7 +101,7 @@ export default function CreditCard() {
           </Direction>
         </Section.Header>
 
-        {creditCards && (
+        {!!creditCards?.length && (
           <ListCreditCard>
             {creditCards.map((card) => (
               <li key={card.id}>
@@ -124,6 +123,12 @@ export default function CreditCard() {
             <Button onClick={handleOpenVisibilityCreditCardModal} size="outline-filled-round">
               Novo cartão
             </Button>
+            <Alert
+              type="info"
+              message={`
+                Caso tenha anúncios por assinatura então para que não haja a desativação dos anúncios em assinaturas adicione um novo cartão.
+              `}
+            />
           </NotFoundData>
         )}
       </Section.Container>
@@ -140,15 +145,19 @@ export default function CreditCard() {
       </FormProvider>
 
       <AlertModal
+        _css={{ maxWidth: '574px' }}
         type="danger"
         isVisible={deleteModalCreditCard}
         title={`
-          O cartão ${creditCardBeingDeleted?.cardNumber?.split(' ')?.at(1)}
-           ******* ${creditCardBeingDeleted?.cardNumber?.split(' ')?.at(-1)}
+          O cartão com final **${creditCardBeingDeleted?.cardNumberDisplay?.replaceAll(/[A-Z]/g, '')?.replaceAll(/[-]/g, '')}
            está preste a ser deletado, você tem certeza disso?
         `}
+        description={`
+          Ao deletar cartão de crédito os anúncios de assinatura ficaram disponíveis até a expiração do contrato.
+          Para que não haja a desativação dos anúncios em assinaturas adicione um novo cartão.
+        `}
         confirm={{
-          label: 'Sim, deletar',
+          label: 'Entendi, deletar',
           onConfirmButton: () => handleDeleteCreditCard(creditCardBeingDeleted?.id!),
         }}
         cancel={{

@@ -21,7 +21,7 @@ export default function DebitAndCreditCard({ card, buttonProps, buttonLabel }: I
         <strong>
           ******
           {' '}
-          {card.cardNumber.split(' ').at(-1)}
+          {card.cardNumberDisplay}
         </strong>
       </div>
 
