@@ -14,6 +14,11 @@ const routes = [
     label: 'Cartões',
     link: `${PREFIX}/credit-card`,
   },
+
+  {
+    label: 'Meus Planos',
+    link: `${PREFIX}/my-plans`,
+  },
 ];
 
 export function StructureSettings({ children }: { children: ReactNode }) {
