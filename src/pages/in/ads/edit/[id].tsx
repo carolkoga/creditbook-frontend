@@ -24,14 +24,16 @@ import { updateLawsuitSchemaValidation } from '@validations/yup/LawsuitForm';
 import { LawsuitParams, UpdateLawsuitParams } from '@type/creditbook/Lawsuits';
 import { handleCatchErrorRequest } from '@utils/handleCatchErrorRequest';
 import ProcurationField from '@components/LawsuitForm/ProcurationField';
-// import ModalToSelectPlan from '@components/LawsuitForm/ModalToSelectPlan';
+import ModalToSelectPlan from '@components/LawsuitForm/ModalToSelectPlan';
 import { setupAPIClient } from '@api/creditbookApi';
 import { GetServerSideProps } from 'next';
 import { lawsuitActionPhase } from '@mocks/ReactSelectOptions/LawsuitActionPhase';
 import { courtsOptions } from '@mocks/ReactSelectOptions/CourtsOptions';
 import { lawsuitKind } from '@mocks/ReactSelectOptions/LawsuitKind';
 import { lawsuitCategories } from '@mocks/ReactSelectOptions/LawsuitCategories';
-// import ChooseCreditCard from '@components/LawsuitForm/ChooseCreditCard';
+import ChooseCreditCard from '@components/LawsuitForm/ChooseCreditCard';
+import { Alert } from 'antd';
+import { Direction } from '@components/Direction';
 
 interface IProps {
   announcement: LawsuitParams,
@@ -58,11 +60,12 @@ interface CustomUpdateLawsuitParams extends Omit<UpdateLawsuitParams,
 export default function EditLawsuitByIdPage({ announcement }: IProps) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
-  // eslint-disable-next-line no-unused-vars
-  // const [stepForm, setStepForm] = useState('1');
+
+  const [stepForm, setStepForm] = useState('1');
+
   const methods = useForm<CustomUpdateLawsuitParams>({
     resolver: yupResolver(updateLawsuitSchemaValidation),
-    mode: 'all',
+    mode: 'onBlur',
     defaultValues: {
       ...announcement,
       digitalProcess: announcement.digitalProcessUrl,
@@ -82,14 +85,14 @@ export default function EditLawsuitByIdPage({ announcement }: IProps) {
       kind: lawsuitKind.find((currentKind) => currentKind.value === announcement.kind),
     },
   });
-  // eslint-disable-next-line no-unused-vars
-  // const [plan, isPremium] = methods.watch(['plan', 'isPremium']);
-  const ownOrAttorneyField = methods.watch('ownOrAttorney');
-  // const isValidToContinue = methods.watch('income');
 
-  // function handleOpenModalToSelectPlan() {
-  //   setStepForm('4');
-  // }
+  const [plan, isPremium] = methods.watch(['plan', 'isPremium']);
+  const ownOrAttorneyField = methods.watch('ownOrAttorney');
+  const isValidToContinue = methods.watch('income');
+
+  function handleOpenModalToSelectPlan() {
+    setStepForm('4');
+  }
 
   async function handleSubmitNewLawsuit(data: any) {
     try {
@@ -131,31 +134,52 @@ export default function EditLawsuitByIdPage({ announcement }: IProps) {
                 <OwnerOrAttorney />
                 <PledgeOrGuarantee />
                 <AcceptNegotiation />
-                <Prices />
+                <Prices
+                  fields={{
+                    _incomeInputProps: { disabled: !announcement.overSixMonths },
+                    _processPriceProps: { disabled: !announcement.overSixMonths },
+                  }}
+                />
                 {ownOrAttorneyField === 'attorney' && (
                   <ProcurationField />
                 )}
-                {/* <Button
-                  type="button"
-                  onClick={handleOpenModalToSelectPlan}
-                  disabled={!isValidToContinue}
-                >
-                  Atualizar
-                </Button> */}
-                <Button isLoading={loading} type="submit">
-                  {!loading ? 'Atualizar' : 'Atualizando'}
-                </Button>
+
+                {announcement.overSixMonths
+                  ? (
+                    <Button
+                      type="button"
+                      onClick={handleOpenModalToSelectPlan}
+                      disabled={!isValidToContinue}
+                    >
+                      Atualizar
+                    </Button>
+                  )
+                  : (
+                    <Direction gap="12px">
+                      <Button isLoading={loading} type="button" onClick={methods.handleSubmit(handleSubmitNewLawsuit)}>
+                        {!loading ? 'Atualizar' : 'Atualizando'}
+                      </Button>
+
+                      <Alert
+                        type="info"
+                        message="Só poderá mudar de plano ou valor do processo após 6 meses"
+                        style={{ borderRadius: '10px' }}
+                      />
+                    </Direction>
+                  )}
+
               </div>
 
-              {/*
               <ChooseCreditCard
                 isVisible={stepForm === '5'}
                 onBack={() => setStepForm('4')}
-                loading={loading}
-                label={!loading ? 'Cadastrar' : 'Cadastrando'}
-              /> */}
+              >
+                <Button isLoading={loading} type="button" onClick={methods.handleSubmit(handleSubmitNewLawsuit)}>
+                  {!loading ? 'Atualizar' : 'Atualizando'}
+                </Button>
+              </ChooseCreditCard>
 
-              {/* <ModalToSelectPlan isVisible={stepForm === '4'}>
+              <ModalToSelectPlan isVisible={stepForm === '4'}>
                 <button type="button" onClick={() => setStepForm('0')}>
                   Voltar
                 </button>
@@ -171,7 +195,7 @@ export default function EditLawsuitByIdPage({ announcement }: IProps) {
                     Escolher pagamento
                   </Button>
                 )}
-              </ModalToSelectPlan> */}
+              </ModalToSelectPlan>
             </FormLayout>
           </LawsuitFormProvider>
         </FormProvider>
