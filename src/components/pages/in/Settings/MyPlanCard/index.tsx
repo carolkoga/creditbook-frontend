@@ -1,40 +1,48 @@
-import { Link, Button } from '@components/Button';
+import { Link } from '@components/Button';
+import { AnnouncementPlanType } from '@type/creditbook/Lawsuits';
 import {
   Container, Footer, TagHeader, Header, Body, Information,
 } from './styled';
 
-export default function MyPlanCard() {
+interface MyPlanCardProps {
+  plan: AnnouncementPlanType
+}
+
+export default function MyPlanCard({ plan }: MyPlanCardProps) {
   return (
     <Container>
       <Header>
-        <TagHeader type="batch">Em Lote</TagHeader>
+        <TagHeader type={plan.type}>
+          {plan.type === 'batch' && 'Em Lote'}
+          {plan.type === 'announcement' && 'Anúncio'}
+        </TagHeader>
       </Header>
 
       <Body>
         <Information.Container>
           <Information.Title>Número do processo</Information.Title>
-          <Information.Content>51605485620228192646</Information.Content>
+          <Information.Content>{plan.processNumber}</Information.Content>
         </Information.Container>
 
         <Information.Container>
           <Information.Title>Plano</Information.Title>
-          <Information.Content>R$ 69.90 + 8%</Information.Content>
+          <Information.Content>{plan.plan}</Information.Content>
         </Information.Container>
 
         <Information.Container>
           <Information.Title>Premium</Information.Title>
-          <Information.Content>R$ 69.90</Information.Content>
+          <Information.Content>{plan.premium}</Information.Content>
         </Information.Container>
       </Body>
 
       <Footer>
-        <Link as="a" size="x-large" variant="secondary" href="/in/ads/123">
+        <Link size="x-large" variant="secondary" href={`/in/ads/${plan.id}`}>
           Sobre Anúncio
         </Link>
 
-        <Button>
-          Trocar cartão
-        </Button>
+        <Link href="/in/settings/credit-card">
+          Trocar de cartão
+        </Link>
       </Footer>
     </Container>
   );

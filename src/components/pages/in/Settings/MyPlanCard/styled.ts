@@ -5,7 +5,7 @@ interface TagHeaderProps {
 }
 
 export const Container = styled.div`
-  padding: 22px 25px;
+  padding: 22px 16px;
   background: ${({ theme }) => theme.colors.grey[10]};
   border-radius: 10px;
   border: 1px solid #E4E4E4;
@@ -13,7 +13,6 @@ export const Container = styled.div`
   max-width: 326px;
   :hover {
     border: 1px solid ${({ theme }) => theme.colors.primary.main};
-
   }
 `;
 
@@ -48,7 +47,7 @@ export const Body = styled.div`
 const InformationContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 2px;
 `;
 
 const InformationTitle = styled.strong`
