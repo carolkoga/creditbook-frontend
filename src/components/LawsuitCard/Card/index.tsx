@@ -24,6 +24,7 @@ export default function LawsuitNewCard({
 }: IProps) {
   const { user, isAuthenticated } = useAuth();
   const [lawsuit, setLawsuit] = useState(originalLawsuit);
+
   const handleChangeFavorite = useCallback(async (announcementId: string, isFavorite: boolean) => {
     try {
       const { data } = await lawsuitService.changeFavorite({
@@ -70,7 +71,7 @@ export default function LawsuitNewCard({
         <Lawsuit.Content>
           <Lawsuit.Info.Container>
             <Lawsuit.Info.KeyInformation>
-              {lawsuit.city} - {lawsuit.uf.toUpperCase()}
+              {lawsuit.city} - {lawsuit.uf?.toUpperCase()}
             </Lawsuit.Info.KeyInformation>
           </Lawsuit.Info.Container>
 
