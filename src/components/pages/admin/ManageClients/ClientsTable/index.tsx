@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unstable-nested-components */
-import { Switch, Table } from 'antd';
+import { Switch, Table, TableProps } from 'antd';
 import { useMemo } from 'react';
 import { WrapperTable } from '../../WrapperTable';
 import InformationTable from './InformationTable';
@@ -10,9 +10,15 @@ interface IProps {
   // eslint-disable-next-line no-unused-vars
   onChangeStatus: (clientId: string) => void,
   changingStatusLoader: boolean,
+  _tableProps?: TableProps<any>
 }
 
-export default function ClientsTable({ dataSource, onChangeStatus, changingStatusLoader }: IProps) {
+export default function ClientsTable({
+  dataSource,
+  onChangeStatus,
+  changingStatusLoader,
+  _tableProps,
+}: IProps) {
   const columns = useMemo(() => ([
     {
       title: 'Nome',
@@ -73,7 +79,12 @@ export default function ClientsTable({ dataSource, onChangeStatus, changingStatu
             />
           ),
         }}
+        {..._tableProps}
       />
     </WrapperTable>
   );
 }
+
+ClientsTable.defaultProps = {
+  _tableProps: null,
+};
