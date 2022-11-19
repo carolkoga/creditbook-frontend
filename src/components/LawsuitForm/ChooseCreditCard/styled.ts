@@ -6,6 +6,7 @@ export const Container = styled.div`
   border-radius: 10px;
   position: relative;
   max-width: 500px;
+  min-height: 246px;
   width: 100%;
 
   @media (max-width: 540px) {
@@ -41,6 +42,6 @@ export const RadioButton = styled.label<RadioButtonProps>`
     display: none
   }
   .credit__card-container {
-    background: ${({ chosen }) => (chosen === 'true' ? '#eeee' : 'none')};
+    background: ${({ chosen }) => (chosen !== 'true' ? '#eeee' : 'none')};
   }
 `;
