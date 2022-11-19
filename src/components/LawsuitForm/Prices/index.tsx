@@ -1,3 +1,4 @@
+import { InputAttributes } from 'react-number-format';
 import { Controller, useFormContext } from 'react-hook-form';
 
 import { Direction } from '@components/Direction';
@@ -7,7 +8,14 @@ import { InputCurrency } from '@components/Form/Input/Mask/InputCurrency';
 import { Fieldset } from '../components/Fieldset';
 import useLawsuitForm from '../hooks/useLawsuitForm';
 
-export default function Prices() {
+interface PriceProps {
+  fields?: {
+    _incomeInputProps?: InputAttributes,
+    _processPriceProps?: InputAttributes
+  }
+}
+
+export default function Prices({ fields }: PriceProps) {
   const { control, formState: { errors } } = useFormContext();
   const { formGroupDirection } = useLawsuitForm();
 
@@ -30,6 +38,7 @@ export default function Prices() {
               <InputCurrency
                 inputMode="numeric"
                 id="processPrice"
+                {...fields?._processPriceProps}
                 {...field}
               />
             </FormGroup>
@@ -51,6 +60,7 @@ export default function Prices() {
               <InputCurrency
                 inputMode="numeric"
                 id="income"
+                {...fields?._incomeInputProps}
                 {...field}
               />
             </FormGroup>
@@ -60,3 +70,7 @@ export default function Prices() {
     </Fieldset>
   );
 }
+
+Prices.defaultProps = {
+  fields: null,
+};
