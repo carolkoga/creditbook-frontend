@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { FormProvider, useForm } from 'react-hook-form';
+import { useForm, FormProvider } from 'react-hook-form';
 
 import useAuth from '@hooks/useAuth';
 import { Button } from '@components/Button';
@@ -7,23 +7,30 @@ import { Section } from '@components/Section';
 import { Direction } from '@components/Direction';
 import { ContactAnnouncerParams } from '@type/creditbook';
 import ContactAnnouncerForm from '@components/pages/in/contact-announcer/form';
+import { emailServices } from '@services/creditbook/email';
+import { handleCatchErrorRequest } from '@utils/handleCatchErrorRequest';
 
-export default function ContactBatchAnnouncer() {
+export default function ContactAnnouncementAnnouncer() {
   const router = useRouter();
   const { user } = useAuth();
+
   const methods = useForm<ContactAnnouncerParams & { name: string, email: string }>({
     defaultValues: {
       userId: user?.id,
       name: user?.fullName,
       email: user?.email,
       phone: user?.cellphone,
-      type: 'batch',
-      creditId: router.query.id as string,
+      type: router.query?.type as 'announcement' | 'batch' ?? 'announcement',
+      creditId: router.query?.id as string ?? '',
     },
   });
 
-  function handleSubmitMessage(data: ContactAnnouncerParams) {
-    console.log({ data });
+  async function handleSubmitMessage(data: ContactAnnouncerParams) {
+    try {
+      await emailServices.contactAnnouncer(data);
+    } catch (error) {
+      handleCatchErrorRequest(error as never);
+    }
   }
 
   return (
