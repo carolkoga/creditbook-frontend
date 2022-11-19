@@ -3,7 +3,7 @@ import {
   AnnouncementsAdminResponse,
   UpdateAnnouncementStatusParams,
   UserChangeStatusParams,
-  UserParams,
+  UsersAdminResponse,
 } from '@type/creditbook/admin';
 
 import { HttpClient } from '../http';
@@ -28,8 +28,13 @@ export class AdminServices extends HttpClient {
     return this.httpClient.delete(`${PREFIX_ANNOUNCEMENT}/${id}`);
   }
 
-  async indexUsers() {
-    return this.httpClient.get<UserParams[]>(`${PREFIX_USER}/all`);
+  async indexUsers(params?: { page?: number }) {
+    return this.httpClient.get<UsersAdminResponse>(`${PREFIX_USER}/all`, {
+      params: {
+        ...params,
+        page: params?.page ?? 1,
+      },
+    });
   }
 
   async changeStatusUser({ userId, action, deactivationReason }: UserChangeStatusParams) {

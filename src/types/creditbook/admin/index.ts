@@ -44,5 +44,10 @@ export interface UserParams {
   deactivationReason: string | null,
 }
 
+export interface UsersAdminResponse {
+  users: UserParams[],
+  pages: number
+}
+
 // Response
 export type AnnouncementsAdminResponse = ResponseListAllAnnouncements<NewLawsuitParamsResponse>;

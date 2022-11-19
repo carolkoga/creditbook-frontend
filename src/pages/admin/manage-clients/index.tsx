@@ -9,6 +9,8 @@ import { useCallback, useEffect, useState } from 'react';
 
 export default function ManageClients() {
   const [clients, setClients] = useState([] as UserParams[]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(10);
   const [deactivationUser, setDeactivationUser] = useState(false);
   const [loading, setLoading] = useState(false);
   const [deactivationReason, setDeactivationReason] = useState('');
@@ -22,10 +24,12 @@ export default function ManageClients() {
     setLoading(false);
   }
 
-  const loadClients = useCallback(async () => {
+  const loadClients = useCallback(async (params?: { page?: number }) => {
     try {
-      const response = await adminServices.indexUsers();
-      setClients(response.data);
+      const response = await adminServices.indexUsers(params);
+      setClients(response.data.users);
+      setTotalPages(response.data.pages * 10);
+      setCurrentPage(response.config.params.page);
     } catch (error) {
       handleCatchErrorRequest(error as never);
     }
@@ -47,7 +51,9 @@ export default function ManageClients() {
         deactivationReason,
       });
 
-      await loadClients();
+      await loadClients({
+        page: currentPage,
+      });
     } catch (error) {
       handleCatchErrorRequest(error as never);
     } finally {
@@ -80,6 +86,13 @@ export default function ManageClients() {
         onChangeStatus={handleNeedOpenModalOrChangeStatusUserDirect}
         changingStatusLoader={false}
         dataSource={clients}
+        _tableProps={{
+          pagination: {
+            total: totalPages,
+            onChange: (page) => loadClients({ page }),
+            current: currentPage,
+          },
+        }}
       />,
 
       <Modal
