@@ -8,7 +8,7 @@ import { paymentServices } from '@services/creditbook/payments';
 import { Direction } from '@styles/pages/home';
 import { NewPaymentParams, PaymentParams } from '@type/creditbook/payment';
 import { handleCatchErrorRequest } from '@utils/handleCatchErrorRequest';
-import { useState } from 'react';
+import { ReactNode, useState } from 'react';
 import { FormProvider, useForm, useFormContext } from 'react-hook-form';
 import useSWR from 'swr';
 import { Actions } from '../ModalToSelectPlan/styled';
@@ -17,17 +17,16 @@ import { Container, ListContainerPayment, RadioButton } from './styled';
 
 interface IProps {
   isVisible: boolean,
-  loading?: boolean,
+  children?: ReactNode,
   onBack: () => void,
-  label: string,
 }
 
 export default function ChooseCreditCard({
-  isVisible, label, onBack, loading,
+  isVisible, onBack, children,
 }: IProps) {
   const [isVisibleCreditCardModal, setIsVisibleCreditCardModal] = useState(false);
   const [creatingPaymentLoader, setCreatingPaymentLoader] = useState(false);
-  const { data: payments, mutate, isValidating } = useSWR<PaymentParams[]>('credit_cards', async () => (await paymentServices.listPayments()).data);
+  const { data: payments, mutate } = useSWR<PaymentParams[]>('credit_cards', async () => (await paymentServices.listPayments()).data);
   const methodsToCreateCard = useForm<NewPaymentParams>();
   const { register, watch } = useFormContext();
   const chosenCreditCard = watch('creditCard');
@@ -46,7 +45,6 @@ export default function ChooseCreditCard({
     try {
       setCreatingPaymentLoader(true);
       const { data: createdToken } = await paymentServices.createToken(data);
-      console.log(createdToken);
       const { data: newPayment } = await paymentServices.createPayment(createdToken);
       mutate(newPayment);
       handleCloseVisibilityCreditCardModal();
@@ -73,7 +71,7 @@ export default function ChooseCreditCard({
 
           <Section.Container>
             <ListContainerPayment>
-              {(!isValidating && payments) && payments?.map((payment) => (
+              {!!payments?.length && payments?.map((payment) => (
                 <li key={payment.id}>
                   <RadioButton
                     htmlFor={payment.id}
@@ -82,6 +80,8 @@ export default function ChooseCreditCard({
                     <DebitAndCreditCard card={payment} />
                     <input
                       type="radio"
+                      defaultValue={payments[0].id}
+                      defaultChecked={!!payments[0]}
                       id={payment.id}
                       value={payment.id}
                       {...register('paymentMethodId')}
@@ -111,9 +111,7 @@ export default function ChooseCreditCard({
                 Voltar
               </button>
 
-              <Button type="submit" isLoading={loading}>
-                {label}
-              </Button>
+              {children}
             </Direction>
           </Actions>
 
@@ -134,5 +132,5 @@ export default function ChooseCreditCard({
 }
 
 ChooseCreditCard.defaultProps = {
-  loading: false,
+  children: null,
 };
