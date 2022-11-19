@@ -1,9 +1,11 @@
-import { ContactSupportParams } from '@type/creditbook';
+import { ContactAnnouncerParams, ContactSupportParams } from '@type/creditbook';
 import { HttpClient } from '../http';
 
 class EmailServices extends HttpClient {
-  async contactAnnouncer() {
-    return this.httpClient.post('/suport');
+  async contactAnnouncer(contactParams: ContactAnnouncerParams) {
+    return this.httpClient.post('/contact/announcer', {
+      ...contactParams,
+    });
   }
 
   async contactSupport(contactParams: ContactSupportParams) {
