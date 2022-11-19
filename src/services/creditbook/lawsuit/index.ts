@@ -24,6 +24,10 @@ export class LawsuitService extends HttpClient {
     });
   }
 
+  async listPlans() {
+    return this.httpClient.get('/announcement/plans/user');
+  }
+
   async listAnnouncementsUser() {
     return this.httpClient.get<LawsuitParams[]>('/announcement/user');
   }
