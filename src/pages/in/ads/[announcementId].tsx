@@ -18,6 +18,7 @@ interface IProps {
 export default function AnnouncementId({ announcement }: IProps) {
   const { user } = useAuth();
   const router = useRouter();
+
   return (
     <Section.Container>
       <Section.Header>
@@ -38,7 +39,7 @@ export default function AnnouncementId({ announcement }: IProps) {
             size="large"
             href={user?.id === announcement.userId
               ? `/in/ads/edit/${announcement.id}`
-              : `/in/contact-announcer/announcement/${announcement.id}`}
+              : `/in/contact-announcer/${announcement.id}?type=${announcement?.batchId ? 'batch' : 'announcement'}`}
           >
             {user?.id === announcement.userId
               ? 'Editar'
