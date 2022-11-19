@@ -59,6 +59,7 @@ export interface LawsuitParams extends Omit<Lawsuit, 'digitalProcess' | 'procura
   userId: string,
   status: AnnouncementStatus,
   digitalProcessUrl: string,
+  overSixMonths: boolean,
   procurationUrl: string,
   files: {
     name: keyof FileTranslationTypes,
