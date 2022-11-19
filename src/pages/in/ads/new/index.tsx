@@ -58,6 +58,7 @@ export default function NewLawsuit() {
   async function handleSubmitNewLawsuit(data: any) {
     try {
       setLoading(true);
+
       const response = await lawsuitService.createLawsuit(data);
       router.push(`/in/ads/${response.data.id}`);
     } catch (error) {
@@ -126,9 +127,11 @@ export default function NewLawsuit() {
               <ChooseCreditCard
                 isVisible={stepForm === '5'}
                 onBack={() => setStepForm('4')}
-                loading={loading}
-                label={!loading ? 'Cadastrar' : 'Cadastrando'}
-              />
+              >
+                <Button isLoading={loading} type="submit" disabled={!methods.formState.isValid} onClick={methods.handleSubmit(handleSubmitNewLawsuit)}>
+                  {!loading ? 'Cadastrar' : 'Cadastrando'}
+                </Button>
+              </ChooseCreditCard>
 
             </FormLayout>
           </LawsuitFormProvider>
