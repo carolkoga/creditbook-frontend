@@ -90,3 +90,11 @@ export interface ResponseListAllAnnouncements<NewType = 'undefined'> {
   pages: number,
   announcements: NewType extends 'undefined' ? LawsuitParams[] : NewType[],
 }
+
+export interface AnnouncementPlanType {
+  id: string;
+  processNumber: string;
+  plan: string;
+  premium: string;
+  type: 'batch' | 'announcement';
+}
