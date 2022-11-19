@@ -1,6 +1,5 @@
 import { ReactNode } from 'react';
 import { useFormContext, Controller } from 'react-hook-form';
-import { IMask } from 'react-imask';
 
 import FormGroup from '@components/FormGroup';
 import { Input, MaskInput } from '@components/Input';
@@ -34,28 +33,7 @@ export default function CreditCardForm({ children, title, onSubmit }: IProps) {
               }}
             >
               <MaskInput
-                mask={[
-                  { mask: '0000 0000 0000 0000' },
-                  { mask: '0000 000000 00000' },
-                  { mask: '0000 000000 0000' },
-                ]}
-                dispatch={(appended: string, dynamicMasked: IMask.MaskedDynamic) => {
-                  const cardNumber: string = (dynamicMasked.value + appended).replace(/\D/g, '');
-
-                  switch (cardNumber.length) {
-                    case 16:
-                      return dynamicMasked.compiledMasks[0];
-
-                    case 15:
-                      return dynamicMasked.compiledMasks[1];
-
-                    case 14:
-                      return dynamicMasked.compiledMasks[2];
-
-                    default:
-                      return dynamicMasked.compiledMasks[0];
-                  }
-                }}
+                mask="0000 0000 0000 0000"
                 id="card-number"
                 inputMode="numeric"
                 {...field}
