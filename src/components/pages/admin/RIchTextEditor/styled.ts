@@ -34,10 +34,13 @@ export const WrapperEditor = styled.div`
       border: none;
 
       .ql-editor {
+        min-height: 450px;
+        overflow-y: scroll;
         margin-top: 14px;
         border: 1px solid ${({ theme }) => theme.colors.grey[30]};
         border-radius: 10px;
         transition: all .25S ease;
+
         :focus-within {
           border: 1px solid ${({ theme }) => theme.colors.secondary.main};
         }
