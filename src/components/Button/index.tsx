@@ -17,9 +17,10 @@ export function Button({
 }: IButtonProps) {
   return (
     <StyleButton
-      {...restAttributes}
       size={size}
       variant={variant}
+      type="button"
+      {...restAttributes}
       disabled={restAttributes.disabled || isLoading}
     >
       {children}
