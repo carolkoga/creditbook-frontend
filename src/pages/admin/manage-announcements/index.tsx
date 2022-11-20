@@ -84,6 +84,16 @@ export default function ManageAnnouncements() {
             }}
           />
         </Tabs.TabPane>
+
+        <Tabs.TabPane tab="Deletados" key="deleted">
+          <AnnouncementsTable
+            dataSource={announcements.announcements}
+            onChange={handleChangeTableValues}
+            pagination={{
+              total: announcements.pages,
+            }}
+          />
+        </Tabs.TabPane>
       </Tabs>
     </>
   );
