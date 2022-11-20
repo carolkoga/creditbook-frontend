@@ -43,10 +43,13 @@ export default function Footer({
       {(mine && !lawsuit.batchId) && (
         <OwnedNoBatch lawsuitId={lawsuit.id} batchId={lawsuit.batchId} />
       )}
+
       {(mine && lawsuit.batchId) && (
         <OwnedInBatch lawsuitId={lawsuit.id} batchId={lawsuit.batchId} />
       )}
-      {(!mine && isAuthenticated) && <LoggedFooter lawsuitId={lawsuit.id} />}
+
+      {(!mine && isAuthenticated) && (
+        <LoggedFooter lawsuitId={lawsuit.id} batchId={lawsuit.batchId} />)}
     </>
   );
 }
