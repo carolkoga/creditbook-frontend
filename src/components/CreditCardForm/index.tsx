@@ -23,6 +23,7 @@ export default function CreditCardForm({ children, title, onSubmit }: IProps) {
         <Controller
           control={control}
           name="cardNumber"
+          defaultValue=""
           render={({ field }) => (
             <FormGroup
               direction="vertical"
