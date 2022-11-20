@@ -2,6 +2,7 @@ import Head from 'next/head';
 import type { AppProps } from 'next/app';
 import { ThemeProvider } from 'styled-components';
 import { ToastContainer } from 'react-toastify';
+import { ErrorBoundary } from 'react-error-boundary';
 import NextNProgress from 'nextjs-progressbar';
 
 import 'swiper/css';
@@ -20,6 +21,7 @@ import GlobalStyle from '@styles/global';
 import Layout from '@components/Layout';
 import SidebarContextProvider from '@context/SidebarContext';
 import { AuthProvider } from 'context/AuthContext';
+import ErrorFallback from '@components/ErrorFallback';
 
 export default function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -37,14 +39,16 @@ Precisando de dinheiro? Procurando uma forma lucrativa para investir? Chegou a p
       </Head>
       <AuthProvider>
         <ThemeProvider theme={light}>
-          <SidebarContextProvider>
-            <GlobalStyle />
-            <NextNProgress color="#29D" startPosition={0.3} height={3} />
-            <ToastContainer />
-            <Layout>
-              <Component {...pageProps} />
-            </Layout>
-          </SidebarContextProvider>
+          <ErrorBoundary FallbackComponent={ErrorFallback}>
+            <SidebarContextProvider>
+              <GlobalStyle />
+              <NextNProgress color="#29D" startPosition={0.3} height={3} />
+              <ToastContainer />
+              <Layout>
+                <Component {...pageProps} />
+              </Layout>
+            </SidebarContextProvider>
+          </ErrorBoundary>
         </ThemeProvider>
       </AuthProvider>
     </>
