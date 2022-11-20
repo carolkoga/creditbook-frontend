@@ -21,7 +21,10 @@ export class PaymentServices extends HttpClient {
 
   async createPayment(payment: IuguTokenResponse) {
     return this.httpClient.post('/payment', {
-      token: payment,
+      token: {
+        ...payment,
+        method: 'credit_card',
+      },
     });
   }
 

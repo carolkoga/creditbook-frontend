@@ -36,6 +36,7 @@ import { Alert } from 'antd';
 import { Direction } from '@components/Direction';
 import AlertModal from '@components/AlertModal';
 import { toast } from 'react-toastify';
+import DebitAndCreditCard from '@components/pages/in/DebitAndCreditCard';
 
 interface IProps {
   announcement: LawsuitParams,
@@ -62,7 +63,7 @@ interface CustomUpdateLawsuitParams extends Omit<UpdateLawsuitParams,
 export default function EditLawsuitByIdPage({ announcement }: IProps) {
   const [announcementBeingDeleted, setAnnouncementBeingDeleted] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [stepForm, setStepForm] = useState('1');
+  const [stepForm, setStepForm] = useState('none');
   const router = useRouter();
 
   const methods = useForm<CustomUpdateLawsuitParams>({
@@ -93,7 +94,7 @@ export default function EditLawsuitByIdPage({ announcement }: IProps) {
   const isValidToContinue = methods.watch('income');
 
   function handleOpenModalToSelectPlan() {
-    setStepForm('4');
+    setStepForm('select-plan');
   }
 
   function handleOpenModalToDeleteAnnouncement() {
@@ -102,6 +103,18 @@ export default function EditLawsuitByIdPage({ announcement }: IProps) {
 
   function handleCloseModalToDeleteAnnouncement() {
     setAnnouncementBeingDeleted(false);
+  }
+
+  function handleBackPrevModalChooseCreditCard() {
+    setStepForm((oldStep) => (oldStep === 'credit-card-plan' ? 'select-plan' : 'none'));
+  }
+
+  function handleOpenChooseCreditCardModal() {
+    setStepForm((oldStep) => (oldStep === 'select-plan' ? 'credit-card-plan' : 'credit-card'));
+  }
+
+  function handleCloseModal() {
+    setStepForm('none');
   }
 
   async function handleSubmitNewLawsuit(data: any) {
@@ -147,10 +160,10 @@ export default function EditLawsuitByIdPage({ announcement }: IProps) {
                 <ProcessInfoForm />
                 <AuthorForm />
                 <DefendantForm />
+                <DocumentForm />
               </div>
 
               <div className="right__content">
-                <DocumentForm />
                 <OwnerOrAttorney />
                 <PledgeOrGuarantee />
                 <AcceptNegotiation />
@@ -160,8 +173,26 @@ export default function EditLawsuitByIdPage({ announcement }: IProps) {
                     _processPriceProps: { disabled: !announcement.overSixMonths },
                   }}
                 />
+
                 {ownOrAttorneyField === 'attorney' && (
                   <ProcurationField />
+                )}
+
+                {announcement?.paymentMethodId && (
+                  <DebitAndCreditCard
+                    card={{
+                      brand: 'MASTER',
+                      cardNumberDisplay: '******4433',
+                      paymentMethodId: '2132131412',
+                      token: '2143123',
+                      userId: '12423213',
+                      id: '2123',
+                    }}
+                    buttonLabel="Trocar"
+                    buttonProps={{
+                      onClick: () => handleOpenChooseCreditCardModal(),
+                    }}
+                  />
                 )}
 
                 {announcement.overSixMonths
@@ -201,16 +232,16 @@ export default function EditLawsuitByIdPage({ announcement }: IProps) {
               </div>
 
               <ChooseCreditCard
-                isVisible={stepForm === '5'}
-                onBack={() => setStepForm('4')}
+                isVisible={stepForm === 'credit-card' || stepForm === 'credit-card-plan'}
+                onBack={() => handleBackPrevModalChooseCreditCard()}
               >
                 <Button isLoading={loading} type="button" onClick={methods.handleSubmit(handleSubmitNewLawsuit)}>
                   {!loading ? 'Atualizar' : 'Atualizando'}
                 </Button>
               </ChooseCreditCard>
 
-              <ModalToSelectPlan isVisible={stepForm === '4'}>
-                <button type="button" onClick={() => setStepForm('0')}>
+              <ModalToSelectPlan isVisible={stepForm === 'select-plan'}>
+                <button type="button" onClick={handleCloseModal}>
                   Voltar
                 </button>
 
@@ -220,8 +251,8 @@ export default function EditLawsuitByIdPage({ announcement }: IProps) {
                   </Button>
                 )}
 
-                {(plan !== 'byPercent' || isPremium === '1') && (
-                  <Button isLoading={loading} type="button" onClick={() => setStepForm('5')}>
+                {((plan !== 'byPercent' || isPremium === '1') && announcement?.paymentMethodId) && (
+                  <Button isLoading={loading} type="button" onClick={() => handleOpenChooseCreditCardModal()}>
                     Escolher pagamento
                   </Button>
                 )}
