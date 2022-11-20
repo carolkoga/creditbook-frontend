@@ -52,6 +52,8 @@ interface Lawsuit {
   acceptNegotiation: boolean;
   ownOrAttorney: 'own' | 'attorney';
   plan: 'byMonth' | 'byPercent' | 'both',
+
+  paymentMethodId: string;
 }
 
 export interface LawsuitParams extends Omit<Lawsuit, 'digitalProcess' | 'procuration'> {
@@ -72,7 +74,6 @@ export interface NewLawsuitParams extends LawsuitFiles, Omit<Lawsuit, 'batchId' 
   acceptNegotiation: '1' | '0';
   isFavorite: '1' | '0';
   isPremium: '1' | '0';
-  paymentMethodId: string;
 }
 
 export interface UpdateLawsuitParams extends NewLawsuitParams {
