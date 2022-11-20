@@ -132,6 +132,12 @@ export default function ModalToSelectPlan({
                 </h2>
               </PlanHeader>
 
+              <p>
+                Período mínimo da assinatura:
+                <br />
+                6 meses {convertToCurrency(price * 6)}
+              </p>
+
               <PlanContent>
                 <ButtonSelect
                   type="button"
@@ -153,6 +159,12 @@ export default function ModalToSelectPlan({
                 </h2>
               </PlanHeader>
 
+              <p>
+                Período mínimo da assinatura:
+                <br />
+                6 meses {convertToCurrency(price * 6)}
+              </p>
+
               <PlanContent>
                 <ButtonSelect type="button" onClick={handleSelectPremium} selected={isPremium}>
                   {!isPremium ? 'Adicionar Premium' : 'Adicionado'}
@@ -166,6 +178,10 @@ export default function ModalToSelectPlan({
                   8% do valor de venda
                 </h2>
               </PlanHeader>
+
+              <p>
+                Pagos somente após a cessão do crédito
+              </p>
 
               <PlanContent>
                 <ButtonSelect

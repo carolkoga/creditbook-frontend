@@ -44,7 +44,12 @@ export const PlanContainer = styled.div<PlanProps>`
   border-radius: 10px;
   max-width: 213px;
   background: ${({ theme }) => theme.colors.grey[10]};
-  height: 195px;
+  min-height: 195px;
+
+  p {
+    text-align: center;
+    margin: auto 8px;
+  }
 
   ${({ highlight }) => (highlight && css`
     max-width: 235px;
@@ -62,6 +67,7 @@ export const PlanHeader = styled.div<PlanProps>`
   padding: 18px;
   background: ${({ theme }) => theme.colors.primary.main};
   opacity: 0.9;
+  margin-bottom: 12px;
   h2 {
     text-align: center;
     font-size: 18px;
