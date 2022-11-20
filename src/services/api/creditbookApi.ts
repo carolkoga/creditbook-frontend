@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // https://creditbook-api.herokuapp.com
 const isDev = process.env.NEXT_PUBLIC_IS_DEV;
-const CREDITBOOK_URL = isDev ? 'http://localhost:3001' : 'https://creditbook-api.herokuapp.com';
+const CREDITBOOK_URL = !isDev ? 'http://localhost:3001' : 'https://creditbook-api.herokuapp.com';
 
 export function setupAPIClient(token: any = undefined) {
   if (token) {
