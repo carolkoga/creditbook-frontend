@@ -34,6 +34,8 @@ import { lawsuitCategories } from '@mocks/ReactSelectOptions/LawsuitCategories';
 import ChooseCreditCard from '@components/LawsuitForm/ChooseCreditCard';
 import { Alert } from 'antd';
 import { Direction } from '@components/Direction';
+import AlertModal from '@components/AlertModal';
+import { toast } from 'react-toastify';
 
 interface IProps {
   announcement: LawsuitParams,
@@ -58,10 +60,10 @@ interface CustomUpdateLawsuitParams extends Omit<UpdateLawsuitParams,
 }
 
 export default function EditLawsuitByIdPage({ announcement }: IProps) {
-  const router = useRouter();
+  const [announcementBeingDeleted, setAnnouncementBeingDeleted] = useState(false);
   const [loading, setLoading] = useState(false);
-
   const [stepForm, setStepForm] = useState('1');
+  const router = useRouter();
 
   const methods = useForm<CustomUpdateLawsuitParams>({
     resolver: yupResolver(updateLawsuitSchemaValidation),
@@ -94,6 +96,14 @@ export default function EditLawsuitByIdPage({ announcement }: IProps) {
     setStepForm('4');
   }
 
+  function handleOpenModalToDeleteAnnouncement() {
+    setAnnouncementBeingDeleted(true);
+  }
+
+  function handleCloseModalToDeleteAnnouncement() {
+    setAnnouncementBeingDeleted(false);
+  }
+
   async function handleSubmitNewLawsuit(data: any) {
     try {
       setLoading(true);
@@ -103,6 +113,16 @@ export default function EditLawsuitByIdPage({ announcement }: IProps) {
       handleCatchErrorRequest(error as any);
     } finally {
       setLoading(false);
+    }
+  }
+
+  async function handleDeleteAnnouncement() {
+    try {
+      await lawsuitService.deleteAnnouncement(announcement.id);
+      router.replace('/in/my-ads');
+      toast.success('Anúncio deletado com sucesso');
+    } catch (error) {
+      handleCatchErrorRequest(error as never);
     }
   }
 
@@ -146,13 +166,23 @@ export default function EditLawsuitByIdPage({ announcement }: IProps) {
 
                 {announcement.overSixMonths
                   ? (
-                    <Button
-                      type="button"
-                      onClick={handleOpenModalToSelectPlan}
-                      disabled={!isValidToContinue}
-                    >
-                      Atualizar
-                    </Button>
+                    <Direction direction="horizontal">
+                      <Button
+                        type="button"
+                        onClick={handleOpenModalToSelectPlan}
+                        disabled={!isValidToContinue}
+                      >
+                        Atualizar
+                      </Button>
+
+                      <Button
+                        type="button"
+                        variant="danger"
+                        onClick={handleOpenModalToDeleteAnnouncement}
+                      >
+                        Deletar
+                      </Button>
+                    </Direction>
                   )
                   : (
                     <Direction gap="12px">
@@ -200,6 +230,21 @@ export default function EditLawsuitByIdPage({ announcement }: IProps) {
           </LawsuitFormProvider>
         </FormProvider>
       </Section.Container>
+
+      <AlertModal
+        isVisible={announcementBeingDeleted}
+        type="danger"
+        title="Esse anúncio está preste a ser deletado, tem certeza disso?"
+        description="Caso você delete o anúncio sem querer, contacta o suporte quanto antes para refazer essa ação!"
+        confirm={{
+          label: 'Sim, deletar',
+          onConfirmButton: handleDeleteAnnouncement,
+        }}
+        cancel={{
+          label: 'Cancelar',
+          onCancelButton: handleCloseModalToDeleteAnnouncement,
+        }}
+      />
     </>
   );
 }
