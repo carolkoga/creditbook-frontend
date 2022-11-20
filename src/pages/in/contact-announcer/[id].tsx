@@ -9,6 +9,7 @@ import { ContactAnnouncerParams } from '@type/creditbook';
 import ContactAnnouncerForm from '@components/pages/in/contact-announcer/form';
 import { emailServices } from '@services/creditbook/email';
 import { handleCatchErrorRequest } from '@utils/handleCatchErrorRequest';
+import { toast } from 'react-toastify';
 
 export default function ContactAnnouncementAnnouncer() {
   const router = useRouter();
@@ -28,6 +29,8 @@ export default function ContactAnnouncementAnnouncer() {
   async function handleSubmitMessage(data: ContactAnnouncerParams) {
     try {
       await emailServices.contactAnnouncer(data);
+      toast.success('Mensagem enviada com sucesso!');
+      router.replace('/in/buy-credits');
     } catch (error) {
       handleCatchErrorRequest(error as never);
     }
