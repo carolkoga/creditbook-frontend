@@ -126,7 +126,7 @@ export default function ShowBatchPage({
                   variant="danger"
                   onClick={handleOpenModalCanDeleteBatchConfirmation}
                 >
-                  Inativar
+                  Deletar
                 </Button>
               </WrapperActionsForm>
             </BatchForm>
@@ -134,7 +134,7 @@ export default function ShowBatchPage({
         </Direction>
       </Section.Container>
 
-      {announcementsInBatch.announcements.results?.length !== 0 && (
+      {announcementsInBatch?.announcements?.results?.length !== 0 && (
         <Section.Container>
           <Section.Title>Anúncios desse lote</Section.Title>
           <LawsuitCardList
@@ -146,7 +146,7 @@ export default function ShowBatchPage({
         </Section.Container>
       )}
 
-      {announcementsResponse.announcements.results?.length !== 0 && (
+      {announcementsResponse?.announcements?.results?.length !== 0 && (
         <Section.Container>
           <Section.Title>Adicionar Anúncios ao lote</Section.Title>
           <LawsuitCardList
@@ -159,12 +159,14 @@ export default function ShowBatchPage({
       )}
 
       <AlertModal
-        title={`Você está preste a inativar o lote ${batch.name}`}
+        title={`Você está preste a deletar o lote: ${batch.name}`}
+        description="Essa ação não poderá ser desfeita. Todos os anúncios que estiver nesse lote deixarão de fazer parte da galeria premium!"
         isLoading={deletingLoading}
         isVisible={modalBatchBeingDelete}
-        type="default"
+        type="danger"
+        _css={{ maxWidth: '625px' }}
         confirm={{
-          label: 'Sim, inativar o lote',
+          label: 'Sim, deletar o lote',
           onConfirmButton: handleDeleteBatch,
         }}
         cancel={{
