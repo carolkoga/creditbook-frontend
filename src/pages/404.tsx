@@ -5,7 +5,7 @@ import { Section } from '@components/Section';
 import useAuth from '@hooks/useAuth';
 import Image from 'next/image';
 
-export default function Custom400() {
+export default function Custom404() {
   const { user } = useAuth();
   const routeToRedirect = useMemo(() => {
     if (user?.role === 'admin') {
