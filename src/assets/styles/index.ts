@@ -63,4 +63,5 @@ export const MainWithSideBar = styled(Main)`
 export const ContainerLayout = styled.div`
   max-width: 1365px;
   margin: auto;
+  position: relative;
 `;
