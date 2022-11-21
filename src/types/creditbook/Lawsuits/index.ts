@@ -1,4 +1,5 @@
 import { FileTranslationTypes } from '@utils/translation/announcement/fileTranslation';
+import { PaymentParams } from '../payment';
 import { AnnouncementStatus } from './AnnouncementStatus';
 
 import {
@@ -52,7 +53,6 @@ interface Lawsuit {
   acceptNegotiation: boolean;
   ownOrAttorney: 'own' | 'attorney';
   plan: 'byMonth' | 'byPercent' | 'both',
-
   paymentMethodId: string;
 }
 
@@ -63,6 +63,7 @@ export interface LawsuitParams extends Omit<Lawsuit, 'digitalProcess' | 'procura
   digitalProcessUrl: string,
   overSixMonths: boolean,
   procurationUrl: string,
+  payment?: PaymentParams
   files: {
     name: keyof FileTranslationTypes,
     url: string,
