@@ -203,7 +203,7 @@ export default function EditLawsuitByIdPage({ announcement }: IProps) {
                 )}
 
                 <CreditCardFieldset
-                  isVisible={!!announcement.paymentMethod}
+                  isVisible={announcement.plan !== 'byPercent' || announcement.isPremium}
                   onOpenChooseCreditCardModal={handleOpenChooseCreditCardModal}
                   creditCard={announcement.paymentMethod}
                 />
