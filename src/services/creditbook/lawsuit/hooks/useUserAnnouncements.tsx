@@ -1,14 +1,16 @@
 import {
   useCallback, useEffect, useState,
 } from 'react';
-import { lawsuitService } from '..';
+import { lawsuitService, OptionsListAnnouncementsUser } from '..';
 import { AnnouncementResponse, CommonHookParams } from './types';
 
 export interface IUseAnnouncementResponse extends Pick<CommonHookParams, 'mutate' | 'isLoading' | 'announcements' | 'error'> {
   loadMoreAnnouncement: () => void
 }
 
-export default function useUserAnnouncements(): IUseAnnouncementResponse {
+export default function useUserAnnouncements(
+  options?: OptionsListAnnouncementsUser,
+): IUseAnnouncementResponse {
   const [
     currentAnnouncements,
     setCurrentAnnouncements,
@@ -20,7 +22,7 @@ export default function useUserAnnouncements(): IUseAnnouncementResponse {
   const loadAnnouncements = useCallback(async () => {
     try {
       setIsLoading(true);
-      const response = await lawsuitService.listAnnouncementsUser();
+      const response = await lawsuitService.listAnnouncementsUser(options);
       setCurrentAnnouncements({
         results: response.data,
         pages: 1,

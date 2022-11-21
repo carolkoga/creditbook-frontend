@@ -5,6 +5,13 @@ import { AxiosInstance } from 'axios';
 import { LawsuitParams } from '../../../types/creditbook/Lawsuits/index';
 import { HttpClient } from '../http';
 
+export interface OptionsListAnnouncementsUser {
+  params?: {
+    type?: 'single',
+    batchId?: string
+  }
+}
+
 export class LawsuitService extends HttpClient {
   private customHeaders: object;
 
@@ -28,8 +35,8 @@ export class LawsuitService extends HttpClient {
     return this.httpClient.get('/announcement/plans/user');
   }
 
-  async listAnnouncementsUser() {
-    return this.httpClient.get<LawsuitParams[]>('/announcement/user');
+  async listAnnouncementsUser(options?: OptionsListAnnouncementsUser) {
+    return this.httpClient.get<LawsuitParams[]>('/announcement/user', options);
   }
 
   async createLawsuit(data: any) {
@@ -56,8 +63,10 @@ export class LawsuitService extends HttpClient {
     });
   }
 
-  async changeBatch({ id, batchId }: { id: string, batchId: string }) {
-    const formData = this._convertToFormData({ batchId, announcementId: id });
+  async changeBatch({ id, batchId }: { id: string, batchId: string | '0' }) {
+    const formData = new FormData();
+    formData.append('batchId', batchId);
+    formData.append('announcement', id);
 
     return this.httpClient.patch('/announcement', formData, {
       headers: { ...this.customHeaders },
