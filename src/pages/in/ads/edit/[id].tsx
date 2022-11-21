@@ -32,11 +32,12 @@ import { courtsOptions } from '@mocks/ReactSelectOptions/CourtsOptions';
 import { lawsuitKind } from '@mocks/ReactSelectOptions/LawsuitKind';
 import { lawsuitCategories } from '@mocks/ReactSelectOptions/LawsuitCategories';
 import ChooseCreditCard from '@components/LawsuitForm/ChooseCreditCard';
-import { Alert } from 'antd';
 import { Direction } from '@components/Direction';
 import AlertModal from '@components/AlertModal';
 import { toast } from 'react-toastify';
-import DebitAndCreditCard from '@components/pages/in/DebitAndCreditCard';
+import FloatWarning from '@components/FloatWarning';
+import FloatWarningContainer from '@components/FloatWarning/FloatWarningContainer';
+import CreditCardFieldset from '@components/LawsuitForm/CreditCardFieldset';
 
 interface IProps {
   announcement: LawsuitParams,
@@ -141,6 +142,29 @@ export default function EditLawsuitByIdPage({ announcement }: IProps) {
 
   return (
     <>
+      <FloatWarningContainer
+        isVisible={!!announcement?.paymentFailed || !announcement.overSixMonths}
+      >
+        <FloatWarning
+          isVisible={!announcement.overSixMonths}
+          _alertProps={{
+            type: 'info',
+            message: 'Só poderá mudar de plano ou valor do processo após 6 meses',
+            closable: true,
+          }}
+        />
+
+        <FloatWarning
+          isVisible={!!announcement?.paymentFailed}
+          _alertProps={{
+            type: 'warning',
+            message: 'Pagamento não foi processado',
+            description: 'O anúncio vai parar de ser anunciado na plataforma até realização do pagamento.',
+            closable: true,
+          }}
+        />
+      </FloatWarningContainer>
+
       <Section.Header>
         <Button variant="white" size="small-large" onClick={() => router.back()}>
           Voltar
@@ -178,22 +202,11 @@ export default function EditLawsuitByIdPage({ announcement }: IProps) {
                   <ProcurationField />
                 )}
 
-                {announcement?.paymentMethodId && (
-                  <DebitAndCreditCard
-                    card={{
-                      brand: 'MASTER',
-                      cardNumberDisplay: '******4433',
-                      paymentMethodId: '2132131412',
-                      token: '2143123',
-                      userId: '12423213',
-                      id: '2123',
-                    }}
-                    buttonLabel="Trocar"
-                    buttonProps={{
-                      onClick: () => handleOpenChooseCreditCardModal(),
-                    }}
-                  />
-                )}
+                <CreditCardFieldset
+                  isVisible={!!announcement.payment}
+                  onOpenChooseCreditCardModal={handleOpenChooseCreditCardModal}
+                  creditCard={announcement.payment}
+                />
 
                 {announcement.overSixMonths
                   ? (
@@ -220,12 +233,6 @@ export default function EditLawsuitByIdPage({ announcement }: IProps) {
                       <Button isLoading={loading} type="button" onClick={methods.handleSubmit(handleSubmitNewLawsuit)}>
                         {!loading ? 'Atualizar' : 'Atualizando'}
                       </Button>
-
-                      <Alert
-                        type="info"
-                        message="Só poderá mudar de plano ou valor do processo após 6 meses"
-                        style={{ borderRadius: '10px' }}
-                      />
                     </Direction>
                   )}
 
