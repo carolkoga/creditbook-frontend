@@ -16,7 +16,7 @@ import AlertModal from '@components/AlertModal';
 import { toast } from 'react-toastify';
 import { handleCatchErrorRequest } from '@utils/handleCatchErrorRequest';
 import LawsuitCardList from '@components/LawsuitCard';
-import useAnnouncements from '@services/creditbook/lawsuit/hooks/useAnnouncements';
+import useUserAnnouncements from '@services/creditbook/lawsuit/hooks/useUserAnnouncements';
 
 interface IProps {
   initialBatch: BatchParams
@@ -30,12 +30,13 @@ export default function ShowBatchPage({
   const [modalBatchBeingDelete, setModalBatchBeingDelete] = useState<boolean>(false);
   const [deletingLoading, setDeletingLoading] = useState<boolean>(false);
   const [updatingLoading, setUpdatingLoading] = useState<boolean>(false);
-  const announcementsInBatch = useAnnouncements(undefined, {
+  const announcementsInBatch = useUserAnnouncements({
     params: {
       batchId: router.query.batchId as string,
     },
   });
-  const announcementsResponse = useAnnouncements(undefined, {
+
+  const announcementsResponse = useUserAnnouncements({
     params: {
       type: 'single',
     },

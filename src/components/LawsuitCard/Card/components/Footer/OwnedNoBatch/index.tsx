@@ -25,7 +25,7 @@ export default function OwnedNoBatch({ lawsuitId }: CommonPropsTypes) {
 
   const loadBatches = useCallback(async () => {
     try {
-      const response = await batchServices.list();
+      const response = await batchServices.listUserBatches();
       setBatches(response.data);
     } catch (error) {
       handleCatchErrorRequest(error as never);
