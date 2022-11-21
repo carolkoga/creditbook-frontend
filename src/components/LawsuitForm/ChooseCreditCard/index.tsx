@@ -30,7 +30,7 @@ export default function ChooseCreditCard({
   const [creatingPaymentLoader, setCreatingPaymentLoader] = useState(false);
   const { data: payments, mutate } = useSWR<PaymentParams[]>('credit_cards', async () => (await paymentServices.listPayments()).data);
   const methodsToCreateCard = useForm<NewPaymentParams>();
-  const { control, watch } = useFormContext();
+  const { control, watch, setValue } = useFormContext();
   const chosenCreditCard = watch('paymentMethodId');
   const inputRadioRef = useRef<any>();
 
@@ -50,6 +50,7 @@ export default function ChooseCreditCard({
       const { data: createdToken } = await paymentServices.createToken(data);
       const { data: newPayment } = await paymentServices.createPayment(createdToken);
       mutate(newPayment);
+      setValue('paymentMethodId', newPayment.id);
       handleCloseVisibilityCreditCardModal();
     } catch (error) {
       handleCatchErrorRequest(error as never);

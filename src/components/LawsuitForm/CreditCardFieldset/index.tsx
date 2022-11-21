@@ -8,19 +8,28 @@ interface CreditCardFieldsetProps {
   isVisible: boolean
 }
 
+const initialValue: PaymentParams = {
+  brand: 'ANY',
+  cardNumberDisplay: 'Sem cartão',
+  id: 'invalid_card',
+  paymentMethodId: 'invalid_payment',
+  token: 'invalid_token',
+  userId: 'invalid_user',
+};
+
 export default function CreditCardFieldset({
   creditCard,
   isVisible,
   onOpenChooseCreditCardModal,
 }: CreditCardFieldsetProps) {
-  if (!isVisible || !creditCard) return null;
+  if (!isVisible) return null;
 
   return (
     <Fieldset>
       <legend>Cartão</legend>
       <DebitAndCreditCard
-        card={creditCard}
-        buttonLabel="Trocar"
+        card={creditCard ?? initialValue}
+        buttonLabel={creditCard ? 'Trocar' : 'Adicionar'}
         buttonProps={{
           onClick: () => onOpenChooseCreditCardModal(),
           variant: 'secondary',
