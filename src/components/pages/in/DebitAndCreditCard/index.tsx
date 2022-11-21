@@ -19,8 +19,6 @@ export default function DebitAndCreditCard({ card, buttonProps, buttonLabel }: I
           <CreditCard size={64} />
         </WrapperImage>
         <strong>
-          ******
-          {' '}
           {card.cardNumberDisplay}
         </strong>
       </div>
