@@ -98,6 +98,9 @@ export default function CreditCard() {
             <Section.Title as="h1" textColor="dark">
               Cartões
             </Section.Title>
+            <Button onClick={handleOpenVisibilityCreditCardModal} variant="secondary" size="small">
+              Novo cartão
+            </Button>
           </Direction>
         </Section.Header>
 
