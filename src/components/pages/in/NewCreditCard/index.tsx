@@ -25,7 +25,7 @@ export default function NewCreditCard({
         <Content>
           <CreditCardForm title={title} onSubmit={onSubmit}>
             <Direction direction="horizontal" gap="5px" className="actions">
-              <Button isLoading={loading} type="submit">
+              <Button isLoading={loading} type="button" onClick={onSubmit}>
                 {submitLabel}
               </Button>
 
