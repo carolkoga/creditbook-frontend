@@ -203,9 +203,9 @@ export default function EditLawsuitByIdPage({ announcement }: IProps) {
                 )}
 
                 <CreditCardFieldset
-                  isVisible={!!announcement.payment}
+                  isVisible={!!announcement.paymentMethod}
                   onOpenChooseCreditCardModal={handleOpenChooseCreditCardModal}
-                  creditCard={announcement.payment}
+                  creditCard={announcement.paymentMethod}
                 />
 
                 {announcement.overSixMonths
