@@ -8,8 +8,10 @@ import { paymentServices } from '@services/creditbook/payments';
 import { Direction } from '@styles/pages/home';
 import { NewPaymentParams, PaymentParams } from '@type/creditbook/payment';
 import { handleCatchErrorRequest } from '@utils/handleCatchErrorRequest';
-import { ReactNode, useState } from 'react';
-import { FormProvider, useForm, useFormContext } from 'react-hook-form';
+import { ReactNode, useRef, useState } from 'react';
+import {
+  Controller, FormProvider, useForm, useFormContext,
+} from 'react-hook-form';
 import useSWR from 'swr';
 import { Actions } from '../ModalToSelectPlan/styled';
 
@@ -28,8 +30,9 @@ export default function ChooseCreditCard({
   const [creatingPaymentLoader, setCreatingPaymentLoader] = useState(false);
   const { data: payments, mutate } = useSWR<PaymentParams[]>('credit_cards', async () => (await paymentServices.listPayments()).data);
   const methodsToCreateCard = useForm<NewPaymentParams>();
-  const { register, watch } = useFormContext();
-  const chosenCreditCard = watch('creditCard');
+  const { control, watch } = useFormContext();
+  const chosenCreditCard = watch('paymentMethodId');
+  const inputRadioRef = useRef<any>();
 
   function handleOpenVisibilityCreditCardModal() {
     setIsVisibleCreditCardModal(true);
@@ -63,10 +66,9 @@ export default function ChooseCreditCard({
         <Container>
           <Section.Header>
             <Section.Title>Pagamento</Section.Title>
-
-            {(!payments || payments.length <= 0) && (
-              <Button type="button" onClick={handleOpenVisibilityCreditCardModal}>Novo Cartão</Button>
-            )}
+            <Button type="button" onClick={handleOpenVisibilityCreditCardModal}>
+              Novo Cartão
+            </Button>
           </Section.Header>
 
           <Section.Container>
@@ -75,16 +77,24 @@ export default function ChooseCreditCard({
                 <li key={payment.id}>
                   <RadioButton
                     htmlFor={payment.id}
-                    chosen={payment.id === chosenCreditCard ? 'true' : 'false'}
+                    chosen={(payment.id === chosenCreditCard) ? 'false' : 'true'}
                   >
                     <DebitAndCreditCard card={payment} />
-                    <input
-                      type="radio"
-                      defaultValue={payments[0].id}
-                      defaultChecked={!!payments[0]}
-                      id={payment.id}
-                      value={payment.id}
-                      {...register('paymentMethodId')}
+                    <Controller
+                      name="paymentMethodId"
+                      control={control}
+                      render={({ field }) => (
+                        <input
+                          ref={inputRadioRef}
+                          type="radio"
+                          defaultChecked={!!payment.id === chosenCreditCard}
+                          id={payment.id}
+                          value={payment.id}
+                          onChange={field.onChange}
+                          onBlur={field.onBlur}
+                          name={field.name}
+                        />
+                      )}
                     />
                   </RadioButton>
                 </li>

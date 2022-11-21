@@ -31,6 +31,10 @@ interface RadioButtonProps {
 }
 
 export const ListContainerPayment = styled.ul`
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-height: 400px;
   li {
     list-style: none;
   }
@@ -39,7 +43,7 @@ export const ListContainerPayment = styled.ul`
 export const RadioButton = styled.label<RadioButtonProps>`
   cursor: pointer;
   input {
-    display: none
+    visibility: hidden;
   }
   .credit__card-container {
     background: ${({ chosen }) => (chosen !== 'true' ? '#eeee' : 'none')};
