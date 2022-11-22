@@ -19,7 +19,7 @@ interface IProps extends LawsuitCardProps { }
 
 export default function LawsuitNewCard({
   lawsuit: originalLawsuit,
-  addToBatchId,
+  batchIdForActions,
   moreAboutOnly,
 }: IProps) {
   const { user, isAuthenticated } = useAuth();
@@ -114,7 +114,7 @@ export default function LawsuitNewCard({
         <Footer
           lawsuit={lawsuit}
           mine={lawsuit.userId === user?.id}
-          originalBatchId={addToBatchId}
+          originalBatchId={batchIdForActions}
           moreAboutOnly={moreAboutOnly}
         />
       </Lawsuit.WrapperContent>
@@ -123,6 +123,6 @@ export default function LawsuitNewCard({
 }
 
 LawsuitNewCard.defaultProps = {
-  addToBatchId: '',
+  batchIdForActions: '',
   moreAboutOnly: false,
 };

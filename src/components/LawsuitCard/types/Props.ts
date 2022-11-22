@@ -3,7 +3,7 @@ import type { LawsuitParams } from '@type/creditbook/Lawsuits';
 
 export type LawsuitCardProps = {
   lawsuit: LawsuitParams,
-  addToBatchId?: string,
+  batchIdForActions?: string,
   moreAboutOnly?: boolean,
 };
 

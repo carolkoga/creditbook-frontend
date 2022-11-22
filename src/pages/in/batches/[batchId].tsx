@@ -32,13 +32,14 @@ export default function ShowBatchPage({
   const [updatingLoading, setUpdatingLoading] = useState<boolean>(false);
   const announcementsInBatch = useUserAnnouncements({
     params: {
-      batchId: router.query.batchId as string,
+      batchId: router.query.batchId,
     },
   });
 
   const announcementsResponse = useUserAnnouncements({
     params: {
       type: 'single',
+      batchIdToExclude: router.query.batchId,
     },
   });
 
@@ -141,7 +142,7 @@ export default function ShowBatchPage({
           <LawsuitCardList
             {...announcementsInBatch}
             lawsuitCardProps={{
-              moreAboutOnly: true,
+              batchIdForActions: batch.id,
             }}
           />
         </Section.Container>
@@ -153,7 +154,7 @@ export default function ShowBatchPage({
           <LawsuitCardList
             {...announcementsResponse}
             lawsuitCardProps={{
-              addToBatchId: batch.id,
+              batchIdForActions: batch.id,
             }}
           />
         </Section.Container>

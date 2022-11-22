@@ -8,7 +8,6 @@ import { handleCatchErrorRequest } from '@utils/handleCatchErrorRequest';
 
 import { BatchParams } from '@type/creditbook/Batch';
 
-import { lawsuitService } from '@services/creditbook/lawsuit';
 import {
   DropdownArrow,
   DropdownButton,
@@ -35,8 +34,8 @@ export default function OwnedNoBatch({ lawsuitId }: CommonPropsTypes) {
 
   const handleAddBatch = useCallback(async (batchId: string) => {
     try {
-      await lawsuitService.changeBatch({
-        id: lawsuitId,
+      await batchServices.addAnnouncement({
+        announcementId: lawsuitId,
         batchId,
       });
       setValue(batchId);
