@@ -50,13 +50,13 @@ export default function AnnouncementList({
       return (
         <NotFoundData
           title="Aconteceu algum erro ao pegar os dados"
-          reloadPage
+          type="reload"
         />
       );
     }
 
     return (
-      <NotFoundData title="Não há dados cadastrados" reloadPage {...notFoundProps} />
+      <NotFoundData title="Não há dados cadastrados" type="reload" {...notFoundProps} />
     );
   }
 

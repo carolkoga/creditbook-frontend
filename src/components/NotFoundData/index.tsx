@@ -7,39 +7,39 @@ import { useRouter } from 'next/router';
 import { ReactNode } from 'react';
 
 interface LinkAction {
-  reloadPage: false,
+  type: 'link',
   href: string,
   labelButton: string,
 }
 
 interface IReloadPage {
-  reloadPage: true,
+  type: 'reload',
 }
 
-type UnionTypes = LinkAction | IReloadPage;
+interface IChildren {
+  type: 'children',
+  children: ReactNode,
+}
+
+type UnionTypes = LinkAction | IReloadPage | IChildren;
 
 export type NotFoundDataProps = UnionTypes & {
   title?: string,
-  children?: ReactNode,
 };
 
 export default function NotFoundData(props: NotFoundDataProps) {
   const router = useRouter();
 
   function handleRouting() {
-    if (props.reloadPage) {
+    if (props.type === 'reload') {
       router.reload();
-    } else {
+    } else if (props.type === 'link') {
       router.push(props.href);
     }
   }
 
   return (
     <Direction alignItems="center">
-      <Section.Title as="h1" textColor="dark">
-        {props.title}
-      </Section.Title>
-
       <Image
         src="/assets/images/errors/no-data.svg"
         alt={props.title}
@@ -47,17 +47,21 @@ export default function NotFoundData(props: NotFoundDataProps) {
         height="483px"
       />
 
-      {(!props.children && !props.reloadPage) && (
+      <Section.Title as="h1" textColor="dark">
+        {props.title}
+      </Section.Title>
+
+      {props.type === 'link' && (
         <Button onClick={handleRouting} size="outline-filled-round">
           {props.labelButton}
         </Button>
       )}
 
-      {(!props.children && props.reloadPage) && (
+      {props.type === 'reload' && (
         <Button onClick={handleRouting} size="outline-filled-round">Tentar Novamente</Button>
       )}
 
-      {props.children}
+      {props.type === 'children' && props.children}
     </Direction>
   );
 }

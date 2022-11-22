@@ -122,7 +122,7 @@ export default function CreditCard() {
         )}
 
         {creditCards?.length <= 0 && (
-          <NotFoundData title="Não há cartão cadastrado" reloadPage>
+          <NotFoundData title="Não há cartão cadastrado" type="children">
             <Button onClick={handleOpenVisibilityCreditCardModal} size="outline-filled-round">
               Novo cartão
             </Button>
