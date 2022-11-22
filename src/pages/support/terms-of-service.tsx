@@ -6,35 +6,48 @@ import { termsService } from '@services/creditbook/support/term';
 import { TermsParams } from '@type/creditbook/support/term';
 
 interface IProps {
-  terms: TermsParams,
+  terms: TermsParams | null,
 }
 
-export default function TermsOfService({ terms: { content } }: IProps) {
+export default function TermsOfService({ terms }: IProps) {
   return (
     <WrapperSupport>
       <Section.Container>
-        <div
-          className="ql-container ql-snow"
-          style={{
-            border: 'none',
-          }}
-        >
+        {!terms && (
+          <Section.Title>
+            Não há termos de uso
+          </Section.Title>
+        )}
+        {terms && (
           <div
-            className="ql-editor"
-            dangerouslySetInnerHTML={{ __html: content }}
-          />
-        </div>
+            className="ql-container ql-snow"
+            style={{
+              border: 'none',
+            }}
+          >
+            <div
+              className="ql-editor"
+              dangerouslySetInnerHTML={{ __html: terms.content }}
+            />
+          </div>
+        )}
       </Section.Container>
     </WrapperSupport>
   );
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const { data } = await termsService.getTerms();
+  let terms = null;
+  try {
+    const response = await termsService.getTerms();
+    terms = response.data;
+  } catch {
+    console.error('Happened an error');
+  }
 
   return {
     props: {
-      terms: data,
+      terms,
     },
   };
 };

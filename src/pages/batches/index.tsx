@@ -5,9 +5,10 @@ import TabBatchAnnouncement from '@components/TabBatchAnnouncement';
 import { batchServices } from '@services/creditbook/batch';
 import { BatchParams } from '@type/creditbook/Batch';
 import BatchesList from '@components/BatchCard';
+import NotFoundData from '@components/NotFoundData';
 
 interface IProps {
-  batches: BatchParams[]
+  batches: BatchParams[] | null
 }
 
 export default function Batches({ batches }: IProps) {
@@ -18,18 +19,29 @@ export default function Batches({ batches }: IProps) {
       </Section.Header>
 
       <Section.Container>
-        <BatchesList batches={batches} />
+        {batches?.length
+          ? <BatchesList batches={batches} />
+          : (
+            <NotFoundData title="Não há dados cadastrados" type="reload" />
+          )}
       </Section.Container>
     </TabBatchAnnouncement>
   );
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const { data } = await batchServices.list();
+  let batches = null;
+
+  try {
+    const response = await batchServices.list();
+    batches = response.data;
+  } catch {
+    console.error('Happened an Error');
+  }
 
   return {
     props: {
-      batches: data,
+      batches,
     },
   };
 };

@@ -13,13 +13,18 @@ import { translationSectionFAQ } from '@mocks/FAQ';
 import { FAQResponseType } from '@type/creditbook/support/faq';
 
 interface ServerSideProps {
-  questions: FAQResponseType,
+  questions: FAQResponseType | null,
 }
 
 export default function FAQ({ questions }: ServerSideProps) {
   return (
     <WrapperSupport>
       <Section.Container style={{ width: '100%' }}>
+        {!questions && (
+          <Section.Title>
+            Não há termos de uso
+          </Section.Title>
+        )}
         {questions?.faq.map((faq) => (
           <AccordionList.Container key={faq.section}>
             <Section.Title textColor="dark">
@@ -49,11 +54,17 @@ export default function FAQ({ questions }: ServerSideProps) {
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const { data } = await FAQService.listAllFAQs();
+  let questionList = null;
+  try {
+    const response = await FAQService.listAllFAQs();
+    questionList = response.data;
+  } catch {
+    console.error('Happened an error');
+  }
 
   return {
     props: {
-      questions: data,
+      questions: questionList,
     },
   };
 };

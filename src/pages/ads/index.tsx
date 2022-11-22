@@ -6,17 +6,18 @@ import { Section } from '@components/Section';
 import TabBatchAnnouncement from '@components/TabBatchAnnouncement';
 import { lawsuitService } from '@services/creditbook/lawsuit';
 import { ResponseListAllAnnouncements } from '@type/creditbook/Lawsuits';
-import useAnnouncements from '@services/creditbook/lawsuit/hooks/useAnnouncements';
 
 interface IProps {
-  announcements: {
-    results: ResponseListAllAnnouncements['announcements'],
-    pages: ResponseListAllAnnouncements['pages']
+  response: {
+    announcements: {
+      results: ResponseListAllAnnouncements['announcements'],
+      pages: ResponseListAllAnnouncements['pages']
+    },
+    isLoading: boolean
   }
 }
 
-export default function SingleLawsuits({ announcements }: IProps) {
-  const response = useAnnouncements(announcements);
+export default function SingleLawsuits({ response }: IProps) {
   return (
     <TabBatchAnnouncement batchLink="/batches" announcementLink="/ads">
       <Section.Header>
@@ -31,14 +32,23 @@ export default function SingleLawsuits({ announcements }: IProps) {
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const perPageAnnouncements = 10;
-  const { data } = await lawsuitService.listAll({ params: { perPage: perPageAnnouncements } });
+  let announcementsFetched: any = { results: [], pages: 0 };
+
+  try {
+    const response = await lawsuitService.listAll();
+    announcementsFetched = {
+      results: response.data.announcements,
+      pages: response.data.pages,
+    };
+  } catch {
+    console.error('Happened an error');
+  }
 
   return {
     props: {
-      announcements: {
-        results: data.announcements,
-        pages: data.pages,
+      response: {
+        ...announcementsFetched,
+        isLoading: false,
       },
     },
   };
