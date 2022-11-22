@@ -49,6 +49,7 @@
       "no-underscore-dangle": "off",
       "no-useless-constructor": "off",
       "no-return-assign": "off",
-      "import/no-cycle": "off"
+      "import/no-cycle": "off",
+      "no-useless-return": "off"
     }
 }
