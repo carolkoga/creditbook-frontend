@@ -11,7 +11,7 @@ import { LoginParams } from '@type/creditbook/auth/login';
 import { creditbookApi } from '@api/creditbookApi';
 import { commonToastProps } from '@configs/toast';
 import { userCreditbookService } from '@services/creditbook/user';
-import Loader from '@components/Loader';
+import OverlayLoader from '@components/Loader/OverlayLoader';
 
 interface IProps {
   children: ReactNode,
@@ -160,7 +160,7 @@ export function AuthProvider({ children }: IProps) {
   return (
     <AuthContext.Provider value={values}>
       {children}
-      <Loader loading={isLoading} />
+      <OverlayLoader loading={isLoading} />
     </AuthContext.Provider>
   );
 }
