@@ -6,6 +6,8 @@ interface UpdateParams {
   batch: NewBatchParams,
 }
 
+interface AddAnnouncementParams { announcementId: string, batchId: string }
+
 export class BatchServices extends HttpClient {
   async create(batch: NewBatchParams) {
     const newBatch = {
@@ -30,6 +32,14 @@ export class BatchServices extends HttpClient {
 
   async update({ id, batch }: UpdateParams) {
     return this.httpClient.patch(`/batch/${id}`, batch);
+  }
+
+  async addAnnouncement(params: AddAnnouncementParams) {
+    return this.httpClient.post('/batch/add/announcement', params);
+  }
+
+  async removeAnnouncement(params: Pick<AddAnnouncementParams, 'announcementId'>) {
+    return this.httpClient.post('/batch/remove/announcement', params);
   }
 
   async delete(id: string) {

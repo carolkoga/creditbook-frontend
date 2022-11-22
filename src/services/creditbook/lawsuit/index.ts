@@ -8,7 +8,8 @@ import { HttpClient } from '../http';
 export interface OptionsListAnnouncementsUser {
   params?: {
     type?: 'single',
-    batchId?: string
+    batchId?: string | string[] | undefined,
+    batchIdToExclude?: string | string[] | undefined
   }
 }
 
@@ -57,16 +58,6 @@ export class LawsuitService extends HttpClient {
 
   async changeFavorite({ id, isFavorite }: { id: string, isFavorite: '1' | '0' }) {
     const formData = this._convertToFormData({ isFavorite, announcementId: id });
-
-    return this.httpClient.patch('/announcement', formData, {
-      headers: { ...this.customHeaders },
-    });
-  }
-
-  async changeBatch({ id, batchId }: { id: string, batchId: string | '0' }) {
-    const formData = new FormData();
-    formData.append('batchId', batchId);
-    formData.append('announcement', id);
 
     return this.httpClient.patch('/announcement', formData, {
       headers: { ...this.customHeaders },
