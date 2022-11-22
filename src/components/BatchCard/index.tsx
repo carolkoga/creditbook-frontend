@@ -16,7 +16,7 @@ export default function BatchesList({ customMine, batches, notFoundProps }: IPro
 
   if (batches?.length <= 0) {
     return (
-      <NotFoundData title="Não existe dados cadastrados" reloadPage {...notFoundProps} />
+      <NotFoundData title="Não há dados cadastrados" reloadPage {...notFoundProps} />
     );
   }
 

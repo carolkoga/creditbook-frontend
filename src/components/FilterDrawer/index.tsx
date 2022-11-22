@@ -123,7 +123,7 @@ export function FilterDrawer({ onGetResponseResults, customQuery }: IProps) {
       });
 
       if (response.data.announcements.length <= 0) {
-        return toast.info('Ops, Não existe nenhum relacionado a suas preferências');
+        return toast.info('Ops, Não há dados relacionado a suas preferências');
       }
 
       onGetResponseResults({

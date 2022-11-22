@@ -81,7 +81,7 @@ export default function OwnedNoBatch({ lawsuitId }: CommonPropsTypes) {
 
                 {batches?.length === 0 && (
                   <DropdownMenuRadioItem value="0" disabled>
-                    Não existe nenhum lote
+                    Não há nenhum lote
                   </DropdownMenuRadioItem>
                 )}
               </DropdownMenuRadioGroup>
