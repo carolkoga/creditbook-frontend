@@ -1,5 +1,5 @@
-import { Button } from '@components/Button';
 import Link from 'next/link';
+import { ReactNode } from 'react';
 import { Container, WrapperContent } from './styled';
 
 interface PlanCardProps {
@@ -10,9 +10,12 @@ interface PlanCardProps {
     subtitle: string,
   }
   description: string,
+  children?: ReactNode,
 }
 
-export default function PlanCard({ title, information, description }: PlanCardProps) {
+export default function PlanCard({
+  title, information, description, children,
+}: PlanCardProps) {
   return (
     <Container>
       <header>
@@ -39,11 +42,13 @@ export default function PlanCard({ title, information, description }: PlanCardPr
             {description}
           </small>
 
-          <Button type="button" size="small" variant="secondary">
-            Quero esse plano
-          </Button>
+          {children}
         </footer>
       </WrapperContent>
     </Container>
   );
 }
+
+PlanCard.defaultProps = {
+  children: null,
+};
