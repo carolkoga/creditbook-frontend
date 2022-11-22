@@ -5,7 +5,7 @@ import { CommonPropsTypes } from '..';
 
 interface IProps extends Pick<CommonPropsTypes, 'lawsuitId'> { }
 
-export default function MoreInformationViewBatch({ lawsuitId }: IProps) {
+export default function OnlyMoreInformation({ lawsuitId }: IProps) {
   return (
     <Actions>
       <Content>

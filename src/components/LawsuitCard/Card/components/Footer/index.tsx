@@ -7,7 +7,7 @@ import LoggedFooter from './Logged';
 import OwnedInBatch from './OwnedInBatch';
 import OwnedNoBatch from './OwnedNoBatch';
 import AddToBatch from './AddToBatch';
-import MoreInformationViewBatch from './MoreInformationViewBatch';
+import OnlyMoreInformation from './OnlyMoreInformation';
 
 export interface CommonPropsTypes {
   batchId: string | undefined | null,
@@ -30,8 +30,8 @@ export default function Footer({
     return <FooterNotLogged />;
   }
 
-  if (moreAboutOnly) {
-    return <MoreInformationViewBatch lawsuitId={lawsuit.id} />;
+  if (moreAboutOnly || lawsuit?.status !== 'accepted') {
+    return <OnlyMoreInformation lawsuitId={lawsuit.id} />;
   }
 
   if (mine && !lawsuit.batchId && originalBatchId) {
