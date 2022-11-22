@@ -65,6 +65,10 @@ export interface LawsuitParams extends Omit<Lawsuit, 'digitalProcess' | 'procura
   procurationUrl: string,
   paymentMethod?: PaymentParams,
   paymentFailed?: boolean,
+  batch?: {
+    id: string,
+    name: string
+  },
   files: {
     name: keyof FileTranslationTypes,
     url: string,
