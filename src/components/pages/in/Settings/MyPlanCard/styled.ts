@@ -6,6 +6,7 @@ interface TagHeaderProps {
 
 export const Container = styled.div`
   padding: 22px 16px;
+  flex: 1 1 256px;
   background: ${({ theme }) => theme.colors.grey[10]};
   border-radius: 10px;
   border: 1px solid #E4E4E4;
@@ -68,13 +69,11 @@ export const Footer = styled.div`
   align-items: center;
   justify-content: center;
   gap: 14px;
+
   button, a {
     padding-left: 24px;
     padding-right: 24px;
-
-    @media (max-width: 342px) {
-      width: 100%;
-    }
+    flex: 1 1 132px;
   }
 
 

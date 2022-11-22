@@ -40,9 +40,12 @@ export default function MyPlanCard({ plan }: MyPlanCardProps) {
           Sobre Anúncio
         </Link>
 
-        <Link href="/in/settings/credit-card">
-          Trocar de cartão
-        </Link>
+        {plan.plan !== '8%' && (
+          <Link href={`/in/ads/edit/${plan.id}`}>
+            Trocar cartão
+          </Link>
+        )}
+
       </Footer>
     </Container>
   );
