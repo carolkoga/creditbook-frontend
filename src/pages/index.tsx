@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import { GetServerSideProps } from 'next';
 import LiteYouTubeEmbed from 'react-lite-youtube-embed';
 
 import {
@@ -15,16 +14,14 @@ import { Section } from '@components/Section';
 import { Actions } from '@components/ActionLink';
 import { Link } from '@components/Button';
 import { WrapperVideo } from '@components/WrapperVideo';
-import { lawsuitService } from '@services/creditbook/lawsuit';
+
 import LawsuitCardSwiper from '@components/LawsuitCard/LawsuitCardSwiper';
-import { LawsuitParams } from '@type/creditbook/Lawsuits';
 import { Direction } from '@components/Direction';
+import useAnnouncements from '@services/creditbook/lawsuit/hooks/useAnnouncements';
 
-interface IProps {
-  announcementsPremium: LawsuitParams[]
-}
+export default function HomeLadingPage() {
+  const announcementsAsPremium = useAnnouncements(undefined, { params: { isPremium: true } });
 
-export default function HomeLadingPage({ announcementsPremium }: IProps) {
   return (
     <>
       <SectionHero>
@@ -160,7 +157,7 @@ export default function HomeLadingPage({ announcementsPremium }: IProps) {
         </ContainerVideoAndInfo>
       </Section.Container>
 
-      {announcementsPremium?.length > 0 && (
+      {announcementsAsPremium.announcements.results?.length > 0 && (
         <Section.Container>
           <Section.Header>
             <Direction direction="horizontal" alignItems="center">
@@ -170,23 +167,9 @@ export default function HomeLadingPage({ announcementsPremium }: IProps) {
               </Link>
             </Direction>
           </Section.Header>
-          <LawsuitCardSwiper lawsuits={announcementsPremium} />
+          <LawsuitCardSwiper lawsuits={announcementsAsPremium.announcements.results} />
         </Section.Container>
       )}
     </>
   );
 }
-
-export const getServerSideProps: GetServerSideProps = async () => {
-  const { data: filterAsPremium } = await lawsuitService.listAll({
-    params: {
-      isPremium: true,
-    },
-  });
-
-  return {
-    props: {
-      announcementsPremium: filterAsPremium.announcements,
-    },
-  };
-};
