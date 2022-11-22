@@ -47,7 +47,17 @@ export default function Batches({ initialBatches }: IProps) {
         </Direction>
       </Section.Header>
 
-      <BatchesList batches={initialBatches} />
+      <BatchesList
+        batches={initialBatches}
+        notFoundProps={{
+          type: 'children',
+          children: (
+            <Button onClick={handleOpenNewBatchModal} size="outline-filled-round">
+              Cadastrar Agora
+            </Button>
+          ),
+        }}
+      />
 
       <NewBatchFormModal
         isVisible={newBatchModalIsVisible}
