@@ -129,7 +129,7 @@ export default function CreditCard() {
             <Alert
               type="info"
               message={`
-                Caso tenha anúncios por assinatura então para que não haja a desativação dos anúncios em assinaturas adicione um novo cartão.
+                Adicione um novo cartão nos anúncios em assinatura para que não ocorra a desativação
               `}
             />
           </NotFoundData>
