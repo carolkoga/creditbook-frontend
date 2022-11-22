@@ -157,7 +157,7 @@ export default function HomeLadingPage() {
         </ContainerVideoAndInfo>
       </Section.Container>
 
-      {announcementsAsPremium.announcements.results?.length > 0 && (
+      {announcementsAsPremium?.announcements?.results?.length > 0 && (
         <Section.Container>
           <Section.Header>
             <Direction direction="horizontal" alignItems="center">
@@ -167,7 +167,7 @@ export default function HomeLadingPage() {
               </Link>
             </Direction>
           </Section.Header>
-          <LawsuitCardSwiper lawsuits={announcementsAsPremium.announcements.results} />
+          <LawsuitCardSwiper lawsuits={announcementsAsPremium?.announcements?.results} />
         </Section.Container>
       )}
     </>
