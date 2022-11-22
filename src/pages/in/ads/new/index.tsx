@@ -26,6 +26,7 @@ import { handleCatchErrorRequest } from '@utils/handleCatchErrorRequest';
 import ProcurationField from '@components/LawsuitForm/ProcurationField';
 import ModalToSelectPlan from '@components/LawsuitForm/ModalToSelectPlan';
 import ChooseCreditCard from '@components/LawsuitForm/ChooseCreditCard';
+import { toast } from 'react-toastify';
 
 export default function NewLawsuit() {
   const router = useRouter();
@@ -68,6 +69,13 @@ export default function NewLawsuit() {
     }
   }
 
+  function handleInvalidField() {
+    toast.warning('Tem campos obrigatórios faltando');
+    setStepForm('0');
+    methods.trigger();
+    return;
+  }
+
   return (
     <>
       <Section.Header>
@@ -79,7 +87,7 @@ export default function NewLawsuit() {
           <LawsuitFormProvider>
             <FormLayout
               noValidate
-              onSubmit={methods.handleSubmit(handleSubmitNewLawsuit)}
+              onSubmit={methods.handleSubmit(handleSubmitNewLawsuit, handleInvalidField)}
             >
 
               <div className="left__content">
