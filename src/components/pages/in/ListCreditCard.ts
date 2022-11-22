@@ -7,7 +7,7 @@ export const ListCreditCard = styled.ul`
   gap: 14px;
   width: 100%;
   li {
-    flex: 1;
+    flex: 1 1 150px;
     list-style: none;
   }
 
