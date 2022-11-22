@@ -8,6 +8,7 @@ import { LawsuitParams } from '@type/creditbook/Lawsuits';
 import NotFoundData, { NotFoundDataProps } from '@components/NotFoundData';
 import { AnnouncementResponse } from '@services/creditbook/lawsuit/hooks/types';
 
+import WrapperLoader from '@components/Loader/WrapperLoader';
 import LawsuitCard from './Card';
 import { LawsuitCardProps } from './types/Props';
 
@@ -43,7 +44,7 @@ export default function AnnouncementList({
     }
   }
 
-  if (isLoading) return <span>Loading...</span>;
+  if (isLoading) return <WrapperLoader />;
 
   if (announcements?.results?.length <= 0 || !announcements?.results) {
     if (error) {

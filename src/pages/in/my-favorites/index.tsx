@@ -42,12 +42,13 @@ export default function MyFavorites() {
         <AnnouncementList
           {...response}
           notFoundProps={{
-            title: response.announcements?.results?.length <= 0 ? 'Ainda não possui anúncio favoritado' : '',
+            title: response.announcements?.results?.length <= 0 ? 'Ainda não possui anúncios favoritados' : '',
             type: 'link',
             href: '/in/buy-credits',
             labelButton: 'Favoritar anúncios',
           }}
         />
+
       </Section.Container>
     </>
   );

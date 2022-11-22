@@ -17,8 +17,10 @@ import { ListCreditCard } from '@components/pages/in/ListCreditCard';
 import AlertModal from '@components/AlertModal';
 import NotFoundData from '@components/NotFoundData';
 import { Alert } from 'antd';
+import WrapperLoader from '@components/Loader/WrapperLoader';
 
 export default function CreditCard() {
+  const [isLoading, setIsLoading] = useState(false);
   const [isVisibleCreditCardModal, setIsVisibleCreditCardModal] = useState(false);
   const [creatingPaymentLoader, setCreatingPaymentLoader] = useState(false);
   const [creditCards, setCreditCards] = useState([] as PaymentParams[]);
@@ -32,10 +34,13 @@ export default function CreditCard() {
 
   const loadPayments = useCallback(async () => {
     try {
+      setIsLoading(true);
       const response = await paymentServices.listPayments();
       setCreditCards(response.data);
     } catch (error) {
       handleCatchErrorRequest(error as never);
+    } finally {
+      setIsLoading(false);
     }
   }, []);
 
@@ -89,6 +94,8 @@ export default function CreditCard() {
   useEffect(() => {
     loadPayments();
   }, [loadPayments]);
+
+  if (isLoading) return <WrapperLoader />;
 
   return (
     <StructureSettings>
