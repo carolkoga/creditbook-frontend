@@ -1,3 +1,5 @@
+import NotFoundData from '@components/NotFoundData';
+import { ListMyPlans } from '@components/pages/in/Settings/ListMyPlans';
 import MyPlanCard from '@components/pages/in/Settings/MyPlanCard';
 import { StructureSettings } from '@components/pages/in/Settings/StructureSettings';
 import { Section } from '@components/Section';
@@ -29,9 +31,20 @@ export default function MyPlans() {
       </Section.Header>
 
       <Section.Container>
-        {plans.map((currentPlan) => (
-          <MyPlanCard plan={currentPlan} />
+        {plans?.length && plans.map((currentPlan) => (
+          <ListMyPlans>
+            <MyPlanCard plan={currentPlan} />
+          </ListMyPlans>
         ))}
+
+        {!plans?.length && (
+          <NotFoundData
+            title="Não há planos aprovados"
+            type="link"
+            labelButton="Analisar créditos"
+            href="/in/buy-credits"
+          />
+        )}
       </Section.Container>
     </StructureSettings>
   );
