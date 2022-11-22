@@ -49,7 +49,7 @@ export default function Home() {
         <AnnouncementList
           {...response}
           notFoundProps={{
-            reloadPage: false,
+            type: 'link',
             href: '/in/ads/new',
             labelButton: 'Cadastrar Agora',
           }}

@@ -43,7 +43,7 @@ export default function MyFavorites() {
           {...response}
           notFoundProps={{
             title: response.announcements?.results?.length <= 0 ? 'Ainda não possui anúncio favoritado' : '',
-            reloadPage: false,
+            type: 'link',
             href: '/in/buy-credits',
             labelButton: 'Favoritar anúncios',
           }}

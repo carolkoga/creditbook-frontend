@@ -20,7 +20,7 @@ export default function MyAds() {
           {...response}
           notFoundProps={{
             title: response.announcements?.results?.length <= 0 ? 'Ainda não possui anúncio cadastrado' : '',
-            reloadPage: false,
+            type: 'link',
             href: '/in/ads/new',
             labelButton: 'Cadastrar Agora',
           }}
