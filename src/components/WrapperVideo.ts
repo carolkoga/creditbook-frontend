@@ -6,8 +6,8 @@ interface WrapperVideoProps {
 }
 
 export const WrapperVideo = styled.div<WrapperVideoProps>`
-  width: ${({ width }) => (!width ? '527px' : width)};
-  height: ${({ height }) => (!height ? '360px' : height)};
+  width: ${({ width }) => (!width ? '727px' : width)};
+  height: ${({ height }) => (!height ? '560px' : height)};
   border-radius: 10px;
   .yt-lite {
     border-radius: 10px;
@@ -24,8 +24,8 @@ export const WrapperVideo = styled.div<WrapperVideoProps>`
     border-width: 0;
   }
 
-  @media screen and (max-width: 568px){
-    width: 450px;
+  @media screen and (max-width: 727px){
+    width: 100%;
     height: 308px;
   }
 
