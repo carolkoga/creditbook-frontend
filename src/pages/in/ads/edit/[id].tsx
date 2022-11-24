@@ -195,8 +195,8 @@ export default function EditLawsuitByIdPage({ announcement }: IProps) {
                 <AcceptNegotiation />
                 <Prices
                   fields={{
-                    _incomeInputProps: { disabled: !!announcement.overSixMonths },
-                    _processPriceProps: { disabled: !!announcement.overSixMonths },
+                    _incomeInputProps: { disabled: !announcement.overSixMonths },
+                    _processPriceProps: { disabled: !announcement.overSixMonths },
                   }}
                 />
 
@@ -210,7 +210,7 @@ export default function EditLawsuitByIdPage({ announcement }: IProps) {
                   creditCard={announcement.paymentMethod}
                 />
 
-                {!announcement.overSixMonths
+                {announcement.overSixMonths
                   ? (
                     <Direction direction="horizontal">
                       <Button
