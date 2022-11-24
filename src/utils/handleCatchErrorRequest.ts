@@ -29,6 +29,7 @@ export function handleCatchErrorRequest(
       if (error.response.status === 401) {
         return;
       }
+
       if (error?.response?.data?.error.toLowerCase() === `${prefixErrorMessageParamInUse} email`) {
         return toast.error('O e-mail já está em uso');
       }
@@ -46,6 +47,10 @@ export function handleCatchErrorRequest(
         || error?.response?.data?.error.toLowerCase() === `${prefixErrorMessageParamInUse} cpf`
       ) {
         return toast.error('O CPF ou CNPJ já está em uso');
+      }
+
+      if (error?.response?.data?.error.toLowerCase() === "you can't update your announcement plan yet, just after six months") {
+        return toast.warning('Você não pode atualizar o plano ainda, somente depois de 6 meses');
       }
 
       toast.warning('Verifique se não há nenhum dado errado.', customToast ?? commonToastProps);
