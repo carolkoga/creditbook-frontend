@@ -45,6 +45,7 @@ export const RadioButton = styled.label<RadioButtonProps>`
   input {
     visibility: hidden;
   }
+
   .credit__card-container {
     background: ${({ chosen }) => (chosen !== 'true' ? '#eeee' : 'none')};
   }

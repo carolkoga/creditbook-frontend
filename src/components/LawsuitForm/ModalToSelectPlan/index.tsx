@@ -1,7 +1,8 @@
 import { Overlay } from '@components/Overlay';
 import { Section } from '@components/Section';
 import convertToCurrency from '@utils/convertToCurrency';
-import { ReactNode, useMemo, useState } from 'react';
+import { CheckCircle } from 'phosphor-react';
+import { ReactNode, useEffect, useMemo } from 'react';
 import { useFormContext } from 'react-hook-form';
 
 import {
@@ -15,104 +16,55 @@ import {
 
 interface IProps {
   isVisible: boolean,
-  children?: ReactNode,
-  defaultValues?: {
-    income: number,
-    plan: string,
-    premium: boolean | null,
-  }
+  children?: ReactNode
 }
 
-export default function ModalToSelectPlan({
-  isVisible, defaultValues, children,
-}: IProps) {
-  const { setValue, watch } = useFormContext();
-  const income: string = watch('income');
+export default function ModalToSelectPlan({ isVisible, children }: IProps) {
+  const {
+    watch, register, setValue, resetField,
+  } = useFormContext();
+  const income: number = Number(watch('income')?.replaceAll(/\D/g, ''));
+  const isPlanByPercent = watch('plan') === 'byPercent';
+  const planSelected = watch('plan');
+  const isPremium = watch('isPremium');
 
   const price = useMemo(() => {
-    const incomeParsed = Number(income?.replaceAll(/\D/g, ''));
+    if (income > 50000 && income < 300000) return 120;
 
-    if (incomeParsed > 50000 && incomeParsed < 300000) return 120;
-    if (incomeParsed > 300000) {
-      setValue('plan', 'both');
+    if (income > 300000) {
       return 180;
     }
-    setValue('plan', 'byMonth');
+
     return 69.90;
   }, [income]);
 
-  const defaultPlanMonth = useMemo(() => {
-    if (defaultValues?.income !== Number(income?.replaceAll(/\D/g, ''))) {
-      return price === 69.90 || price === 180;
+  const subTotal = useMemo(() => {
+    const isPremiumValue = convertToCurrency(price);
+
+    if (planSelected === 'byPercent') {
+      return '8%';
     }
 
-    if (defaultValues?.plan === 'both') {
-      return true;
+    if (planSelected === 'byPercent' && isPremium) {
+      return `8% + Premium (${isPremiumValue})`;
     }
 
-    if (defaultValues?.plan === 'byMonth') {
-      return true;
-    }
-
-    return false;
-  }, [defaultValues, price]);
-
-  const defaultPlanPercent = useMemo(() => {
-    if (defaultValues?.income !== Number(income?.replaceAll(/\D/g, ''))) {
-      return price === 180;
-    }
-
-    if (defaultValues?.plan === 'both') {
-      return true;
-    }
-
-    if (defaultValues?.plan === 'byPercent') {
-      return true;
-    }
-
-    return false;
-  }, [defaultValues, price]);
-
-  const [byMonth, setByMonth] = useState<boolean>(defaultPlanMonth);
-  const [byPercent, setByPercent] = useState<boolean>(defaultPlanPercent);
-  const [isPremium, setIsPremium] = useState<boolean>(defaultValues?.premium ?? false);
-  const subtotal = useMemo(() => {
-    let subtotalPremium = 0;
     if (isPremium) {
-      subtotalPremium = price;
+      const totalValue = price * 2;
+      return convertToCurrency(totalValue);
     }
-
-    if (price === 180) return `${convertToCurrency(subtotalPremium + price)} + 8%`;
-
-    if (isPremium && byPercent) return `${convertToCurrency(subtotalPremium)} + 8%`;
-
-    if (isPremium) return convertToCurrency(subtotalPremium + price);
-
-    if (byPercent) return '8%';
 
     return convertToCurrency(price);
-  }, [price, isPremium, byPercent]);
-  const canChangePlan = price === 180;
+  }, [planSelected, isPremium]);
+
+  useEffect(() => {
+    resetField('plan');
+    if (income > 300000) {
+      setValue('plan', 'both');
+    }
+  }, [income]);
+
   if (!isVisible) return null;
-
-  function handleSelectPlan(plan: 'byMonth' | 'byPercent') {
-    if (plan === 'byMonth') {
-      setByMonth(true);
-      setByPercent(false);
-      setValue('plan', 'byMonth');
-    }
-
-    if (plan === 'byPercent') {
-      setByMonth(false);
-      setByPercent(true);
-      setValue('plan', 'byPercent');
-    }
-  }
-
-  function handleSelectPremium() {
-    setIsPremium((oldState) => !oldState);
-    setValue('isPremium', isPremium ? '0' : '1');
-  }
 
   return (
     <Overlay>
@@ -126,9 +78,7 @@ export default function ModalToSelectPlan({
             <PlanContainer>
               <PlanHeader>
                 <h2>
-                  Plano Mensal por apenas
-                  {' '}
-                  {convertToCurrency(price)}
+                  {convertToCurrency(price)} / ao mês
                 </h2>
               </PlanHeader>
 
@@ -139,19 +89,46 @@ export default function ModalToSelectPlan({
               </p>
 
               <PlanContent>
-                <ButtonSelect
-                  type="button"
-                  onClick={() => handleSelectPlan('byMonth')}
-                  disabled={canChangePlan}
-                  selected={byMonth}
-                >
-                  {!byMonth || canChangePlan ? 'Escolher' : 'Escolhido'}
+                <ButtonSelect selected={planSelected.includes('byMonth') || planSelected.includes('both')}>
+                  {planSelected.includes('byMonth') || planSelected.includes('both')
+                    ? 'Escolhido'
+                    : 'Escolher'}
+                  <input type="radio" value="byMonth" {...register('plan')} />
                 </ButtonSelect>
               </PlanContent>
             </PlanContainer>
 
-            <PlanContainer highlight>
-              <PlanHeader highlight>
+            <h3>OU</h3>
+
+            <PlanContainer>
+              <PlanHeader>
+                <h2>
+                  8%
+                  {' '}
+                  <span>do valor de venda</span>
+                </h2>
+              </PlanHeader>
+
+              <p>
+                Pagos após a venda do crédito anunciado
+              </p>
+
+              <PlanContent>
+                <ButtonSelect selected={planSelected === 'byPercent' || planSelected === 'both'}>
+                  {planSelected === 'byPercent' || planSelected === 'both'
+                    ? 'Escolhido'
+                    : 'Escolher'}
+                  <input type="radio" value="byPercent" {...register('plan')} />
+                </ButtonSelect>
+              </PlanContent>
+            </PlanContainer>
+          </PlanList>
+
+          <div className="wrapper__premium">
+            <Section.Title>Adicionar na Galeria Premium</Section.Title>
+
+            <PlanContainer>
+              <PlanHeader>
                 <h2>
                   Aumente visiblidade por apenas
                   {' '}
@@ -161,40 +138,30 @@ export default function ModalToSelectPlan({
 
               <p>
                 Período mínimo da assinatura:
-                <br />
                 6 meses {convertToCurrency(price * 6)}
+
               </p>
 
+              <div className="container-advantage">
+                <div className="advantage">
+                  <CheckCircle size={32} color="#25885d" weight="fill" />
+                  <span>Maior Destaque</span>
+                </div>
+
+                <div className="advantage">
+                  <CheckCircle size={32} color="#25885d" weight="fill" />
+                  <span>Maior Possibilidade de Venda</span>
+                </div>
+              </div>
+
               <PlanContent>
-                <ButtonSelect type="button" onClick={handleSelectPremium} selected={isPremium}>
-                  {!isPremium ? 'Adicionar Premium' : 'Adicionado'}
+                <ButtonSelect selected={isPremium} type="checkbox">
+                  {!isPremium ? 'Adicionar Premium' : 'Remover Premium'}
+                  <input type="checkbox" {...register('isPremium')} />
                 </ButtonSelect>
               </PlanContent>
             </PlanContainer>
-
-            <PlanContainer>
-              <PlanHeader>
-                <h2>
-                  8% do valor de venda
-                </h2>
-              </PlanHeader>
-
-              <p>
-                Pagos somente após a cessão do crédito
-              </p>
-
-              <PlanContent>
-                <ButtonSelect
-                  type="button"
-                  onClick={() => handleSelectPlan('byPercent')}
-                  disabled={canChangePlan}
-                  selected={byPercent}
-                >
-                  {!byPercent || canChangePlan ? 'Escolher' : 'Escolhido'}
-                </ButtonSelect>
-              </PlanContent>
-            </PlanContainer>
-          </PlanList>
+          </div>
 
           <CheckoutContainer>
             <CheckoutWrapper>
@@ -204,11 +171,11 @@ export default function ModalToSelectPlan({
                   <small>{convertToCurrency(price)} + 8%</small>
                 )}
 
-                {(price !== 180 && !byPercent) && (
+                {(price !== 180 && !isPlanByPercent) && (
                   <small>{convertToCurrency(price)}</small>
                 )}
 
-                {(price !== 180 && byPercent) && (
+                {(price !== 180 && isPlanByPercent) && (
                   <small>8%</small>
                 )}
               </CheckoutPriceSingle>
@@ -226,7 +193,7 @@ export default function ModalToSelectPlan({
 
               <CheckoutPriceSingle subtotal>
                 <span>Total</span>
-                <small>{subtotal}</small>
+                <small>{subTotal}</small>
               </CheckoutPriceSingle>
             </CheckoutWrapper>
           </CheckoutContainer>

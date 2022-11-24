@@ -78,8 +78,8 @@ export interface LawsuitParams extends Omit<Lawsuit, 'digitalProcess' | 'procura
 export interface NewLawsuitParams extends LawsuitFiles, Omit<Lawsuit, 'batchId' | 'pledgeOrGuarantee' | 'acceptNegotiation' | 'isFavorite' | 'isPremium'> {
   pledgeOrGuarantee: '1' | '0';
   acceptNegotiation: '1' | '0';
-  isFavorite: '1' | '0';
-  isPremium: '1' | '0';
+  isFavorite: boolean;
+  isPremium: boolean;
 }
 
 export interface UpdateLawsuitParams extends NewLawsuitParams {

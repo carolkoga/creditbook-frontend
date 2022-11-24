@@ -12,18 +12,26 @@ export const Container = styled.div`
   background: ${({ theme }) => theme.colors.grey[10]};
   padding: 53px 34px;
   border-radius: 10px;
-  position: relative;
+  max-width: 657px;
+  width: 100% !important;
+  .wrapper__premium {
+    margin-top: 42px;
 
-  @media (max-width: 540px) {
+    text-align: left;
+  }
+
+  @media (max-width: 763px) {
     margin-top: 262px;
+    padding: 53px 24px;
 
     .header {
       align-items: center;
     }
   }
 
-  @media (max-width: 440px) {
+  @media (max-width: 340px) {
     padding: 53px 24px;
+    width: 300px;
   }
 `;
 
@@ -33,6 +41,10 @@ export const PlanList = styled.div`
   justify-content: center;
   gap: 16px;
   flex-wrap: wrap;
+
+  @media (max-width: 763px) {
+    flex-direction: column;
+  }
 `;
 
 export const PlanContainer = styled.div<PlanProps>`
@@ -42,20 +54,40 @@ export const PlanContainer = styled.div<PlanProps>`
   justify-content: space-between;
   box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
-  max-width: 213px;
   background: ${({ theme }) => theme.colors.grey[10]};
-  min-height: 195px;
+  min-height: 225px;
+  height: 100%;
+  min-width: 260px;
+  width: 100%;
+  flex: 1;
+
+  .container-advantage {
+    display: flex;
+    gap: 18px;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    .advantage {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 500;
+      color: ${({ theme }) => theme.colors.grey[70]};
+
+      .advantage + .advantage {
+        margin-top: 24px;
+      }
+    }
+  }
 
   p {
     text-align: center;
-    margin: auto 8px;
+    width: 100%;
   }
 
-  ${({ highlight }) => (highlight && css`
-    max-width: 235px;
-    width: 100%;
-    height: 249px;
-  `)};
+  @media (max-width: 328px) {
+    min-width: 100%;
+  }
 `;
 
 export const PlanHeader = styled.div<PlanProps>`
@@ -68,12 +100,19 @@ export const PlanHeader = styled.div<PlanProps>`
   background: ${({ theme }) => theme.colors.primary.main};
   opacity: 0.9;
   margin-bottom: 12px;
+  width: 100%;
+
   h2 {
     text-align: center;
     font-size: 18px;
     line-height: 29px;
     color: ${({ theme }) => theme.colors.grey[10]};
     width: 100%;
+
+    span {
+      font-size: 12px;
+      color: #d2cded;
+    }
   }
 
   ${({ highlight }) => (highlight && css`
@@ -85,7 +124,6 @@ export const PlanHeader = styled.div<PlanProps>`
 `;
 
 export const PlanContent = styled.div`
-  width: 100%;
   padding: 38px 16px 10px 16px;
 `;
 
@@ -154,7 +192,7 @@ export const Actions = styled.div`
     border-radius: 5px;
     color: ${({ theme }) => theme.colors.grey[10]};
     font-weight: 500;
-    width: 40%;
+    flex: 1;
     font-size: 14px;
 
     :hover {
@@ -184,27 +222,34 @@ export const Actions = styled.div`
 
 interface ButtonSelectProps {
   selected?: boolean,
+  type?: 'checkbox'
 }
 
-export const ButtonSelect = styled.button<ButtonSelectProps>`
+export const ButtonSelect = styled.label<ButtonSelectProps>`
   padding: 7px 24px;
   background: ${({ theme, selected }) => (!selected ? theme.colors.secondary.main : theme.colors.grey[40])};
   border: none;
   border-radius: 5px;
   color: ${({ theme }) => theme.colors.grey[10]};
   font-weight: 500;
-  width: 100%;
   font-size: 14px;
+  cursor: ${({ selected }) => (selected ? 'not-allowed' : 'cursor')};
+
+  input {
+    visibility: hidden;
+    position: absolute;
+    top: -9999999;
+    left: -9999999;
+  }
+
   :hover {
     transition: all .35s ease;
     opacity: ${({ selected }) => (!selected ? '.8' : '1')};
   }
 
-  &:disabled {
-    cursor: not-allowed;
-    background: ${({ theme }) => theme.colors.grey[40]};
-    :hover {
-      opacity: 1;
-    }
-  }
+  ${({ type, selected, theme }) => (type === 'checkbox' && selected && css`
+    cursor: pointer;
+    background: ${theme.colors.others.actions.danger};
+    filter: brightness(90%);
+  `)}
 `;

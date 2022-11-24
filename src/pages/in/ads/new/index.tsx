@@ -36,12 +36,13 @@ export default function NewLawsuit() {
     resolver: yupResolver(newLawsuitSchemaValidation),
     mode: 'all',
     defaultValues: {
+      plan: 'byMonth',
       type: 'digital',
       acceptNegotiation: '1',
       pledgeOrGuarantee: '1',
       ownOrAttorney: 'own',
-      isFavorite: '0',
-      isPremium: '0',
+      isFavorite: false,
+      isPremium: false,
     },
   });
   const ownOrAttorneyField = methods.watch('ownOrAttorney');
@@ -60,7 +61,11 @@ export default function NewLawsuit() {
     try {
       setLoading(true);
 
-      const response = await lawsuitService.createLawsuit(data);
+      const response = await lawsuitService.createLawsuit({
+        ...data,
+        isPremium: data.isPremium ? '1' : '0',
+        isFavorite: data.isFavorite ? '1' : '0',
+      });
       router.push(`/in/ads/${response.data.id}`);
     } catch (error) {
       handleCatchErrorRequest(error as any);
@@ -119,13 +124,13 @@ export default function NewLawsuit() {
                   Voltar
                 </button>
 
-                {(plan === 'byPercent' && isPremium === '0') && (
+                {(plan === 'byPercent' && !isPremium) && (
                   <Button isLoading={loading} type="submit">
                     {!loading ? 'Cadastrar' : 'Cadastrando'}
                   </Button>
                 )}
 
-                {(plan !== 'byPercent' || isPremium === '1') && (
+                {(plan !== 'byPercent' || isPremium) && (
                   <Button isLoading={loading} type="button" onClick={() => setStepForm('5')}>
                     Escolher pagamento
                   </Button>

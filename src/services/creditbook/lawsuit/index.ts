@@ -87,8 +87,12 @@ export class LawsuitService extends HttpClient {
           if (currentData.digitalProcessUrl === value) return;
         }
 
-        if (key === 'pledgeOrGuarantee' || key === 'acceptNegotiation' || key === 'isFavorite' || key === 'isPremium') {
-          if (currentData[key] === !!Number(value)) return;
+        if (key === 'isFavorite' || key === 'isPremium') {
+          if (currentData[key] === !value ? '0' : '1') return;
+        }
+
+        if (key === 'pledgeOrGuarantee' || key === 'acceptNegotiation') {
+          if (currentData[key] === Number(value)) return;
         }
 
         if (key === 'id') {

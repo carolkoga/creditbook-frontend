@@ -75,8 +75,8 @@ export default function EditLawsuitByIdPage({ announcement }: IProps) {
       digitalProcess: announcement.digitalProcessUrl,
       acceptNegotiation: announcement?.acceptNegotiation ? '1' : '0',
       pledgeOrGuarantee: announcement?.pledgeOrGuarantee ? '1' : '0',
-      isFavorite: announcement?.isFavorite ? '1' : '0',
-      isPremium: announcement?.isPremium ? '1' : '0',
+      isFavorite: announcement?.isFavorite,
+      isPremium: announcement?.isPremium,
       city: { label: announcement.city, value: announcement.city },
       uf: { label: announcement.uf, value: announcement.uf },
       // @ts-ignore
@@ -93,6 +93,8 @@ export default function EditLawsuitByIdPage({ announcement }: IProps) {
   const [plan, isPremium] = methods.watch(['plan', 'isPremium']);
   const ownOrAttorneyField = methods.watch('ownOrAttorney');
   const isValidToContinue = methods.watch('income');
+
+  console.log(plan);
 
   function handleOpenModalToSelectPlan() {
     setStepForm('select-plan');
@@ -193,8 +195,8 @@ export default function EditLawsuitByIdPage({ announcement }: IProps) {
                 <AcceptNegotiation />
                 <Prices
                   fields={{
-                    _incomeInputProps: { disabled: !announcement.overSixMonths },
-                    _processPriceProps: { disabled: !announcement.overSixMonths },
+                    _incomeInputProps: { disabled: !!announcement.overSixMonths },
+                    _processPriceProps: { disabled: !!announcement.overSixMonths },
                   }}
                 />
 
@@ -203,12 +205,12 @@ export default function EditLawsuitByIdPage({ announcement }: IProps) {
                 )}
 
                 <CreditCardFieldset
-                  isVisible={announcement.plan !== 'byPercent' || announcement.isPremium}
+                  isVisible={announcement.plan !== 'byPercent' || announcement.isPremium || !!announcement.paymentMethodId}
                   onOpenChooseCreditCardModal={handleOpenChooseCreditCardModal}
                   creditCard={announcement.paymentMethod}
                 />
 
-                {announcement.overSixMonths
+                {!announcement.overSixMonths
                   ? (
                     <Direction direction="horizontal">
                       <Button
@@ -252,13 +254,13 @@ export default function EditLawsuitByIdPage({ announcement }: IProps) {
                   Voltar
                 </button>
 
-                {(plan === 'byPercent' && isPremium === '0') && (
+                {(plan === 'byPercent' && !isPremium) && (
                   <Button isLoading={loading} type="submit">
                     {!loading ? 'Cadastrar' : 'Cadastrando'}
                   </Button>
                 )}
 
-                {((plan !== 'byPercent' || isPremium === '1') && announcement?.paymentMethodId) && (
+                {((plan !== 'byPercent' || isPremium)) && (
                   <Button isLoading={loading} type="button" onClick={() => handleOpenChooseCreditCardModal()}>
                     Escolher pagamento
                   </Button>
