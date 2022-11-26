@@ -1,5 +1,6 @@
-import Head from 'next/head';
 import type { AppProps } from 'next/app';
+import Head from 'next/head';
+import { Analytics } from '@vercel/analytics/react';
 import { ThemeProvider } from 'styled-components';
 import { ToastContainer } from 'react-toastify';
 import { ErrorBoundary } from 'react-error-boundary';
@@ -46,6 +47,7 @@ Precisando de dinheiro? Procurando uma forma lucrativa para investir? Chegou a p
               <ToastContainer />
               <Layout>
                 <Component {...pageProps} />
+                <Analytics />
               </Layout>
             </SidebarContextProvider>
           </ErrorBoundary>
