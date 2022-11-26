@@ -35,17 +35,7 @@ const passwordValidation = {
 
 export const commonValidationSchema = {
   profilePicture: yup
-    .mixed()
-    .test(
-      'image required',
-      'Campo obrigatório',
-      (value: any) => (
-        typeof value === 'object'
-          ? value.name
-          : typeof value === 'string'
-      ),
-    )
-    .required('Campo obrigatório'),
+    .mixed(),
   nationality: yup.mixed().typeError('Campo obrigatório'),
   cellphone: yup.string().required('Campo obrigatório'),
   fullName: yup.string().required('Campo obrigatório'),
