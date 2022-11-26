@@ -19,6 +19,12 @@ interface IProps {
   children?: ReactNode
 }
 
+const plansValues = {
+  180: 300000,
+  120: 50000,
+  69.90: 50000,
+};
+
 export default function ModalToSelectPlan({ isVisible, children }: IProps) {
   const {
     watch, register, setValue, resetField,
@@ -71,7 +77,15 @@ export default function ModalToSelectPlan({ isVisible, children }: IProps) {
       <Section.Container>
         <Container>
           <Section.Header className="header">
-            <Section.Title>Escolha o Plano</Section.Title>
+            <Section.Title>
+              Planos
+              {' '}
+              {price === 69.90 ? 'abaixo' : 'acima'}
+              {' '}
+              de
+              {' '}
+              {convertToCurrency(plansValues[price as never])}
+            </Section.Title>
           </Section.Header>
 
           <PlanList>
@@ -93,12 +107,14 @@ export default function ModalToSelectPlan({ isVisible, children }: IProps) {
                   {planSelected.includes('byMonth') || planSelected.includes('both')
                     ? 'Escolhido'
                     : 'Escolher'}
-                  <input type="radio" value="byMonth" {...register('plan')} />
+                  <input type="radio" value="byMonth" {...register('plan')} disabled={planSelected.includes('both')} />
                 </ButtonSelect>
               </PlanContent>
             </PlanContainer>
 
-            <h3>OU</h3>
+            <h3>
+              {planSelected.includes('both') ? 'E' : 'OU'}
+            </h3>
 
             <PlanContainer>
               <PlanHeader>
@@ -118,7 +134,7 @@ export default function ModalToSelectPlan({ isVisible, children }: IProps) {
                   {planSelected === 'byPercent' || planSelected === 'both'
                     ? 'Escolhido'
                     : 'Escolher'}
-                  <input type="radio" value="byPercent" {...register('plan')} />
+                  <input type="radio" value="byPercent" {...register('plan')} disabled={planSelected.includes('both')} />
                 </ButtonSelect>
               </PlanContent>
             </PlanContainer>
