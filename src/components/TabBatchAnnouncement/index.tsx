@@ -15,12 +15,12 @@ export default function TabBatchAnnouncement({ children, announcementLink, batch
         <NavigationTab
           routes={[
             {
-              label: 'Anúncios',
+              label: 'Anúncios Individuais',
               link: announcementLink,
             },
 
             {
-              label: 'Lotes',
+              label: 'Anúncios em Lotes',
               link: batchLink,
             },
           ]}

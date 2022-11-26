@@ -21,7 +21,7 @@ export default function SingleLawsuits({ response }: IProps) {
   return (
     <TabBatchAnnouncement batchLink="/batches" announcementLink="/ads">
       <Section.Header>
-        <Section.Title as="h1">Anúncios</Section.Title>
+        <Section.Title as="h1">Anúncios Individuais</Section.Title>
       </Section.Header>
 
       <Section.Container>

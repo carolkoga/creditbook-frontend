@@ -15,7 +15,7 @@ export default function Batches({ batches }: IProps) {
   return (
     <TabBatchAnnouncement batchLink="/batches" announcementLink="/ads">
       <Section.Header>
-        <Section.Title as="h1">Lotes</Section.Title>
+        <Section.Title as="h1">Anúncios em Lotes</Section.Title>
       </Section.Header>
 
       <Section.Container>
