@@ -8,7 +8,7 @@ export default function Footer() {
       <div className="left-content">
         <Link href="/">
           <a>
-            <Image src="/assets/images/logo.svg" width="186px" height="52px" alt="Logo" layout="fixed" />
+            <Image src="/assets/images/logo.svg" width="137px" height="50px" alt="Logo" layout="fixed" />
           </a>
         </Link>
 
