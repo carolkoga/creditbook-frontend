@@ -5,11 +5,6 @@ export const routesInSupport = [
   },
 
   {
-    label: 'Vender Anúncios',
-    link: '/support/sell-ads',
-  },
-
-  {
     label: 'FAQ',
     link: '/support',
   },
