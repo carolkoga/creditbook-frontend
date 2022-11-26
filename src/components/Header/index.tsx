@@ -15,7 +15,7 @@ export default function Header() {
       </button>
 
       <div className="wrapper__image">
-        <Link href="/in/home">
+        <Link href="/">
           <a>
             <Image src="/assets/images/logo.svg" layout="fill" />
           </a>
