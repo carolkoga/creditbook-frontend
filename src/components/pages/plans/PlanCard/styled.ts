@@ -6,7 +6,7 @@ export const Container = styled.article`
   border-radius: 15px;
   max-width: 341px;
   width: 100%;
-  height: 518px;
+  min-height: 518px;
 
   & > header {
     background: ${({ theme }) => theme.colors.primary.main};
@@ -35,6 +35,7 @@ export const WrapperContent = styled.main`
   border-radius: 15px;
   padding: 32px;
   margin: 48px 32px;
+  min-height: 354px;
 
   .body__header, .body__header > div, footer{
     display: flex;
@@ -54,7 +55,7 @@ export const WrapperContent = styled.main`
     > a {
       margin-top: 12px;
       color: #929292;
-      text-decoration: none;
+      text-decoration: underline;
       font-size: 13px;
 
       font-weight: 500;

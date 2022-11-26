@@ -37,7 +37,7 @@ const plans = [
 
 export default function Plans() {
   return (
-    <Direction style={{ margin: 'auto', width: 'fit-content' }}>
+    <Direction style={{ margin: 'auto', width: 'fit-content', alignItems: 'center' }}>
       <Section.Header>
         <Section.Title as="h1">Nossos Planos</Section.Title>
       </Section.Header>
