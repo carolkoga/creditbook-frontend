@@ -17,7 +17,7 @@ export default function Header() {
       <div className="wrapper__image">
         <Link href="/">
           <a>
-            <Image src="/assets/images/logo.svg" layout="fill" />
+            <Image src="/assets/images/logo.svg" layout="fixed" width="137px" height="50px" />
           </a>
         </Link>
       </div>
