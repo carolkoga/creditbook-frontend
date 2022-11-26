@@ -87,7 +87,7 @@ export default function LandingPageHeader() {
       <Content>
         <Link href="/">
           <a>
-            <Image src="/assets/images/logo.svg" width="137px" height="44px" alt="logo" layout="fixed" />
+            <Image src="/assets/images/logo.svg" width="137px" height="50px" alt="logo" layout="fixed" />
           </a>
         </Link>
 

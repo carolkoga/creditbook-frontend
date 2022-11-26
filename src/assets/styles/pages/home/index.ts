@@ -109,16 +109,16 @@ export const InfoCard = styled.li`
   flex-direction: column;
   gap: 18px 0;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   border: 1px solid ${({ theme }) => theme.colors.primary.main};
   border-radius: 10px;
   max-width: 141px;
   max-height: 175px;
-  height: 100%;
+  /* height: 100%; */
   width: 100%;
   letter-spacing: 0.6%;
   box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.25);
-  padding: 28px 10px;
+  padding: 18px 10px;
   text-align: center;
   background: ${({ theme }) => theme.colors.grey[10]};
 

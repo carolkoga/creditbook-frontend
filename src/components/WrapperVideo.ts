@@ -6,8 +6,8 @@ interface WrapperVideoProps {
 }
 
 export const WrapperVideo = styled.div<WrapperVideoProps>`
-  width: ${({ width }) => (!width ? '727px' : width)};
-  height: ${({ height }) => (!height ? '560px' : height)};
+  width: ${({ width }) => (!width ? '627px' : width)};
+  height: ${({ height }) => (!height ? '460px' : height)};
   border-radius: 10px;
   .yt-lite {
     border-radius: 10px;

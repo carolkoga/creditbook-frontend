@@ -49,7 +49,9 @@ export default function HomeLadingPage() {
         <WrapperImageHero>
           <Image
             src="/assets/images/hero.png"
-            layout="fill"
+            layout="fixed"
+            width="527px"
+            height="430px"
             priority
             alt="Hero"
           />
@@ -59,7 +61,7 @@ export default function HomeLadingPage() {
       <Section.Container>
         <Section.Header>
           <Section.Title>Como funciona a venda e compra?</Section.Title>
-          <Section.Subtitle>Assista o vídeo abaixo:</Section.Subtitle>
+          <Section.Subtitle>Assista abaixo como funciona a venda e compra:</Section.Subtitle>
         </Section.Header>
 
         <ContainerVideoAndInfo>
