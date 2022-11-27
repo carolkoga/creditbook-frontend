@@ -137,17 +137,15 @@ export function AuthProvider({ children }: IProps) {
   }
 
   useEffect(() => {
-    if (Router.pathname === '/login' || Router.pathname.startsWith('/in/') || Router.pathname.startsWith('/admin/')) {
-      const { 'nextauth.token': nextAuthToken } = parseCookies();
-      if (nextAuthToken) {
-        getUserInformation(nextAuthToken);
-        setAuthorizationHeader(nextAuthToken);
-      } else {
-        setUser(null);
-        destroyAuthCookies();
-      }
+    const { 'nextauth.token': nextAuthToken } = parseCookies();
+    if (nextAuthToken) {
+      getUserInformation(nextAuthToken);
+      setAuthorizationHeader(nextAuthToken);
+    } else {
+      setUser(null);
+      destroyAuthCookies();
     }
-  }, [Router.pathname]);
+  }, []);
 
   const values = useMemo(() => ({
     user: user as AuthenticatedUserData,

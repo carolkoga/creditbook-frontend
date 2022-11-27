@@ -1,3 +1,4 @@
+import useAuth from '@hooks/useAuth';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -40,6 +41,7 @@ const routes = [
 
 export default function LandingPageHeader() {
   const router = useRouter();
+  const { user, isAuthenticated } = useAuth();
   const [compactMenu, setCompactMenu] = useState<{
     isSmallDevice: boolean,
     isVisibleMenu: boolean,
@@ -108,17 +110,29 @@ export default function LandingPageHeader() {
             </Navigation>
 
             <Actions>
-              <Link href="/login">
-                <a>
-                  Entrar
-                </a>
-              </Link>
+              {isAuthenticated && (
+                <Link href={user?.role === 'admin' ? '/admin/dashboard' : '/in/home'}>
+                  <a>
+                    Acessar
+                  </a>
+                </Link>
+              )}
 
-              <Link href="/sign-up">
-                <a>
-                  Cadastrar
-                </a>
-              </Link>
+              {!isAuthenticated && (
+                <>
+                  <Link href="/login">
+                    <a>
+                      Entrar
+                    </a>
+                  </Link>
+
+                  <Link href="/sign-up">
+                    <a>
+                      Cadastrar
+                    </a>
+                  </Link>
+                </>
+              )}
             </Actions>
           </>
         )}
@@ -135,17 +149,29 @@ export default function LandingPageHeader() {
                   <Image src="/assets/icons/close.svg" width="32px" height="32px" layout="fixed" alt="Fecha o menu" />
                 </button>
                 <Actions>
-                  <Link href="/login">
-                    <a>
-                      Entrar
-                    </a>
-                  </Link>
+                  {isAuthenticated && (
+                    <Link href={user?.role === 'admin' ? '/admin/dashboard' : '/in/home'}>
+                      <a>
+                        Acessar
+                      </a>
+                    </Link>
+                  )}
 
-                  <Link href="/sign-up">
-                    <a>
-                      Cadastrar
-                    </a>
-                  </Link>
+                  {!isAuthenticated && (
+                  <>
+                    <Link href="/login">
+                      <a>
+                        Entrar
+                      </a>
+                    </Link>
+
+                    <Link href="/sign-up">
+                      <a>
+                        Cadastrar
+                      </a>
+                    </Link>
+                  </>
+                  )}
                 </Actions>
               </div>
 
