@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const CREDITBOOK_URL = 'https://creditbook-api.herokuapp.com/';
+const CREDITBOOK_URL = 'https://api.creditbook.com.br';
 
 export function setupAPIClient(token: any = undefined) {
   if (token) {
