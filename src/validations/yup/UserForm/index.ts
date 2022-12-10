@@ -35,7 +35,24 @@ const passwordValidation = {
 
 export const commonValidationSchema = {
   profilePicture: yup
-    .mixed(),
+    .mixed()
+    // @ts-ignore
+    .test((option: File | undefined | null | string, rule) => {
+      if (typeof option === 'string') return option;
+      if (typeof option === 'undefined' || !option) return true;
+
+      function bytesToMB(number: number) {
+        return number / (1000) ** 2;
+      }
+
+      const fileSize = option?.size;
+
+      if (bytesToMB(fileSize) > 1) {
+        return rule.createError({ message: 'O tamanho da imagem precisa ser menor que 1 MB' });
+      }
+
+      return option;
+    }),
   nationality: yup.mixed().typeError('Campo obrigatório'),
   cellphone: yup.string().required('Campo obrigatório'),
   fullName: yup.string().required('Campo obrigatório'),

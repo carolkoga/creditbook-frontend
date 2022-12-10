@@ -25,11 +25,22 @@ class AuthCreditBookService {
       }
 
       if (key === 'profilePicture') {
-        const profilePictureIsFileList = value as FileList;
-        if (profilePictureIsFileList.length) {
+        const profilePictureIsFile = value as File[] || File;
+
+        // @ts-ignore
+        if (typeof profilePictureIsFile === 'function') {
+          // @ts-ignore
+          if (profilePictureIsFile.length as File[]) {
+            return;
+          }
+        }
+
+        // @ts-ignore
+        if (!profilePictureIsFile?.name) {
           return;
         }
       }
+
       formData.append(key, (value as string | Blob));
     });
 
