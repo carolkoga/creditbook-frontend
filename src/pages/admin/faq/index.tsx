@@ -26,7 +26,7 @@ export default function FAQ() {
   const [questions, setQuestions] = useState({ faq: [] } as FAQResponseType);
   const [loading, setLoading] = useState(false);
   // eslint-disable-next-line max-len
-  const [questionBeignEdited, setQuestionBeignEdited] = useState<QuestionBeingParams | null>(null!);
+  const [questionBeingEdited, setQuestionBeignEdited] = useState<QuestionBeingParams | null>(null!);
   const [questionIdBeignDeleted, setQuestionIdBeignDeleted] = useState(null as string | any);
   const loadQuestions = useCallback(async () => {
     const { data } = await FAQService.listAllFAQs();
@@ -41,7 +41,7 @@ export default function FAQ() {
     setNewFAQIsVisible(false);
   }
 
-  function handleOpenModalEditFAQ(question: QuestionBeignParams) {
+  function handleOpenModalEditFAQ(question: QuestionBeingParams) {
     setQuestionBeignEdited(question);
     setNewFAQIsVisible(true);
   }
@@ -75,7 +75,7 @@ export default function FAQ() {
   async function handleUpdateQuestionById(data: any) {
     try {
       setLoading(true);
-      await FAQService.update(data, questionBeignEdited?.id as string);
+      await FAQService.update(data, questionBeingEdited?.id as string);
       await loadQuestions();
       setNewFAQIsVisible(false);
       setQuestionBeignEdited(null);
@@ -154,7 +154,7 @@ export default function FAQ() {
         )}
       </Section.Container>
 
-      {questionBeignEdited && (
+      {questionBeingEdited && (
         <FAQForm
           title="Editar Pergunta"
           isVisible={newFAQIsVisible}
@@ -163,17 +163,17 @@ export default function FAQ() {
           onConfirmForm={handleUpdateQuestionById}
           isLoading={loading}
           defaultValues={{
-            title: questionBeignEdited.title,
-            answer: questionBeignEdited.answer,
+            title: questionBeingEdited.title,
+            answer: questionBeingEdited.answer,
             section: {
-              label: translationSectionFAQ[questionBeignEdited?.section],
-              value: questionBeignEdited.section,
+              label: translationSectionFAQ[questionBeingEdited?.section],
+              value: questionBeingEdited.section,
             },
           }}
         />
       )}
 
-      {!questionBeignEdited && (
+      {!questionBeingEdited && (
         <FAQForm
           title="Nova Pergunta"
           isVisible={newFAQIsVisible}
