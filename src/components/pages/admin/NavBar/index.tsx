@@ -45,10 +45,10 @@ export default function NavBarAdmin({ menu }: IProps) {
       </Drawer>
 
       <div className="last__content">
-        <Link href="/admin/manage-announcements">
+        <Link href="/">
           <a>
             <Image
-              width="150px"
+              width="120px"
               height="35px"
               layout="intrinsic"
               src="/assets/images/logo.svg"
