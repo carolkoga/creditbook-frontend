@@ -1,9 +1,7 @@
+import { GraphLineType } from '@type/lib/nivo';
 import { HttpClient } from '../../http/index';
 
-interface MonthsReportType {
-  x: string,
-  y: number,
-}
+export type MonthsReportType = GraphLineType[];
 
 interface DashboardResponse {
   monthsReport: MonthsReportType,
