@@ -9,29 +9,24 @@ import { Section } from '@components/Section';
 import { Direction } from '@components/Direction';
 import { useCallback, useState } from 'react';
 import FAQForm from '@components/pages/admin/FAQ/FAQForm';
-import { FaqService, FAQService } from '@services/creditbook/support/faq';
+import { FAQService } from '@services/creditbook/support/faq';
 import { handleCatchErrorRequest } from '@utils/handleCatchErrorRequest';
-import { GetServerSideProps } from 'next';
-import { setupAPIClient } from '@api/creditbookApi';
 import AlertModal from '@components/AlertModal';
 import { AccordionList } from '@styles/AccordionList';
 import { translationSectionFAQ } from '@mocks/FAQ';
 import { FAQResponseType, QuestionResponseType, SectionFaqParams } from '@type/creditbook/support/faq';
+import NotFoundData from '@components/NotFoundData';
 
 const AccordionTriggerSetting = dynamic(() => import('@components/pages/admin/FAQ/AccordionTriggerSetting'), { ssr: false });
 
-interface IProps {
-  initialQuestions: FAQResponseType;
-}
+type QuestionBeingParams = QuestionResponseType & { section: keyof SectionFaqParams };
 
-type QuestionBeignParams = QuestionResponseType & { section: keyof SectionFaqParams };
-
-export default function FAQ({ initialQuestions }: IProps) {
+export default function FAQ() {
   const [newFAQIsVisible, setNewFAQIsVisible] = useState(false);
-  const [questions, setQuestions] = useState(initialQuestions);
+  const [questions, setQuestions] = useState({ faq: [] } as FAQResponseType);
   const [loading, setLoading] = useState(false);
   // eslint-disable-next-line max-len
-  const [questionBeignEdited, setQuestionBeignEdited] = useState<QuestionBeignParams | null>(null!);
+  const [questionBeignEdited, setQuestionBeignEdited] = useState<QuestionBeingParams | null>(null!);
   const [questionIdBeignDeleted, setQuestionIdBeignDeleted] = useState(null as string | any);
   const loadQuestions = useCallback(async () => {
     const { data } = await FAQService.listAllFAQs();
@@ -118,7 +113,7 @@ export default function FAQ({ initialQuestions }: IProps) {
       </Section.Header>
 
       <Section.Container>
-        {questions?.faq?.map((faq) => (
+        {questions.faq.length > 0 && questions.faq.map((faq) => (
           <AccordionList.Container key={faq.section}>
             <Section.Title>
               {translationSectionFAQ[faq.section]}
@@ -146,6 +141,17 @@ export default function FAQ({ initialQuestions }: IProps) {
             </AccordionList.Wrapper>
           </AccordionList.Container>
         ))}
+
+        {questions.faq.length <= 0 && (
+          <NotFoundData
+            title="Nenhuma pergunta cadastrada ainda"
+            type="children"
+          >
+            <Button size="large" onClick={handleOpenModalNewFAQ}>
+              Criar Pergunta
+            </Button>
+          </NotFoundData>
+        )}
       </Section.Container>
 
       {questionBeignEdited && (
@@ -196,15 +202,3 @@ export default function FAQ({ initialQuestions }: IProps) {
     </>
   );
 }
-
-export const getServerSideProps: GetServerSideProps = async ({ req }) => {
-  const api = setupAPIClient(req.cookies['nextauth.token']);
-  const faqService = new FaqService(api);
-  const { data } = await faqService.listAllFAQs();
-
-  return {
-    props: {
-      initialQuestions: data,
-    },
-  };
-};
