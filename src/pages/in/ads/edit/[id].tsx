@@ -94,8 +94,6 @@ export default function EditLawsuitByIdPage({ announcement }: IProps) {
   const ownOrAttorneyField = methods.watch('ownOrAttorney');
   const isValidToContinue = methods.watch('income');
 
-  console.log(plan);
-
   function handleOpenModalToSelectPlan() {
     setStepForm('select-plan');
   }

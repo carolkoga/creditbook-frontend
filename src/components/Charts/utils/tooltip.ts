@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 interface BulletProps {
   customColor: string
@@ -25,17 +25,17 @@ const Container = styled.div`
       text-transform: uppercase;
     }
   }
-`
+`;
 
 const Bullet = styled.div<BulletProps>`
   width: 20px;
   height: 20px;
   border-radius: 20%;
   aspect-ratio: 1;
-  background: ${({ customColor }) => !customColor ? '#8888' : customColor}
-`
+  background: ${({ customColor }) => (!customColor ? '#8888' : customColor)}
+`;
 
 export const Tooltip = {
   Container,
-  Bullet
-}
+  Bullet,
+};
