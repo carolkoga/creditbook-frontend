@@ -1,21 +1,24 @@
-import { useState } from 'react';
-import { GetServerSideProps } from 'next';
+import { useCallback, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 
 import { termsService } from '@services/creditbook/support/term';
 
 import { Section } from '@components/Section';
 import { RIchTextEditor } from '@components/pages/admin/RIchTextEditor';
-
 import { TermsParams } from '@type/creditbook/support/term';
 
-interface IProps {
-  terms: TermsParams,
-}
-
-export default function TermsOfServices({ terms }: IProps) {
-  const [initialTermContent] = useState<string>(terms.content);
+export default function TermsOfServices() {
+  const [terms, setTerms] = useState<TermsParams>({ content: '', id: '' });
   const [loading, setLoading] = useState(false);
+
+  const loadTerms = useCallback(async () => {
+    const { data } = await termsService.getTerms();
+    setTerms(data);
+  }, []);
+
+  useEffect(() => {
+    loadTerms();
+  }, [loadTerms]);
 
   async function handleCreateNewTerm(content: string) {
     try {
@@ -40,7 +43,7 @@ export default function TermsOfServices({ terms }: IProps) {
 
       <RIchTextEditor
         onSubmit={(contentTerm) => handleCreateNewTerm(contentTerm as string)}
-        defaultValue={initialTermContent}
+        defaultValue={terms.content}
         buttonProps={{
           isLoading: loading,
         }}
@@ -48,13 +51,3 @@ export default function TermsOfServices({ terms }: IProps) {
     </>
   );
 }
-
-export const getServerSideProps: GetServerSideProps = async () => {
-  const { data } = await termsService.getTerms();
-
-  return {
-    props: {
-      terms: data,
-    },
-  };
-};
