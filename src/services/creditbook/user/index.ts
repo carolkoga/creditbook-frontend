@@ -14,8 +14,11 @@ class UserCreditbookService {
     Object.entries(data).forEach((field) => {
       const [key, value] = field;
       if (key === 'profilePictureKey' || key === 'profilePictureUrl' || key === 'profilePicture') {
-        const profilePictureKey = value;
-        if (typeof profilePictureKey === 'string') {
+        const profilePictureValue = value;
+
+        if (!profilePictureValue) return;
+
+        if (typeof profilePictureValue === 'string') {
           return;
         }
       }

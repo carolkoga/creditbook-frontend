@@ -33,6 +33,7 @@ export default function UpdatePasswordForm({ formGroupDirection }: AllCommonType
           id="current-password"
           autoComplete="disabled"
           placeholder=" "
+          defaultValue=""
           {...registeredFields.currentPassword}
         />
       </FormGroup>
