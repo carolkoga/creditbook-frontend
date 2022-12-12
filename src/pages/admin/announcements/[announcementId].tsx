@@ -16,6 +16,7 @@ import { handleCatchErrorRequest } from '@utils/handleCatchErrorRequest';
 import { adminServices } from '@services/creditbook/admin';
 import { Textarea } from '@components/Input';
 import AlertModal from '@components/AlertModal';
+import { toast } from 'react-toastify';
 
 interface IProps {
   announcement: LawsuitParams,
@@ -32,6 +33,10 @@ export default function AnnouncementIdAdmin({ announcement }: IProps) {
   const [isAnnouncementBeingDeleted, setIsAnnouncementBeingDeleted] = useState(false);
   const [messageEditionRequested, setMessageEditionRequested] = useState('');
   const hasMessageValid = messageEditionRequested.trim().length > 5;
+
+  function factoryFinallyPromiseInCommon() {
+    router.push('/admin/manage-announcements');
+  }
 
   function handleOpenModalAnnouncementBeingEditionRequested() {
     setAnnouncementBeingEditionRequested(true);
@@ -57,11 +62,14 @@ export default function AnnouncementIdAdmin({ announcement }: IProps) {
         status: 'accepted',
       });
 
+      toast.success('Anúncio Aprovado');
+
       setAnnouncementUpdated((oldAnnouncement) => ({ ...oldAnnouncement, ...updated }));
     } catch (error) {
       handleCatchErrorRequest(error as never);
     } finally {
       setApprovingLoader(false);
+      factoryFinallyPromiseInCommon();
     }
   }
 
@@ -73,11 +81,13 @@ export default function AnnouncementIdAdmin({ announcement }: IProps) {
         status: 'rejected',
       });
 
+      toast.success('Anúncio Rejeitado');
       setAnnouncementUpdated((oldAnnouncement) => ({ ...oldAnnouncement, ...updated }));
     } catch (error) {
       handleCatchErrorRequest(error as never);
     } finally {
       setRejectingLoader(false);
+      factoryFinallyPromiseInCommon();
     }
   }
 
@@ -90,6 +100,7 @@ export default function AnnouncementIdAdmin({ announcement }: IProps) {
         editionRequirements: messageEditionRequested,
       });
 
+      toast.success('Enviada a solicitação de edição');
       setAnnouncementUpdated((oldAnnouncement) => ({ ...oldAnnouncement, ...updated }));
     } catch (error) {
       handleCatchErrorRequest(error as never);
@@ -97,6 +108,7 @@ export default function AnnouncementIdAdmin({ announcement }: IProps) {
       setEditionRequestedLoader(false);
       handleCloseModalAnnouncementBeingEditionRequested();
       setMessageEditionRequested('');
+      factoryFinallyPromiseInCommon();
     }
   }
 
@@ -104,6 +116,9 @@ export default function AnnouncementIdAdmin({ announcement }: IProps) {
     try {
       setDeletingLoader(true);
       await adminServices.deleteAnnouncementById(announcementUpdated.id);
+
+      toast.success('Anúncio Deletado');
+      router.push('/admin/manage-announcements');
     } catch (error) {
       handleCatchErrorRequest(error as never);
     } finally {
