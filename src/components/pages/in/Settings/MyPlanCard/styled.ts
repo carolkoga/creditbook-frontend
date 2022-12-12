@@ -82,6 +82,19 @@ export const Footer = styled.div`
     }
 `;
 
+export const ContainerClean = styled.div`
+  padding: 22px 16px;
+  background: ${({ theme }) => theme.colors.grey[10]};
+  border-radius: 10px;
+  max-width: 416px;
+  width: 100%;
+  border: 1px solid #E4E4E4;
+
+  ${Body} {
+    margin-bottom: 0;
+  }
+`;
+
 export const Information = {
   Container: InformationContainer,
   Title: InformationTitle,
