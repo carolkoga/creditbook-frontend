@@ -4,4 +4,5 @@ export type AnnouncementStatus = (
   | 'rejected'
   | 'inactive'
   | 'deleted'
+  | 'edition_requested'
 );

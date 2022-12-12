@@ -117,6 +117,15 @@ export default function LawsuitNewCard({
           originalBatchId={batchIdForActions}
           moreAboutOnly={moreAboutOnly}
         />
+
+        {lawsuit.userId === user?.id && (
+          <span style={{ opacity: '.7' }}>
+            {lawsuit.status === 'rejected' && 'Anúncio Reprovado'}
+            {lawsuit.status === 'edition_requested' && 'Solicitado Edição'}
+            {lawsuit.status === 'pending' && 'Aguardando aprovação'}
+            {lawsuit.status === 'inactive' && 'Anúncio inativo'}
+          </span>
+        )}
       </Lawsuit.WrapperContent>
     </Lawsuit.Wrapper>
   );

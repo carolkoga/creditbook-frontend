@@ -30,7 +30,7 @@ export default function Footer({
     return <FooterNotLogged />;
   }
 
-  if (moreAboutOnly || lawsuit?.status !== 'accepted') {
+  if (moreAboutOnly || (lawsuit?.status !== 'accepted' && mine)) {
     return <OnlyMoreInformation lawsuitId={lawsuit.id} />;
   }
 
