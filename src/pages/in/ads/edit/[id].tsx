@@ -38,6 +38,8 @@ import { toast } from 'react-toastify';
 import FloatWarning from '@components/FloatWarning';
 import FloatWarningContainer from '@components/FloatWarning/FloatWarningContainer';
 import CreditCardFieldset from '@components/LawsuitForm/CreditCardFieldset';
+// import MyPlanCleanCard from '@components/pages/in/Settings/MyPlanCard/clean';
+// import { Fieldset } from '@components/LawsuitForm/components/Fieldset';
 
 interface IProps {
   announcement: LawsuitParams,
@@ -207,6 +209,17 @@ export default function EditLawsuitByIdPage({ announcement }: IProps) {
                   onOpenChooseCreditCardModal={handleOpenChooseCreditCardModal}
                   creditCard={announcement.paymentMethod}
                 />
+
+                {/* <Fieldset style={{ width: '100%' }}>
+                  <legend>Plano</legend>
+                  <MyPlanCleanCard
+                    plan={{
+                      plan: announcement.plan,
+                      premium: '120',
+                      type: announcement.batchId ? 'batch' : 'announcement',
+                    }}
+                  />
+                </Fieldset> */}
 
                 {announcement.overSixMonths
                   ? (
