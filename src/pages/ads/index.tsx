@@ -32,14 +32,21 @@ export default function SingleLawsuits({ response }: IProps) {
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  let announcementsFetched: any = { results: [], pages: 0 };
+  const announcementsFetched: any = {
+    announcements: {
+      results: [], pages: 0,
+    },
+    isLoading: false,
+  };
 
   try {
     const response = await lawsuitService.listAll();
-    announcementsFetched = {
-      results: response.data.announcements,
-      pages: response.data.pages,
-    };
+    Object.assign(announcementsFetched, {
+      announcements: {
+        results: response.data.announcements,
+        pages: response.data.pages,
+      },
+    });
   } catch {
     console.error('Happened an error');
   }
