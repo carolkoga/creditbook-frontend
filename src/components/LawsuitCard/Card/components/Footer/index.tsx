@@ -31,7 +31,7 @@ export default function Footer({
   }
 
   if (moreAboutOnly || (lawsuit?.status !== 'accepted' && mine)) {
-    return <OnlyMoreInformation lawsuitId={lawsuit.id} />;
+    return <OnlyMoreInformation lawsuitId={lawsuit.id} status={lawsuit.status} />;
   }
 
   if (mine && originalBatchId) {
