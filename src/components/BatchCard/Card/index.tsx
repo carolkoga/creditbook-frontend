@@ -38,8 +38,8 @@ export function BatchCard({ mine, batch }: IProps) {
           </span>
         </BatchIncome>
         <div className="actions">
-          {!mine && <Link href={`/in/batches/about/${batch.id}`} variant="secondary">Ver Anuncios</Link>}
-          {mine && <Link href={`/in/batches/${batch.id}`}>Adicionar Anúncios</Link>}
+          {!mine && <Link href={`/in/batches/about/${batch.id}`} variant="secondary">Ver Anúncios</Link>}
+          {mine && <Link href={`/in/batches/${batch.id}`}>Ver Anúncios</Link>}
         </div>
       </RightContent>
     </Container>

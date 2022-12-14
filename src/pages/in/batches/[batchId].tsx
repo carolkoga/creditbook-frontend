@@ -98,13 +98,15 @@ export default function ShowBatchPage({
     <>
       <Section.Header>
         <Button variant="white" onClick={backToLastRoute}>Voltar</Button>
-        <Alert
-          message="Atenção - Plano percentual (8% sobre a venda)"
-          description="Os anúncios em lote oferecem apenas o plano percentual como forma de pagamento. Lembramos que os anúncios feitos em lote farão parte automaticamente da Galeria Premium."
-          type="warning"
-          showIcon
-          closable={false}
-        />
+        {/* <Alert
+  message="Atenção - Plano percentual (8% sobre a venda)"
+  description="Os anúncios em lote oferecem apenas o plano percentual
+  como forma de pagamento.
+  Lembramos que os anúncios feitos em lote farão parte automaticamente da Galeria Premium."
+  type="warning"
+  showIcon
+  closable={false}
+/> */}
         <Alert
           message="Atenção"
           description="O lote será ativado automaticamente após adicionar ao menos um anúncio"
@@ -136,7 +138,7 @@ export default function ShowBatchPage({
         </Direction>
       </Section.Container>
 
-      {announcementsInBatch?.announcements?.results?.length !== 0 && (
+      {announcementsInBatch?.announcements?.results?.length > 0 && (
         <Section.Container>
           <Section.Title>Anúncios desse lote</Section.Title>
           <LawsuitCardList
@@ -148,7 +150,7 @@ export default function ShowBatchPage({
         </Section.Container>
       )}
 
-      {announcementsResponse?.announcements?.results?.length !== 0 && (
+      {announcementsResponse?.announcements?.results?.length > 0 && (
         <Section.Container>
           <Section.Title>Adicionar Anúncios ao lote</Section.Title>
           <LawsuitCardList

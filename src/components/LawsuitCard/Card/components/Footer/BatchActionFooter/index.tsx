@@ -1,4 +1,5 @@
 import { useCallback, useState } from 'react';
+import { useRouter } from 'next/router';
 
 import { Button, Link } from '@components/Button';
 
@@ -19,6 +20,7 @@ export default function BatchActionFooter({ originalLawsuit, originalBatchId }: 
   const [
     lawsuitBelongsBatch,
     setLawsuitBelongsBatch] = useState<boolean>(!!originalLawsuit?.batchId);
+  const router = useRouter();
 
   const handleAddBatch = useCallback(async () => {
     try {
@@ -49,9 +51,12 @@ export default function BatchActionFooter({ originalLawsuit, originalBatchId }: 
 
   function handleOnClick() {
     if (!lawsuitBelongsBatch) {
-      return handleAddBatch();
+      handleAddBatch();
+      router.reload();
+      return;
     }
 
+    router.reload();
     handleRemoveBatch();
   }
 

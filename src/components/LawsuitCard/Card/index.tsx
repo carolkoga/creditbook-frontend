@@ -1,5 +1,6 @@
 import { useCallback, useState } from 'react';
 import { Heart } from 'phosphor-react';
+import { useRouter } from 'next/router';
 
 import { lawsuitService } from '@services/creditbook/lawsuit';
 
@@ -24,6 +25,7 @@ export default function LawsuitNewCard({
 }: IProps) {
   const { user, isAuthenticated } = useAuth();
   const [lawsuit, setLawsuit] = useState(originalLawsuit);
+  const router = useRouter();
 
   const handleChangeFavorite = useCallback(async (announcementId: string, isFavorite: boolean) => {
     try {
@@ -32,6 +34,9 @@ export default function LawsuitNewCard({
         isFavorite: isFavorite ? '0' : '1',
       });
       setLawsuit(data);
+      if (router.pathname === '/in/my-favorites') {
+        router.reload();
+      }
     } catch (error) {
       handleCatchErrorRequest(error as never);
     }
