@@ -3,7 +3,6 @@ import { HttpClient } from '../http';
 const PREFIX = 'announcement/favorite';
 
 interface FavoriteParams {
-  userId: string,
   announcementId: string
 }
 
