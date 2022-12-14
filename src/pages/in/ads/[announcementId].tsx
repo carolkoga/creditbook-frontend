@@ -59,16 +59,18 @@ export default function AnnouncementId() {
 
       <Section.Container as="footer">
         <Direction>
-          <Link
-            size="large"
-            href={user?.id === announcement.userId
-              ? `/in/ads/edit/${announcement.id}`
-              : `/in/contact-announcer/${announcement.id}?type=${announcement?.batchId ? 'batch' : 'announcement'}`}
-          >
-            {user?.id === announcement.userId
-              ? 'Editar'
-              : 'Falar Com anunciante'}
-          </Link>
+          {announcement.status !== 'pending' && (
+            <Link
+              size="large"
+              href={user?.id === announcement.userId
+                ? `/in/ads/edit/${announcement.id}`
+                : `/in/contact-announcer/${announcement.id}?type=${announcement?.batchId ? 'batch' : 'announcement'}`}
+            >
+              {user?.id === announcement.userId
+                ? 'Editar'
+                : 'Falar Com anunciante'}
+            </Link>
+          )}
         </Direction>
       </Section.Container>
     </Section.Container>
