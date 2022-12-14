@@ -18,7 +18,7 @@ import PledgeOrGuarantee from '@components/LawsuitForm/PledgeOrGuarantee';
 import OwnerOrAttorney from '@components/LawsuitForm/OwnerOrAttorney';
 import Prices from '@components/LawsuitForm/Prices';
 
-import { lawsuitService } from '@services/creditbook/lawsuit';
+import { LawsuitService, lawsuitService } from '@services/creditbook/lawsuit';
 import { updateLawsuitSchemaValidation } from '@validations/yup/LawsuitForm';
 
 import { LawsuitParams, UpdateLawsuitParams } from '@type/creditbook/Lawsuits';
@@ -39,8 +39,15 @@ import FloatWarningContainer from '@components/FloatWarning/FloatWarningContaine
 import CreditCardFieldset from '@components/LawsuitForm/CreditCardFieldset';
 import MyPlanCleanCard from '@components/pages/in/Settings/MyPlanCard/clean';
 import { Fieldset } from '@components/LawsuitForm/components/Fieldset';
+import { GetServerSideProps } from 'next';
+import { setupAPIClient } from '@api/creditbookApi';
+import { UFBrazilType } from '@type/creditbook';
 
 interface IPropsSelect { label: string, value: string }
+
+interface IProps {
+  announcement: LawsuitParams
+}
 
 interface CustomUpdateLawsuitParams extends Omit<UpdateLawsuitParams,
 | 'tribunal'
@@ -58,8 +65,7 @@ interface CustomUpdateLawsuitParams extends Omit<UpdateLawsuitParams,
   kind: IPropsSelect;
 }
 
-export default function EditLawsuitByIdPage() {
-  const [announcement, setAnnouncement] = useState({} as LawsuitParams);
+export default function EditLawsuitByIdPage({ announcement }: IProps) {
   const [announcementBeingDeleted, setAnnouncementBeingDeleted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [stepForm, setStepForm] = useState('none');
@@ -68,7 +74,14 @@ export default function EditLawsuitByIdPage() {
   const methods = useForm<CustomUpdateLawsuitParams>({
     resolver: yupResolver(updateLawsuitSchemaValidation),
     mode: 'onBlur',
-    defaultValues: {
+  });
+
+  const [plan, isPremium] = methods.watch(['plan', 'isPremium']);
+  const ownOrAttorneyField = methods.watch('ownOrAttorney');
+  const isValidToContinue = methods.watch('income');
+
+  const setDefaultInformationToForm = useCallback(() => {
+    methods.reset({
       ...announcement,
       digitalProcess: announcement.digitalProcessUrl,
       acceptNegotiation: announcement?.acceptNegotiation ? '1' : '0',
@@ -77,28 +90,14 @@ export default function EditLawsuitByIdPage() {
       isPremium: announcement?.isPremium,
       city: { label: announcement.city, value: announcement.city },
       uf: { label: announcement.uf, value: announcement.uf },
-      // @ts-ignore
-      tribunal: courtsOptions[announcement.uf.toUpperCase()]
+      tribunal: courtsOptions[announcement.uf?.toUpperCase() as UFBrazilType]
         .find((court: IPropsSelect) => court.value === announcement.tribunal),
       processGender: lawsuitCategories.find(
         (category) => category.value === announcement.processGender,
       ),
       actionPhase: lawsuitActionPhase.find((action) => action.value === announcement.actionPhase),
       kind: lawsuitKind.find((currentKind) => currentKind.value === announcement.kind),
-    },
-  });
-
-  const [plan, isPremium] = methods.watch(['plan', 'isPremium']);
-  const ownOrAttorneyField = methods.watch('ownOrAttorney');
-  const isValidToContinue = methods.watch('income');
-
-  const loadAnnouncements = useCallback(async () => {
-    try {
-      const response = await lawsuitService.getById(router.query?.id as string);
-      setAnnouncement(response.data);
-    } catch (err) {
-      handleCatchErrorRequest(err as never);
-    }
+    });
   }, []);
 
   function handleOpenModalToSelectPlan() {
@@ -148,8 +147,8 @@ export default function EditLawsuitByIdPage() {
   }
 
   useEffect(() => {
-    loadAnnouncements();
-  }, [loadAnnouncements]);
+    setDefaultInformationToForm();
+  }, [setDefaultInformationToForm]);
 
   return (
     <>
@@ -302,3 +301,15 @@ export default function EditLawsuitByIdPage() {
     </>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async ({ req, query }) => {
+  const api = setupAPIClient(req.cookies['nextauth.token']);
+  const announcementServices = new LawsuitService(api);
+  const { data } = await announcementServices.getById(query.id as string);
+
+  return {
+    props: {
+      announcement: data,
+    },
+  };
+};
