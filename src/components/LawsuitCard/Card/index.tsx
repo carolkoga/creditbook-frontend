@@ -44,7 +44,7 @@ export default function LawsuitNewCard({
         ? await favoriteAnnouncementService.remove(favoriteId as string)
         : await favoriteAnnouncementService.favorite({ announcementId, userId });
 
-      setLawsuit(response.data);
+      setLawsuit(response.data.announcement);
       if (router.pathname === '/in/my-favorites') {
         router.reload();
       }
