@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useForm, FormProvider } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -18,15 +18,14 @@ import PledgeOrGuarantee from '@components/LawsuitForm/PledgeOrGuarantee';
 import OwnerOrAttorney from '@components/LawsuitForm/OwnerOrAttorney';
 import Prices from '@components/LawsuitForm/Prices';
 
-import { LawsuitService, lawsuitService } from '@services/creditbook/lawsuit';
+import { lawsuitService } from '@services/creditbook/lawsuit';
 import { updateLawsuitSchemaValidation } from '@validations/yup/LawsuitForm';
 
 import { LawsuitParams, UpdateLawsuitParams } from '@type/creditbook/Lawsuits';
 import { handleCatchErrorRequest } from '@utils/handleCatchErrorRequest';
 import ProcurationField from '@components/LawsuitForm/ProcurationField';
 import ModalToSelectPlan from '@components/LawsuitForm/ModalToSelectPlan';
-import { setupAPIClient } from '@api/creditbookApi';
-import { GetServerSideProps } from 'next';
+
 import { lawsuitActionPhase } from '@mocks/ReactSelectOptions/LawsuitActionPhase';
 import { courtsOptions } from '@mocks/ReactSelectOptions/CourtsOptions';
 import { lawsuitKind } from '@mocks/ReactSelectOptions/LawsuitKind';
@@ -38,12 +37,8 @@ import { toast } from 'react-toastify';
 import FloatWarning from '@components/FloatWarning';
 import FloatWarningContainer from '@components/FloatWarning/FloatWarningContainer';
 import CreditCardFieldset from '@components/LawsuitForm/CreditCardFieldset';
-// import MyPlanCleanCard from '@components/pages/in/Settings/MyPlanCard/clean';
-// import { Fieldset } from '@components/LawsuitForm/components/Fieldset';
-
-interface IProps {
-  announcement: LawsuitParams,
-}
+import MyPlanCleanCard from '@components/pages/in/Settings/MyPlanCard/clean';
+import { Fieldset } from '@components/LawsuitForm/components/Fieldset';
 
 interface IPropsSelect { label: string, value: string }
 
@@ -63,7 +58,8 @@ interface CustomUpdateLawsuitParams extends Omit<UpdateLawsuitParams,
   kind: IPropsSelect;
 }
 
-export default function EditLawsuitByIdPage({ announcement }: IProps) {
+export default function EditLawsuitByIdPage() {
+  const [announcement, setAnnouncement] = useState({} as LawsuitParams);
   const [announcementBeingDeleted, setAnnouncementBeingDeleted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [stepForm, setStepForm] = useState('none');
@@ -95,6 +91,15 @@ export default function EditLawsuitByIdPage({ announcement }: IProps) {
   const [plan, isPremium] = methods.watch(['plan', 'isPremium']);
   const ownOrAttorneyField = methods.watch('ownOrAttorney');
   const isValidToContinue = methods.watch('income');
+
+  const loadAnnouncements = useCallback(async () => {
+    try {
+      const response = await lawsuitService.getById(router.query?.id as string);
+      setAnnouncement(response.data);
+    } catch (err) {
+      handleCatchErrorRequest(err as never);
+    }
+  }, []);
 
   function handleOpenModalToSelectPlan() {
     setStepForm('select-plan');
@@ -141,6 +146,10 @@ export default function EditLawsuitByIdPage({ announcement }: IProps) {
       handleCatchErrorRequest(error as never);
     }
   }
+
+  useEffect(() => {
+    loadAnnouncements();
+  }, [loadAnnouncements]);
 
   return (
     <>
@@ -210,16 +219,10 @@ export default function EditLawsuitByIdPage({ announcement }: IProps) {
                   creditCard={announcement.paymentMethod}
                 />
 
-                {/* <Fieldset style={{ width: '100%' }}>
+                <Fieldset style={{ width: '100%' }}>
                   <legend>Plano</legend>
-                  <MyPlanCleanCard
-                    plan={{
-                      plan: announcement.plan,
-                      premium: '120',
-                      type: announcement.batchId ? 'batch' : 'announcement',
-                    }}
-                  />
-                </Fieldset> */}
+                  <MyPlanCleanCard plan={announcement.planInfo} />
+                </Fieldset>
 
                 {announcement.overSixMonths
                   ? (
@@ -299,15 +302,3 @@ export default function EditLawsuitByIdPage({ announcement }: IProps) {
     </>
   );
 }
-
-export const getServerSideProps: GetServerSideProps = async ({ req, query }) => {
-  const api = setupAPIClient(req.cookies['nextauth.token']);
-  const announcementServices = new LawsuitService(api);
-  const { data } = await announcementServices.getById(query.id as string);
-
-  return {
-    props: {
-      announcement: data,
-    },
-  };
-};
