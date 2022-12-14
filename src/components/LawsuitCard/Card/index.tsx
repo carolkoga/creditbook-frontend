@@ -44,7 +44,7 @@ export default function LawsuitNewCard({
 
   return (
     <Lawsuit.Wrapper>
-      <Lawsuit.Header.Container category={lawsuit.processGender}>
+      <Lawsuit.Header.Container category={lawsuit.processGender} status={lawsuit.status === 'rejected'}>
         <Lawsuit.Header.Title>
           {processCategoryTranslation[lawsuit.processGender]}
         </Lawsuit.Header.Title>
@@ -127,8 +127,9 @@ export default function LawsuitNewCard({
           <span style={{ opacity: '.7' }}>
             {lawsuit.status === 'rejected' && 'Anúncio Reprovado'}
             {lawsuit.status === 'edition_requested' && 'Solicitado Edição'}
-            {lawsuit.status === 'pending' && 'Aguardando aprovação'}
-            {lawsuit.status === 'inactive' && 'Anúncio inativo'}
+            {lawsuit.status === 'pending' && 'Aguardando Aprovação'}
+            {lawsuit.status === 'inactive' && 'Anúncio Inativo'}
+            {lawsuit.status === 'deleted' && 'Anúncio Deletado'}
           </span>
         )}
       </Lawsuit.WrapperContent>

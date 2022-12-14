@@ -3,6 +3,7 @@ import styled, { css } from 'styled-components';
 
 interface HeaderProps {
   category: keyof AnnouncementGender,
+  status?: boolean
 }
 
 // Utils
@@ -48,7 +49,11 @@ const HeaderContainer = styled.header<HeaderProps>`
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   padding: 8px 24px;
-  background: ${({ category }) => headerCategories[category]};
+  background: ${({ category, status }) => (
+    !status
+      ? headerCategories[category]
+      : '#d9d9d9'
+  )};
 
   button {
     padding: 0;
