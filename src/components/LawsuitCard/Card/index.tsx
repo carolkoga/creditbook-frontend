@@ -37,17 +37,17 @@ export default function LawsuitNewCard({
   const handleChangeFavorite = useCallback(async (options: ChangeFavoriteOptions) => {
     try {
       const {
-        announcementId, userId, favoriteId = null,
+        announcementId, userId, isFavorite, favoriteId = null,
       } = options;
 
-      const response = favoriteId
+      const response = isFavorite
         ? await favoriteAnnouncementService.remove(favoriteId as string)
         : await favoriteAnnouncementService.favorite({ announcementId, userId });
 
       setLawsuit(response.data.announcement);
-      if (router.pathname === '/in/my-favorites') {
-        router.reload();
-      }
+      router.reload();
+      // if (router.pathname === '/in/my-favorites') {
+      // }
     } catch (error) {
       handleCatchErrorRequest(error as never);
     }
