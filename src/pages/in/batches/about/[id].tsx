@@ -27,8 +27,6 @@ export default function BatchInformation({ batch }: IProps) {
     },
   });
 
-  console.log(router.query.id);
-
   function backToLastRoute() {
     router.back();
   }
