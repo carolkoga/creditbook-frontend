@@ -17,11 +17,11 @@ export function handleCatchErrorRequest(
   }
 
   if (typeof error?.response?.status === 'number') {
-    if (error?.response?.data?.error.toLowerCase() === 'invalid param: email or password') {
+    if (error?.response?.data?.error?.toLowerCase() === 'invalid param: email or password') {
       return toast.error('Verifique a sua senha ou e-mail foi inserido corretamente');
     }
 
-    if (error?.response?.data?.error.toLowerCase() === 'user is inactive') {
+    if (error?.response?.data?.error?.toLowerCase() === 'user is inactive') {
       return toast.error('A sua conta está desativada. Entre em contato com suporte para saber mais sobre.');
     }
 
@@ -30,26 +30,26 @@ export function handleCatchErrorRequest(
         return;
       }
 
-      if (error?.response?.data?.error.toLowerCase() === `${prefixErrorMessageParamInUse} email`) {
+      if (error?.response?.data?.error?.toLowerCase() === `${prefixErrorMessageParamInUse} email`) {
         return toast.error('O e-mail já está em uso');
       }
 
-      if (error?.response?.data?.error.toLowerCase() === `${prefixErrorMessageParamInUse} rg`) {
+      if (error?.response?.data?.error?.toLowerCase() === `${prefixErrorMessageParamInUse} rg`) {
         return toast.error('O RG já está em uso');
       }
 
-      if (error?.response?.data?.error.toLowerCase() === `${prefixErrorMessageParamInUse} corporationName`) {
+      if (error?.response?.data?.error?.toLowerCase() === `${prefixErrorMessageParamInUse} corporationName`) {
         return toast.error('A razão social já está em uso');
       }
 
       if (
-        error?.response?.data?.error.toLowerCase() === `${prefixErrorMessageParamInUse} cnpj`
-        || error?.response?.data?.error.toLowerCase() === `${prefixErrorMessageParamInUse} cpf`
+        error?.response?.data?.error?.toLowerCase() === `${prefixErrorMessageParamInUse} cnpj`
+        || error?.response?.data?.error?.toLowerCase() === `${prefixErrorMessageParamInUse} cpf`
       ) {
         return toast.error('O CPF ou CNPJ já está em uso');
       }
 
-      if (error?.response?.data?.error.toLowerCase() === "you can't update your announcement plan yet, just after six months") {
+      if (error?.response?.data?.error?.toLowerCase() === "you can't update your announcement plan yet, just after six months") {
         return toast.warning('Você não pode atualizar o plano ainda, somente depois de 6 meses');
       }
 
