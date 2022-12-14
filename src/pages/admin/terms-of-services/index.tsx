@@ -1,24 +1,26 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useState } from 'react';
 import { toast } from 'react-toastify';
 
 import { termsService } from '@services/creditbook/support/term';
 
 import { Section } from '@components/Section';
 import { RIchTextEditor } from '@components/pages/admin/RIchTextEditor';
-import { TermsParams } from '@type/creditbook/support/term';
+// import { TermsParams } from '@type/creditbook/support/term';
+import { GetServerSideProps } from 'next';
 
-export default function TermsOfServices() {
-  const [terms, setTerms] = useState<TermsParams>({ content: '', id: '' });
+export default function TermsOfServices({ terms }: any) {
+  // const [terms, setTerms] = useState<TermsParams>({ content: '', id: '' });
   const [loading, setLoading] = useState(false);
 
-  const loadTerms = useCallback(async () => {
-    const { data } = await termsService.getTerms();
-    setTerms(data);
-  }, []);
+  // const loadTerms = useCallback(async () => {
+  //   const { data } = await termsService.getTerms();
+  //   setTerms(data);
+  //   console.log(data);
+  // }, []);
 
-  useEffect(() => {
-    loadTerms();
-  }, [loadTerms]);
+  // useEffect(() => {
+  //   loadTerms();
+  // }, [loadTerms]);
 
   async function handleCreateNewTerm(content: string) {
     try {
@@ -28,6 +30,7 @@ export default function TermsOfServices() {
         id: terms.id,
       });
       toast.success('Termos de uso atualizado');
+      // loadTerms();
     } catch {
       toast.error('Aconteceu algum erro');
     } finally {
@@ -44,6 +47,7 @@ export default function TermsOfServices() {
       <RIchTextEditor
         onSubmit={(contentTerm) => handleCreateNewTerm(contentTerm as string)}
         defaultValue={terms.content}
+        value={terms.content}
         buttonProps={{
           isLoading: loading,
         }}
@@ -51,3 +55,18 @@ export default function TermsOfServices() {
     </>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  const terms = { content: '', id: '' };
+  try {
+    const { data } = await termsService.getTerms();
+    Object.assign(terms, data);
+  // eslint-disable-next-line no-empty
+  } catch {}
+
+  return {
+    props: {
+      terms,
+    },
+  };
+};
