@@ -7,7 +7,7 @@ import {
 import { Button } from '@components/Button';
 import { Section } from '@components/Section';
 import { Direction } from '@components/Direction';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import FAQForm from '@components/pages/admin/FAQ/FAQForm';
 import { FAQService } from '@services/creditbook/support/faq';
 import { handleCatchErrorRequest } from '@utils/handleCatchErrorRequest';
@@ -16,6 +16,7 @@ import { AccordionList } from '@styles/AccordionList';
 import { translationSectionFAQ } from '@mocks/FAQ';
 import { FAQResponseType, QuestionResponseType, SectionFaqParams } from '@type/creditbook/support/faq';
 import NotFoundData from '@components/NotFoundData';
+import { toast } from 'react-toastify';
 
 const AccordionTriggerSetting = dynamic(() => import('@components/pages/admin/FAQ/AccordionTriggerSetting'), { ssr: false });
 
@@ -29,8 +30,12 @@ export default function FAQ() {
   const [questionBeingEdited, setQuestionBeignEdited] = useState<QuestionBeingParams | null>(null!);
   const [questionIdBeignDeleted, setQuestionIdBeignDeleted] = useState(null as string | any);
   const loadQuestions = useCallback(async () => {
-    const { data } = await FAQService.listAllFAQs();
-    setQuestions(data);
+    try {
+      const { data } = await FAQService.listAllFAQs();
+      setQuestions(data);
+    } catch {
+      toast.error('Aconteceu um erro no servidor');
+    }
   }, []);
 
   function handleOpenModalNewFAQ() {
@@ -98,6 +103,10 @@ export default function FAQ() {
       setLoading(false);
     }
   }
+
+  useEffect(() => {
+    loadQuestions();
+  }, [loadQuestions]);
 
   return (
     <>

@@ -28,8 +28,8 @@ export default function TermsOfServices() {
         id: terms.id,
       });
       toast.success('Termos de uso atualizado');
-    } catch (error) {
-      handleCreateNewTerm(error as any);
+    } catch {
+      toast.error('Aconteceu algum erro');
     } finally {
       setLoading(false);
     }
