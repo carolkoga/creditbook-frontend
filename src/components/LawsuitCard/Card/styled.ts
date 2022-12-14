@@ -28,6 +28,7 @@ const headerCategories = {
 const WrapperCard = styled.article`
   max-height: 364px;
   max-width: 364px;
+  flex: 1 1 274px;
   height: 100%;
   width: auto;
   border-radius: 10px;
