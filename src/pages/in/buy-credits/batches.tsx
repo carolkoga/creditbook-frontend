@@ -1,5 +1,3 @@
-import { GetServerSideProps } from 'next';
-
 import BatchesList from '@components/BatchCard';
 
 import { Section } from '@components/Section';
@@ -7,11 +5,25 @@ import TabBatchAnnouncement from '@components/TabBatchAnnouncement';
 
 import { batchServices } from '@services/creditbook/batch';
 import { BatchParams } from '@type/creditbook/Batch';
+import { useCallback, useEffect, useState } from 'react';
+import { handleCatchErrorRequest } from '@utils/handleCatchErrorRequest';
 
-interface IProps {
-  initialBatches: BatchParams[]
-}
-export default function BuyBatches({ initialBatches }: IProps) {
+export default function BuyBatches() {
+  const [batches, setBatches] = useState([] as BatchParams[]);
+
+  const loadBatches = useCallback(async () => {
+    try {
+      const response = await batchServices.list();
+      setBatches(response.data);
+    } catch (err) {
+      handleCatchErrorRequest(err as never);
+    }
+  }, []);
+
+  useEffect(() => {
+    loadBatches();
+  }, [loadBatches]);
+
   return (
     <TabBatchAnnouncement announcementLink="/in/buy-credits" batchLink="/in/buy-credits/batches">
       <Section.Header>
@@ -19,18 +31,8 @@ export default function BuyBatches({ initialBatches }: IProps) {
       </Section.Header>
 
       <Section.Container>
-        <BatchesList batches={initialBatches} />
+        <BatchesList batches={batches} />
       </Section.Container>
     </TabBatchAnnouncement>
   );
 }
-
-export const getServerSideProps: GetServerSideProps = async () => {
-  const { data } = await batchServices.list();
-
-  return {
-    props: {
-      initialBatches: data,
-    },
-  };
-};
