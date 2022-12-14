@@ -12,12 +12,22 @@ import {
   AboutContainer, ContentInformation, GroupInformation, TitleInformation,
 } from '@styles/pages/in/batches/about';
 
+import AnnouncementList from '@components/LawsuitCard';
+import useAnnouncements from '@services/creditbook/lawsuit/hooks/useAnnouncements';
+
 interface IProps {
   batch: BatchParams
 }
 
 export default function BatchInformation({ batch }: IProps) {
   const router = useRouter();
+  const announcementsInBatch = useAnnouncements(undefined, {
+    params: {
+      batchId: router.query.id as string,
+    },
+  });
+
+  console.log(router.query.id);
 
   function backToLastRoute() {
     router.back();
@@ -60,6 +70,18 @@ export default function BatchInformation({ batch }: IProps) {
             </GroupInformation>
           </Direction>
         </AboutContainer>
+
+        {announcementsInBatch?.announcements?.results?.length > 0 && (
+          <Section.Container style={{ marginTop: '52px' }}>
+            <Section.Title>Anúncios desse lote</Section.Title>
+            <AnnouncementList
+              {...announcementsInBatch}
+              lawsuitCardProps={{
+                batchIdForActions: batch.id,
+              }}
+            />
+          </Section.Container>
+        )}
       </Section.Container>
     </>
   );

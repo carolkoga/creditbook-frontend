@@ -39,7 +39,6 @@ export default function ShowBatchPage({
   const announcementsResponse = useUserAnnouncements({
     params: {
       type: 'single',
-      batchIdToExclude: router.query.batchId,
     },
   });
 
