@@ -1,41 +1,41 @@
-import { FilterDrawer, ResponseFilterCreditsProps } from '@components/FilterDrawer';
+// import { FilterDrawer, ResponseFilterCreditsProps } from '@components/FilterDrawer';
 import { Section } from '@components/Section';
 
-import useAnnouncements from '@services/creditbook/lawsuit/hooks/useAnnouncements';
-import useAuth from '@hooks/useAuth';
+// import useAuth from '@hooks/useAuth';
 import AnnouncementList from '@components/LawsuitCard';
+import useUserAnnouncements from '@services/creditbook/lawsuit/hooks/useUserAnnouncements';
 
 export default function MyFavorites() {
-  const { user } = useAuth();
-  const response = useAnnouncements(undefined, {
+  // const { user } = useAuth();
+  const response = useUserAnnouncements({
     params: {
-      userId: user?.id,
-      isFavorite: true,
+      isFavorite: 'true',
     },
   });
 
-  function handleProcessAnnouncementsFiltered(lawsuit: ResponseFilterCreditsProps) {
-    response.mutate(lawsuit as never);
-    if (lawsuit.results.length <= 0) {
-      response.mutateIsFiltered(false);
-    }
-    response.mutateIsFiltered(true);
-  }
+  // function handleProcessAnnouncementsFiltered(lawsuit: ResponseFilterCreditsProps) {
+  //   response.mutate(lawsuit as never);
+  //   if (lawsuit.results.length <= 0) {
+  //     response.mutateIsFiltered(false);
+  //   }
+  //   response.mutateIsFiltered(true);
+  // }
 
   return (
     <>
       <Section.Header>
         <Section.Title as="h1">
-          {!response.isFiltered && 'Meus favoritos'}
-          {response.isFiltered && 'Anúncios relacionados ao filtro'}
+          Meus favoritos
+          {/* {!response.isFiltered && 'Meus favoritos'}
+          {response.isFiltered && 'Anúncios relacionados ao filtro'} */}
         </Section.Title>
-        <FilterDrawer
+        {/* <FilterDrawer
           onGetResponseResults={handleProcessAnnouncementsFiltered}
           customQuery={{
             userId: user?.id,
             isFavorite: true,
           }}
-        />
+        /> */}
       </Section.Header>
 
       <Section.Container>

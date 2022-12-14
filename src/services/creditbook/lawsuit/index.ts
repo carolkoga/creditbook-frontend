@@ -10,6 +10,7 @@ export interface OptionsListAnnouncementsUser {
     type?: 'single',
     batchId?: string | string[] | undefined,
     batchIdToExclude?: string | string[] | undefined
+    isFavorite?: 'true' | 'false'
   }
 }
 
