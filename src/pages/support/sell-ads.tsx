@@ -32,7 +32,7 @@ export default function SellAds() {
             Vamos começar?
           </p>
 
-          <Link href="/cadastrar" size="x-large">
+          <Link href="/in/ads/new" size="x-large">
             Cadastrar
           </Link>
         </ADSContent>
