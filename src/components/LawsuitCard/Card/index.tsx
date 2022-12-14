@@ -2,8 +2,6 @@ import { useCallback, useState } from 'react';
 import { Heart } from 'phosphor-react';
 import { useRouter } from 'next/router';
 
-import { lawsuitService } from '@services/creditbook/lawsuit';
-
 import useAuth from '@hooks/useAuth';
 
 import { Direction } from '@components/Direction';
@@ -11,12 +9,21 @@ import { Direction } from '@components/Direction';
 import { handleCatchErrorRequest } from '@utils/handleCatchErrorRequest';
 import convertToCurrency from '@utils/convertToCurrency';
 
+import { favoriteAnnouncementService } from '@services/creditbook/favoriteAnnouncement';
+
 import Footer from './components/Footer';
 import { Lawsuit } from './styled';
 import { processCategoryTranslation, actionPhaseTranslation, processKindTranslation } from './utils/translations';
 import { LawsuitCardProps } from '../types/Props';
 
 interface IProps extends LawsuitCardProps { }
+
+interface ChangeFavoriteOptions {
+  announcementId: string,
+  isFavorite: boolean | undefined,
+  userId: string,
+  favoriteId?: string | null | undefined
+}
 
 export default function LawsuitNewCard({
   lawsuit: originalLawsuit,
@@ -27,13 +34,17 @@ export default function LawsuitNewCard({
   const [lawsuit, setLawsuit] = useState(originalLawsuit);
   const router = useRouter();
 
-  const handleChangeFavorite = useCallback(async (announcementId: string, isFavorite: boolean) => {
+  const handleChangeFavorite = useCallback(async (options: ChangeFavoriteOptions) => {
     try {
-      const { data } = await lawsuitService.changeFavorite({
-        id: announcementId,
-        isFavorite: isFavorite ? '0' : '1',
-      });
-      setLawsuit(data);
+      const {
+        announcementId, userId, favoriteId = null,
+      } = options;
+
+      const response = favoriteId
+        ? await favoriteAnnouncementService.remove(favoriteId as string)
+        : await favoriteAnnouncementService.favorite({ announcementId, userId });
+
+      setLawsuit(response.data);
       if (router.pathname === '/in/my-favorites') {
         router.reload();
       }
@@ -57,7 +68,14 @@ export default function LawsuitNewCard({
           {isAuthenticated && (
             <button
               type="button"
-              onClick={() => handleChangeFavorite(lawsuit.id, lawsuit.isFavorite as boolean)}
+              onClick={() => (
+                handleChangeFavorite({
+                  announcementId: lawsuit.id,
+                  isFavorite: lawsuit.isFavorite,
+                  userId: lawsuit.userId,
+                  favoriteId: lawsuit?.favoriteId,
+                })
+              )}
               style={{
                 display: 'flex',
                 alignItems: 'center',

@@ -78,6 +78,7 @@ export interface LawsuitParams extends Omit<Lawsuit, 'digitalProcess' | 'procura
     name: keyof FileTranslationTypes,
     url: string,
   }[]
+  favoriteId?: string | null | undefined
 }
 
 export interface NewLawsuitParams extends LawsuitFiles, Omit<Lawsuit, 'batchId' | 'pledgeOrGuarantee' | 'acceptNegotiation' | 'isFavorite' | 'isPremium'> {
