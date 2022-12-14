@@ -1,23 +1,47 @@
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import { GetServerSideProps } from 'next';
 
-import { setupAPIClient } from '@api/creditbookApi';
 import LawsuitView from '@components/LawsuitView';
-import { LawsuitService } from '@services/creditbook/lawsuit';
+import { lawsuitService } from '@services/creditbook/lawsuit';
 import { LawsuitParams } from '@type/creditbook/Lawsuits';
 import { Section } from '@components/Section';
 import { Direction } from '@components/Direction';
 import useAuth from '@hooks/useAuth';
 import { Button, Link } from '@components/Button';
+import NotFoundData from '@components/NotFoundData';
+import WrapperLoader from '@components/Loader/WrapperLoader';
 
-interface IProps {
-  announcement: LawsuitParams,
-}
-
-export default function AnnouncementId({ announcement }: IProps) {
+export default function AnnouncementId() {
   const { user } = useAuth();
   const router = useRouter();
+  const [announcement, setAnnouncement] = useState<LawsuitParams | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+
+  const loadAnnouncementInformation = useCallback(async () => {
+    try {
+      const announcementId = router.query.announcementId as string;
+      const response = await lawsuitService.getById(announcementId);
+      setAnnouncement(response.data);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [router.query, router.pathname]);
+
+  useEffect(() => {
+    loadAnnouncementInformation();
+  }, [loadAnnouncementInformation]);
+
+  if (isLoading) {
+    return (
+      <WrapperLoader />
+    );
+  }
+
+  if (!announcement) {
+    return (
+      <NotFoundData title="Não foi possível encontrar nenhum anúncio" href="/in/home" type="link" labelButton="Voltar para Home" />
+    );
+  }
 
   return (
     <Section.Container>
@@ -50,14 +74,3 @@ export default function AnnouncementId({ announcement }: IProps) {
     </Section.Container>
   );
 }
-
-export const getServerSideProps: GetServerSideProps = async ({ req, query }) => {
-  const api = setupAPIClient(req.cookies['nextauth.token']);
-  const announcementServices = new LawsuitService(api);
-  const { data } = await announcementServices.getById(query.announcementId as string);
-  return {
-    props: {
-      announcement: data,
-    },
-  };
-};
