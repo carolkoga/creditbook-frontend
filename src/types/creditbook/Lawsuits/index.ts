@@ -69,6 +69,11 @@ export interface LawsuitParams extends Omit<Lawsuit, 'digitalProcess' | 'procura
     id: string,
     name: string
   },
+  planInfo: {
+    type: 'announcement' | 'batch',
+    plan: string,
+    premium: string,
+  },
   files: {
     name: keyof FileTranslationTypes,
     url: string,
