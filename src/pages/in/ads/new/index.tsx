@@ -46,7 +46,9 @@ export default function NewLawsuit() {
     },
   });
   const ownOrAttorneyField = methods.watch('ownOrAttorney');
-  const isValidToContinue = methods.watch('income');
+  const isValidProcessPrice = !methods.formState.errors?.processPrice && methods.watch('processPrice');
+  const isValidIncome = !methods.formState.errors?.income && methods.watch('income');
+  const isValidToContinue = !(isValidIncome && isValidProcessPrice);
   const [plan, isPremium] = methods.watch(['plan', 'isPremium']);
 
   function handleNavigateToHome() {
@@ -113,7 +115,7 @@ export default function NewLawsuit() {
                 <Button
                   type="button"
                   onClick={handleOpenModalToSelectPlan}
-                  disabled={!isValidToContinue}
+                  disabled={isValidToContinue}
                 >
                   Escolher o plano
                 </Button>
