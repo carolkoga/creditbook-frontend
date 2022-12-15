@@ -12,6 +12,7 @@ import { creditbookApi } from '@api/creditbookApi';
 import { commonToastProps } from '@configs/toast';
 import { userCreditbookService } from '@services/creditbook/user';
 import OverlayLoader from '@components/Loader/OverlayLoader';
+import { AxiosResponse } from 'axios';
 
 interface IProps {
   children: ReactNode,
@@ -64,7 +65,7 @@ export function AuthProvider({ children }: IProps) {
     try {
       setIsLoading(true);
       handleAddCustomLoadingScreen();
-      const response = await authCreditBookService.multipleLogin(data);
+      const response = await authCreditBookService.multipleLogin(data) as AxiosResponse;
 
       const { token, user: userSignIn } = response.data;
       setCookie(undefined, 'nextauth.token', token, {
@@ -108,9 +109,13 @@ export function AuthProvider({ children }: IProps) {
         path: '/',
       });
       toast.dismiss(toastId);
-    } catch (error) {
+    } catch (error: any) {
+      const message = error?.response?.data?.error?.toLowerCase() === 'user is inactive'
+        ? 'A sua conta está desativada. Entre em contato com suporte para saber mais.'
+        : 'Verifique suas credenciais';
+
       toast.update(toastId, {
-        render: 'Verifique suas credenciais', type: 'error', isLoading: false, ...customToastProps,
+        render: message, type: 'error', isLoading: false, ...customToastProps,
       });
     } finally {
       setIsLoading(false);
