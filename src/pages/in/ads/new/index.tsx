@@ -204,6 +204,10 @@ export default function NewLawsuit() {
         type="default"
         titleColor="warning"
         width="40%"
+        cancel={{
+          label: 'Pagina Principal',
+          onCancelButton: () => handleNavigateToHome(),
+        }}
         confirm={{
           label: 'Voltar',
           onConfirmButton: () => setStepForm('2'),
