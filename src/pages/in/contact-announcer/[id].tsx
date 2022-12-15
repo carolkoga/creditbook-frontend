@@ -59,8 +59,6 @@ export default function ContactAnnouncementAnnouncer() {
     }
   }
 
-  console.log(product);
-
   useEffect(() => {
     loadProductInformation();
   }, [loadProductInformation]);
@@ -75,11 +73,9 @@ export default function ContactAnnouncementAnnouncer() {
         </Section.Title>
         {product?.type === 'announcement' && (
           <Section.Subtitle>
-            <p>
-              <strong>Numero do processo:</strong> {product?.name}
-              <br />
-              <strong>Valor de venda:</strong> {convertToCurrency(product?.price)}
-            </p>
+            <strong>Numero do processo:</strong> {product?.name}
+            <br />
+            <strong>Valor de venda:</strong> {convertToCurrency(product?.price)}
           </Section.Subtitle>
         )}
 
@@ -94,16 +90,14 @@ export default function ContactAnnouncementAnnouncer() {
         )}
       </Section.Header>
 
-      <Section.Container>
-        <FormProvider {...methods}>
-          <ContactAnnouncerForm onSubmit={methods.handleSubmit(handleSubmitMessage)}>
-            <Button type="submit">Enviar Mensagem</Button>
-            <Button type="button" variant="white" size="small-large" onClick={() => router.back()}>
-              Voltar
-            </Button>
-          </ContactAnnouncerForm>
-        </FormProvider>
-      </Section.Container>
+      <FormProvider {...methods}>
+        <ContactAnnouncerForm onSubmit={methods.handleSubmit(handleSubmitMessage)}>
+          <Button type="submit">Enviar Mensagem</Button>
+          <Button type="button" variant="white" size="small-large" onClick={() => router.back()}>
+            Voltar
+          </Button>
+        </ContactAnnouncerForm>
+      </FormProvider>
     </Direction>
   );
 }

@@ -10,8 +10,7 @@ export const Form = styled.form`
   gap: 24px 0;
   max-width: 579px;
   width: 100%;
-  width: 579px;
-  padding: 64px;
+  padding: 24px;
 
   > div, input, textarea {
     width: 100%;

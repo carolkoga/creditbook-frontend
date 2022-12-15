@@ -65,52 +65,50 @@ export default function Contact() {
         <Section.Title as="h1">Entrar em contato</Section.Title>
       </Section.Header>
 
-      <Section.Container>
-        <Form onSubmit={handleSubmit(handleContactSupport)}>
-          <FormGroup label={{ title: 'Nome', forId: 'name' }}>
-            <Input placeholder=" " {...register('name')} />
-          </FormGroup>
+      <Form onSubmit={handleSubmit(handleContactSupport)}>
+        <FormGroup label={{ title: 'Nome', forId: 'name' }}>
+          <Input placeholder=" " {...register('name')} />
+        </FormGroup>
 
-          <FormGroup label={{ title: 'E-mail', forId: 'email' }}>
-            <Input placeholder=" " id="email" type="email" {...register('email')} />
-          </FormGroup>
+        <FormGroup label={{ title: 'E-mail', forId: 'email' }}>
+          <Input placeholder=" " id="email" type="email" {...register('email')} />
+        </FormGroup>
 
-          <FormGroup label={{ title: 'Escolha um assunto', forId: 'subject' }}>
-            <Controller
-              name="subject"
-              control={control}
-              render={({ field }) => (
-                <Select
-                  options={subjectSelectOptions}
-                  placeholder=" "
-                  id="subject"
-                  instanceId="subject"
-                  {...field}
-                />
-              )}
-            />
-          </FormGroup>
+        <FormGroup label={{ title: 'Escolha um assunto', forId: 'subject' }}>
+          <Controller
+            name="subject"
+            control={control}
+            render={({ field }) => (
+              <Select
+                options={subjectSelectOptions}
+                placeholder=" "
+                id="subject"
+                instanceId="subject"
+                {...field}
+              />
+            )}
+          />
+        </FormGroup>
 
-          <FormGroup label={{ title: 'Telefone', forId: 'phone' }}>
-            <Controller
-              control={control}
-              name="phone"
-              render={({ field }) => (
-                <InputPhone {...field} />
-              )}
-            />
-          </FormGroup>
+        <FormGroup label={{ title: 'Telefone', forId: 'phone' }}>
+          <Controller
+            control={control}
+            name="phone"
+            render={({ field }) => (
+              <InputPhone {...field} />
+            )}
+          />
+        </FormGroup>
 
-          <FormGroup label={{ title: 'Mensagem', forId: 'feedback' }}>
-            <Textarea placeholder=" " id="feedback" {...register('message')} />
-          </FormGroup>
+        <FormGroup label={{ title: 'Mensagem', forId: 'feedback' }}>
+          <Textarea placeholder=" " id="feedback" {...register('message')} />
+        </FormGroup>
 
-          <Button type="submit" isLoading={isLoading}>
-            {!isLoading && 'Enviar Feedback'}
-            {isLoading && 'Enviando...'}
-          </Button>
-        </Form>
-      </Section.Container>
+        <Button type="submit" isLoading={isLoading}>
+          {!isLoading && 'Enviar Feedback'}
+          {isLoading && 'Enviando...'}
+        </Button>
+      </Form>
     </Direction>
   );
 }
