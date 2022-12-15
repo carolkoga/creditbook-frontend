@@ -102,7 +102,13 @@ export const newLawsuitSchemaValidation = yup.object().shape({
   pledgeOrGuarantee: yup.string(),
   processPrice: yup.string()
     .transform((value) => value?.trim()?.replaceAll(/\D/g, ''))
+    .test({
+      name: 'Income need to be higher than one hundred',
+      message: 'Valor precisa ser maior que R$ 199,00',
+      test: (value: any) => (value === 199 || value > 199),
+    })
     .required(),
+
   income: yup.string()
     .nullable()
     .when('processPrice', (processPrice, schema: StringSchema | any) => {
@@ -114,6 +120,7 @@ export const newLawsuitSchemaValidation = yup.object().shape({
       }
 
       const processPriceParsed = convertToNumber(processPrice);
+
       if (processPriceParsed) {
         return schema.test({
           name: 'Income can not be higher than process price',
@@ -127,6 +134,11 @@ export const newLawsuitSchemaValidation = yup.object().shape({
       }
     })
     .transform((value) => value?.trim()?.replaceAll(/\D/g, ''))
+    .test({
+      name: 'Income need to be higher than one hundred',
+      message: 'Valor precisa ser maior que R$ 100,00',
+      test: (value: any) => (value === 100 || value > 100),
+    })
     .required(),
 
   // Files
