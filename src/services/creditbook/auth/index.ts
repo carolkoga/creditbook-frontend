@@ -75,9 +75,9 @@ class AuthCreditBookService {
     }
 
     if (user.status === 'rejected') {
-      return user.reason;
+      throw user.reason;
     } if (admin.status === 'rejected') {
-      return admin.reason;
+      throw admin.reason;
     }
   }
 }

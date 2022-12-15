@@ -17,12 +17,12 @@ export function handleCatchErrorRequest(
   }
 
   if (typeof error?.response?.status === 'number') {
-    if (error?.response?.data?.error?.toLowerCase() === 'invalid param: email or password') {
-      return toast.error('Verifique a sua senha ou e-mail foi inserido corretamente');
+    if (error?.response?.data?.error?.toLowerCase() === 'user is inactive') {
+      return toast.error('A sua conta está desativada. Entre em contato com suporte para saber mais.');
     }
 
-    if (error?.response?.data?.error?.toLowerCase() === 'user is inactive') {
-      return toast.error('A sua conta está desativada. Entre em contato com suporte para saber mais sobre.');
+    if (error?.response?.data?.error?.toLowerCase() === 'invalid param: email or password') {
+      return toast.error('Verifique a sua senha ou e-mail foi inserido corretamente');
     }
 
     if (error?.response?.status >= 400 && error?.response?.status <= 499) {
