@@ -26,14 +26,12 @@ const headerCategories = {
 // Wrapper
 
 const WrapperCard = styled.article`
-  max-height: 364px;
   max-width: 364px;
   flex: 1 1 274px;
-  height: 100%;
   width: auto;
   border-radius: 10px;
   box-shadow: 2px 2px 5px rgba(133, 133, 133, 0.1);
-  padding-bottom: 15px;
+  padding-bottom: 0;
   background: ${({ theme }) => theme.colors.grey[10]};
   @media (max-width: 634px) {
     max-width: 345px;
@@ -84,7 +82,6 @@ const PremiumTitle = styled.small`
 
 const WrapperContent = styled.div`
   padding: 14px;
-  padding-bottom: 0;
 `;
 
 const ContentCard = styled.main`
