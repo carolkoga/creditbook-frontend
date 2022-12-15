@@ -40,11 +40,11 @@ export default function MyPlans() {
       {isLoading && <WrapperLoader />}
 
       <Section.Container>
-        {plans?.length && plans.map((currentPlan) => (
-          <ListMyPlans>
+        <ListMyPlans>
+          {plans?.length && plans.map((currentPlan) => (
             <MyPlanCard plan={currentPlan} />
-          </ListMyPlans>
-        ))}
+          ))}
+        </ListMyPlans>
 
         {!plans?.length && (
           <NotFoundData
