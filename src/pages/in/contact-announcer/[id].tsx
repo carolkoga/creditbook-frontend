@@ -10,10 +10,15 @@ import ContactAnnouncerForm from '@components/pages/in/contact-announcer/form';
 import { emailServices } from '@services/creditbook/email';
 import { handleCatchErrorRequest } from '@utils/handleCatchErrorRequest';
 import { toast } from 'react-toastify';
+import { useCallback, useEffect, useState } from 'react';
+import { batchServices } from '@services/creditbook/batch';
+import { lawsuitService } from '@services/creditbook/lawsuit';
+import convertToCurrency from '@utils/convertToCurrency';
 
 export default function ContactAnnouncementAnnouncer() {
   const router = useRouter();
   const { user } = useAuth();
+  const [product, setProduct] = useState({} as any);
 
   const methods = useForm<ContactAnnouncerParams & { name: string, email: string }>({
     defaultValues: {
@@ -26,6 +31,24 @@ export default function ContactAnnouncementAnnouncer() {
     },
   });
 
+  const loadProductInformation = useCallback(async () => {
+    try {
+      const query = router.query?.type as 'announcement' | 'batch' ?? 'announcement';
+      const productId = router.query.id as string;
+
+      const response = query === 'batch'
+        ? await batchServices.show(productId)
+        : await lawsuitService.getById(productId);
+
+      setProduct({
+        type: query,
+        name: query === 'batch' ? response.data?.name : response.data?.processNumber,
+        price: query === 'batch' ? response.data?.value : response.data?.income,
+      });
+    // eslint-disable-next-line no-empty
+    } catch {}
+  }, []);
+
   async function handleSubmitMessage(data: ContactAnnouncerParams) {
     try {
       await emailServices.contactAnnouncer(data);
@@ -36,10 +59,39 @@ export default function ContactAnnouncementAnnouncer() {
     }
   }
 
+  console.log(product);
+
+  useEffect(() => {
+    loadProductInformation();
+  }, [loadProductInformation]);
+
   return (
     <Direction alignItems="center">
       <Section.Header>
-        <Section.Title as="h1">Entrar em contato</Section.Title>
+        <Section.Title as="h1">
+          Entrar em contato sobre um
+          {' '}
+          {router.query.type === 'announcement' ? 'anúncio' : 'lote'}
+        </Section.Title>
+        {product?.type === 'announcement' && (
+          <Section.Subtitle>
+            <p>
+              <strong>Numero do processo:</strong> {product?.name}
+              <br />
+              <strong>Valor de venda:</strong> {convertToCurrency(product?.price)}
+            </p>
+          </Section.Subtitle>
+        )}
+
+        {product?.type === 'batch' && (
+          <Section.Subtitle>
+            <p>
+              <strong>Nome do Lote:</strong> {product?.name}
+              <br />
+              <strong>Valor de venda:</strong> {convertToCurrency(product?.price)}
+            </p>
+          </Section.Subtitle>
+        )}
       </Section.Header>
 
       <Section.Container>
