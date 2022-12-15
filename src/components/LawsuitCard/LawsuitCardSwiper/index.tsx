@@ -5,6 +5,9 @@ import {
   Pagination, A11y,
 } from 'swiper';
 import Image from 'next/image';
+
+import useUserBatches from '@services/creditbook/batch/hooks/useUserBatches';
+
 import LawsuitCard from '../Card';
 import { ButtonControl, Container } from './styled';
 import { LawsuitCardListProps } from '../types/Props';
@@ -13,6 +16,7 @@ import { breakpointsSwiper } from './utils/breakpoints';
 export default function LawsuitCardSwiper({ lawsuits }: LawsuitCardListProps) {
   const [swiperCustom, setSwiperCustom] = useState<any>(null);
   const containerRef = useRef<HTMLDivElement>(null!);
+  const { batches: userBatches } = useUserBatches();
 
   function handleGoToNext() {
     if (swiperCustom !== null) {
@@ -50,7 +54,7 @@ export default function LawsuitCardSwiper({ lawsuits }: LawsuitCardListProps) {
       >
         {lawsuits?.map((lawsuit) => (
           <SwiperSlide key={lawsuit.id}>
-            <LawsuitCard lawsuit={lawsuit} />
+            <LawsuitCard lawsuit={lawsuit} userBatches={userBatches} />
           </SwiperSlide>
         ))}
       </Swiper>

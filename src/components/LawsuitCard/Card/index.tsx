@@ -8,6 +8,7 @@ import { Direction } from '@components/Direction';
 
 import { handleCatchErrorRequest } from '@utils/handleCatchErrorRequest';
 import convertToCurrency from '@utils/convertToCurrency';
+import { BatchParams } from '@type/creditbook/Batch';
 
 import { favoriteAnnouncementService } from '@services/creditbook/favoriteAnnouncement';
 
@@ -16,7 +17,9 @@ import { Lawsuit } from './styled';
 import { processCategoryTranslation, actionPhaseTranslation, processKindTranslation } from './utils/translations';
 import { LawsuitCardProps } from '../types/Props';
 
-interface IProps extends LawsuitCardProps { }
+interface IProps extends LawsuitCardProps {
+  userBatches: BatchParams[]
+}
 
 interface ChangeFavoriteOptions {
   announcementId: string,
@@ -29,6 +32,7 @@ export default function LawsuitNewCard({
   lawsuit: originalLawsuit,
   batchIdForActions,
   moreAboutOnly,
+  userBatches,
 }: IProps) {
   const { user, isAuthenticated } = useAuth();
   const [lawsuit, setLawsuit] = useState(originalLawsuit);
@@ -143,6 +147,7 @@ export default function LawsuitNewCard({
           mine={lawsuit.userId === user?.id}
           originalBatchId={batchIdForActions}
           moreAboutOnly={moreAboutOnly}
+          userBatches={userBatches}
         />
 
         {lawsuit.userId === user?.id && (

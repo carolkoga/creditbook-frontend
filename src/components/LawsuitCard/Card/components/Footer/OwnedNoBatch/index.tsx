@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 
 import { Link } from '@components/Button';
@@ -17,20 +17,14 @@ import {
 import { Actions, Content } from '../styled';
 import { CommonPropsTypes } from '..';
 
-export default function OwnedNoBatch({ lawsuitId }: CommonPropsTypes) {
-  const [batches, setBatches] = useState(null || []);
+interface OwnedNoBatchParams extends CommonPropsTypes {
+  userBatches: BatchParams[]
+}
+
+export default function OwnedNoBatch({ lawsuitId, userBatches }: OwnedNoBatchParams) {
+  const [errorWithBatch, setErrorWithBatch] = useState(false);
   const [value, setValue] = useState('1');
   const [hasBatch, setHasBatch] = useState<boolean>(false);
-
-  const loadBatches = useCallback(async () => {
-    try {
-      const response = await batchServices.listUserBatches();
-      setBatches(response.data);
-    } catch (error) {
-      handleCatchErrorRequest(error as never);
-      setBatches(null as any);
-    }
-  }, []);
 
   const handleAddBatch = useCallback(async (batchId: string) => {
     try {
@@ -38,17 +32,15 @@ export default function OwnedNoBatch({ lawsuitId }: CommonPropsTypes) {
         announcementId: lawsuitId,
         batchId,
       });
+
       setValue(batchId);
       setHasBatch(true);
     } catch (error) {
       handleCatchErrorRequest(error as never);
-      setBatches(null as any);
+      setErrorWithBatch(true);
     }
   }, []);
 
-  useEffect(() => {
-    loadBatches();
-  }, [loadBatches]);
   return (
     <Actions>
       <Content>
@@ -64,13 +56,13 @@ export default function OwnedNoBatch({ lawsuitId }: CommonPropsTypes) {
             <DropdownMenu.Content>
               <DropdownArrow />
               <DropdownMenuRadioGroup value={value} onValueChange={handleAddBatch}>
-                {batches?.map((batch: BatchParams) => (
+                {!errorWithBatch && userBatches?.map((batch: BatchParams) => (
                   <DropdownMenuRadioItem key={batch.id} value={batch.id}>
                     {batch.name}
                   </DropdownMenuRadioItem>
                 ))}
 
-                {!batches && (
+                {errorWithBatch && (
                   <DropdownMenuRadioItem value="0" disabled>
                     Aconteceu algum erro
                     <br />
@@ -78,7 +70,7 @@ export default function OwnedNoBatch({ lawsuitId }: CommonPropsTypes) {
                   </DropdownMenuRadioItem>
                 )}
 
-                {batches?.length === 0 && (
+                {!errorWithBatch && userBatches?.length <= 0 && (
                   <DropdownMenuRadioItem value="0" disabled>
                     Não há nenhum lote
                   </DropdownMenuRadioItem>

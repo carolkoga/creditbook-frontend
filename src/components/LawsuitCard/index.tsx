@@ -6,7 +6,9 @@ import { ListLayoutSingleLawsuits } from '@components/ListsLayout';
 import { LawsuitParams } from '@type/creditbook/Lawsuits';
 
 import NotFoundData, { NotFoundDataProps } from '@components/NotFoundData';
+
 import { AnnouncementResponse } from '@services/creditbook/lawsuit/hooks/types';
+import useUserBatches from '@services/creditbook/batch/hooks/useUserBatches';
 
 import WrapperLoader from '@components/Loader/WrapperLoader';
 import LawsuitCard from './Card';
@@ -36,6 +38,7 @@ export default function AnnouncementList({
   error,
 }: IProps) {
   const [page, setPage] = useState(1);
+  const { batches: userBatches } = useUserBatches();
 
   async function handleChangePage(currentPage: number) {
     setPage(currentPage);
@@ -68,6 +71,7 @@ export default function AnnouncementList({
           <LawsuitCard
             key={lawsuit.id}
             lawsuit={lawsuit}
+            userBatches={userBatches}
             {...lawsuitCardProps}
           />
         ))}

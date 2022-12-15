@@ -1,6 +1,7 @@
 import useAuth from '@hooks/useAuth';
 
 import { LawsuitParams } from '@type/creditbook/Lawsuits';
+import { BatchParams } from '@type/creditbook/Batch';
 
 import FooterNotLogged from './NotLogged';
 import LoggedFooter from './Logged';
@@ -18,11 +19,12 @@ interface IProps {
   mine: boolean,
   originalBatchId?: string,
   moreAboutOnly?: boolean,
-  lawsuit: LawsuitParams
+  lawsuit: LawsuitParams,
+  userBatches: BatchParams[]
 }
 
 export default function Footer({
-  mine, lawsuit, originalBatchId, moreAboutOnly,
+  mine, lawsuit, originalBatchId, moreAboutOnly, userBatches,
 }: IProps) {
   const { isAuthenticated } = useAuth();
 
@@ -41,7 +43,7 @@ export default function Footer({
   return (
     <>
       {(mine && !lawsuit.batchId) && (
-        <OwnedNoBatch lawsuitId={lawsuit.id} batchId={lawsuit.batchId} />
+        <OwnedNoBatch lawsuitId={lawsuit.id} batchId={lawsuit.batchId} userBatches={userBatches} />
       )}
 
       {(mine && lawsuit.batchId) && (
