@@ -3,13 +3,13 @@ import { Section } from '@components/Section';
 
 // import useAuth from '@hooks/useAuth';
 import AnnouncementList from '@components/LawsuitCard';
-import useUserAnnouncements from '@services/creditbook/lawsuit/hooks/useUserAnnouncements';
+import useAnnouncements from '@services/creditbook/lawsuit/hooks/useAnnouncements';
 
 export default function MyFavorites() {
   // const { user } = useAuth();
-  const response = useUserAnnouncements({
+  const response = useAnnouncements(undefined, {
     params: {
-      isFavorite: 'true',
+      isFavorite: true,
     },
   });
 
