@@ -2,6 +2,7 @@ import FormGroup from '@components/FormGroup';
 import useLawsuitForm from '@components/LawsuitForm/hooks/useLawsuitForm';
 import { UploadSimple } from 'phosphor-react';
 import { forwardRef, InputHTMLAttributes } from 'react';
+import { FilenameComingAPI } from './components/Filename';
 import { ContainerInputFile, Filename, Wrapper } from './styled';
 
 interface IProps extends InputHTMLAttributes<HTMLInputElement> {
@@ -48,15 +49,7 @@ const FieldFile = forwardRef(({
             </Filename>
           )}
 
-          {(fileName && !file?.name) && (
-          <Filename>
-            <span>
-              Arquivo escolhido:
-              {' '}
-            </span>
-            {fileName.toLowerCase()}
-          </Filename>
-          )}
+          <FilenameComingAPI file={file} fileName={fileName ?? null} />
         </>
       </FormGroup>
     </Wrapper>
