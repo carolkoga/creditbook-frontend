@@ -35,7 +35,6 @@ export const Filename = styled.small`
   font-size: 10px;
   line-height: 13px;
   text-align: left;
-  text-transform: capitalize;
 
   span {
     color: ${({ theme }) => theme.colors.grey[50]};
