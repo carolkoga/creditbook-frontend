@@ -34,6 +34,7 @@ export const ListContainerPayment = styled.ul`
   display: flex;
   flex-direction: column;
   gap: 12px;
+  overflow-y: scroll;
   max-height: 400px;
   li {
     list-style: none;
