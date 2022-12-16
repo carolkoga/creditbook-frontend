@@ -64,7 +64,7 @@ export default function AnnouncementId() {
               size="large"
               href={user?.id === announcement.userId
                 ? `/in/ads/edit/${announcement.id}`
-                : `/in/contact-announcer/${announcement.id}?type=${announcement?.batchId ? 'batch' : 'announcement'}`}
+                : `/in/contact-announcer/${announcement.id}?type=announcement'}`}
             >
               {user?.id === announcement.userId
                 ? 'Editar'
