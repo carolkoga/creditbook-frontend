@@ -24,6 +24,11 @@ const routes = [
   },
 
   {
+    label: 'Planos',
+    link: '/plans',
+  },
+
+  {
     label: 'Suporte',
     link: '/support',
   },
@@ -31,11 +36,6 @@ const routes = [
   {
     label: 'Contato',
     link: '/contact',
-  },
-
-  {
-    label: 'Planos',
-    link: '/plans',
   },
 ];
 
