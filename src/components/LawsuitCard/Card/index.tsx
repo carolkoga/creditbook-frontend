@@ -116,7 +116,11 @@ export default function LawsuitNewCard({
           <Lawsuit.Info.Container>
             <Lawsuit.Info.KeyInformation>Fase do Processo:</Lawsuit.Info.KeyInformation>
             <Lawsuit.Info.ValueInformation>
-              {actionPhaseTranslation[lawsuit.actionPhase]}
+              {
+                actionPhaseTranslation[lawsuit.actionPhase]?.length > 16
+                  ? `${actionPhaseTranslation[lawsuit.actionPhase]?.slice(0, 14)}...`
+                  : actionPhaseTranslation[lawsuit.actionPhase]
+              }
             </Lawsuit.Info.ValueInformation>
           </Lawsuit.Info.Container>
 
