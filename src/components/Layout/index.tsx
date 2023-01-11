@@ -15,9 +15,10 @@ export default function Layout({ children }: IProps) {
   const router = useRouter();
 
   if (
-    (isAuthenticated || router.pathname.startsWith('/login')) && router.pathname.startsWith('/in')) {
+    (isAuthenticated || router.pathname.startsWith('/login')) && router.pathname.startsWith('/in')
+    && user?.role === 'user') {
     return (
-      <ContainerLayout>
+      <ContainerLayout customMaxWidth={1920}>
         <LayoutLogged>
           {children}
         </LayoutLogged>
@@ -26,7 +27,9 @@ export default function Layout({ children }: IProps) {
   }
 
   if (
-    user?.role === 'admin' && (router.pathname.startsWith('/login') || router.pathname.startsWith('/admin'))) {
+    (isAuthenticated || router.pathname.startsWith('/login'))
+    && router.pathname.startsWith('/in')
+    && user?.role === 'admin') {
     return (
       <ContainerLayout>
         <AdminLayout>

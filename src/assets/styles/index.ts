@@ -61,7 +61,8 @@ export const MainWithSideBar = styled(Main)`
 `;
 
 export const ContainerLayout = styled.div`
-  max-width: 1365px;
+  max-width: ${({ customMaxWidth }: { customMaxWidth?: number }) => (
+    customMaxWidth ? `${customMaxWidth}px` : '1365px')};
   margin: auto;
   position: relative;
 `;
