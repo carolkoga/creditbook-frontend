@@ -29,6 +29,7 @@ const WrapperCard = styled.article`
   max-width: 364px;
   flex: 1 1 274px;
   width: auto;
+  max-width: 274px;
   border-radius: 10px;
   box-shadow: 2px 2px 5px rgba(133, 133, 133, 0.1);
   padding-bottom: 0;
