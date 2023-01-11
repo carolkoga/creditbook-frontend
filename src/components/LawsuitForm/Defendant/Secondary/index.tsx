@@ -5,14 +5,18 @@ import { Section } from '@components/Section';
 import { useFormContext } from 'react-hook-form';
 
 export default function SecondaryDefendant() {
-  const { register } = useFormContext();
+  const { register, formState: { errors } } = useFormContext();
   return (
     <Direction>
       <Section.Title as="strong" textColor="dark">
         Réu Secundário (opcional):
       </Section.Title>
 
-      <FieldCPForCNPJ name="secondaryDefendantCpfOrCnpj" />
+      <FieldCPForCNPJ
+        name="secondaryDefendantCpfOrCnpj"
+        error={errors?.secondaryDefendantCpfOrCnpj?.message}
+      />
+
       <FieldCorporationNameOrName
         {...register('secondaryDefendantCorporationNameOrName')}
       />

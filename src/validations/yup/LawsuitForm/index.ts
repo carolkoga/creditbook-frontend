@@ -20,8 +20,23 @@ const fileNotRequiredWithUrl = {
   then: (rule: MixedSchema) => rule.notRequired(),
 };
 
+const isAlreadySetIdentificationNumber = (
+  personIdentification: any,
+  schema: StringSchema | any,
+) => {
+  if (!personIdentification) return;
+
+  return schema.test({
+    name: 'cpf or cnpj already set in this announcement',
+    message: 'O CPF/CNPJ já foi inserido nesse documento',
+    test: (value: any) => value !== personIdentification,
+  });
+};
+
 export const newLawsuitSchemaValidation = yup.object().shape({
-  processNumber: yup.string().required('Campo obrigatório'),
+  processNumber: yup.string()
+    .required('Campo obrigatório')
+    .test('process number invalid', 'Número do processo inválido', (val: any) => val?.length > 17),
   type: yup.string().oneOf(['digital', 'physical']).required(),
   uf: yup.mixed()
     .required('Escolha um estado')
@@ -73,12 +88,14 @@ export const newLawsuitSchemaValidation = yup.object().shape({
       is: (val: any) => val,
       then: (rule) => rule.cpfOrcnpj(),
     })
-    .notRequired(),
+    .notRequired()
+    .when('mainActorCpfOrCnpj', isAlreadySetIdentificationNumber),
 
   mainDefendantCorporationNameOrName: yup.string().required('Campo obrigatório'),
   mainDefendantCpfOrCnpj: yup.string()
     .required('Campo obrigatório')
-    .cpfOrcnpj(),
+    .cpfOrcnpj()
+    .when('mainActorCpfOrCnpj', isAlreadySetIdentificationNumber),
 
   secondaryDefendantCorporationNameOrName: yup.string().nullable().notRequired(),
   secondaryDefendantCpfOrCnpj: yup.string()
@@ -87,7 +104,8 @@ export const newLawsuitSchemaValidation = yup.object().shape({
       is: (val: any) => val,
       then: (rule) => rule.cpfOrcnpj(),
     })
-    .notRequired(),
+    .notRequired()
+    .when('mainDefendantCpfOrCnpj', isAlreadySetIdentificationNumber),
 
   digitalProcess: yup.string()
     .nullable()

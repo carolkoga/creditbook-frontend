@@ -5,7 +5,6 @@ import { Controller, useFormContext } from 'react-hook-form';
 
 import { Direction } from '@components/Direction';
 import FormGroup from '@components/FormGroup';
-import { Input } from '@components/Input';
 import { AsyncSelect, OptionType, Select } from '@components/Select';
 
 import { IBGEService } from '@services/ibge';
@@ -21,6 +20,7 @@ import { courtsOptions } from '@mocks/ReactSelectOptions/CourtsOptions';
 import { LawsuitParams } from '@type/creditbook/Lawsuits';
 import { UFList } from '@type/brazil/BrazilStatesInUFTypes';
 
+import { InputCPForCNPJ } from '@components/Form/Input/Mask/InputCPForCNPJ';
 import { Fieldset } from '../components/Fieldset';
 import useLawsuitForm from '../hooks/useLawsuitForm';
 
@@ -29,7 +29,7 @@ LawsuitParams, 'uf' | 'city' | 'kind' | 'processNumber' | 'processGender' | 'tri
 
 export default function ProcessInfoForm() {
   const {
-    control, watch, register, formState: { errors },
+    control, watch, formState: { errors },
   } = useFormContext<FormContextType>();
   const [citiesOptions, setCitiesOptions] = useState([{ label: 'Selecione um estado', value: '' }]);
   const { formGroupDirection } = useLawsuitForm();
@@ -66,7 +66,13 @@ export default function ProcessInfoForm() {
             title: 'Número do processo',
           }}
         >
-          <Input id="process-number" {...register('processNumber')} />
+          <Controller
+            name="processNumber"
+            control={control}
+            render={({ field }) => (
+              <InputCPForCNPJ {...field} id="processNumber" />
+            )}
+          />
         </FormGroup>
       </Direction>
 

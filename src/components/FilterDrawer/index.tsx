@@ -170,7 +170,13 @@ export function FilterDrawer({ onGetResponseResults, customQuery }: IProps) {
                 title: 'Nome do autor Principal',
               }}
             >
-              <Input id="processNumber" {...register('processNumber')} />
+              <Controller
+                name="processNumber"
+                control={control}
+                render={({ field }) => (
+                  <InputCPForCNPJ {...field} id="processNumber" />
+                )}
+              />
             </FormGroup>
 
             <Controller
