@@ -49,7 +49,7 @@ export default function AnnouncementId() {
         <Button variant="white" size="small-large" onClick={() => router.back()}>
           Voltar
         </Button>
-        <Section.Title>Sobre o Anúncio</Section.Title>
+        <Section.Title>Resumo do Anúncio</Section.Title>
       </Section.Header>
       <Section.Container as="main">
         <Direction alignItems="center" justifyContent="center">
@@ -68,7 +68,7 @@ export default function AnnouncementId() {
             >
               {user?.id === announcement.userId
                 ? 'Editar'
-                : 'Falar Com anunciante'}
+                : 'Fazer oferta'}
             </Link>
           )}
         </Direction>

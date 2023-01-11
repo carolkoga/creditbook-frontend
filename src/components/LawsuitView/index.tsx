@@ -1,4 +1,5 @@
 import { processKindTranslation } from '@components/LawsuitCard/Card/utils/processKindTranslation';
+import useAuth from '@hooks/useAuth';
 import { LawsuitParams } from '@type/creditbook/Lawsuits';
 import { fileTranslation } from '@utils/translation/announcement/fileTranslation';
 import {
@@ -17,6 +18,7 @@ interface IProps {
 }
 
 export default function LawsuitView({ children, announcement }: IProps) {
+  const { user } = useAuth();
   return (
     <Container>
       <Divider orientation="left">Dados do processo</Divider>
@@ -161,8 +163,8 @@ export default function LawsuitView({ children, announcement }: IProps) {
                 <DescriptionWrapper>
                   <Description
                     as="a"
-                    href={file.url}
-                    title="Clique para fazer download"
+                    href={user?.role === 'admin' ? announcement.procurationUrl : ''}
+                    title={user?.role === 'admin' ? 'Clique para fazer download' : ''}
                   >
                     <File size={18} />
                     {`${fileTranslation[file.name]}-${announcement.processNumber}`.slice(0, 22)}...
@@ -267,8 +269,8 @@ export default function LawsuitView({ children, announcement }: IProps) {
               <DescriptionWrapper>
                 <Description
                   as="a"
-                  href={announcement.procurationUrl}
-                  title="Clique para fazer download"
+                  href={user?.role === 'admin' ? announcement.procurationUrl : ''}
+                  title={user?.role === 'admin' ? 'Clique para fazer download' : ''}
                 >
                   <File size={18} />
                   {`Procuracao-${announcement.processNumber}`.slice(0, 22)}...
