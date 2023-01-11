@@ -49,7 +49,7 @@ export default function OwnedNoBatch({ lawsuitId, userBatches }: OwnedNoBatchPar
         </Link>
         <DropdownMenu.Root>
           <DropdownButton>
-            {!hasBatch && 'Adicionar Lote'}
+            {!hasBatch && 'Lotear'}
             {hasBatch && 'Adicionado'}
           </DropdownButton>
           <DropdownMenu.Portal>
