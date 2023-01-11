@@ -41,17 +41,15 @@ export default function MyPlans() {
 
       <Section.Container>
         <ListMyPlans>
-          {plans?.length && plans.map((currentPlan) => (
+          {(plans?.length > 0) && plans.map((currentPlan) => (
             <MyPlanCard plan={currentPlan} />
           ))}
         </ListMyPlans>
 
-        {!plans?.length && (
+        {(plans?.length <= 0) && (
           <NotFoundData
             title="Não há planos aprovados"
-            type="link"
-            labelButton="Analisar créditos"
-            href="/in/buy-credits"
+            type="children"
           />
         )}
       </Section.Container>

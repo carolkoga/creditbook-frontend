@@ -7,10 +7,6 @@ export default function SellAds() {
   return (
     <Direction alignItems="center">
       <Section.Container>
-        <Section.Header alignItems="center">
-          <Section.Title>Vender Anúncios</Section.Title>
-        </Section.Header>
-
         <ADSContent>
           <h4>Cadastrar Anúncios</h4>
           <p>
@@ -33,7 +29,7 @@ export default function SellAds() {
           </p>
 
           <Link href="/in/ads/new" size="x-large">
-            Cadastrar
+            Anunciar
           </Link>
         </ADSContent>
       </Section.Container>

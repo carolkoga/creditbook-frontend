@@ -27,8 +27,8 @@ export function EmailForm({ isDisabled, isLoading, onSubmit }: CommonPropsType) 
 
       <div className="actions">
         <Button size="large" disabled={isDisabled} isLoading={isLoading}>
-          {!isLoading && 'Validar Email'}
-          {isLoading && 'Validando Email'}
+          {!isLoading && 'Enviar E-mail'}
+          {isLoading && 'Enviando...'}
         </Button>
       </div>
     </FormLayout>

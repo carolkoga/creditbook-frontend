@@ -5,7 +5,6 @@ import {
   Container,
   LeftContent,
   Title,
-  Description,
   QuantityADS,
   RightContent,
   BatchIncome,
@@ -23,9 +22,7 @@ export function BatchCard({ mine, batch }: IProps) {
         <Title>
           {batch.name}
         </Title>
-        <Description>
-          {batch.description}
-        </Description>
+
         <QuantityADS>Quantidade de anúncios: {batch.announcementQuantity || 0}</QuantityADS>
       </LeftContent>
 

@@ -38,10 +38,10 @@ export default function HomeLadingPage() {
 
           <Actions>
             <Link href="/login">
-              Anuncie
+              Vender
             </Link>
             <Link href="/login" variant="secondary">
-              Compre
+              Comprar
             </Link>
           </Actions>
         </ContentHero>

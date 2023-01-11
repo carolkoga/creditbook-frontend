@@ -30,7 +30,7 @@ export const lawsuitKind = [
   },
 
   {
-    label: 'Crédito Falimenter',
+    label: 'Crédito Falimentar',
     value: 'creditoFalimenter',
   },
 

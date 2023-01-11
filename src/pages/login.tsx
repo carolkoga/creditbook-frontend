@@ -75,12 +75,12 @@ export default function Login() {
 
         <div className="actions">
           <Link href="/sign-up" size="large" variant="white">
-            Quero me cadastrar
+            Realize seu cadastro
           </Link>
 
           <LinkNext href="/reset-password">
             <a className="forget__password">
-              Esqueci a minha senha
+              Esqueci minha senha
             </a>
           </LinkNext>
         </div>

@@ -113,7 +113,7 @@ export default function LandingPageHeader() {
               {isAuthenticated && (
                 <Link href={user?.role === 'admin' ? '/admin/dashboard' : '/in/home'}>
                   <a>
-                    Acessar
+                    Painel do Usuário
                   </a>
                 </Link>
               )}
