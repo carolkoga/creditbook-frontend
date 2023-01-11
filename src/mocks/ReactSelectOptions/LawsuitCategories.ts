@@ -1,6 +1,6 @@
 export const lawsuitCategories = [
   {
-    label: 'Civel',
+    label: 'Cível',
     value: 'civel',
   },
 
@@ -15,7 +15,7 @@ export const lawsuitCategories = [
   },
 
   {
-    label: 'Precatorio',
+    label: 'Precatório',
     value: 'precatorio',
   },
 ];

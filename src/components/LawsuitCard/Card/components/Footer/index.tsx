@@ -3,7 +3,6 @@ import useAuth from '@hooks/useAuth';
 import { LawsuitParams } from '@type/creditbook/Lawsuits';
 import { BatchParams } from '@type/creditbook/Batch';
 
-import FooterNotLogged from './NotLogged';
 import LoggedFooter from './Logged';
 import OwnedInBatch from './OwnedInBatch';
 import OwnedNoBatch from './OwnedNoBatch';
@@ -29,7 +28,7 @@ export default function Footer({
   const { isAuthenticated } = useAuth();
 
   if (!isAuthenticated) {
-    return <FooterNotLogged />;
+    return <OnlyMoreInformation lawsuitId={lawsuit.id} status={lawsuit.status} />;
   }
 
   if (moreAboutOnly || (lawsuit?.status !== 'accepted' && mine)) {

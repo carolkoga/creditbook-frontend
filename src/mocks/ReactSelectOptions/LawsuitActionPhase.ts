@@ -15,7 +15,7 @@ export const lawsuitActionPhase = [
   },
 
   {
-    label: 'Incidente de Execucao',
+    label: 'Incidente de Execução',
     value: 'incidenteDeExecucao',
   },
 
@@ -30,7 +30,7 @@ export const lawsuitActionPhase = [
   },
 
   {
-    label: 'Cumprimento de Sentenca',
+    label: 'Cumprimento de Sentença',
     value: 'cumprimentoDeSentenca',
   },
 

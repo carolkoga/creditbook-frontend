@@ -1,27 +1,29 @@
-import { GetServerSideProps } from 'next';
-
 import AnnouncementList from '@components/LawsuitCard';
 
 import { Section } from '@components/Section';
 import TabBatchAnnouncement from '@components/TabBatchAnnouncement';
-import { lawsuitService } from '@services/creditbook/lawsuit';
-import { ResponseListAllAnnouncements } from '@type/creditbook/Lawsuits';
+import { FilterDrawer, ResponseFilterCreditsProps } from '@components/FilterDrawer';
+import useAnnouncements from '@services/creditbook/lawsuit/hooks/useAnnouncements';
 
-interface IProps {
-  response: {
-    announcements: {
-      results: ResponseListAllAnnouncements['announcements'],
-      pages: ResponseListAllAnnouncements['pages']
-    },
-    isLoading: boolean
+export default function SingleLawsuits() {
+  const response = useAnnouncements();
+
+  function handleProcessAnnouncementsFiltered(lawsuit: ResponseFilterCreditsProps<'announcements'>) {
+    response.mutate(lawsuit as never);
+    if (lawsuit.results.length <= 0) {
+      response.mutateIsFiltered(false);
+    }
+    response.mutateIsFiltered(true);
   }
-}
 
-export default function SingleLawsuits({ response }: IProps) {
   return (
     <TabBatchAnnouncement batchLink="/batches" announcementLink="/ads">
       <Section.Header>
-        <Section.Title as="h1">Anúncios Individuais</Section.Title>
+        <Section.Title as="h1">
+          {!response.isFiltered && 'Anúncios Individuais'}
+          {response.isFiltered && 'Anúncios relacionados ao filtro'}
+        </Section.Title>
+        <FilterDrawer onGetResponseResults={handleProcessAnnouncementsFiltered} />
       </Section.Header>
 
       <Section.Container>
@@ -30,33 +32,3 @@ export default function SingleLawsuits({ response }: IProps) {
     </TabBatchAnnouncement>
   );
 }
-
-export const getServerSideProps: GetServerSideProps = async () => {
-  const announcementsFetched: any = {
-    announcements: {
-      results: [], pages: 0,
-    },
-    isLoading: false,
-  };
-
-  try {
-    const response = await lawsuitService.listAll();
-    Object.assign(announcementsFetched, {
-      announcements: {
-        results: response.data.announcements,
-        pages: response.data.pages,
-      },
-    });
-  } catch {
-    console.error('Happened an error');
-  }
-
-  return {
-    props: {
-      response: {
-        ...announcementsFetched,
-        isLoading: false,
-      },
-    },
-  };
-};

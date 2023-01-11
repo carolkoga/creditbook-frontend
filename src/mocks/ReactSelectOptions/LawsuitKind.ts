@@ -1,11 +1,11 @@
 export const lawsuitKind = [
   {
-    label: 'Ação Indenizatoria',
+    label: 'Ação Indenizatória',
     value: 'acaoIndenizatoria',
   },
 
   {
-    label: 'Ação Condenatoria',
+    label: 'Ação Condenatória',
     value: 'acaoCondenatoria',
   },
 
@@ -35,7 +35,7 @@ export const lawsuitKind = [
   },
 
   {
-    label: 'Crédito Tributario',
+    label: 'Crédito Tributário',
     value: 'creditoTributario',
   },
 

@@ -26,7 +26,7 @@ export default function OnlyMoreInformation({ lawsuitId, status }: IProps) {
     <Actions>
       <Content>
         <Link href={`/in/ads/${lawsuitId}`} size="small-large" variant="secondary">
-          Informação
+          Mais Informação
         </Link>
       </Content>
     </Actions>
