@@ -7,6 +7,10 @@ export const Container = styled.div`
   gap: 13px;
   padding: 42px 0;
   position: relative;
+
+  .swiper-pagination {
+    margin-top: 42px;
+  }
 `;
 
 export const ButtonControl = styled.button`
@@ -21,7 +25,6 @@ export const ButtonControl = styled.button`
   align-items: center;
   justify-content: center;
   box-shadow: 2px 4px 10px rgba(133, 133, 133, 0.15);
-  position: absolute;
   z-index: 10;
   right: 0;
   aspect-ratio: 1;
