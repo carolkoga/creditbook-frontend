@@ -10,17 +10,18 @@ interface FormGroupProps {
     forId: string,
   } | null,
   error?: string | any,
+  alignCenter?: boolean
 }
 
 export default function FormGroup({
-  children, direction, label, error,
+  children, direction, label, error, alignCenter,
 }: FormGroupProps) {
   const childrenType = children.type.target ? children.type.target : children.type;
 
   return (
     <Container
       hasError={!!error}
-      noAlign={['textarea'].includes(childrenType)}
+      noAlign={alignCenter || ['textarea'].includes(childrenType)}
       direction={direction}
     >
       <div className="content">
@@ -41,4 +42,5 @@ FormGroup.defaultProps = {
   label: null,
   error: null,
   direction: 'vertical',
+  alignCenter: false,
 };
