@@ -10,7 +10,6 @@ import PrivateIndividual from '@components/UserForm/PrivateIndividual';
 import { Section } from '@components/Section';
 
 import useDimensions from '@hooks/useDimensions';
-import useAuth from '@hooks/useAuth';
 
 import { Direction } from '@styles/pages/home';
 
@@ -22,6 +21,7 @@ import { AccountCorporation, AccountPerson } from '@type/creditbook/auth/registe
 import { commonToastProps } from '@configs/toast';
 import { handleCatchErrorRequest } from '@utils/handleCatchErrorRequest';
 import { registerCorporationAccountSchema, registerPersonAccountSchema } from '@validations/yup/UserForm';
+import { useRouter } from 'next/router';
 
 const customToastPropsToSignUp: ToastOptions = {
   ...commonToastProps,
@@ -29,9 +29,9 @@ const customToastPropsToSignUp: ToastOptions = {
 };
 
 export default function SignUp() {
+  const router = useRouter();
   const [registerAccountType, setRegisterAccountType] = useState<AccountTypes>('person');
   const [isLoading, setIsLoading] = useState(false);
-  const { handleSignIn } = useAuth();
   const { dimensionsOverlimit } = useDimensions();
   const { widthOverlimit } = dimensionsOverlimit(870);
   const methodsPersonAccount = useForm<AccountPerson>({
@@ -51,14 +51,12 @@ export default function SignUp() {
   async function handleSignUpPersonAccount(data: AccountPerson) {
     try {
       setIsLoading(true);
+
       await authCreditBookService.register<'person'>({ ...data, type: 'person' });
-      setIsLoading(false);
-      await handleSignIn({
-        email: data.email,
-        password: data.password,
-      });
+      router.push('/login');
     } catch (error) {
       handleCatchErrorRequest(error as never, customToastPropsToSignUp);
+    } finally {
       setIsLoading(false);
     }
   }
@@ -68,14 +66,10 @@ export default function SignUp() {
       setIsLoading(true);
 
       await authCreditBookService.register<'corporation'>({ ...data, type: 'corporation' });
-      setIsLoading(false);
-
-      await handleSignIn({
-        email: data.email,
-        password: data.password,
-      });
+      router.push('/login');
     } catch (error) {
       handleCatchErrorRequest(error as never);
+    } finally {
       setIsLoading(false);
     }
   }
