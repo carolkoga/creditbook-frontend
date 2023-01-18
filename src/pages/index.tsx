@@ -84,7 +84,7 @@ export default function HomeLadingPage() {
             <InfoCard>
               <div className="wrapper__image">
                 <Image
-                  src="/assets/icons/home/insight.svg"
+                  src="/assets/icons/home/insight.png"
                   width="85px"
                   height="85px"
                   alt="De insight"
@@ -129,7 +129,7 @@ export default function HomeLadingPage() {
             <InfoCard>
               <div className="wrapper__image">
                 <Image
-                  src="/assets/icons/home/money-bag.svg"
+                  src="/assets/icons/home/money-bag.png"
                   width="85px"
                   height="85px"
                   alt="Bolsa de dinheiro"
@@ -144,7 +144,7 @@ export default function HomeLadingPage() {
             <InfoCard>
               <div className="wrapper__image">
                 <Image
-                  src="/assets/icons/home/partner.svg"
+                  src="/assets/icons/home/partner.png"
                   width="85px"
                   height="85px"
                   alt="Duas mãos fechando acordo"
