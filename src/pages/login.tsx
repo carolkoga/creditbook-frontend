@@ -58,7 +58,7 @@ export default function Login() {
           <FormGroup label={{ title: 'Senha', forId: 'password' }}>
             <Direction justifyContent="center" alignItems="flex-start">
               <Input
-                type="password"
+                type={shownPassword}
                 placeholder=" "
                 id="password"
                 value={password}
