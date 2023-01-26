@@ -82,14 +82,14 @@ export default function InformationForm({
             error={errors?.cellphone?.message}
             label={{
               forId: 'phone',
-              title: 'Celular',
+              title: 'Telefone',
             }}
           >
             <MaskInput
               id="phone"
               inputMode="numeric"
               placeholder=" "
-              mask="(00) 00000-0000"
+              mask="(00) 0000-0000"
               {...field}
             />
           </FormGroup>
