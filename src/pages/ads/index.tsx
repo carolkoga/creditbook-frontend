@@ -6,7 +6,13 @@ import { FilterDrawer, ResponseFilterCreditsProps } from '@components/FilterDraw
 import useAnnouncements from '@services/creditbook/lawsuit/hooks/useAnnouncements';
 
 export default function SingleLawsuits() {
-  const response = useAnnouncements();
+  const response = useAnnouncements(undefined, {
+    params: {
+      orderBy: {
+        isPremium: true,
+      },
+    },
+  });
 
   function handleProcessAnnouncementsFiltered(lawsuit: ResponseFilterCreditsProps<'announcements'>) {
     response.mutate(lawsuit as never);

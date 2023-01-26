@@ -72,6 +72,10 @@ export interface QueriesToIndexAnnouncements {
 
     isPremium?: boolean;
     isFavorite?: boolean;
+
+    orderBy?: {
+      isPremium?: boolean,
+    }
   }
 }
 
