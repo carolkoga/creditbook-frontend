@@ -23,9 +23,9 @@ export const routes = [
   },
 
   {
-    label: 'Meus Anúncios',
-    icon: <CurrencyCircleDollar size={24} weight="regular" />,
-    link: '/my-ads',
+    label: 'Favoritos',
+    icon: <Heart size={24} weight="regular" />,
+    link: '/my-favorites',
   },
 
   {
@@ -35,7 +35,13 @@ export const routes = [
   },
 
   {
-    label: 'Lotes',
+    label: 'Meus Anúncios',
+    icon: <CurrencyCircleDollar size={24} weight="regular" />,
+    link: '/my-ads',
+  },
+
+  {
+    label: 'Meus Lotes',
     icon: <DiceTwo size={24} weight="regular" />,
     link: '/batches',
   },
@@ -44,12 +50,6 @@ export const routes = [
     label: 'Galeria Premium',
     icon: <Star size={24} weight="regular" />,
     link: '/gallery-premium',
-  },
-
-  {
-    label: 'Meus Favoritos',
-    icon: <Heart size={24} weight="regular" />,
-    link: '/my-favorites',
   },
 
   {
