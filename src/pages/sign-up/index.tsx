@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { ToastOptions } from 'react-toastify';
@@ -74,13 +74,31 @@ export default function SignUp() {
     }
   }
 
+  const continuingSignUpForm = useCallback(() => {
+    methodsPersonAccount.reset({
+      fullName: router.query?.name as string,
+      cellphone: router.query?.cellphone as string,
+      email: router.query?.email as string,
+    });
+
+    methodsCorporationAccount.reset({
+      fullName: router.query?.name as string,
+      cellphone: router.query?.cellphone as string,
+      email: router.query?.email as string,
+    });
+  }, [router.query]);
+
+  useEffect(() => {
+    continuingSignUpForm();
+  }, [continuingSignUpForm]);
+
   return (
     <>
       <Section.Header>
         <Direction>
           <Section.Title as="h2" textColor="dark">Cadastro</Section.Title>
           <Button type="button" onClick={() => handleToggleRegisterAccountType()}>
-            Cadastrar pessoa
+            Ou cadastre pessoa
             {' '}
             {registerAccountType === 'person' ? 'jurídica' : 'física'}
           </Button>

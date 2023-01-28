@@ -10,6 +10,12 @@ export const SectionHero = styled(Section.Container)`
   @media screen and (max-width: 434px) {
     gap: 0;
   }
+
+  @media screen and (max-width: 720px) {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
 `;
 
 export const ContentHero = styled.div`

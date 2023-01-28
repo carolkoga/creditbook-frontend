@@ -18,9 +18,12 @@ import { WrapperVideo } from '@components/WrapperVideo';
 import LawsuitCardSwiper from '@components/LawsuitCard/LawsuitCardSwiper';
 import { Direction } from '@components/Direction';
 import useAnnouncements from '@services/creditbook/lawsuit/hooks/useAnnouncements';
+import useAuth from '@hooks/useAuth';
+import { PreSignUp } from '@components/pages/home/PreSignUp';
 
 export default function HomeLadingPage() {
   const announcementsAsPremium = useAnnouncements(undefined, { params: { isPremium: true } });
+  const { isAuthenticated } = useAuth();
 
   return (
     <>
@@ -46,16 +49,20 @@ export default function HomeLadingPage() {
           </Actions>
         </ContentHero>
 
-        <WrapperImageHero>
-          <Image
-            src="/assets/images/hero.png"
-            layout="fixed"
-            width="527px"
-            height="430px"
-            priority
-            alt="Hero"
-          />
-        </WrapperImageHero>
+        {isAuthenticated && (
+          <WrapperImageHero>
+            <Image
+              src="/assets/images/hero.png"
+              layout="fixed"
+              width="527px"
+              height="430px"
+              priority
+              alt="Hero"
+            />
+          </WrapperImageHero>
+        )}
+
+        <PreSignUp isVisible={!isAuthenticated} />
       </SectionHero>
 
       <Section.Container>
