@@ -74,27 +74,11 @@ export function AuthProvider({ children }: IProps) {
       });
 
       if (userSignIn.role === 'user') {
-        if (Router.asPath === '/login') {
-          Router.replace('/in/home');
-        }
-
-        if (Router.asPath !== '/login' || !Router.asPath.startsWith('/in') || !Router.pathname.startsWith('/in')) {
-          Router.replace('/in/home');
-        }
-
-        Router.replace(Router.asPath);
+        Router.replace('/in/home');
       }
 
       if (userSignIn.role === 'admin') {
-        if (Router.asPath === '/login') {
-          Router.push('/admin/dashboard');
-        }
-
-        if (Router.asPath !== '/login' || !Router.asPath.startsWith('/admin') || !Router.pathname.startsWith('/admin')) {
-          Router.push('/admin/dashboard');
-        }
-
-        Router.push(Router.asPath);
+        Router.replace('/admin/dashboard');
       }
 
       setUser(userSignIn);
