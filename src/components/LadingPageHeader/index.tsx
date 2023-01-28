@@ -110,8 +110,16 @@ export default function LandingPageHeader() {
             </Navigation>
 
             <Actions>
-              {isAuthenticated && (
-                <Link href={user?.role === 'admin' ? '/admin/dashboard' : '/in/home'}>
+              {(isAuthenticated && user?.role === 'admin') && (
+                <Link href="/admin/dashboard">
+                  <a>
+                    Dashboard
+                  </a>
+                </Link>
+              )}
+
+              {(isAuthenticated && user?.role === 'user') && (
+                <Link href="/in/home">
                   <a>
                     Painel do Usuário
                   </a>
