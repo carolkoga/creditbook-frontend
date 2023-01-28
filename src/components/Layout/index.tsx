@@ -15,26 +15,23 @@ export default function Layout({ children }: IProps) {
   const router = useRouter();
 
   if (
-    (isAuthenticated || router.pathname.startsWith('/login')) && router.pathname.startsWith('/in')
-    && user?.role === 'user') {
-    return (
-      <ContainerLayout customMaxWidth={1920}>
-        <LayoutLogged>
-          {children}
-        </LayoutLogged>
-      </ContainerLayout>
-    );
-  }
-
-  if (
-    (isAuthenticated || router.pathname.startsWith('/login'))
-    && router.pathname.startsWith('/in')
-    && user?.role === 'admin') {
+    (isAuthenticated) && router.pathname.startsWith('/admin') && user?.role === 'admin') {
     return (
       <ContainerLayout>
         <AdminLayout>
           {children}
         </AdminLayout>
+      </ContainerLayout>
+    );
+  }
+
+  if (
+    (isAuthenticated) && router.pathname.startsWith('/in') && user?.role === 'user') {
+    return (
+      <ContainerLayout customMaxWidth={1920}>
+        <LayoutLogged>
+          {children}
+        </LayoutLogged>
       </ContainerLayout>
     );
   }
