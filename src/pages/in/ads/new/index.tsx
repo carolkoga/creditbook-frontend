@@ -27,6 +27,7 @@ import ProcurationField from '@components/LawsuitForm/ProcurationField';
 import ModalToSelectPlan from '@components/LawsuitForm/ModalToSelectPlan';
 import ChooseCreditCard from '@components/LawsuitForm/ChooseCreditCard';
 import { toast } from 'react-toastify';
+import { ModalResume } from '@components/LawsuitForm/ModalResume';
 
 export default function NewLawsuit() {
   const router = useRouter();
@@ -127,8 +128,8 @@ export default function NewLawsuit() {
                 </button>
 
                 {(plan === 'byPercent' && !isPremium) && (
-                  <Button isLoading={loading} type="submit">
-                    {!loading ? 'Cadastrar' : 'Cadastrando'}
+                  <Button onClick={() => setStepForm('6')}>
+                    Resumo
                   </Button>
                 )}
 
@@ -143,11 +144,22 @@ export default function NewLawsuit() {
                 isVisible={stepForm === '5'}
                 onBack={() => setStepForm('4')}
               >
-                <Button isLoading={loading} type="submit" disabled={!methods.formState.isValid} onClick={methods.handleSubmit(handleSubmitNewLawsuit)}>
-                  {!loading ? 'Cadastrar' : 'Cadastrando'}
+                <Button onClick={() => setStepForm('6')}>
+                  Resumo
                 </Button>
               </ChooseCreditCard>
 
+              <ModalResume isVisible={stepForm === '6'} onClose={() => setStepForm('0')}>
+                <Button
+                  isLoading={loading}
+                  type="submit"
+                  size="outline-filled-round"
+                  disabled={!methods.formState.isValid}
+                  onClick={methods.handleSubmit(handleSubmitNewLawsuit)}
+                >
+                  {!loading ? 'Cadastrar' : 'Cadastrando'}
+                </Button>
+              </ModalResume>
             </FormLayout>
           </LawsuitFormProvider>
         </FormProvider>
