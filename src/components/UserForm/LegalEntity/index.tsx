@@ -14,6 +14,7 @@ import PasswordForm from '../components/PasswordForm';
 import ProfilePictureForm from '../components/ProfilePictureForm';
 import { FormCommonType } from '../types';
 import UpdatePasswordForm from '../components/UpdatePasswordForm';
+import { UploadSocialContract } from './components/UploadSocialContract';
 
 export interface CorporationParams extends Omit<RegistrationParams<'corporation'>, 'type'> {}
 
@@ -33,6 +34,7 @@ export default function LegalEntity({
       <FormGrid noValidate onSubmit={onSubmit}>
         <InformationForm formGroupDirection={formGroupDirection} nationalityLabel="Local de constituição">
           <ProfilePictureForm label="Foto de Perfil" formGroupDirection={formGroupDirection} />
+          <UploadSocialContract />
 
           <FormGroup
             direction={formGroupDirection}
