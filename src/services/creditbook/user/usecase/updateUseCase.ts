@@ -23,6 +23,16 @@ class UpdateUseCase {
         if (!value) return;
       }
 
+      if (key === 'socialContract') {
+        if (typeof value === 'string') return;
+
+        const socialContractIsFile = value as File[];
+
+        if (socialContractIsFile?.length >= 0) {
+          return;
+        }
+      }
+
       if (originalData[key] === value) return;
 
       formData.append(key, (value as string | Blob));

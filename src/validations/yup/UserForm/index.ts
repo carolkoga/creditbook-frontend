@@ -24,6 +24,26 @@ export const corporationValidation = {
       (value: any) => validateCNPJ(value),
     ),
   corporationName: yup.string().required(),
+  socialContract: yup.mixed()
+    .nullable()
+    .transform((val: any) => val[0])
+    // @ts-ignore
+    .test((option: File | undefined | null | string, rule) => {
+      if (typeof option === 'string') return option;
+      if (typeof option === 'undefined' || !option) return true;
+
+      function bytesToMB(number: number) {
+        return number / (1000) ** 2;
+      }
+
+      const fileSize = option?.size;
+
+      if (bytesToMB(fileSize) > 1) {
+        return rule.createError({ message: 'O arquivo precisa ser menor que 1 MB' });
+      }
+
+      return option;
+    }),
 };
 
 const passwordValidation = {
