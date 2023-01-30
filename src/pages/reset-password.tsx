@@ -51,6 +51,7 @@ export default function ResetPssword() {
   async function handleResetPassword(resetParams: PasswordFormParam) {
     try {
       setLoading(true);
+
       await resetPasswordService.resetPassword({ ...resetParams, token });
       toast.success('Senha alterada com sucesso!', { position: 'bottom-center' });
       setFormStep(1);

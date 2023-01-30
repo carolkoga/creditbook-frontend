@@ -7,7 +7,7 @@ export const FormLayout = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 12px;
+  gap: 24px;
 
   .actions {
     margin-top: 12px;
