@@ -1,7 +1,7 @@
 import { AccountTypes, Address } from '..';
 
 export interface AccountCommonParams {
-  profilePicture: File,
+  profilePicture: File | null | string,
 
   passwordConfirmation: string,
   nationality: string,
@@ -13,14 +13,16 @@ export interface AccountCommonParams {
   cpf: string,
   bornDate: string,
   address: Address,
-  type: AccountTypes,
 }
 
 export interface AccountCorporation extends AccountCommonParams {
   cnpj: string,
   corporationName: string,
+  type: 'corporation'
 }
 
-export interface AccountPerson extends AccountCommonParams {}
+export interface AccountPerson extends AccountCommonParams {
+  type: 'person'
+}
 
 export type RegistrationParams<AccountType extends AccountTypes> = AccountType extends 'corporation' ? AccountCorporation : AccountPerson;

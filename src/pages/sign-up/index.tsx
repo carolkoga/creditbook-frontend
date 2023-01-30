@@ -52,7 +52,7 @@ export default function SignUp() {
     try {
       setIsLoading(true);
 
-      await authCreditBookService.register<'person'>({ ...data, type: 'person' });
+      await authCreditBookService.register({ ...data, type: 'person' });
       router.push('/login');
     } catch (error) {
       handleCatchErrorRequest(error as never, customToastPropsToSignUp);
@@ -65,7 +65,7 @@ export default function SignUp() {
     try {
       setIsLoading(true);
 
-      await authCreditBookService.register<'corporation'>({ ...data, type: 'corporation' });
+      await authCreditBookService.register({ ...data, type: 'corporation' });
       router.push('/login');
     } catch (error) {
       handleCatchErrorRequest(error as never);
