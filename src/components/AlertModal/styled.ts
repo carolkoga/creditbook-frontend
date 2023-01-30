@@ -20,6 +20,9 @@ export const Container = styled.div<ContainerProps>`
   border-radius: 1rem;
   width: ${({ width }) => (!width ? 'auto' : width)};
 
+  margin: auto;
+  transform: translateY(50%);
+
   gap: 2.4rem;
   max-width: 531rem;
 

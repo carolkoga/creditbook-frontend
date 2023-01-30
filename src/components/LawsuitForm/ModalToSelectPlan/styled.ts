@@ -10,10 +10,11 @@ interface CheckoutPriceSingleProps {
 
 export const Container = styled.div`
   background: ${({ theme }) => theme.colors.grey[10]};
-  padding: 53px 34px;
+  padding: 24px;
   border-radius: 10px;
   max-width: 657px;
-  width: 100% !important;
+  margin: auto;
+
   .wrapper__premium {
     margin-top: 42px;
 
@@ -21,7 +22,6 @@ export const Container = styled.div`
   }
 
   @media (max-width: 763px) {
-    margin-top: 262px;
     padding: 53px 24px;
 
     .header {

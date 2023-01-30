@@ -74,151 +74,149 @@ export default function ModalToSelectPlan({ isVisible, children }: IProps) {
 
   return (
     <Overlay>
-      <Section.Container>
-        <Container>
-          <Section.Header className="header">
-            <Section.Title>
-              Planos
-              {' '}
-              {price === 69.90 ? 'abaixo' : 'acima'}
-              {' '}
-              de
-              {' '}
-              {convertToCurrency(plansValues[price as never])}
-            </Section.Title>
-          </Section.Header>
+      <Container>
+        <Section.Header className="header">
+          <Section.Title>
+            Planos
+            {' '}
+            {price === 69.90 ? 'abaixo' : 'acima'}
+            {' '}
+            de
+            {' '}
+            {convertToCurrency(plansValues[price as never])}
+          </Section.Title>
+        </Section.Header>
 
-          <PlanList>
-            <PlanContainer>
-              <PlanHeader>
-                <h2>
-                  {convertToCurrency(price)} / ao mês
-                </h2>
-              </PlanHeader>
+        <PlanList>
+          <PlanContainer>
+            <PlanHeader>
+              <h2>
+                {convertToCurrency(price)} / ao mês
+              </h2>
+            </PlanHeader>
 
-              <p>
-                Período mínimo da assinatura:
-                <br />
-                6 meses {convertToCurrency(price * 6)}
-              </p>
+            <p>
+              Período mínimo da assinatura:
+              <br />
+              6 meses {convertToCurrency(price * 6)}
+            </p>
 
-              <PlanContent>
-                <ButtonSelect selected={planSelected.includes('byMonth') || planSelected.includes('both')}>
-                  {planSelected.includes('byMonth') || planSelected.includes('both')
-                    ? 'Escolhido'
-                    : 'Escolher'}
-                  <input type="radio" value="byMonth" {...register('plan')} disabled={planSelected.includes('both')} />
-                </ButtonSelect>
-              </PlanContent>
-            </PlanContainer>
+            <PlanContent>
+              <ButtonSelect selected={planSelected.includes('byMonth') || planSelected.includes('both')}>
+                {planSelected.includes('byMonth') || planSelected.includes('both')
+                  ? 'Escolhido'
+                  : 'Escolher'}
+                <input type="radio" value="byMonth" {...register('plan')} disabled={planSelected.includes('both')} />
+              </ButtonSelect>
+            </PlanContent>
+          </PlanContainer>
 
-            <h3>
-              {planSelected.includes('both') ? 'E' : 'OU'}
-            </h3>
+          <h3>
+            {planSelected.includes('both') ? 'E' : 'OU'}
+          </h3>
 
-            <PlanContainer>
-              <PlanHeader>
-                <h2>
-                  8%
-                  {' '}
-                  <span>do valor de venda</span>
-                </h2>
-              </PlanHeader>
+          <PlanContainer>
+            <PlanHeader>
+              <h2>
+                8%
+                {' '}
+                <span>do valor de venda</span>
+              </h2>
+            </PlanHeader>
 
-              <p>
-                Pagos após a venda do crédito anunciado
-              </p>
+            <p>
+              Pagos após a venda do crédito anunciado
+            </p>
 
-              <PlanContent>
-                <ButtonSelect selected={planSelected === 'byPercent' || planSelected === 'both'}>
-                  {planSelected === 'byPercent' || planSelected === 'both'
-                    ? 'Escolhido'
-                    : 'Escolher'}
-                  <input type="radio" value="byPercent" {...register('plan')} disabled={planSelected.includes('both')} />
-                </ButtonSelect>
-              </PlanContent>
-            </PlanContainer>
-          </PlanList>
+            <PlanContent>
+              <ButtonSelect selected={planSelected === 'byPercent' || planSelected === 'both'}>
+                {planSelected === 'byPercent' || planSelected === 'both'
+                  ? 'Escolhido'
+                  : 'Escolher'}
+                <input type="radio" value="byPercent" {...register('plan')} disabled={planSelected.includes('both')} />
+              </ButtonSelect>
+            </PlanContent>
+          </PlanContainer>
+        </PlanList>
 
-          <div className="wrapper__premium">
-            <Section.Title>Adicionar na Galeria Premium</Section.Title>
+        <div className="wrapper__premium">
+          <Section.Title>Adicionar na Galeria Premium</Section.Title>
 
-            <PlanContainer>
-              <PlanHeader>
-                <h2>
-                  Aumente visiblidade por apenas
-                  {' '}
-                  {convertToCurrency(price)}
-                </h2>
-              </PlanHeader>
+          <PlanContainer>
+            <PlanHeader>
+              <h2>
+                Aumente visiblidade por apenas
+                {' '}
+                {convertToCurrency(price)}
+              </h2>
+            </PlanHeader>
 
-              <p>
-                Período mínimo da assinatura:
-                6 meses {convertToCurrency(price * 6)}
+            <p>
+              Período mínimo da assinatura:
+              6 meses {convertToCurrency(price * 6)}
 
-              </p>
+            </p>
 
-              <div className="container-advantage">
-                <div className="advantage">
-                  <CheckCircle size={32} color="#25885d" weight="fill" />
-                  <span>Maior Destaque</span>
-                </div>
-
-                <div className="advantage">
-                  <CheckCircle size={32} color="#25885d" weight="fill" />
-                  <span>Maior Possibilidade de Venda</span>
-                </div>
+            <div className="container-advantage">
+              <div className="advantage">
+                <CheckCircle size={32} color="#25885d" weight="fill" />
+                <span>Maior Destaque</span>
               </div>
 
-              <PlanContent>
-                <ButtonSelect selected={isPremium} type="checkbox">
-                  {!isPremium ? 'Adicionar Premium' : 'Remover Premium'}
-                  <input type="checkbox" {...register('isPremium')} />
-                </ButtonSelect>
-              </PlanContent>
-            </PlanContainer>
-          </div>
+              <div className="advantage">
+                <CheckCircle size={32} color="#25885d" weight="fill" />
+                <span>Maior Possibilidade de Venda</span>
+              </div>
+            </div>
 
-          <CheckoutContainer>
-            <CheckoutWrapper>
-              <CheckoutPriceSingle>
-                <span>Plano</span>
-                {price === 180 && (
-                  <small>{convertToCurrency(price)} + 8%</small>
-                )}
+            <PlanContent>
+              <ButtonSelect selected={isPremium} type="checkbox">
+                {!isPremium ? 'Adicionar Premium' : 'Remover Premium'}
+                <input type="checkbox" {...register('isPremium')} />
+              </ButtonSelect>
+            </PlanContent>
+          </PlanContainer>
+        </div>
 
-                {(price !== 180 && !isPlanByPercent) && (
-                  <small>{convertToCurrency(price)}</small>
-                )}
+        <CheckoutContainer>
+          <CheckoutWrapper>
+            <CheckoutPriceSingle>
+              <span>Plano</span>
+              {price === 180 && (
+                <small>{convertToCurrency(price)} + 8%</small>
+              )}
 
-                {(price !== 180 && isPlanByPercent) && (
-                  <small>8%</small>
-                )}
-              </CheckoutPriceSingle>
+              {(price !== 180 && !isPlanByPercent) && (
+                <small>{convertToCurrency(price)}</small>
+              )}
 
-              <CheckoutPriceSingle>
-                <span>Premium</span>
-                {isPremium && (
-                  <small>{convertToCurrency(price)}</small>
-                )}
+              {(price !== 180 && isPlanByPercent) && (
+                <small>8%</small>
+              )}
+            </CheckoutPriceSingle>
 
-                {!isPremium && (
-                  <small>{convertToCurrency(0)}</small>
-                )}
-              </CheckoutPriceSingle>
+            <CheckoutPriceSingle>
+              <span>Premium</span>
+              {isPremium && (
+                <small>{convertToCurrency(price)}</small>
+              )}
 
-              <CheckoutPriceSingle subtotal>
-                <span>Total</span>
-                <small>{subTotal}</small>
-              </CheckoutPriceSingle>
-            </CheckoutWrapper>
-          </CheckoutContainer>
+              {!isPremium && (
+                <small>{convertToCurrency(0)}</small>
+              )}
+            </CheckoutPriceSingle>
 
-          <Actions>
-            {children}
-          </Actions>
-        </Container>
-      </Section.Container>
+            <CheckoutPriceSingle subtotal>
+              <span>Total</span>
+              <small>{subTotal}</small>
+            </CheckoutPriceSingle>
+          </CheckoutWrapper>
+        </CheckoutContainer>
+
+        <Actions>
+          {children}
+        </Actions>
+      </Container>
     </Overlay>
   );
 }

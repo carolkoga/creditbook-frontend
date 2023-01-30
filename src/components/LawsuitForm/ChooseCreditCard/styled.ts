@@ -8,6 +8,8 @@ export const Container = styled.div`
   max-width: 500px;
   min-height: 246px;
   width: 100%;
+  margin: auto;
+  transform: translateY(50%);
 
   @media (max-width: 540px) {
     margin-top: 262px;

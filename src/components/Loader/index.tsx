@@ -11,6 +11,7 @@ export default function Loader({ loading }: { loading: boolean }) {
       secondaryColor="#150882"
       strokeWidth={2}
       strokeWidthSecondary={2}
+      wrapperClass="loader"
     />
   );
 }

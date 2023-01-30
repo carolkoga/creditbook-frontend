@@ -11,6 +11,9 @@ export const Container = styled.div`
   max-width: 557px;
   width: 100%;
 
+  margin: auto;
+  transform: translateY(50%);
+
   transition: all .30s ease;
   h1 {
     color: ${({ theme }) => theme.colors.grey[50]};
