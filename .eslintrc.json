@@ -50,6 +50,7 @@
       "no-useless-constructor": "off",
       "no-return-assign": "off",
       "import/no-cycle": "off",
-      "no-useless-return": "off"
+      "no-useless-return": "off",
+      "react/require-default-props": "off"
     }
 }
