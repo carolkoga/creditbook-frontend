@@ -1,20 +1,33 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { ReactNode } from 'react';
 
 interface FieldsetDeclareProps {
   title: string,
-  children: ReactNode
+  children: ReactNode,
+  center?: boolean,
 }
 
-const Container = styled.fieldset`
+const Container = styled.fieldset<{ center: boolean }>`
   legend {
     margin-bottom: 24px;
   }
+
+  ${({ center }) => center && css`
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      legend {
+        width: auto;
+        margin: auto;
+      }
+  `}
 `;
 
-export function FieldsetDeclare({ children, title }: FieldsetDeclareProps) {
+export function FieldsetDeclare({ children, title, center = false }: FieldsetDeclareProps) {
   return (
-    <Container>
+    <Container center={center}>
       <legend>{title}</legend>
       {children}
     </Container>
