@@ -23,6 +23,7 @@
         "@typescript-eslint"
     ],
     "rules": {
+      "no-nested-ternary": "off",
       "react/jsx-filename-extension": [1, { "extensions": [".ts", ".tsx", ".js"] }],
       "react/react-in-jsx-scope": "off",
       "react/jsx-props-no-spreading": "off",
