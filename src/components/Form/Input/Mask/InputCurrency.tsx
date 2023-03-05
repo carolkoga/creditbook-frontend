@@ -6,7 +6,6 @@ export const InputCurrency = forwardRef((props: any, refForward: any) => (
     getInputRef={refForward}
     {...props}
     type="text"
-    value={props.value}
     inputMode="numeric"
     thousandSeparator="."
     decimalSeparator=","
