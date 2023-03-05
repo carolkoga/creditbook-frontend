@@ -15,6 +15,8 @@ export const LabelContainer = styled.label`
   align-items: center;
   gap: 0.8rem;
 
+  cursor: pointer;
+
   padding: 1rem 2.4rem;
 
   background: rgba(204, 204, 204, 0.1);
