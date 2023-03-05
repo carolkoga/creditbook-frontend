@@ -19,7 +19,7 @@ export function PFForm() {
             <MaskInput mask="000.000.000-00" id="cpf" />
           </FormGroup>
 
-          <FormGroup label={{ title: 'CPF', forId: 'cpf' }}>
+          <FormGroup label={{ title: 'RG', forId: 'rg' }}>
             <Input />
           </FormGroup>
 
