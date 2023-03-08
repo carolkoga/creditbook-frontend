@@ -25,4 +25,8 @@ export const Row = styled.div`
   display: flex;
   flex-direction: row;
   gap: 1.2rem;
+
+  @media (max-width: 400px) {
+    flex-direction: column;
+  }
 `;

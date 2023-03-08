@@ -1,35 +1,60 @@
 import FormGroup from '@components/FormGroup';
 import { Input, MaskInput } from '@components/Input';
+import { FieldDeclareFormTypes } from '@type/creditbook/sale/declare';
+import { Controller, useFormContext } from 'react-hook-form';
 import { FieldsetDeclare } from '../../../../Fieldset';
 import { RightFormInfo } from '../RightFormInfo';
 import { ContentFormGrid } from '../styled';
 
 export function PFForm() {
+  const { register, control, formState: { errors } } = useFormContext<Pick<FieldDeclareFormTypes, 'buyer'>>();
+
   return (
     <FieldsetDeclare title="">
       <ContentFormGrid>
         <div>
           <h2>Informações</h2>
 
-          <FormGroup label={{ title: 'Nome Completo', forId: 'social' }}>
-            <Input id="social" />
+          <FormGroup
+            error={errors?.buyer?.pf?.name?.message}
+            label={{ title: 'Nome Completo', forId: 'name' }}
+          >
+            <Input id="name" {...register('buyer.pf.name')} />
           </FormGroup>
 
-          <FormGroup label={{ title: 'CPF', forId: 'cpf' }}>
-            <MaskInput mask="000.000.000-00" id="cpf" />
+          <FormGroup
+            error={errors?.buyer?.pf?.cpf?.message}
+            label={{ title: 'CPF', forId: 'cpf' }}
+          >
+            <MaskInput mask="000.000.000-00" id="cpf" {...register('buyer.pf.cpf')} />
           </FormGroup>
 
-          <FormGroup label={{ title: 'RG', forId: 'rg' }}>
-            <Input />
+          <FormGroup
+            error={errors?.buyer?.pf?.rg?.message}
+            label={{ title: 'RG', forId: 'rg' }}
+          >
+            <Input id="rg" {...register('buyer.pf.rg')} />
           </FormGroup>
 
-          <FormGroup label={{ title: 'E-mail', forId: 'email' }}>
-            <Input id="email" />
+          <FormGroup
+            error={errors?.buyer?.pf?.email?.message}
+            label={{ title: 'E-mail', forId: 'email' }}
+          >
+            <Input id="email" {...register('buyer.pf.email')} />
           </FormGroup>
 
-          <FormGroup label={{ title: 'Telefone', forId: 'phone' }}>
-            <MaskInput mask="(00) 0000-0000" id="phone" />
-          </FormGroup>
+          <Controller
+            control={control}
+            name="buyer.pf.cellphone"
+            render={({ field }) => (
+              <FormGroup
+                error={errors?.buyer?.pf?.cellphone?.message}
+                label={{ title: 'Telefone', forId: 'phone' }}
+              >
+                <MaskInput mask="(00) 0000-0000" id="phone" {...field} />
+              </FormGroup>
+            )}
+          />
         </div>
 
         <RightFormInfo />

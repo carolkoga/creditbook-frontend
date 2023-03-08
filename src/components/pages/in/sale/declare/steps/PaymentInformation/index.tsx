@@ -2,6 +2,8 @@ import { InputCPForCNPJ } from '@components/Form/Input/Mask/InputCPForCNPJ';
 import FormGroup from '@components/FormGroup';
 import { Input } from '@components/Input';
 import { Select } from '@components/Select';
+import { FieldDeclareFormTypes } from '@type/creditbook/sale/declare';
+import { Controller, useFormContext } from 'react-hook-form';
 import { FieldsetDeclare } from '../../Fieldset';
 import { LabelContainer, WrapperRadio } from '../Buyer/styled';
 import { BankInfo, Content, MaxWidth } from './styled';
@@ -36,57 +38,121 @@ const accountTypeOptions = [
 ];
 
 export function ThirdStepPaymentInformation() {
+  const { register, control, formState: { errors } } = useFormContext<Pick<FieldDeclareFormTypes, 'payment'>>();
+
   return (
     <FieldsetDeclare title="Informações do pagamento">
       <Content>
-        <FormGroup label={{ title: 'Pagamento', forId: 'paymentMethod' }}>
-          <Select options={paymentMethodOptions} id="paymentMethod" placeholder="Selecione a forma de pagamento" />
-        </FormGroup>
+        <Controller
+          control={control}
+          name="payment.paymentMethod"
+          render={({ field }) => (
+            <FormGroup
+              error={errors?.payment?.paymentMethod?.message}
+              label={{ title: 'Pagamento', forId: 'paymentMethod' }}
+            >
+              <Select
+                options={paymentMethodOptions}
+                id="paymentMethod"
+                placeholder="Selecione a forma de pagamento"
+                {...field}
+              />
+            </FormGroup>
+          )}
+        />
 
-        <FormGroup label={{ title: 'Metódo de pagamento', forId: 'paymentStyle' }}>
+        <FormGroup
+          error={errors?.payment?.paymentType?.message}
+          label={{ title: 'Tipo de pagamento', forId: 'paymentType' }}
+        >
           <WrapperRadio>
-            <LabelContainer htmlFor="1">
-              <input type="radio" id="1" value="1" name="paymentStyle" checked />
+            <LabelContainer htmlFor="installments">
+              <input type="radio" id="installments" value="installments" {...register('payment.paymentType')} />
               Parcelado
             </LabelContainer>
 
-            <LabelContainer htmlFor="0">
-              <input type="radio" id="0" value="0" name="paymentStyle" />
+            <LabelContainer htmlFor="cash">
+              <input type="radio" id="cash" value="cash" {...register('payment.paymentType')} />
               À Vista
             </LabelContainer>
           </WrapperRadio>
         </FormGroup>
 
         <MaxWidth maxWidth={250}>
-          <FormGroup label={{ title: 'Quantidade de parcelas', forId: 'installments' }}>
-            <Input type="number" inputMode="decimal" min={1} maxLength={2} />
+          <FormGroup
+            error={errors?.payment?.installments?.message}
+            label={{ title: 'Quantidade de parcelas', forId: 'qtdInstallments' }}
+          >
+            <Input
+              type="number"
+              inputMode="numeric"
+              id="qtdInstallments"
+              min={1}
+              maxLength={2}
+              {...register('payment.installments')}
+            />
           </FormGroup>
         </MaxWidth>
 
         <BankInfo>
           <strong>Dados bancários</strong>
-          <FormGroup label={{ title: 'Nome do titular', forId: 'name' }}>
-            <Input />
+          <FormGroup
+            error={errors?.payment?.bankInfo?.holder?.message}
+            label={{ title: 'Nome do titular', forId: 'name' }}
+          >
+            <Input id="name" {...register('payment.bankInfo.holder')} />
           </FormGroup>
 
-          <FormGroup label={{ title: 'CPF do titular', forId: 'cpf' }}>
-            <InputCPForCNPJ maxLength={14} />
+          <Controller
+            control={control}
+            name="payment.bankInfo.cpf"
+            render={({ field }) => (
+              <FormGroup
+                error={errors?.payment?.bankInfo?.cpf?.message}
+                label={{ title: 'CPF do titular', forId: 'cpf' }}
+              >
+                <InputCPForCNPJ id="cpf" maxLength={14} {...field} />
+              </FormGroup>
+            )}
+          />
+
+          <Controller
+            control={control}
+            name="payment.bankInfo.accountType"
+            render={({ field }) => (
+              <FormGroup
+                error={errors?.payment?.bankInfo?.accountType?.message}
+                label={{ title: 'Tipo de conta', forId: 'accountType' }}
+              >
+                <Select
+                  id="accountType"
+                  options={accountTypeOptions}
+                  placeholder="Selecione tipo de conta"
+                  {...field}
+                />
+              </FormGroup>
+            )}
+          />
+
+          <FormGroup
+            error={errors?.payment?.bankInfo?.bank?.message}
+            label={{ title: 'Banco', forId: 'bank' }}
+          >
+            <Input id="bank" {...register('payment.bankInfo.bank')} />
           </FormGroup>
 
-          <FormGroup label={{ title: 'Tipo de conta', forId: 'accountType' }}>
-            <Select id="accountType" options={accountTypeOptions} placeholder="Selecione tipo de conta" />
+          <FormGroup
+            error={errors?.payment?.bankInfo?.numberAccount?.message}
+            label={{ title: 'Número da conta', forId: 'number_account' }}
+          >
+            <Input type="number" inputMode="numeric" id="number_account" {...register('payment.bankInfo.numberAccount')} />
           </FormGroup>
 
-          <FormGroup label={{ title: 'Banco', forId: 'bank' }}>
-            <Input />
-          </FormGroup>
-
-          <FormGroup label={{ title: 'Número da conta', forId: 'number_account' }}>
-            <Input type="number" inputMode="decimal" />
-          </FormGroup>
-
-          <FormGroup label={{ title: 'Agẽncia', forId: 'number_bank' }}>
-            <Input type="number" inputMode="decimal" />
+          <FormGroup
+            error={errors?.payment?.bankInfo?.agency?.message}
+            label={{ title: 'Agẽncia', forId: 'agency' }}
+          >
+            <Input type="number" id="agency" inputMode="numeric" {...register('payment.bankInfo.agency')} />
           </FormGroup>
         </BankInfo>
       </Content>

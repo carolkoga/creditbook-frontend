@@ -7,6 +7,10 @@ export const WrapperRadio = styled.div`
   gap: 0.8rem;
 
   margin-top: 1rem;
+
+  @media (max-width: 344px) {
+    flex-direction: column;
+  }
 `;
 
 export const LabelContainer = styled.label`

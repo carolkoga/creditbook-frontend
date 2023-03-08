@@ -1,31 +1,46 @@
 import { InputCurrency } from '@components/Form/Input/Mask/InputCurrency';
 import FormGroup from '@components/FormGroup';
 import { Input, MaskInput } from '@components/Input';
+import { FieldDeclareFormTypes } from '@type/creditbook/sale/declare';
+import { Controller, useFormContext } from 'react-hook-form';
 import { Row } from './styled';
 
+type FieldValues = Pick<FieldDeclareFormTypes, 'address' | 'processPrice'>;
+
 export function RightFormInfo() {
+  const { register, control, formState: { errors } } = useFormContext<FieldValues>();
+
   return (
     <div>
       <h2>Endereço</h2>
 
       <Row>
         <div className="cep">
-          <FormGroup
-            label={{
-              forId: 'address.cep',
-              title: 'CEP',
-            }}
-          >
-            <MaskInput
-              id="address.cep"
-              inputMode="numeric"
-              placeholder=" "
-              mask="00000-000"
-            />
-          </FormGroup>
+          <Controller
+            control={control}
+            name="address.cep"
+            render={({ field }) => (
+              <FormGroup
+                error={errors?.address?.cep?.message}
+                label={{
+                  forId: 'address.cep',
+                  title: 'CEP',
+                }}
+              >
+                <MaskInput
+                  id="address.cep"
+                  inputMode="numeric"
+                  placeholder=" "
+                  mask="00000-000"
+                  {...field}
+                />
+              </FormGroup>
+            )}
+          />
         </div>
 
         <FormGroup
+          error={errors?.address?.address?.message}
           label={{
             forId: 'address.address',
             title: 'Endereço',
@@ -34,12 +49,14 @@ export function RightFormInfo() {
           <Input
             id="address.address"
             placeholder=" "
+            {...register('address.address')}
           />
         </FormGroup>
 
       </Row>
 
       <FormGroup
+        error={errors?.address?.city?.message}
         label={{
           forId: 'address.city',
           title: 'Cidade',
@@ -48,10 +65,13 @@ export function RightFormInfo() {
         <Input
           id="address.city"
           placeholder=" "
+          {...register('address.city')}
         />
       </FormGroup>
+
       <Row>
         <FormGroup
+          error={errors?.address?.number?.message}
           label={{
             forId: 'address.number',
             title: 'Número',
@@ -61,10 +81,12 @@ export function RightFormInfo() {
             id="address.number"
             inputMode="numeric"
             placeholder=" "
+            {...register('address.number')}
           />
         </FormGroup>
 
         <FormGroup
+          error={errors?.address?.uf?.message}
           label={{
             forId: 'address.uf',
             title: 'UF',
@@ -73,11 +95,14 @@ export function RightFormInfo() {
           <Input
             id="address.uf"
             placeholder=" "
+            {...register('address.uf')}
+            maxLength={2}
           />
         </FormGroup>
       </Row>
 
       <FormGroup
+        error={errors?.address?.complement?.message}
         label={{
           forId: 'address.complement',
           title: 'Complemento',
@@ -87,17 +112,25 @@ export function RightFormInfo() {
           id="address.complement"
           placeholder=" "
           autoComplete="false"
+          {...register('address.complement')}
         />
       </FormGroup>
 
-      <FormGroup
-        label={{
-          forId: 'price',
-          title: 'Valor de venda da ação',
-        }}
-      >
-        <InputCurrency />
-      </FormGroup>
+      <Controller
+        control={control}
+        name="processPrice"
+        render={({ field }) => (
+          <FormGroup
+            error={errors?.processPrice?.message}
+            label={{
+              forId: 'price',
+              title: 'Valor de venda da ação',
+            }}
+          >
+            <InputCurrency id="price" {...field} />
+          </FormGroup>
+        )}
+      />
     </div>
   );
 }
