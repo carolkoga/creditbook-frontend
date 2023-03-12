@@ -41,7 +41,7 @@ export function ThirdStepPaymentInformation() {
   const {
     register, control, formState: { errors }, watch,
   } = useFormContext<Pick<FieldDeclareFormTypes, 'payment' | 'buyer'>>();
-  const [personType, paymentMethod, paymentType] = watch(['buyer.personType', 'payment.paymentMethod', 'payment.paymentType']);
+  const paymentType = watch('payment.paymentType');
 
   return (
     <FieldsetDeclare title="Informações do pagamento">
@@ -101,88 +101,69 @@ export function ThirdStepPaymentInformation() {
           </MaxWidth>
         )}
 
-        {paymentMethod?.value?.toLowerCase() === 'transferencia' && (
-          <BankInfo>
-            <strong>Dados bancários</strong>
-            <FormGroup
-              error={errors?.payment?.bankInfo?.holder?.message}
-              label={{ title: 'Nome do titular', forId: 'name' }}
-            >
-              <Input id="name" {...register('payment.bankInfo.holder')} />
-            </FormGroup>
+        <BankInfo>
+          <strong>Dados bancários</strong>
+          <FormGroup
+            error={errors?.payment?.bankInfo?.holder?.message}
+            label={{ title: 'Nome do titular', forId: 'name' }}
+          >
+            <Input id="name" {...register('payment.bankInfo.holder')} />
+          </FormGroup>
 
-            {personType === 'pf' && (
-              <Controller
-                control={control}
-                name="payment.bankInfo.cpf"
-                render={({ field }) => (
-                  <FormGroup
-                    error={errors?.payment?.bankInfo?.cpf?.message}
-                    label={{ title: 'CPF do titular', forId: 'cpf' }}
-                  >
-                    <InputCPForCNPJ id="cpf" maxLength={14} {...field} />
-                  </FormGroup>
-                )}
-              />
+          <Controller
+            control={control}
+            name="payment.bankInfo.holderDocument"
+            render={({ field }) => (
+              <FormGroup
+                error={errors?.payment?.bankInfo?.holderDocument?.message}
+                label={{ title: 'Documento do titular', forId: 'holderDocument' }}
+              >
+                <InputCPForCNPJ id="holderDocument" {...field} />
+              </FormGroup>
             )}
+          />
 
-            {personType === 'pj' && (
-              <Controller
-                control={control}
-                name="payment.bankInfo.cnpj"
-                render={({ field }) => (
-                  <FormGroup
-                    error={errors?.payment?.bankInfo?.cnpj?.message}
-                    label={{ title: 'CNPJ do titular', forId: 'cnpj' }}
-                  >
-                    <InputCPForCNPJ id="cnpj" minLength={15} {...field} />
-                  </FormGroup>
-                )}
-              />
-            )}
+          <div className="wrapper--select">
+            <Controller
+              control={control}
+              name="payment.bankInfo.accountType"
+              render={({ field }) => (
+                <FormGroup
+                  error={errors?.payment?.bankInfo?.accountType?.message}
+                  label={{ title: 'Tipo de conta', forId: 'accountType' }}
+                >
+                  <Select
+                    id="accountType"
+                    options={accountTypeOptions}
+                    placeholder="Selecione tipo de conta"
+                    {...field}
+                  />
+                </FormGroup>
+              )}
+            />
+          </div>
 
-            <div className="wrapper--select">
-              <Controller
-                control={control}
-                name="payment.bankInfo.accountType"
-                render={({ field }) => (
-                  <FormGroup
-                    error={errors?.payment?.bankInfo?.accountType?.message}
-                    label={{ title: 'Tipo de conta', forId: 'accountType' }}
-                  >
-                    <Select
-                      id="accountType"
-                      options={accountTypeOptions}
-                      placeholder="Selecione tipo de conta"
-                      {...field}
-                    />
-                  </FormGroup>
-                )}
-              />
-            </div>
+          <FormGroup
+            error={errors?.payment?.bankInfo?.bank?.message}
+            label={{ title: 'Banco', forId: 'bank' }}
+          >
+            <Input id="bank" {...register('payment.bankInfo.bank')} />
+          </FormGroup>
 
-            <FormGroup
-              error={errors?.payment?.bankInfo?.bank?.message}
-              label={{ title: 'Banco', forId: 'bank' }}
-            >
-              <Input id="bank" {...register('payment.bankInfo.bank')} />
-            </FormGroup>
+          <FormGroup
+            error={errors?.payment?.bankInfo?.numberAccount?.message}
+            label={{ title: 'Número da conta', forId: 'number_account' }}
+          >
+            <Input inputMode="numeric" id="number_account" min="0" {...register('payment.bankInfo.numberAccount')} />
+          </FormGroup>
 
-            <FormGroup
-              error={errors?.payment?.bankInfo?.numberAccount?.message}
-              label={{ title: 'Número da conta', forId: 'number_account' }}
-            >
-              <Input type="number" inputMode="numeric" id="number_account" min="0" {...register('payment.bankInfo.numberAccount')} />
-            </FormGroup>
-
-            <FormGroup
-              error={errors?.payment?.bankInfo?.agency?.message}
-              label={{ title: 'Agẽncia', forId: 'agency' }}
-            >
-              <Input type="number" id="agency" inputMode="numeric" min="0" {...register('payment.bankInfo.agency')} />
-            </FormGroup>
-          </BankInfo>
-        )}
+          <FormGroup
+            error={errors?.payment?.bankInfo?.agency?.message}
+            label={{ title: 'Agẽncia', forId: 'agency' }}
+          >
+            <Input id="agency" inputMode="numeric" min="0" {...register('payment.bankInfo.agency')} />
+          </FormGroup>
+        </BankInfo>
       </Content>
     </FieldsetDeclare>
   );

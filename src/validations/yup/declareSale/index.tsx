@@ -1,4 +1,3 @@
-import { OptionType } from '@components/Select';
 import {
   validateCep, validateCNPJ, validateCPF, validateUF,
 } from 'validations-br';
@@ -51,18 +50,13 @@ const stepPaymentInfo = yup.object().shape({
     otherwise: (rule) => rule.nullable(),
   }),
 
-  bankInfo: yup.object().when('paymentMethod', {
-    is: (paymentMethod: OptionType | undefined) => paymentMethod?.value?.toLowerCase() === 'transferencia',
-    then: (rule) => rule.shape({
-      accountType: yup.string().required().transform((option: any) => option?.value),
-      bank: yup.string().required(),
-      numberAccount: yup.string().required().test(testNegativeLogic),
-      agency: yup.string().required().test(testNegativeLogic),
-      holder: yup.string().required(),
-      cpf: yup.string().test('CPF is invalid', 'CPF inválido', (value) => validateCPF(value ?? '')),
-      cnpj: yup.string().test('CPF is invalid', 'CNPJ inválido', (value) => validateCNPJ(value ?? '')),
-    }),
-    otherwise: (rule) => rule.nullable(),
+  bankInfo: yup.object().shape({
+    accountType: yup.string().required().transform((option: any) => option?.value),
+    bank: yup.string().required(),
+    numberAccount: yup.string().required().test(testNegativeLogic),
+    agency: yup.string().required().test(testNegativeLogic),
+    holder: yup.string().required(),
+    holderDocument: yup.string().required().cpfOrcnpj(),
   }),
 });
 

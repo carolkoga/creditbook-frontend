@@ -33,8 +33,7 @@ export interface FieldDeclareFormTypes {
       numberAccount: string,
       agency: string,
       holder: string,
-      cpf?: string,
-      cnpj?: string,
+      holderDocument: string,
     }
   },
 
