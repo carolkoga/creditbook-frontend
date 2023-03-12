@@ -11,6 +11,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { declareSaleValidation } from '@validations/yup/declareSale';
 import { FieldDeclareFormTypes } from '@type/creditbook/sale/declare';
 import { toast } from 'react-toastify';
+import { contactSale } from '@services/creditbook/contactSale/ContactSaleService';
 
 const LAST_STEP = 2;
 
@@ -43,15 +44,20 @@ export default function DeclareSalePage() {
   }
 
   async function handleDeclareSale() {
-    const isValid = await trigger();
+    try {
+      const isValid = await trigger();
 
-    if (!isValid) {
-      toast.error('Precisa preencher todos os campos obrigatórios');
-      return;
+      if (!isValid) {
+        toast.error('Precisa preencher todos os campos obrigatórios');
+        return;
+      }
+
+      const data = methods.watch();
+      console.log({ data });
+      await contactSale.declareSale(data);
+    } catch {
+      console.log('error');
     }
-
-    const data = methods.watch();
-    console.log({ data });
   }
 
   async function handleChangeStepForm(type: 'next' | 'prev') {

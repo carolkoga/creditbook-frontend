@@ -2,7 +2,8 @@ import { OptionType } from '@components/Select';
 
 export interface FieldDeclareFormTypes {
   processInfo: {
-    processId: string,
+    processId: OptionType,
+    processType: 'announcement' | 'batch' | null | undefined,
   },
 
   buyer: {
@@ -28,7 +29,7 @@ export interface FieldDeclareFormTypes {
     paymentType: 'installments' | 'cash',
     installments?: string,
     bankInfo: {
-      accountType: string,
+      accountType: OptionType,
       bank: string,
       numberAccount: string,
       agency: string,
@@ -46,6 +47,6 @@ export interface FieldDeclareFormTypes {
     city: string,
   },
 
-  processPrice: string | number,
+  processPrice: string,
   emitContract: boolean | string,
 }

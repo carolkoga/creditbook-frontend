@@ -28,7 +28,12 @@ type Process = (ProcessAnnouncement | ProcessBatch) & {
 };
 
 export const FirstStepProcess = memo(() => {
-  const { control, formState: { errors }, watch } = useFormContext<Pick<FieldDeclareFormTypes, 'processInfo'>>();
+  const {
+    control,
+    formState: { errors },
+    watch,
+    setValue,
+  } = useFormContext<Pick<FieldDeclareFormTypes, 'processInfo'>>();
   const [processOptions, setProcessOptions] = useState<OptionType[]>([]);
   const [process, setProcess] = useState<Process[]>([]);
   const selectedProcess = watch('processInfo.processId') as unknown as OptionType;
@@ -40,6 +45,8 @@ export const FirstStepProcess = memo(() => {
     const processFound = process.find((currentProcess) => (
       currentProcess.id === selectedProcess?.value
     ));
+
+    setValue('processInfo.processType', !processFound ? null : processFound.type);
 
     return processFound;
   }, [selectedProcess, processOptions]);
