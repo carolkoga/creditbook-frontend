@@ -3,14 +3,15 @@ import {
 } from 'validations-br';
 import * as yup from 'yup';
 
-const testNegativeLogic = {
-  name: 'number not be negative',
-  message: 'Número não pode ser negativo',
-  test: (number: unknown) => Number(number) > 0,
-};
+// const testNegativeLogic = {
+//   name: 'number not be negative',
+//   message: 'Número não pode ser negativo',
+//   test: (number: unknown) => Number(number) > 0,
+// };
 
 const stepProcessInfo = yup.object().shape({
   processId: yup.mixed().required().transform((option) => option?.value),
+  processType: yup.string().oneOf(['announcement', 'batch']),
 });
 
 const stepBuyer = yup.object().shape({
@@ -53,8 +54,8 @@ const stepPaymentInfo = yup.object().shape({
   bankInfo: yup.object().shape({
     accountType: yup.string().required().transform((option: any) => option?.value),
     bank: yup.string().required(),
-    numberAccount: yup.string().required().test(testNegativeLogic),
-    agency: yup.string().required().test(testNegativeLogic),
+    numberAccount: yup.string().required(),
+    agency: yup.string().required(),
     holder: yup.string().required(),
     holderDocument: yup.string().required().cpfOrcnpj(),
   }),
