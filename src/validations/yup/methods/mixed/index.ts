@@ -3,12 +3,14 @@ import { addMethod, string } from 'yup';
 
 addMethod(string, 'cpfOrcnpj', function validateCPForCNPJ(messageError?: string) {
   return this.test({
-    message: messageError || 'CPF or CNPJ é inválido',
+    message: messageError || 'CPF/CNPJ inválido',
     name: 'CPF or CNPJ is invalid',
-    test(value: any) {
-      return (
-        value.length > 14 ? validateCNPJ(value) : validateCPF(value)
-      );
+    test(value: string | undefined) {
+      if (typeof value === 'string') {
+        return value.length > 14 ? validateCNPJ(value) : validateCPF(value);
+      }
+
+      return true;
     },
   });
 });
