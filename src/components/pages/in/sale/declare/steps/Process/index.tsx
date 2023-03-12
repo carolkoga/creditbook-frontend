@@ -74,7 +74,6 @@ export const FirstStepProcess = memo(() => {
 
   useEffect(() => {
     loadProcess();
-    console.log('forçou', processOptions);
   }, [loadProcess]);
 
   // useEffect(() => {

@@ -10,7 +10,6 @@ import { LabelContainer, WrapperRadio } from './styled';
 export const SecondStepBuyer = memo(() => {
   const { register, watch } = useFormContext();
   const personType = watch('buyer.personType');
-  console.log(watch());
 
   return (
     <FieldsetDeclare title="2. Dados da parte compradora">
