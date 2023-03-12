@@ -2,13 +2,38 @@ import { InputCurrency } from '@components/Form/Input/Mask/InputCurrency';
 import FormGroup from '@components/FormGroup';
 import { Input, MaskInput } from '@components/Input';
 import { FieldDeclareFormTypes } from '@type/creditbook/sale/declare';
+import { useCallback, useEffect } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
+import { cepService } from '@services/cep';
 import { Row } from './styled';
 
 type FieldValues = Pick<FieldDeclareFormTypes, 'address' | 'processPrice'>;
 
 export function RightFormInfo() {
-  const { register, control, formState: { errors } } = useFormContext<FieldValues>();
+  const {
+    register, control, formState: { errors }, watch, reset,
+  } = useFormContext<FieldValues>();
+
+  const findAddressByCEP = useCallback(async () => {
+    const cep = watch('address.cep');
+    if (cep?.length === 9) {
+      const { data } = await cepService.getAddressByCep(cep);
+
+      reset({
+        ...watch(),
+        address: {
+          address: data.logradouro,
+          city: data.localidade,
+          uf: data.uf,
+          cep: data.cep,
+        },
+      }, { keepDefaultValues: true });
+    }
+  }, [watch('address.cep')]);
+
+  useEffect(() => {
+    findAddressByCEP();
+  }, [findAddressByCEP]);
 
   return (
     <div>

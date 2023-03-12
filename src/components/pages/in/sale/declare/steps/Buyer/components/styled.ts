@@ -4,6 +4,7 @@ export const ContentFormGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-gap: 2.4rem;
+  margin-top: 2.4rem;
 
   > div {
     display: flex;

@@ -1,3 +1,8 @@
+import { LawsuitParams } from '@type/creditbook/Lawsuits';
+import { courtsOptions } from '@mocks/ReactSelectOptions/CourtsOptions';
+import { processKindTranslation } from '@components/LawsuitCard/Card/utils/processKindTranslation';
+import { processCategoryTranslation } from '@components/LawsuitCard/Card/utils/processCategoryTranslation';
+import { actionPhaseTranslation } from '@components/LawsuitCard/Card/utils/actionPhaseTranslation';
 import {
   Container,
   AuthorList,
@@ -9,56 +14,69 @@ import {
   WrapperInfo,
 } from './styled';
 
-export function AnnouncementShow() {
+interface AnnouncementShowProps {
+  announcement: LawsuitParams;
+}
+
+export function AnnouncementShow({ announcement }: AnnouncementShowProps) {
+  const courtName = courtsOptions[announcement.uf as keyof typeof courtsOptions]
+    .find((currentCourt) => currentCourt.value === announcement.tribunal);
   return (
     <Container>
       <InfoList>
         <ContainerInfo>
           <TitleInfo>Estado</TitleInfo>
           <ContentInfo>
-            <TextInfo>SP</TextInfo>
-          </ContentInfo>
-        </ContainerInfo>
-
-        <ContainerInfo>
-          <TitleInfo>Estado</TitleInfo>
-          <ContentInfo>
-            <TextInfo>SP</TextInfo>
+            <TextInfo>{announcement.uf}</TextInfo>
           </ContentInfo>
         </ContainerInfo>
 
         <ContainerInfo>
           <TitleInfo>Cidade</TitleInfo>
           <ContentInfo>
-            <TextInfo>São Paulo</TextInfo>
+            <TextInfo>{announcement.city}</TextInfo>
           </ContentInfo>
         </ContainerInfo>
 
         <ContainerInfo>
           <TitleInfo>Tribunal</TitleInfo>
           <ContentInfo>
-            <TextInfo>1 dois</TextInfo>
+            <TextInfo>
+              {courtName?.label}
+            </TextInfo>
           </ContentInfo>
         </ContainerInfo>
 
         <ContainerInfo>
           <TitleInfo>Espécie</TitleInfo>
           <ContentInfo>
-            <TextInfo>Penhora</TextInfo>
+            <TextInfo>
+              {processKindTranslation[announcement.kind as keyof typeof processKindTranslation]}
+            </TextInfo>
           </ContentInfo>
         </ContainerInfo>
 
         <ContainerInfo>
           <TitleInfo>Gênero do processo</TitleInfo>
           <ContentInfo>
-            <TextInfo>Em execução</TextInfo>
+            <TextInfo>
+              {
+                processCategoryTranslation[
+                  announcement.processGender as keyof typeof processCategoryTranslation]
+              }
+            </TextInfo>
           </ContentInfo>
         </ContainerInfo>
 
         <ContainerInfo>
           <TitleInfo>Fase de ação</TitleInfo>
           <ContentInfo>
-            <TextInfo>Teste</TextInfo>
+            <TextInfo>
+              {
+                actionPhaseTranslation[
+                  announcement.actionPhase as keyof typeof actionPhaseTranslation]
+              }
+            </TextInfo>
           </ContentInfo>
         </ContainerInfo>
       </InfoList>
@@ -70,35 +88,39 @@ export function AnnouncementShow() {
           <ContainerInfo>
             <TitleInfo>Nome</TitleInfo>
             <ContentInfo>
-              <TextInfo>Robe</TextInfo>
+              <TextInfo>
+                {announcement.mainActorCorporationNameOrName}
+              </TextInfo>
             </ContentInfo>
           </ContainerInfo>
 
           <ContainerInfo>
             <TitleInfo>CNPJ/CPF</TitleInfo>
             <ContentInfo>
-              <TextInfo>123</TextInfo>
+              <TextInfo>{announcement.mainActorCpfOrCnpj}</TextInfo>
             </ContentInfo>
           </ContainerInfo>
         </WrapperInfo>
 
+        {announcement?.secondaryActorCorporationNameOrName && (
         <WrapperInfo>
           <h2>Autor Secundário</h2>
 
           <ContainerInfo>
             <TitleInfo>Nome</TitleInfo>
             <ContentInfo>
-              <TextInfo>Robe</TextInfo>
+              <TextInfo>{announcement.secondaryActorCorporationNameOrName}</TextInfo>
             </ContentInfo>
           </ContainerInfo>
 
           <ContainerInfo>
             <TitleInfo>CNPJ/CPF</TitleInfo>
             <ContentInfo>
-              <TextInfo>123</TextInfo>
+              <TextInfo>{announcement.secondaryActorCpfOrCnpj}</TextInfo>
             </ContentInfo>
           </ContainerInfo>
         </WrapperInfo>
+        )}
       </AuthorList>
     </Container>
   );

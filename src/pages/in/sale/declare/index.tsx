@@ -1,5 +1,6 @@
+/* eslint-disable no-case-declarations */
 import { ThirdStepPaymentInformation } from '@components/pages/in/sale/declare/steps/PaymentInformation';
-import { useReducer } from 'react';
+import { useState } from 'react';
 import { LastStepEmitContractForm } from '@components/pages/in/sale/declare/steps/EmitContract';
 import { SecondStepBuyer } from '@components/pages/in/sale/declare/steps/Buyer';
 import { FirstStepProcess } from '@components/pages/in/sale/declare/steps/Process';
@@ -8,29 +9,14 @@ import { Container, Action } from '@components/pages/in/sale/declare/styles';
 import { FormProvider, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { declareSaleValidation } from '@validations/yup/declareSale';
+import { FieldDeclareFormTypes } from '@type/creditbook/sale/declare';
+import { toast } from 'react-toastify';
 
-const MAX_LAST_STEP = 3;
-
-interface StepReducer {
-  action: { type: 'next' | 'prev' },
-  state: number,
-}
-
-function stepReducer(state: StepReducer['state'], action: StepReducer['action']) {
-  if (action.type === 'next') {
-    return state === MAX_LAST_STEP ? MAX_LAST_STEP : state + 1;
-  }
-
-  if (action.type === 'prev') {
-    return state === 1 ? 1 : state - 1;
-  }
-
-  return state;
-}
+const LAST_STEP = 2;
 
 export default function DeclareSalePage() {
-  const [step, dispatch] = useReducer(stepReducer, 1);
-  const methods = useForm({
+  const [step, setStep] = useState(1);
+  const methods = useForm<FieldDeclareFormTypes>({
     mode: 'all',
     resolver: yupResolver(declareSaleValidation),
     defaultValues: {
@@ -40,23 +26,61 @@ export default function DeclareSalePage() {
       payment: {
         paymentType: 'installments',
       },
+      emitContract: '1',
     },
   });
+  const { watch, trigger } = methods;
+  const personType = watch('buyer.personType') as 'pj' | 'pf';
 
-  console.log(methods.formState.errors);
+  async function handleWatchField() {
+    if (step === 1) {
+      const isValid = await trigger(['address', 'processPrice', `buyer.${personType}`, 'processInfo']);
+
+      return isValid;
+    }
+
+    return true;
+  }
+
+  async function handleDeclareSale() {
+    const isValid = await trigger();
+
+    if (!isValid) {
+      toast.error('Precisa preencher todos os campos obrigatórios');
+      return;
+    }
+
+    const data = methods.watch();
+    console.log({ data });
+  }
+
+  async function handleChangeStepForm(type: 'next' | 'prev') {
+    const isValidToContinue = { current: await handleWatchField() };
+
+    if (type === 'next' && isValidToContinue.current) {
+      setStep(step === LAST_STEP ? LAST_STEP : step + 1);
+    }
+
+    if (type === 'prev') {
+      setStep(step === 1 ? 1 : step - 1);
+    }
+  }
 
   return (
     <FormProvider {...methods}>
-      <Container>
+      <Container onSubmit={methods.handleSubmit(handleDeclareSale)}>
         {step === 1 && (
-          <FirstStepProcess />
+          <>
+            <FirstStepProcess />
+            <br />
+            <br />
+            <br />
+            <br />
+            <SecondStepBuyer />
+          </>
         )}
 
-        {step === 2 && (
-          <SecondStepBuyer />
-        )}
-
-        {step === MAX_LAST_STEP && (
+        {step === LAST_STEP && (
           <div style={{ width: 'auto', alignSelf: 'center' }}>
             <ThirdStepPaymentInformation />
             <LastStepEmitContractForm />
@@ -66,28 +90,24 @@ export default function DeclareSalePage() {
         <Action>
           {step !== 1 && (
             <Button
-              type="button"
+              type="reset"
               size="large"
               variant="white"
-              onClick={() => dispatch({ type: 'prev' })}
+              onClick={() => handleChangeStepForm('prev')}
             >
               VOLTAR
             </Button>
           )}
 
-          {step !== 3 && (
-            <Button
-              type="button"
-              size="large"
-              onClick={() => dispatch({ type: 'next' })}
-            >
-              CONTINUAR
-            </Button>
-          )}
-
-          {step === 3 && (
-            <Button type="submit" size="large">DECLARAR</Button>
-          )}
+          <Button
+            type="button"
+            size="large"
+            onClick={step === LAST_STEP
+              ? () => handleDeclareSale()
+              : () => handleChangeStepForm('next')}
+          >
+            {step === LAST_STEP ? 'DECLARAR' : 'CONTINUAR'}
+          </Button>
         </Action>
       </Container>
     </FormProvider>

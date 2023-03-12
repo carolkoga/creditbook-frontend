@@ -1,17 +1,24 @@
+import { OptionType } from '@components/Select';
 import {
   validateCep, validateCNPJ, validateCPF, validateUF,
 } from 'validations-br';
 import * as yup from 'yup';
+
+const testNegativeLogic = {
+  name: 'number not be negative',
+  message: 'Número não pode ser negativo',
+  test: (number: unknown) => Number(number) > 0,
+};
 
 const stepProcessInfo = yup.object().shape({
   processId: yup.mixed().required().transform((option) => option?.value),
 });
 
 const stepBuyer = yup.object().shape({
-  personType: yup.string().required(),
+  personType: yup.string().oneOf(['pj', 'pf']).required().default('pj'),
 
   pj: yup.object().when('personType', {
-    is: (personType: 'pj' | 'pf') => personType.toLowerCase() === 'pj',
+    is: (personType: 'pj' | 'pf') => personType?.toLowerCase() === 'pj',
     then: (rule) => rule.shape({
       socialName: yup.string().required(),
       cnpj: yup.string().required().test('CNPJ is invalid', 'CNPJ é inválido', (value) => validateCNPJ(value ?? '')),
@@ -22,7 +29,7 @@ const stepBuyer = yup.object().shape({
   }),
 
   pf: yup.object().when('personType', {
-    is: (personType: 'pj' | 'pf') => personType.toLowerCase() === 'pf',
+    is: (personType: 'pj' | 'pf') => personType?.toLowerCase() === 'pf',
     then: (rule) => rule.shape({
       name: yup.string().required(),
       cpf: yup.string().required().test('CPF is invalid', 'CPF inválido', (value) => validateCPF(value ?? '')),
@@ -35,35 +42,25 @@ const stepBuyer = yup.object().shape({
 });
 
 const stepPaymentInfo = yup.object().shape({
-  paymentMethod: yup.string().required(),
+  paymentMethod: yup.object().required(),
   paymentType: yup.string().required(),
+
   installments: yup.string().when('paymentType', {
     is: (paymentType: string) => paymentType?.toLowerCase() === 'installments',
     then: (rule) => rule.required(),
     otherwise: (rule) => rule.nullable(),
   }),
 
-  bankInfo: yup.object().when('paymentType', {
-    is: (paymentMethod: string | undefined) => paymentMethod?.toLowerCase() !== 'pix',
+  bankInfo: yup.object().when('paymentMethod', {
+    is: (paymentMethod: OptionType | undefined) => paymentMethod?.value?.toLowerCase() === 'transferencia',
     then: (rule) => rule.shape({
-      accountType: yup.string().required(),
+      accountType: yup.string().required().transform((option: any) => option?.value),
       bank: yup.string().required(),
-      numberAccount: yup.string().required(),
-      agency: yup.string().required(),
+      numberAccount: yup.string().required().test(testNegativeLogic),
+      agency: yup.string().required().test(testNegativeLogic),
       holder: yup.string().required(),
-      cpf: yup.string().when('paymentType', {
-        is: (personType: string | undefined) => {
-          console.log(personType);
-          return personType === 'pf';
-        },
-        then: (schema) => schema.required().test('CPF is invalid', 'CPF inválido', (value) => validateCPF(value ?? '')),
-        otherwise: (schema) => schema.nullable(),
-      }),
-      cnpj: yup.string().when('buyer.personTypw', {
-        is: (personType: string | undefined) => personType === 'pj',
-        then: (schema) => schema.required().test('CPF is invalid', 'CPF inválido', (value) => validateCPF(value ?? '')),
-        otherwise: (schema) => schema.nullable(),
-      }),
+      cpf: yup.string().test('CPF is invalid', 'CPF inválido', (value) => validateCPF(value ?? '')),
+      cnpj: yup.string().test('CPF is invalid', 'CNPJ inválido', (value) => validateCNPJ(value ?? '')),
     }),
     otherwise: (rule) => rule.nullable(),
   }),
@@ -85,5 +82,6 @@ export const declareSaleValidation = yup.object({
   buyer: stepBuyer.required(),
   payment: stepPaymentInfo.required(),
   address: addressValidationSchema.required(),
-  processPrice: yup.number().required(),
+  processPrice: yup.string().required(),
+  emitContract: yup.string().required(),
 });

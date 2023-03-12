@@ -1,22 +1,109 @@
-import { AsyncSelect } from '@components/Select';
+import { creditbookApi } from '@api/creditbookApi';
+import FormGroup from '@components/FormGroup';
+import { AsyncSelect, OptionType } from '@components/Select';
+import { BatchParams } from '@type/creditbook/Batch';
+import { LawsuitParams } from '@type/creditbook/Lawsuits';
+import { FieldDeclareFormTypes } from '@type/creditbook/sale/declare';
+import {
+  memo,
+  useCallback, useEffect, useMemo, useState,
+} from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 import { FieldsetDeclare } from '../../Fieldset';
 import { AnnouncementShow } from './components/Announcement';
 
-export function FirstStepProcess() {
-  const { control } = useFormContext();
+interface ProcessAnnouncement {
+  type: 'announcement',
+  content: LawsuitParams,
+}
+
+interface ProcessBatch {
+  type: 'batch',
+  content: BatchParams,
+}
+
+type Process = (ProcessAnnouncement | ProcessBatch) & {
+  label: string,
+  id: string,
+};
+
+export const FirstStepProcess = memo(() => {
+  const { control, formState: { errors }, watch } = useFormContext<Pick<FieldDeclareFormTypes, 'processInfo'>>();
+  const [processOptions, setProcessOptions] = useState<OptionType[]>([]);
+  const [process, setProcess] = useState<Process[]>([]);
+  const selectedProcess = watch('processInfo.processId') as unknown as OptionType;
+  const processInfo = useMemo<Process | null | undefined>(() => {
+    if (!selectedProcess?.value) {
+      return null;
+    }
+
+    const processFound = process.find((currentProcess) => (
+      currentProcess.id === selectedProcess?.value
+    ));
+
+    return processFound;
+  }, [selectedProcess, processOptions]);
+
+  const loadProcess = useCallback(async () => {
+    try {
+      const { data } = await creditbookApi.get<Process[]>('/batchies-and-announcements');
+      const processData = [] as OptionType[];
+      setProcess(data);
+
+      data.forEach((currentProcess) => {
+        setProcessOptions((oldState) => {
+          const processExists = oldState
+            .findIndex((oldCurrentProcess) => oldCurrentProcess.value === currentProcess.id);
+          const newOptions = [...oldState];
+
+          if (processExists === -1) {
+            newOptions.push({ label: currentProcess.label, value: currentProcess.id });
+            processData.push({ label: currentProcess.label, value: currentProcess.id });
+            return newOptions;
+          }
+
+          return newOptions;
+        });
+      });
+
+      return processData;
+    } catch {
+      return [];
+    }
+  }, []);
+
+  useEffect(() => {
+    loadProcess();
+    console.log('forçou', processOptions);
+  }, [loadProcess]);
+
+  // useEffect(() => {
+  //   watchProcessInfo();
+  // }, [watchProcessInfo]);
 
   return (
     <FieldsetDeclare title="1. Dados do processo">
       <Controller
-        name="processInfo.processNumber"
+        name="processInfo.processId"
         control={control}
         render={({ field }) => (
-          <AsyncSelect placeholder="Escolha o processo" {...field} />
+          <div className="wrapper--select">
+            <FormGroup label={{ title: '', forId: 'processId' }} error={errors?.processInfo?.processId?.message}>
+              <AsyncSelect
+                defaultOptions={processOptions}
+                loadOptions={loadProcess}
+                placeholder="Escolha o processo"
+                instanceId="processId"
+                {...field}
+              />
+            </FormGroup>
+          </div>
         )}
       />
 
-      <AnnouncementShow />
+      {processInfo?.type === 'announcement' && (
+        <AnnouncementShow announcement={processInfo.content} />
+      )}
     </FieldsetDeclare>
   );
-}
+});

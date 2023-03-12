@@ -12,6 +12,12 @@ const Container = styled.fieldset<{ center: boolean }>`
     margin-bottom: 24px;
   }
 
+  .wrapper--select {
+    .content > div {
+      width: 100%;
+    }
+  }
+
   ${({ center }) => center && css`
       display: flex;
       flex-direction: column;

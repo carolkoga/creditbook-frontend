@@ -1,12 +1,16 @@
+import { memo } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { FieldsetDeclare } from '../../Fieldset';
 import { PFForm } from './components/PFForm';
 import { PJForm } from './components/PJForm';
+import { RightFormInfo } from './components/RightFormInfo';
+import { ContentFormGrid } from './components/styled';
 import { LabelContainer, WrapperRadio } from './styled';
 
-export function SecondStepBuyer() {
+export const SecondStepBuyer = memo(() => {
   const { register, watch } = useFormContext();
   const personType = watch('buyer.personType');
+  console.log(watch());
 
   return (
     <FieldsetDeclare title="2. Dados da parte compradora">
@@ -16,14 +20,18 @@ export function SecondStepBuyer() {
           Pessoa Jurídica
         </LabelContainer>
 
-        <LabelContainer htmlFor="pf">
-          <input type="radio" id="pf" value="pf" {...register('buyer.personType')} />
+        <LabelContainer htmlFor="person-pf">
+          <input type="radio" id="person-pf" value="pf" {...register('buyer.personType')} />
           Pessoa Física
         </LabelContainer>
       </WrapperRadio>
 
-      {personType === 'pj' && <PJForm />}
-      {personType === 'pf' && <PFForm />}
+      <ContentFormGrid>
+        {personType === 'pj' && <PJForm />}
+        {personType === 'pf' && <PFForm />}
+        <RightFormInfo />
+      </ContentFormGrid>
+
     </FieldsetDeclare>
   );
-}
+});

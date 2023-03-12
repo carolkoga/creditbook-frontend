@@ -12,6 +12,14 @@ const commonStyles = css`
   :focus {
     border: 1px solid ${({ theme }) => theme.colors.primary.main};
   }
+
+  &[type="number"] {
+    -moz-appearance: textfield;
+    &::-webkit-outer-spin-button, ::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+  }
 `;
 
 export const Input = styled.input`

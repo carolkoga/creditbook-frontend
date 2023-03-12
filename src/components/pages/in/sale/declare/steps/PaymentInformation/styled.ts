@@ -16,7 +16,7 @@ export const MaxWidth = styled.div<{ maxWidth?: number | string }>`
 `;
 
 export const BankInfo = styled.div`
-  max-width: 450px;
+  max-width: 1050px;
 
   display: flex;
   flex-direction: column;
