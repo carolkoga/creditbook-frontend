@@ -1,6 +1,15 @@
 import { OptionType } from '@components/Select';
 import { AccountCorporation, AccountPerson } from '@type/creditbook/auth/register';
 
+function validateURL(url: string) {
+  try {
+    const isValid = new URL(url);
+    return !!isValid;
+  } catch {
+    return false;
+  }
+}
+
 class RegisterUseCase {
   handle(data: AccountCorporation | AccountPerson) {
     const formData = new FormData();
@@ -22,7 +31,7 @@ class RegisterUseCase {
       }
 
       if (key === 'profilePicture') {
-        if (typeof value === 'string') return;
+        if (typeof value === 'string' && !(validateURL(value))) return;
 
         const profilePictureIsFile = value as File[];
 
