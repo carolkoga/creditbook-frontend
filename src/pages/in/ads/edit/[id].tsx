@@ -32,8 +32,6 @@ import { lawsuitKind } from '@mocks/ReactSelectOptions/LawsuitKind';
 import { lawsuitCategories } from '@mocks/ReactSelectOptions/LawsuitCategories';
 import ChooseCreditCard from '@components/LawsuitForm/ChooseCreditCard';
 import { Direction } from '@components/Direction';
-import AlertModal from '@components/AlertModal';
-import { toast } from 'react-toastify';
 import FloatWarning from '@components/FloatWarning';
 import FloatWarningContainer from '@components/FloatWarning/FloatWarningContainer';
 import CreditCardFieldset from '@components/LawsuitForm/CreditCardFieldset';
@@ -66,7 +64,6 @@ interface CustomUpdateLawsuitParams extends Omit<UpdateLawsuitParams,
 }
 
 export default function EditLawsuitByIdPage({ announcement }: IProps) {
-  const [announcementBeingDeleted, setAnnouncementBeingDeleted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [stepForm, setStepForm] = useState('none');
   const router = useRouter();
@@ -78,7 +75,6 @@ export default function EditLawsuitByIdPage({ announcement }: IProps) {
 
   const [plan, isPremium] = methods.watch(['plan', 'isPremium']);
   const ownOrAttorneyField = methods.watch('ownOrAttorney');
-  const isValidToContinue = methods.watch('income');
 
   const setDefaultInformationToForm = useCallback(() => {
     methods.reset({
@@ -99,18 +95,6 @@ export default function EditLawsuitByIdPage({ announcement }: IProps) {
       kind: lawsuitKind.find((currentKind) => currentKind.value === announcement.kind),
     });
   }, []);
-
-  function handleOpenModalToSelectPlan() {
-    setStepForm('select-plan');
-  }
-
-  function handleOpenModalToDeleteAnnouncement() {
-    setAnnouncementBeingDeleted(true);
-  }
-
-  function handleCloseModalToDeleteAnnouncement() {
-    setAnnouncementBeingDeleted(false);
-  }
 
   function handleBackPrevModalChooseCreditCard() {
     setStepForm((oldStep) => (oldStep === 'credit-card-plan' ? 'select-plan' : 'none'));
@@ -133,16 +117,6 @@ export default function EditLawsuitByIdPage({ announcement }: IProps) {
       handleCatchErrorRequest(error as any);
     } finally {
       setLoading(false);
-    }
-  }
-
-  async function handleDeleteAnnouncement() {
-    try {
-      await lawsuitService.deleteAnnouncement(announcement.id);
-      router.replace('/in/my-ads');
-      toast.success('Anúncio deletado com sucesso');
-    } catch (error) {
-      handleCatchErrorRequest(error as never);
     }
   }
 
@@ -223,34 +197,11 @@ export default function EditLawsuitByIdPage({ announcement }: IProps) {
                   <MyPlanCleanCard plan={announcement.planInfo} />
                 </Fieldset>
 
-                {announcement.overSixMonths
-                  ? (
-                    <Direction direction="horizontal">
-                      <Button
-                        type="button"
-                        onClick={handleOpenModalToSelectPlan}
-                        disabled={!isValidToContinue}
-                      >
-                        Atualizar
-                      </Button>
-
-                      <Button
-                        type="button"
-                        variant="danger"
-                        onClick={handleOpenModalToDeleteAnnouncement}
-                      >
-                        Deletar
-                      </Button>
-                    </Direction>
-                  )
-                  : (
-                    <Direction gap="12px">
-                      <Button isLoading={loading} type="button" onClick={methods.handleSubmit(handleSubmitNewLawsuit)}>
-                        {!loading ? 'Atualizar' : 'Atualizando'}
-                      </Button>
-                    </Direction>
-                  )}
-
+                <Direction gap="12px">
+                  <Button isLoading={loading} type="button" onClick={methods.handleSubmit(handleSubmitNewLawsuit)}>
+                    {!loading ? 'Atualizar' : 'Atualizando'}
+                  </Button>
+                </Direction>
               </div>
 
               <ChooseCreditCard
@@ -283,21 +234,6 @@ export default function EditLawsuitByIdPage({ announcement }: IProps) {
           </LawsuitFormProvider>
         </FormProvider>
       </Section.Container>
-
-      <AlertModal
-        isVisible={announcementBeingDeleted}
-        type="danger"
-        title="Esse anúncio está preste a ser deletado, tem certeza disso?"
-        description="Caso você delete o anúncio sem querer, contacta o suporte quanto antes para refazer essa ação!"
-        confirm={{
-          label: 'Sim, deletar',
-          onConfirmButton: handleDeleteAnnouncement,
-        }}
-        cancel={{
-          label: 'Cancelar',
-          onCancelButton: handleCloseModalToDeleteAnnouncement,
-        }}
-      />
     </>
   );
 }
