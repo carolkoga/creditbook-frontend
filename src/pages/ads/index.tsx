@@ -33,7 +33,7 @@ export default function SingleLawsuits() {
       </Section.Header>
 
       <Section.Container>
-        <AnnouncementList {...response} />
+        <AnnouncementList {...response} notFoundProps={{ type: 'children', children: null }} />
       </Section.Container>
     </TabBatchAnnouncement>
   );

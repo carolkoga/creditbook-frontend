@@ -22,7 +22,7 @@ export default function Batches({ batches }: IProps) {
         {batches?.length
           ? <BatchesList batches={batches} />
           : (
-            <NotFoundData title="Não há dados cadastrados" type="reload" />
+            <NotFoundData title="Não há dados cadastrados" type="children" />
           )}
       </Section.Container>
     </TabBatchAnnouncement>
