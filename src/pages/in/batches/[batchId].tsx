@@ -17,6 +17,7 @@ import { toast } from 'react-toastify';
 import { handleCatchErrorRequest } from '@utils/handleCatchErrorRequest';
 import LawsuitCardList from '@components/LawsuitCard';
 import useUserAnnouncements from '@services/creditbook/lawsuit/hooks/useUserAnnouncements';
+import convertToCurrency from '@utils/convertToCurrency';
 
 interface IProps {
   initialBatch: BatchParams
@@ -46,7 +47,7 @@ export default function ShowBatchPage({
     defaultValues: {
       name: batch.name,
       description: batch.description,
-      value: batch.value,
+      value: convertToCurrency(Number(batch.value)),
     },
   });
 

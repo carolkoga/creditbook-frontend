@@ -1,4 +1,5 @@
 import { NewBatchParams } from '@type/creditbook/Batch';
+import { mapperCurrency } from '@utils/mapperCurrency';
 import { HttpClient } from '../http';
 
 interface UpdateParams {
@@ -12,7 +13,7 @@ export class BatchServices extends HttpClient {
   async create(batch: NewBatchParams) {
     const newBatch = {
       ...batch,
-      value: batch.value.replaceAll('R$ ', '').replaceAll(',', '').replaceAll('.', ''),
+      value: mapperCurrency(batch.value),
     };
 
     return this.httpClient.post('/batch', newBatch);

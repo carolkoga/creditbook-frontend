@@ -1,6 +1,7 @@
 import { Overlay } from '@components/Overlay';
 import { Section } from '@components/Section';
 import convertToCurrency from '@utils/convertToCurrency';
+import { mapperCurrency } from '@utils/mapperCurrency';
 import { CheckCircle } from 'phosphor-react';
 import { ReactNode, useEffect, useMemo } from 'react';
 import { useFormContext } from 'react-hook-form';
@@ -29,7 +30,7 @@ export default function ModalToSelectPlan({ isVisible, children }: IProps) {
   const {
     watch, register, setValue, resetField,
   } = useFormContext();
-  const income: number = Number(watch('income')?.replaceAll(/\D/g, ''));
+  const income: number = mapperCurrency(watch('income'));
   const isPlanByPercent = watch('plan') === 'byPercent';
   const planSelected = watch('plan');
   const isPremium = watch('isPremium');

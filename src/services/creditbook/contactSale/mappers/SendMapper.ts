@@ -1,5 +1,6 @@
 import { CommunicateSellingParams } from '@type/creditbook/contactSale';
 import { FieldDeclareFormTypes } from '@type/creditbook/sale/declare';
+import { mapperCurrency } from '@utils/mapperCurrency';
 
 export function SendMapper(data: FieldDeclareFormTypes) {
   const dataParsed = {
@@ -19,7 +20,7 @@ export function SendMapper(data: FieldDeclareFormTypes) {
       installments: data.payment.paymentType === 'installments' ? `${data.payment.installments as unknown as number}x` : null,
       inCash: data.payment.paymentType === 'cash',
     },
-    saleValue: Number(data.processPrice.replace(/[^0-9,]/g, '')),
+    saleValue: mapperCurrency(data.processPrice),
   } as CommunicateSellingParams;
 
   if (data.buyer.personType === 'pf') {
