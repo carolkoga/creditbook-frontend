@@ -6,4 +6,5 @@ export type AnnouncementStatus = (
   | 'deleted'
   | 'edition_requested'
   | 'payment_failed'
+  | 'sold'
 );

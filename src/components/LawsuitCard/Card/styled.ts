@@ -3,7 +3,8 @@ import styled, { css } from 'styled-components';
 
 interface HeaderProps {
   category: keyof AnnouncementGender,
-  status?: boolean
+  status?: boolean,
+  isSold: boolean,
 }
 
 // Utils
@@ -55,6 +56,8 @@ const HeaderContainer = styled.header<HeaderProps>`
       : '#d9d9d9'
   )};
 
+  background: ${({ isSold }) => isSold && '#4d609e'};
+
   button {
     padding: 0;
     border: none;
@@ -66,17 +69,17 @@ const HeaderContainer = styled.header<HeaderProps>`
   }
 `;
 
-const HeaderTitle = styled.strong`
+const HeaderTitle = styled.strong<{ isSold: boolean }>`
   ${firstLatterUpercase};
     font-weight: 500;
     font-size: 18px;
-    color: ${({ theme }) => theme.colors.grey[80]};
+    color: ${({ theme, isSold }) => (!isSold ? theme.colors.grey[80] : '#fff')};
 `;
 
-const PremiumTitle = styled.small`
+const PremiumTitle = styled.small<{ isSold: boolean }>`
   font-weight: 500;
   font-size: 16px;
-  color: ${({ theme }) => theme.colors.grey[50]};
+  color: ${({ theme, isSold }) => (!isSold ? theme.colors.grey[50] : '#fff')};
 `;
 
 // Content

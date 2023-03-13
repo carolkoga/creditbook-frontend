@@ -63,14 +63,16 @@ export default function LawsuitNewCard({
 
   return (
     <Lawsuit.Wrapper>
-      <Lawsuit.Header.Container category={lawsuit.processGender} status={lawsuit.status === 'rejected'}>
-        <Lawsuit.Header.Title>
+      <Lawsuit.Header.Container category={lawsuit.processGender} status={lawsuit.status === 'rejected'} isSold={lawsuit.status === 'sold'}>
+        <Lawsuit.Header.Title isSold={lawsuit.status === 'sold'}>
           {processCategoryTranslation[lawsuit.processGender]}
         </Lawsuit.Header.Title>
 
         <Direction direction="horizontal" gap="8px" alignItems="center">
           {lawsuit.isPremium && (
-            <Lawsuit.Header.PremiumTitle>Premium</Lawsuit.Header.PremiumTitle>
+            <Lawsuit.Header.PremiumTitle isSold={lawsuit.status === 'sold'}>
+              Premium
+            </Lawsuit.Header.PremiumTitle>
           )}
 
           {isAuthenticated && (
@@ -161,6 +163,8 @@ export default function LawsuitNewCard({
             {lawsuit.status === 'pending' && 'Aguardando Aprovação'}
             {lawsuit.status === 'inactive' && 'Anúncio Inativo'}
             {lawsuit.status === 'deleted' && 'Anúncio Deletado'}
+            {lawsuit.status === 'payment_failed' && 'Falha no pagamento'}
+            {lawsuit.status === 'sold' && 'Anúncio Vendido'}
           </span>
         )}
       </Lawsuit.WrapperContent>
