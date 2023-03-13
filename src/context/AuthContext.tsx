@@ -13,6 +13,7 @@ import { commonToastProps } from '@configs/toast';
 import { userCreditbookService } from '@services/creditbook/user';
 import OverlayLoader from '@components/Loader/OverlayLoader';
 import { AxiosResponse } from 'axios';
+import { handleCatchErrorRequest } from '@utils/handleCatchErrorRequest';
 
 interface IProps {
   children: ReactNode,
@@ -94,13 +95,9 @@ export function AuthProvider({ children }: IProps) {
       });
       toast.dismiss(toastId);
     } catch (error: any) {
-      const message = error?.response?.data?.error?.toLowerCase() === 'user is inactive'
-        ? 'A sua conta está desativada. Entre em contato com suporte para saber mais.'
-        : 'Verifique suas credenciais';
+      handleCatchErrorRequest(error);
 
-      toast.update(toastId, {
-        render: message, type: 'error', isLoading: false, ...customToastProps,
-      });
+      toast.dismiss(toastId);
     } finally {
       setIsLoading(false);
     }

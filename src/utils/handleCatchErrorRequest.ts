@@ -18,7 +18,7 @@ export function handleCatchErrorRequest(
 
   if (typeof error?.response?.status === 'number') {
     if (error?.response?.data?.error?.toLowerCase() === 'aguardando confirmação de cadastro') {
-      return toast.warn('Aguardando confirmação de cadastro');
+      return toast.warn('Aguardando confirmação de cadastro', { position: 'bottom-center' });
     }
 
     if (error?.response?.data?.error?.toLowerCase() === 'user is inactive') {
@@ -26,7 +26,7 @@ export function handleCatchErrorRequest(
     }
 
     if (error?.response?.data?.error?.toLowerCase() === 'invalid param: email or password') {
-      return toast.error('Verifique a sua senha ou e-mail foi inserido corretamente');
+      return toast.error('Verifique a sua senha ou e-mail foi inserido corretamente', { position: 'bottom-center' });
     }
 
     if (error?.response?.status >= 400 && error?.response?.status <= 499) {
