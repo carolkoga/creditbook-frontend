@@ -96,7 +96,9 @@ export default function AnnouncementId() {
                   size="large"
                   variant="secondary"
                   replace
-                  href={`/in/sale/declare?processId=${announcement.id}&processType=announcement`}
+                  href={!announcement.batchId
+                    ? `/in/sale/declare?processId=${announcement.id}`
+                    : `/in/sale/declare?processId=${announcement.batchId}`}
                 >
                   Declarar Venda
                 </Link>
@@ -107,7 +109,9 @@ export default function AnnouncementId() {
           {(announcement.status !== 'pending' && user?.id !== announcement.userId) && (
             <Link
               size="large"
-              href={`/in/contact-announcer/${announcement.id}`}
+              href={!announcement.batchId
+                ? `/in/contact-announcer/${announcement.id}t`
+                : `/in/contact-announcer/${announcement.batchId}`}
             >
               Fazer oferta
             </Link>
