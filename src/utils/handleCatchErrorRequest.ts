@@ -30,6 +30,10 @@ export function handleCatchErrorRequest(
         return;
       }
 
+      if (error.response.status === 403) {
+        return toast.warn('A sua conta não tem acesso necessário para essa requisição.');
+      }
+
       if (error?.response?.data?.error?.toLowerCase() === `${prefixErrorMessageParamInUse} email`) {
         return toast.error('O e-mail já está em uso');
       }
