@@ -118,6 +118,13 @@ export class LawsuitService extends HttpClient {
       formData.append(key, (value as string | Blob));
     });
 
+    const isPremium = formData.get('isPremium');
+    const byPercent = formData.get('byPercent');
+
+    if (isPremium === '1' && byPercent === '1') {
+      formData.set('plan', 'both');
+    }
+
     return formData;
   }
 }
