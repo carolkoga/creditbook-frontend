@@ -10,12 +10,16 @@ import useAuth from '@hooks/useAuth';
 import { Button, Link } from '@components/Button';
 import NotFoundData from '@components/NotFoundData';
 import WrapperLoader from '@components/Loader/WrapperLoader';
+import AlertModal from '@components/AlertModal';
+import { handleCatchErrorRequest } from '@utils/handleCatchErrorRequest';
+import { toast } from 'react-toastify';
 
 export default function AnnouncementId() {
   const { user } = useAuth();
   const router = useRouter();
   const [announcement, setAnnouncement] = useState<LawsuitParams | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [deleteModalIsVisible, setDeleteModalIsVisible] = useState(false);
 
   const loadAnnouncementInformation = useCallback(async () => {
     try {
@@ -26,6 +30,24 @@ export default function AnnouncementId() {
       setIsLoading(false);
     }
   }, [router.query, router.pathname]);
+
+  function handleOpenDeleteModal() {
+    setDeleteModalIsVisible(true);
+  }
+
+  function handleCloseDeleteModal() {
+    setDeleteModalIsVisible(false);
+  }
+
+  async function handleDeleteAnnouncement() {
+    try {
+      await lawsuitService.deleteAnnouncement(announcement!.id);
+      toast.success('Anúncio deletado com sucesso');
+      router.push('/in/home');
+    } catch (error) {
+      handleCatchErrorRequest(error as never);
+    }
+  }
 
   useEffect(() => {
     loadAnnouncementInformation();
@@ -59,20 +81,43 @@ export default function AnnouncementId() {
 
       <Section.Container as="footer">
         <Direction>
-          {announcement.status !== 'pending' && (
+          {(user?.id === announcement.userId && announcement.status !== 'pending') && (
+            <Direction direction="horizontal">
+              <Link size="large" href={`/in/ads/edit/${announcement.id}`}>
+                Editar
+              </Link>
+
+              <Button size="large" variant="danger" onClick={handleOpenDeleteModal}>
+                Deletar
+              </Button>
+            </Direction>
+          )}
+
+          {(announcement.status !== 'pending' && user?.id !== announcement.userId) && (
             <Link
               size="large"
-              href={user?.id === announcement.userId
-                ? `/in/ads/edit/${announcement.id}`
-                : `/in/contact-announcer/${announcement.id}?type=announcement`}
+              href={`/in/contact-announcer/${announcement.id}?type=announcement`}
             >
-              {user?.id === announcement.userId
-                ? 'Editar'
-                : 'Fazer oferta'}
+              Fazer oferta
             </Link>
           )}
         </Direction>
       </Section.Container>
+
+      <AlertModal
+        isVisible={deleteModalIsVisible}
+        type="danger"
+        title="Esse anúncio está preste a ser deletado, tem certeza disso?"
+        description="Caso você delete o anúncio sem querer, contacta o suporte quanto antes para refazer essa ação!"
+        confirm={{
+          label: 'Sim, deletar',
+          onConfirmButton: handleDeleteAnnouncement,
+        }}
+        cancel={{
+          label: 'Cancelar',
+          onCancelButton: handleCloseDeleteModal,
+        }}
+      />
     </Section.Container>
   );
 }
