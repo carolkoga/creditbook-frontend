@@ -4,6 +4,7 @@ import { AsyncSelect, OptionType } from '@components/Select';
 import { BatchParams } from '@type/creditbook/Batch';
 import { LawsuitParams } from '@type/creditbook/Lawsuits';
 import { FieldDeclareFormTypes } from '@type/creditbook/sale/declare';
+import { useRouter } from 'next/router';
 import {
   memo,
   useCallback, useEffect, useMemo, useState,
@@ -28,6 +29,7 @@ type Process = (ProcessAnnouncement | ProcessBatch) & {
 };
 
 export const FirstStepProcess = memo(() => {
+  const { query } = useRouter();
   const {
     control,
     formState: { errors },
@@ -50,6 +52,19 @@ export const FirstStepProcess = memo(() => {
 
     return processFound;
   }, [selectedProcess, processOptions]);
+
+  const processByQuery = useCallback(() => {
+    const processId = query?.processId;
+    const processType = query?.processType;
+
+    if (processId && processType) {
+      const processFound = process.find((currentProcess) => currentProcess.id === processId);
+
+      if (!processFound) return;
+
+      setValue('processInfo.processId', { label: processFound.label, value: processFound.id });
+    }
+  }, [query, process]);
 
   const loadProcess = useCallback(async () => {
     try {
@@ -83,9 +98,9 @@ export const FirstStepProcess = memo(() => {
     loadProcess();
   }, [loadProcess]);
 
-  // useEffect(() => {
-  //   watchProcessInfo();
-  // }, [watchProcessInfo]);
+  useEffect(() => {
+    processByQuery();
+  }, [processByQuery]);
 
   return (
     <FieldsetDeclare title="1. Dados do processo">
