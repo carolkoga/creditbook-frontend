@@ -17,6 +17,10 @@ export function handleCatchErrorRequest(
   }
 
   if (typeof error?.response?.status === 'number') {
+    if (error?.response?.data?.error?.toLowerCase() === 'aguardando confirmação de cadastro') {
+      return toast.warn('Aguardando confirmação de cadastro');
+    }
+
     if (error?.response?.data?.error?.toLowerCase() === 'user is inactive') {
       return toast.error('A sua conta está desativada. Entre em contato com suporte para saber mais.');
     }
@@ -36,10 +40,6 @@ export function handleCatchErrorRequest(
 
       if (error?.response?.data?.error?.toLowerCase() === `${prefixErrorMessageParamInUse} email`) {
         return toast.error('O e-mail já está em uso');
-      }
-
-      if (error?.response?.data?.error?.toLowerCase() === 'aguardando confirmação de cadastro') {
-        return toast.warn('Aguardando confirmação de cadastro');
       }
 
       if (error?.response?.data?.error?.toLowerCase() === `${prefixErrorMessageParamInUse} rg`) {
