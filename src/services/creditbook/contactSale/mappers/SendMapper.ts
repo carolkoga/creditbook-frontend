@@ -16,7 +16,7 @@ export function SendMapper(data: FieldDeclareFormTypes) {
         ? 'transferência'
         : data.payment.paymentMethod.value as CommunicateSellingParams['paymentData']['paymentMethod'],
       accountType: data.payment.bankInfo.accountType.value,
-      installments: `${data.payment.installments as unknown as number}x`,
+      installments: data.payment.paymentType === 'installments' ? `${data.payment.installments as unknown as number}x` : null,
       inCash: data.payment.paymentType === 'cash',
     },
     saleValue: Number(data.processPrice.replace(/[^0-9,]/g, '')),
