@@ -91,6 +91,7 @@ export type AnnouncementStatus = (
   | 'pending'
   | 'inactive'
   | 'edition_requested'
+  | 'payment_failed'
 );
 
 export type UFBrazilType = (
