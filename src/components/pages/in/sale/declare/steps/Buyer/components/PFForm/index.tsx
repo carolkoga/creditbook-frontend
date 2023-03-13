@@ -17,12 +17,18 @@ export function PFForm() {
         <Input id="name" {...register('buyer.pf.name')} />
       </FormGroup>
 
-      <FormGroup
-        error={errors?.buyer?.pf?.cpf?.message}
-        label={{ title: 'CPF', forId: 'cpf' }}
-      >
-        <MaskInput mask="000.000.000-00" id="cpf" {...register('buyer.pf.cpf')} />
-      </FormGroup>
+      <Controller
+        control={control}
+        name="buyer.pf.cpf"
+        render={({ field }) => (
+          <FormGroup
+            error={errors?.buyer?.pf?.cpf?.message}
+            label={{ title: 'CPF', forId: 'cpf' }}
+          >
+            <MaskInput mask="000.000.000-00" id="cpf" {...field} />
+          </FormGroup>
+        )}
+      />
 
       <FormGroup
         error={errors?.buyer?.pf?.rg?.message}

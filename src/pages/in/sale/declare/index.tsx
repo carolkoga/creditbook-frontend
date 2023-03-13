@@ -35,6 +35,7 @@ export default function DeclareSalePage() {
   });
   const { watch, trigger } = methods;
   const personType = watch('buyer.personType') as 'pj' | 'pf';
+  const [isLoading, setIsLoading] = useState(false);
 
   async function handleWatchField() {
     if (step === 1) {
@@ -55,12 +56,15 @@ export default function DeclareSalePage() {
         return;
       }
 
+      setIsLoading(true);
       const data = methods.watch();
       await contactSale.declareSale(data);
 
       router.replace('/in/home');
     } catch (error) {
       handleCatchErrorRequest(error as never);
+    } finally {
+      setIsLoading(false);
     }
   }
 
@@ -100,7 +104,7 @@ export default function DeclareSalePage() {
         <Action>
           {step !== 1 && (
             <Button
-              type="reset"
+              type="button"
               size="large"
               variant="white"
               onClick={() => handleChangeStepForm('prev')}
@@ -112,6 +116,7 @@ export default function DeclareSalePage() {
           <Button
             type="button"
             size="large"
+            isLoading={isLoading}
             onClick={step === LAST_STEP
               ? () => handleDeclareSale()
               : () => handleChangeStepForm('next')}
