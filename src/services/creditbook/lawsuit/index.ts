@@ -70,7 +70,7 @@ export class LawsuitService extends HttpClient {
   }
 
   async deleteAnnouncement(id: string) {
-    return this.httpClient.delete(`/announcement/user/${id}`);
+    return this.httpClient.delete(`/announcement/${id}`);
   }
 
   private _convertToFormData(

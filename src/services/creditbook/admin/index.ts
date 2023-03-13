@@ -25,7 +25,7 @@ export class AdminServices extends HttpClient {
   }
 
   async deleteAnnouncementById(id: string) {
-    return this.httpClient.delete(`${PREFIX_ANNOUNCEMENT}/${id}`);
+    return this.httpClient.delete(`${PREFIX_ANNOUNCEMENT}/user/${id}`);
   }
 
   async indexUsers(params?: { page?: number }) {
