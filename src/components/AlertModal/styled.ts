@@ -24,9 +24,10 @@ export const Container = styled.div<ContainerProps>`
   transform: translateY(50%);
 
   gap: 2.4rem;
-  max-width: 531rem;
+  max-width: 83.1rem;
 
   transition: all .30s ease;
+  margin: auto;
 
   .body__modal {
     color: ${({ theme }) => theme.colors.grey[50]};
@@ -43,10 +44,6 @@ export const Container = styled.div<ContainerProps>`
     align-items: center;
     justify-content: flex-end;
     gap: 8px;
-  }
-
-  @media (max-width: 1250px) {
-    width: 55%;
   }
 
   @media (max-width: 750px) {

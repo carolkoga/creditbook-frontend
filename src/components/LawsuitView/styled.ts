@@ -45,6 +45,8 @@ export const DescriptionWrapper = styled.div`
   align-items: center;
   flex-wrap: wrap;
   gap: 10px;
+  overflow-x: auto;
+
 `;
 
 export const Description = styled.p`
@@ -54,6 +56,7 @@ export const Description = styled.p`
   gap: 10px;
   font-size: 13px;
   margin-bottom: 0;
+
   ::first-letter {
     text-transform: uppercase;
   }
