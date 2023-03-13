@@ -1,6 +1,5 @@
 import { processKindTranslation } from '@components/LawsuitCard/Card/utils/processKindTranslation';
 import { NewLawsuitParams } from '@type/creditbook/Lawsuits';
-import convertToCurrency from '@utils/convertToCurrency';
 import {
   Divider, Row, Col, Space,
 } from 'antd';
@@ -246,7 +245,7 @@ export default function Resume({ children = null, announcement }: IProps) {
               <Title>Valor estimado da ação</Title>
               <DescriptionWrapper>
                 <Description>
-                  {convertToCurrency(announcement?.processPrice)}
+                  {announcement?.processPrice}
                 </Description>
               </DescriptionWrapper>
             </Space>
@@ -255,7 +254,7 @@ export default function Resume({ children = null, announcement }: IProps) {
               <Title>Preço de venda</Title>
               <DescriptionWrapper>
                 <Description>
-                  {convertToCurrency(announcement?.income)}
+                  {announcement?.income}
                 </Description>
               </DescriptionWrapper>
             </Space>
