@@ -1,5 +1,6 @@
 import { processKindTranslation } from '@components/LawsuitCard/Card/utils/processKindTranslation';
 import { NewLawsuitParams } from '@type/creditbook/Lawsuits';
+import convertToCurrency from '@utils/convertToCurrency';
 import {
   Divider, Row, Col, Space,
 } from 'antd';
@@ -228,6 +229,36 @@ export default function Resume({ children = null, announcement }: IProps) {
                 {announcement.acceptNegotiation ? 'Sim' : 'Não'}
               </Description>
             </DescriptionWrapper>
+          </Space>
+        </Col>
+      </Row>
+
+      <Divider orientation="left">Valores</Divider>
+      <Row
+        gutter={{
+          xs: 8, sm: 16, md: 24, lg: 32,
+        }}
+        align="middle"
+      >
+        <Col>
+          <Space size="large">
+            <Space direction="vertical" size="middle">
+              <Title>Valor estimado da ação</Title>
+              <DescriptionWrapper>
+                <Description>
+                  {convertToCurrency(announcement?.processPrice)}
+                </Description>
+              </DescriptionWrapper>
+            </Space>
+
+            <Space direction="vertical" size="middle">
+              <Title>Preço de venda</Title>
+              <DescriptionWrapper>
+                <Description>
+                  {convertToCurrency(announcement?.income)}
+                </Description>
+              </DescriptionWrapper>
+            </Space>
           </Space>
         </Col>
       </Row>

@@ -1,6 +1,7 @@
 import { processKindTranslation } from '@components/LawsuitCard/Card/utils/processKindTranslation';
 import useAuth from '@hooks/useAuth';
 import { LawsuitParams } from '@type/creditbook/Lawsuits';
+import convertToCurrency from '@utils/convertToCurrency';
 import { fileTranslation } from '@utils/translation/announcement/fileTranslation';
 import {
   Divider, Row, Col, Space,
@@ -94,7 +95,6 @@ export default function LawsuitView({ children, announcement }: IProps) {
             </DescriptionWrapper>
           </Space>
         </Col>
-
       </Row>
 
       {announcement?.secondaryActorCorporationNameOrName && (
@@ -279,6 +279,36 @@ export default function LawsuitView({ children, announcement }: IProps) {
             </Space>
           </Col>
         )}
+      </Row>
+
+      <Divider orientation="left">Valores</Divider>
+      <Row
+        gutter={{
+          xs: 8, sm: 16, md: 24, lg: 32,
+        }}
+        align="middle"
+      >
+        <Col>
+          <Space size="large">
+            <Space direction="vertical" size="middle">
+              <Title>Valor estimado da ação</Title>
+              <DescriptionWrapper>
+                <Description>
+                  {convertToCurrency(announcement?.processPrice)}
+                </Description>
+              </DescriptionWrapper>
+            </Space>
+
+            <Space direction="vertical" size="middle">
+              <Title>Preço de venda</Title>
+              <DescriptionWrapper>
+                <Description>
+                  {convertToCurrency(announcement?.income)}
+                </Description>
+              </DescriptionWrapper>
+            </Space>
+          </Space>
+        </Col>
       </Row>
 
       {children}
