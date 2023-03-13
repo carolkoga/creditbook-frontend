@@ -55,9 +55,8 @@ export const FirstStepProcess = memo(() => {
 
   const processByQuery = useCallback(() => {
     const processId = query?.processId;
-    const processType = query?.processType;
 
-    if (processId && processType) {
+    if (processId) {
       const processFound = process.find((currentProcess) => currentProcess.id === processId);
 
       if (!processFound) return;
