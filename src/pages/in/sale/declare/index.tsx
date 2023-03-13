@@ -12,10 +12,13 @@ import { declareSaleValidation } from '@validations/yup/declareSale';
 import { FieldDeclareFormTypes } from '@type/creditbook/sale/declare';
 import { toast } from 'react-toastify';
 import { contactSale } from '@services/creditbook/contactSale/ContactSaleService';
+import { useRouter } from 'next/router';
+import { handleCatchErrorRequest } from '@utils/handleCatchErrorRequest';
 
 const LAST_STEP = 2;
 
 export default function DeclareSalePage() {
+  const router = useRouter();
   const [step, setStep] = useState(1);
   const methods = useForm<FieldDeclareFormTypes>({
     mode: 'all',
@@ -53,10 +56,11 @@ export default function DeclareSalePage() {
       }
 
       const data = methods.watch();
-      console.log({ data });
       await contactSale.declareSale(data);
-    } catch {
-      console.log('error');
+
+      router.replace('/in/home');
+    } catch (error) {
+      handleCatchErrorRequest(error as never);
     }
   }
 
