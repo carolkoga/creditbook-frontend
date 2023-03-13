@@ -21,13 +21,11 @@ export const Container = styled.div<ContainerProps>`
   width: ${({ width }) => (!width ? 'auto' : width)};
 
   margin: auto;
-  transform: translateY(50%);
 
   gap: 2.4rem;
   max-width: 83.1rem;
 
   transition: all .30s ease;
-  margin: auto;
 
   .body__modal {
     color: ${({ theme }) => theme.colors.grey[50]};

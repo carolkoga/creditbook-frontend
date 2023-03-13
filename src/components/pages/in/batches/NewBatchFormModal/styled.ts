@@ -5,10 +5,8 @@ export const Wrapper = styled.div`
   border-radius: 15px;
   padding: 31px 46px;
   max-width: 501px;
-  margin-top: 132px;
 
   margin: auto;
-  transform: translateY(50%);
 
   form {
     display: flex;
@@ -25,7 +23,6 @@ export const Wrapper = styled.div`
   }
 
   @media (max-width: 570px) {
-    margin-top: 200px;
     padding: 34px 24px;
   }
 

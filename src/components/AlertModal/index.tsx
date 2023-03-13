@@ -50,7 +50,7 @@ export default function AlertModal({
 
   return (
     <ReactPortal>
-      <Overlay>
+      <Overlay style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <Container width={width} style={_css}>
           <div className="header__modal">
             <Title color={titleColor}>{title}</Title>
