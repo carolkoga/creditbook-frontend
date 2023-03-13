@@ -1,3 +1,4 @@
+import { mapperCurrency } from '@utils/mapperCurrency';
 import { MixedSchema } from 'yup/lib/mixed';
 import { validateUF } from 'validations-br';
 import * as yup from 'yup';
@@ -118,40 +119,38 @@ export const newLawsuitSchemaValidation = yup.object().shape({
   acceptNegotiation: yup.string(),
   ownOrAttorney: yup.string(),
   pledgeOrGuarantee: yup.string(),
-  processPrice: yup.string()
-    .transform((value) => value?.trim()?.replaceAll(/\D/g, ''))
+  processPrice: yup.mixed()
+    .transform((value) => mapperCurrency(value))
     .test({
       name: 'Income need to be higher than one hundred',
       message: 'Valor precisa ser maior que R$ 199,00',
-      test: (value: any) => (value === 199 || value > 199),
+      test: (value: any) => {
+        console.log(value);
+        return typeof value !== 'undefined' ? mapperCurrency(value) > 199 : true;
+      },
     })
     .required(),
 
-  income: yup.string()
+  income: yup.mixed()
     .nullable()
     .when('processPrice', (processPrice, schema: StringSchema | any) => {
       if (!processPrice) return;
 
-      function convertToNumber(value: string) {
-        const valueParsed = value?.trim()?.replaceAll(/\D/g, '');
-        return Number(valueParsed);
-      }
-
-      const processPriceParsed = convertToNumber(processPrice);
+      const processPriceParsed = mapperCurrency(processPrice);
 
       if (processPriceParsed) {
         return schema.test({
           name: 'Income can not be higher than process price',
           message: 'O preço de venda não pode ser maior que valor do processo',
           test: (value: any) => {
-            const incomeParsed = convertToNumber(value as string);
+            const incomeParsed = mapperCurrency(value);
 
             return incomeParsed < processPriceParsed;
           },
         });
       }
     })
-    .transform((value) => value?.trim()?.replaceAll(/\D/g, ''))
+    .transform((value) => mapperCurrency(value))
     .test({
       name: 'Income need to be higher than one hundred',
       message: 'Valor precisa ser maior que R$ 100,00',
