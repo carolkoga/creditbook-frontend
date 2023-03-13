@@ -104,6 +104,16 @@ export default function ManageAnnouncements() {
             }}
           />
         </Tabs.TabPane>
+
+        <Tabs.TabPane tab="Pagementos Reprovados" key="payment_failed">
+          <AnnouncementsTable
+            dataSource={announcements.announcements}
+            onChange={handleChangeTableValues}
+            pagination={{
+              total: announcements.pages,
+            }}
+          />
+        </Tabs.TabPane>
       </Tabs>
     </>
   );
