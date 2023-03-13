@@ -38,6 +38,10 @@ export function handleCatchErrorRequest(
         return toast.error('O e-mail já está em uso');
       }
 
+      if (error?.response?.data?.error?.toLowerCase() === 'aguardando confirmação de cadastro') {
+        return toast.warn('Aguardando confirmação de cadastro');
+      }
+
       if (error?.response?.data?.error?.toLowerCase() === `${prefixErrorMessageParamInUse} rg`) {
         return toast.error('O RG já está em uso');
       }
