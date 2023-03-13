@@ -90,13 +90,24 @@ export default function AnnouncementId() {
               <Button size="large" variant="danger" onClick={handleOpenDeleteModal}>
                 Deletar
               </Button>
+
+              {announcement.status === 'accepted' && (
+                <Link
+                  size="large"
+                  variant="secondary"
+                  replace
+                  href={`/in/sale/declare?processId=${announcement.id}&processType=announcement`}
+                >
+                  Declarar Venda
+                </Link>
+              )}
             </Direction>
           )}
 
           {(announcement.status !== 'pending' && user?.id !== announcement.userId) && (
             <Link
               size="large"
-              href={`/in/contact-announcer/${announcement.id}?type=announcement`}
+              href={`/in/contact-announcer/${announcement.id}`}
             >
               Fazer oferta
             </Link>

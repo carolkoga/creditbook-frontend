@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import { useForm, FormProvider } from 'react-hook-form';
 import { Alert } from 'antd';
 
-import { Button } from '@components/Button';
+import { Button, Link } from '@components/Button';
 import { Direction } from '@components/Direction';
 import BatchForm from '@components/pages/in/batches/BatchForm';
 import { Section } from '@components/Section';
@@ -98,14 +98,14 @@ export default function ShowBatchPage({
       <Section.Header>
         <Button variant="white" onClick={backToLastRoute}>Voltar</Button>
         {/* <Alert
-  message="Atenção - Plano percentual (8% sobre a venda)"
-  description="Os anúncios em lote oferecem apenas o plano percentual
-  como forma de pagamento.
-  Lembramos que os anúncios feitos em lote farão parte automaticamente da Galeria Premium."
-  type="warning"
-  showIcon
-  closable={false}
-/> */}
+          message="Atenção - Plano percentual (8% sobre a venda)"
+          description="Os anúncios em lote oferecem apenas o plano percentual
+          como forma de pagamento.
+          Lembramos que os anúncios feitos em lote farão parte automaticamente da Galeria Premium."
+          type="warning"
+          showIcon
+          closable={false}
+        /> */}
         <Alert
           message="Atenção"
           description="O lote será ativado automaticamente após adicionar ao menos um anúncio"
@@ -131,6 +131,16 @@ export default function ShowBatchPage({
                 >
                   Deletar
                 </Button>
+
+                {batch.announcementQuantity > 0 && (
+                  <Link
+                    variant="secondary"
+                    replace
+                    href={`/in/sale/declare?processId=${batch.id}`}
+                  >
+                    Declarar Venda
+                  </Link>
+                )}
               </WrapperActionsForm>
             </BatchForm>
           </FormProvider>
