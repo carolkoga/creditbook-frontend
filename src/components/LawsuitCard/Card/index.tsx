@@ -63,7 +63,7 @@ export default function LawsuitNewCard({
 
   return (
     <Lawsuit.Wrapper>
-      <Lawsuit.Header.Container category={lawsuit.processGender} status={lawsuit.status === 'rejected'} isSold={lawsuit.status === 'sold'}>
+      <Lawsuit.Header.Container category={lawsuit.processGender} status={lawsuit.status} isSold={lawsuit.status === 'sold'}>
         <Lawsuit.Header.Title isSold={lawsuit.status === 'sold'}>
           {processCategoryTranslation[lawsuit.processGender]}
         </Lawsuit.Header.Title>

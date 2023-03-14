@@ -1,9 +1,10 @@
+import { AnnouncementStatus } from '@type/creditbook';
 import { AnnouncementGender } from '@type/creditbook/Lawsuits/AnnouncementTypes';
 import styled, { css } from 'styled-components';
 
 interface HeaderProps {
   category: keyof AnnouncementGender,
-  status?: boolean,
+  status: AnnouncementStatus,
   isSold: boolean,
 }
 
@@ -22,6 +23,21 @@ const headerCategories = {
   precatorio: '#DDF3D2',
 
   fiscal: '#ffa9a9',
+};
+
+const statusColor = {
+  sold: css`
+    background: #333d5ad1;
+    // #394770b5
+
+    small, strong {
+      color: #fff;
+    }
+  `,
+
+  rejected: css`
+    background: #d9d9d9;
+  `,
 };
 
 // Wrapper
@@ -50,11 +66,7 @@ const HeaderContainer = styled.header<HeaderProps>`
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   padding: 8px 24px;
-  background: ${({ category, status }) => (
-    !status
-      ? headerCategories[category]
-      : '#d9d9d9'
-  )};
+  background: ${({ category }) => (headerCategories[category])};
 
   background: ${({ isSold }) => isSold && '#4d609e'};
 
@@ -67,19 +79,21 @@ const HeaderContainer = styled.header<HeaderProps>`
   > div {
     width: auto;
   }
+
+  ${({ status }) => (status === 'sold' || status === 'rejected') && statusColor[status]}
 `;
 
 const HeaderTitle = styled.strong<{ isSold: boolean }>`
   ${firstLatterUpercase};
     font-weight: 500;
     font-size: 18px;
-    color: ${({ theme, isSold }) => (!isSold ? theme.colors.grey[80] : '#fff')};
+    /* color: ${({ theme, isSold }) => (!isSold ? theme.colors.grey[80] : '#fff')}; */
 `;
 
 const PremiumTitle = styled.small<{ isSold: boolean }>`
   font-weight: 500;
   font-size: 16px;
-  color: ${({ theme, isSold }) => (!isSold ? theme.colors.grey[50] : '#fff')};
+  /* color: ${({ theme, isSold }) => (!isSold ? theme.colors.grey[50] : '#fff')}; */
 `;
 
 // Content
