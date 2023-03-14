@@ -1,4 +1,5 @@
 import { Button } from '@components/Button';
+import { Center } from '@components/Center';
 import FormGroup from '@components/FormGroup';
 import { Input, Textarea } from '@components/Input';
 import { Overlay } from '@components/Overlay';
@@ -82,72 +83,74 @@ export default function FAQForm({
   return (
     <ReactPortal>
       <Overlay>
-        <Container>
-          <h1>{title}</h1>
+        <Center>
+          <Container>
+            <h1>{title}</h1>
 
-          <form noValidate onSubmit={handleSubmit(onSubmit)}>
-            <Controller
-              control={control}
-              name="section"
-              render={({ field }) => (
-                <FormGroup
-                  direction="vertical"
-                  error={errors?.section?.message}
-                  label={{
-                    forId: 'section',
-                    title: 'Seção da Pergunta',
-                  }}
-                >
-                  <Select
-                    {...field}
-                    options={FAQSections}
-                    isSearchable={false}
-                    placeholder="Escolha a seção da pergunta"
-                  />
-                </FormGroup>
-              )}
-            />
-
-            <FormGroup
-              direction="vertical"
-              error={errors?.title?.message}
-              label={{
-                forId: 'title',
-                title: 'Pergunta',
-              }}
-            >
-              <Input
-                {...register('title')}
-                id="title"
+            <form noValidate onSubmit={handleSubmit(onSubmit)}>
+              <Controller
+                control={control}
+                name="section"
+                render={({ field }) => (
+                  <FormGroup
+                    direction="vertical"
+                    error={errors?.section?.message}
+                    label={{
+                      forId: 'section',
+                      title: 'Seção da Pergunta',
+                    }}
+                  >
+                    <Select
+                      {...field}
+                      options={FAQSections}
+                      isSearchable={false}
+                      placeholder="Escolha a seção da pergunta"
+                    />
+                  </FormGroup>
+                )}
               />
-            </FormGroup>
 
-            <FormGroup
-              direction="vertical"
-              error={errors?.answer?.message}
-              label={{
-                forId: 'answer',
-                title: 'Resposta',
-              }}
-            >
-              <Textarea
-                {...register('answer')}
-                id="answer"
-              />
-            </FormGroup>
-
-            <div className="actions">
-              <Button type="submit" isLoading={isLoading}>{labelConfirm}</Button>
-              <Button
-                type="button"
-                variant="white"
-                onClick={handleCancelForm}
+              <FormGroup
+                direction="vertical"
+                error={errors?.title?.message}
+                label={{
+                  forId: 'title',
+                  title: 'Pergunta',
+                }}
               >
-                Cancelar
-              </Button>
-            </div>
-          </form>
-        </Container>
+                <Input
+                  {...register('title')}
+                  id="title"
+                />
+              </FormGroup>
+
+              <FormGroup
+                direction="vertical"
+                error={errors?.answer?.message}
+                label={{
+                  forId: 'answer',
+                  title: 'Resposta',
+                }}
+              >
+                <Textarea
+                  {...register('answer')}
+                  id="answer"
+                />
+              </FormGroup>
+
+              <div className="actions">
+                <Button type="submit" isLoading={isLoading}>{labelConfirm}</Button>
+                <Button
+                  type="button"
+                  variant="white"
+                  onClick={handleCancelForm}
+                >
+                  Cancelar
+                </Button>
+              </div>
+            </form>
+          </Container>
+        </Center>
       </Overlay>
     </ReactPortal>
   );

@@ -12,7 +12,6 @@ export const Container = styled.div`
   width: 100%;
 
   margin: auto;
-  transform: translateY(50%);
 
   transition: all .30s ease;
   h1 {
