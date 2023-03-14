@@ -1,9 +1,9 @@
 export type AnnouncementStatus = (
-  | 'pending'
   | 'accepted'
-  | 'rejected'
-  | 'inactive'
   | 'deleted'
+  | 'rejected'
+  | 'pending'
+  | 'inactive'
   | 'edition_requested'
   | 'payment_failed'
   | 'sold'

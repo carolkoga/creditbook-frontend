@@ -3,6 +3,8 @@ import { AnnouncementActionPhase, AnnouncementGender, AnnouncementKind } from '@
 import { AccountCommonParams } from './auth/register';
 import { LawsuitParams } from './Lawsuits';
 
+export * from './Lawsuits/AnnouncementStatus';
+
 export type AccountTypes = 'person' | 'corporation';
 
 export type Address = {
@@ -83,16 +85,6 @@ export interface CustomResponseAnnouncements {
   result: LawsuitParams[],
   pagination: PaginationLawsuitProps
 }
-
-export type AnnouncementStatus = (
-  | 'accepted'
-  | 'deleted'
-  | 'rejected'
-  | 'pending'
-  | 'inactive'
-  | 'edition_requested'
-  | 'payment_failed'
-);
 
 export type UFBrazilType = (
   | 'RO'
