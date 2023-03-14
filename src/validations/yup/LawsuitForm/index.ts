@@ -124,10 +124,7 @@ export const newLawsuitSchemaValidation = yup.object().shape({
     .test({
       name: 'Income need to be higher than one hundred',
       message: 'Valor precisa ser maior que R$ 199,00',
-      test: (value: any) => {
-        console.log(value);
-        return typeof value !== 'undefined' ? mapperCurrency(value) > 199 : true;
-      },
+      test: (value: any) => (typeof value !== 'undefined' ? mapperCurrency(value) > 199 : true),
     })
     .required(),
 
