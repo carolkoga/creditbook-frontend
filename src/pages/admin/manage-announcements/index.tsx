@@ -105,7 +105,7 @@ export default function ManageAnnouncements() {
           />
         </Tabs.TabPane>
 
-        <Tabs.TabPane tab="Pagementos Reprovados" key="payment_failed">
+        <Tabs.TabPane tab="Pagamentos Reprovados" key="payment_failed">
           <AnnouncementsTable
             dataSource={announcements.announcements}
             onChange={handleChangeTableValues}
