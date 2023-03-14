@@ -15,7 +15,7 @@ export const SecondStepBuyer = memo(() => {
     <FieldsetDeclare title="2. Dados da parte compradora">
       <WrapperRadio>
         <LabelContainer htmlFor="pj">
-          <input type="radio" id="pj" value="pj" {...register('buyer.personType')} defaultChecked />
+          <input type="radio" id="pj" value="pj" {...register('buyer.personType')} />
           Pessoa Jurídica
         </LabelContainer>
 

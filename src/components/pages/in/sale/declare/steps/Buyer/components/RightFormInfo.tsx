@@ -11,7 +11,7 @@ type FieldValues = Pick<FieldDeclareFormTypes, 'address' | 'processPrice'>;
 
 export function RightFormInfo() {
   const {
-    register, control, formState: { errors }, watch, reset,
+    register, control, formState: { errors }, watch, setValue,
   } = useFormContext<FieldValues>();
 
   const findAddressByCEP = useCallback(async () => {
@@ -19,15 +19,14 @@ export function RightFormInfo() {
     if (cep?.length === 9) {
       const { data } = await cepService.getAddressByCep(cep);
 
-      reset({
-        ...watch(),
-        address: {
-          address: data.logradouro,
-          city: data.localidade,
-          uf: data.uf,
-          cep: data.cep,
-        },
-      }, { keepDefaultValues: true });
+      setValue('address', {
+        address: data.logradouro,
+        city: data.localidade,
+        uf: data.uf,
+        cep: data.cep,
+        number: watch('address.number'),
+        complement: watch('address.complement'),
+      });
     }
   }, [watch('address.cep')]);
 
