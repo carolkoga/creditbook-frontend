@@ -20,7 +20,7 @@ import { courtsOptions } from '@mocks/ReactSelectOptions/CourtsOptions';
 import { LawsuitParams } from '@type/creditbook/Lawsuits';
 import { UFList } from '@type/brazil/BrazilStatesInUFTypes';
 
-import { InputCPForCNPJ } from '@components/Form/Input/Mask/InputCPForCNPJ';
+import { InputProcessNumber } from '@components/Form/Input/Mask/InputProcessNumber';
 import { Fieldset } from '../components/Fieldset';
 import useLawsuitForm from '../hooks/useLawsuitForm';
 
@@ -70,7 +70,7 @@ export default function ProcessInfoForm() {
             name="processNumber"
             control={control}
             render={({ field }) => (
-              <InputCPForCNPJ {...field} id="processNumber" />
+              <InputProcessNumber {...field} id="processNumber" />
             )}
           />
         </FormGroup>
