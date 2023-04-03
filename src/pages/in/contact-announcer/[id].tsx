@@ -30,8 +30,6 @@ export default function ContactAnnouncementAnnouncer() {
     creditId: router.query?.id as string,
   }), [router.query, user]);
 
-  console.log({ defaultValues });
-
   const methods = useForm<ContactAnnouncerParams & { name: string, email: string }>({
     defaultValues,
   });
