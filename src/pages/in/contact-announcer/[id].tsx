@@ -10,7 +10,9 @@ import ContactAnnouncerForm from '@components/pages/in/contact-announcer/form';
 import { emailServices } from '@services/creditbook/email';
 import { handleCatchErrorRequest } from '@utils/handleCatchErrorRequest';
 import { toast } from 'react-toastify';
-import { useCallback, useEffect, useState } from 'react';
+import {
+  useCallback, useEffect, useMemo, useState,
+} from 'react';
 import { batchServices } from '@services/creditbook/batch';
 import { lawsuitService } from '@services/creditbook/lawsuit';
 import convertToCurrency from '@utils/convertToCurrency';
@@ -19,22 +21,26 @@ export default function ContactAnnouncementAnnouncer() {
   const router = useRouter();
   const { user } = useAuth();
   const [product, setProduct] = useState({} as any);
+  const defaultValues = useMemo(() => ({
+    userId: user?.id,
+    name: user?.fullName,
+    email: user?.email,
+    phone: user?.cellphone,
+    type: router.query?.type as 'announcement' | 'batch' ?? 'announcement',
+    creditId: router.query?.id as string,
+  }), [router.query, user]);
+
+  console.log({ defaultValues });
 
   const methods = useForm<ContactAnnouncerParams & { name: string, email: string }>({
-    defaultValues: {
-      userId: user?.id,
-      name: user?.fullName,
-      email: user?.email,
-      phone: user?.cellphone,
-      type: router.query?.type as 'announcement' | 'batch' ?? 'announcement',
-      creditId: router.query?.id as string ?? '',
-    },
+    defaultValues,
   });
 
   const loadProductInformation = useCallback(async () => {
     try {
       const query = router.query?.type as 'announcement' | 'batch' ?? 'announcement';
-      const productId = router.query.id as string;
+      const productId = router.query?.id as string;
+      methods.setValue('creditId', productId);
 
       const response = query === 'batch'
         ? await batchServices.show(productId)
@@ -47,7 +53,7 @@ export default function ContactAnnouncementAnnouncer() {
       });
     // eslint-disable-next-line no-empty
     } catch {}
-  }, []);
+  }, [router.query]);
 
   async function handleSubmitMessage(data: ContactAnnouncerParams) {
     try {
