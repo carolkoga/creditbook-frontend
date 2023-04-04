@@ -26,7 +26,7 @@ const customToastProps: ToastOptions = {
   position: 'bottom-center',
 };
 
-function destroyAuthCookies() {
+export function destroyAuthCookies() {
   destroyCookie(undefined, 'nextauth.token', {
     path: '/',
   });
@@ -34,10 +34,6 @@ function destroyAuthCookies() {
   destroyCookie(undefined, 'nextauth.user', {
     path: '/',
   });
-}
-
-function setAuthorizationHeader(token: string) {
-  creditbookApi.defaults.headers.common.Authorization = `Bearer ${token}`;
 }
 
 export function AuthProvider({ children }: IProps) {
@@ -58,7 +54,34 @@ export function AuthProvider({ children }: IProps) {
     handleAddCustomLoadingScreen();
     setUser(null);
     Router.push('/');
+    localStorage.removeItem('nextauth.token');
     destroyAuthCookies();
+  }
+
+  function setAuthorizationHeader(token: string) {
+    creditbookApi.interceptors.request.use((config) => {
+      // eslint-disable-next-line no-param-reassign
+      config.headers = {
+        ...config.headers,
+        Authorization: `Bearer ${token}`,
+      };
+
+      return config;
+    }, (error) => {
+      if (error.response.status === 401) {
+        handleSignOut();
+      }
+
+      return Promise.reject(error);
+    });
+
+    creditbookApi.interceptors.response.use((response) => response, (error) => {
+      if (error.response.status === 401) {
+        handleSignOut();
+      }
+
+      return Promise.reject(error);
+    });
   }
 
   async function handleSignIn(data: LoginParams) {
@@ -73,6 +96,7 @@ export function AuthProvider({ children }: IProps) {
         maxAge: 60 * 60 * 24 * 30, // 30 days
         path: '/',
       });
+      localStorage.setItem('nextauth.token', token);
 
       if (userSignIn.role === 'user') {
         Router.replace('/in/home');
@@ -111,6 +135,7 @@ export function AuthProvider({ children }: IProps) {
     const { 'nextauth.user': userDataSaved } = parseCookies();
     if (!userDataSaved) return handleSignOut();
     setUser(JSON.parse(userDataSaved));
+
     if (!token) return handleSignOut();
 
     try {
