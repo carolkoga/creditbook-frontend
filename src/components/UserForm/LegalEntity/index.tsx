@@ -1,6 +1,6 @@
 import { Controller, useFormContext } from 'react-hook-form';
 
-import { Button } from '@components/Button';
+import { Button, Link } from '@components/Button';
 import FormGroup from '@components/FormGroup';
 import { Input, MaskInput } from '@components/Input';
 import { Section } from '@components/Section';
@@ -86,6 +86,10 @@ export default function LegalEntity({
         )}
 
         <div className="actions">
+          <Link href="/login" size="outline-filled-round" variant="white">
+            Login
+          </Link>
+
           <Button
             type="submit"
             size="outline-filled-round"

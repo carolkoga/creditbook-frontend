@@ -97,8 +97,8 @@ export default function SignUp() {
       <Section.Header>
         <Direction>
           <Section.Title as="h2" textColor="dark">Cadastro</Section.Title>
-          <Button type="button" onClick={() => handleToggleRegisterAccountType()}>
-            Cadastre como pessoa
+          <Button variant="dark" type="button" onClick={() => handleToggleRegisterAccountType()}>
+            Ou cadastre como pessoa
             {' '}
             {registerAccountType === 'person' ? 'jurídica' : 'física'}
           </Button>

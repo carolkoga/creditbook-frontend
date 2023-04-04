@@ -45,6 +45,7 @@ export const FormGrid = styled.form`
     display: flex;
     align-items: center;
     justify-content: flex-end;
+    gap: 1.2rem;
   }
 
   @media screen and (max-width: 780px) {
@@ -54,6 +55,16 @@ export const FormGrid = styled.form`
 
     .actions {
       justify-content: flex-start;
+    }
+  }
+
+  @media (max-width: 400px) {
+    .actions {
+      flex-direction: column-reverse;
+
+      button, a {
+        width: 100%;
+      }
     }
   }
 
