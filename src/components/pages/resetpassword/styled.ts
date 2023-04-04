@@ -14,6 +14,9 @@ export const FormLayout = styled.form`
     width: 100%;
     button {
       width: 100%;
+
+      padding-right: 2.4rem;
+      padding-left: 2.4rem;
     }
   }
 `;
