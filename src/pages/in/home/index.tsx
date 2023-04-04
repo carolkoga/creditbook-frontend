@@ -3,24 +3,17 @@ import LawsuitCardSwiper from '@components/LawsuitCard/LawsuitCardSwiper/index';
 import { Section } from '@components/Section';
 
 import { Direction } from '@components/Direction';
-import { FilterDrawer, ResponseFilterCreditsProps } from '@components/FilterDrawer';
 import { Link } from '@components/Button';
 import useAnnouncements from '@services/creditbook/lawsuit/hooks/useAnnouncements';
+import useUserAnnouncements from '@services/creditbook/lawsuit/hooks/useUserAnnouncements';
 
 export default function Home() {
-  const response = useAnnouncements();
+  const response = useUserAnnouncements();
   const {
     announcements: announcementsPremium,
     isLoading: isLoadingPremium,
   } = useAnnouncements(undefined, { params: { isPremium: true } });
 
-  function handleProcessAnnouncementsFiltered(lawsuit: ResponseFilterCreditsProps) {
-    response.mutate(lawsuit as never);
-    if (lawsuit.results.length <= 0) {
-      response.mutateIsFiltered(false);
-    }
-    response.mutateIsFiltered(true);
-  }
   return (
     <>
       {(!isLoadingPremium && announcementsPremium && announcementsPremium?.results?.length > 0) && (
@@ -40,10 +33,8 @@ export default function Home() {
       <Section.Container>
         <Section.Header>
           <Section.Title as="h3">
-            {!response.isFiltered && 'Anúncios Gerais'}
-            {response.isFiltered && 'Anúncios relacionados ao filtro'}
+            Anúncios Gerais
           </Section.Title>
-          <FilterDrawer onGetResponseResults={handleProcessAnnouncementsFiltered} />
         </Section.Header>
 
         <AnnouncementList
@@ -52,6 +43,7 @@ export default function Home() {
             type: 'link',
             href: '/in/ads/new',
             labelButton: 'Cadastrar Agora',
+            title: 'Não há anúncio favoritado ou criado',
           }}
         />
       </Section.Container>
