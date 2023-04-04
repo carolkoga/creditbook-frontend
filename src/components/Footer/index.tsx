@@ -26,7 +26,7 @@ export default function Footer() {
           </li>
 
           <li>
-            <a target="_blank" rel="noreferrer" href="https://www.linkedin.com/in/creditbook-br-5b22bb1ab">
+            <a target="_blank" rel="noreferrer" href="https://www.linkedin.com/company/creditbook-oficial/about/">
               <Image src="/assets/icons/networking-media/linkedin.svg" width="32px" height="32px" alt="Creditbook Linkedin" layout="fixed" />
             </a>
           </li>
