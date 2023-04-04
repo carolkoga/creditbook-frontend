@@ -90,7 +90,7 @@ export function PreSignUp({ isVisible }: PreSignUpProps) {
           )}
         />
 
-        <Button type="submit">Continuar cadastro</Button>
+        <Button type="submit">Cadastrar</Button>
       </Content>
     </Container>
   );
