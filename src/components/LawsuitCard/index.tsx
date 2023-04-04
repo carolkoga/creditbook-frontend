@@ -11,6 +11,7 @@ import { AnnouncementResponse } from '@services/creditbook/lawsuit/hooks/types';
 import useUserBatches from '@services/creditbook/batch/hooks/useUserBatches';
 
 import WrapperLoader from '@components/Loader/WrapperLoader';
+import { Direction } from '@components/Direction';
 import LawsuitCard from './Card';
 import { LawsuitCardProps } from './types/Props';
 
@@ -79,11 +80,13 @@ export default function AnnouncementList({
 
       <br />
 
-      <Pagination
-        total={(announcements.pages ?? 1) * 10}
-        defaultCurrent={page}
-        onChange={handleChangePage}
-      />
+      <Direction alignItems="center" justifyContent="center">
+        <Pagination
+          total={(announcements.pages ?? 1) * 10}
+          defaultCurrent={page}
+          onChange={handleChangePage}
+        />
+      </Direction>
     </>
   );
 }
