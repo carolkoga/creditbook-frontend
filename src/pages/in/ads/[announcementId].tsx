@@ -100,7 +100,7 @@ export default function AnnouncementId() {
                     ? `/in/sale/declare?processId=${announcement.id}`
                     : `/in/sale/declare?processId=${announcement.batchId}`}
                 >
-                  Declarar Venda
+                  Comunicar  Venda
                 </Link>
               )}
             </Direction>

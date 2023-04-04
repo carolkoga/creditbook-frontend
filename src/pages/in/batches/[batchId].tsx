@@ -139,7 +139,7 @@ export default function ShowBatchPage({
                     replace
                     href={`/in/sale/declare?processId=${batch.id}`}
                   >
-                    Declarar Venda
+                    Comunicar  Venda
                   </Link>
                 )}
               </WrapperActionsForm>
