@@ -53,7 +53,7 @@ export default function NewLawsuit() {
   const [plan, isPremium] = methods.watch(['plan', 'isPremium']);
 
   function handleNavigateToHome() {
-    router.push('/in/home');
+    router.push('/');
   }
 
   function handleOpenModalToSelectPlan() {
