@@ -48,7 +48,7 @@ export default function MyPlans() {
 
         {(plans?.length <= 0) && (
           <NotFoundData
-            title="Não há planos aprovados"
+            title="Não há planos ativos"
             type="children"
           />
         )}
