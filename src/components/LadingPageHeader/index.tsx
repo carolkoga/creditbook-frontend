@@ -134,11 +134,11 @@ export default function LandingPageHeader() {
                     </a>
                   </Link>
 
-                  <Link href="/sign-up">
+                  {/* <Link href="/sign-up">
                     <a>
                       Cadastrar
                     </a>
-                  </Link>
+                  </Link> */}
                 </>
               )}
             </Actions>
@@ -173,11 +173,11 @@ export default function LandingPageHeader() {
                       </a>
                     </Link>
 
-                    <Link href="/sign-up">
+                    {/* <Link href="/sign-up">
                       <a>
                         Cadastrar
                       </a>
-                    </Link>
+                    </Link> */}
                   </>
                   )}
                 </Actions>
