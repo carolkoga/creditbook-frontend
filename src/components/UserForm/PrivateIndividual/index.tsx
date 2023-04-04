@@ -29,7 +29,7 @@ export default function PrivateIndividual({
         noValidate
         onSubmit={onSubmit}
       >
-        <InformationForm formGroupDirection={formGroupDirection} nationalityLabel="Nacionalidade">
+        <InformationForm formGroupDirection={formGroupDirection}>
           {validation === 'register' && (
             <ProfilePictureForm
               label="Foto de Perfil"

@@ -32,7 +32,7 @@ export default function LegalEntity({
       )}
 
       <FormGrid noValidate onSubmit={onSubmit}>
-        <InformationForm formGroupDirection={formGroupDirection} nationalityLabel="Local de constituição">
+        <InformationForm formGroupDirection={formGroupDirection} type="PJ">
           <ProfilePictureForm label="Foto de Perfil" formGroupDirection={formGroupDirection} />
           <UploadSocialContract />
 

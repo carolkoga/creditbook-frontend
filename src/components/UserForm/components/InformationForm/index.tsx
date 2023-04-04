@@ -9,16 +9,17 @@ import { Fieldset } from '../Fieldset';
 import NationalitySelect from '../NationalitySelect';
 
 interface IProps extends AllCommonType {
-  nationalityLabel: string,
   children?: ReactNode,
+  type?: 'PJ' | 'PF'
 }
 
 export default function InformationForm({
-  formGroupDirection, children, nationalityLabel,
+  formGroupDirection, children, type,
 }: IProps) {
   const {
     register, formState: { errors }, control,
   } = useFormContext();
+
   const registeredFields = {
     fullName: register('fullName', {
       required: 'Campo obrigatório',
@@ -44,7 +45,7 @@ export default function InformationForm({
         error={errors?.fullName?.message}
         label={{
           forId: 'full-name',
-          title: 'Nome Completo',
+          title: type === 'PJ' ? 'Nome do representante PJ' : 'Nome Completo',
         }}
       >
         <Input
@@ -154,7 +155,7 @@ export default function InformationForm({
 
       <NationalitySelect
         formGroupDirection={formGroupDirection}
-        label={nationalityLabel}
+        label={type === 'PJ' ? 'Local de constituição' : 'Nacionalidade'}
       />
     </Fieldset>
   );
@@ -162,4 +163,5 @@ export default function InformationForm({
 
 InformationForm.defaultProps = {
   children: null,
+  type: 'PF',
 };
