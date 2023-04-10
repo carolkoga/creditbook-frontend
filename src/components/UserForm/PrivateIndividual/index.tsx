@@ -56,9 +56,11 @@ export default function PrivateIndividual({
         )}
 
         <div className="actions">
-          <Link href="/login" size="outline-filled-round" variant="white">
-            Login
-          </Link>
+          {validation !== 'update' && (
+            <Link href="/login" size="outline-filled-round" variant="white">
+              Login
+            </Link>
+          )}
 
           <Button
             type="submit"

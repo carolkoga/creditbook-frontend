@@ -86,9 +86,11 @@ export default function LegalEntity({
         )}
 
         <div className="actions">
-          <Link href="/login" size="outline-filled-round" variant="white">
-            Login
-          </Link>
+          {validation !== 'update' && (
+            <Link href="/login" size="outline-filled-round" variant="white">
+              Login
+            </Link>
+          )}
 
           <Button
             type="submit"
