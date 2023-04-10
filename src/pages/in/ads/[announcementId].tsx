@@ -110,8 +110,8 @@ export default function AnnouncementId() {
             <Link
               size="large"
               href={!announcement.batchId
-                ? `/in/contact-announcer/${announcement.id}t`
-                : `/in/contact-announcer/${announcement.batchId}`}
+                ? `/in/contact-announcer/${announcement.id}`
+                : `/in/contact-announcer/${announcement.batchId}?type=batch`}
             >
               Fazer oferta
             </Link>
