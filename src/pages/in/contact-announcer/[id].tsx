@@ -36,18 +36,20 @@ export default function ContactAnnouncementAnnouncer() {
 
   const loadProductInformation = useCallback(async () => {
     try {
-      const query = router.query?.type as 'announcement' | 'batch' ?? 'announcement';
+      const productType = router.query?.type as 'announcement' | 'batch' ?? 'announcement';
       const productId = router.query?.id as string;
-      methods.setValue('creditId', productId);
 
-      const response = query === 'batch'
+      methods.setValue('creditId', productId);
+      methods.setValue('type', productType);
+
+      const response = productType === 'batch'
         ? await batchServices.show(productId)
         : await lawsuitService.getById(productId);
 
       setProduct({
-        type: query,
-        name: query === 'batch' ? response.data?.name : response.data?.processNumber,
-        price: query === 'batch' ? response.data?.value : response.data?.income,
+        type: productType,
+        name: productType === 'batch' ? response.data?.name : response.data?.processNumber,
+        price: productType === 'batch' ? response.data?.value : response.data?.income,
       });
     // eslint-disable-next-line no-empty
     } catch {}
