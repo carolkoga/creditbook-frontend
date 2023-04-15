@@ -20,6 +20,8 @@ interface IProps {
 
 export default function LawsuitView({ children, announcement }: IProps) {
   const { user } = useAuth();
+  const isPermittedToDownload = user?.role === 'admin' || user?.id === announcement?.userId;
+
   return (
     <Container>
       <Divider orientation="left">Dados do processo</Divider>
@@ -163,11 +165,12 @@ export default function LawsuitView({ children, announcement }: IProps) {
                 <DescriptionWrapper>
                   <Description
                     as="a"
-                    href={user?.role === 'admin' ? announcement.procurationUrl : ''}
-                    title={user?.role === 'admin' ? 'Clique para fazer download' : ''}
+                    href={isPermittedToDownload ? file.url : ''}
+                    title={isPermittedToDownload ? 'Clique para fazer download' : ''}
+                    download={isPermittedToDownload}
                   >
                     <File size={18} />
-                    {`${fileTranslation[file.name]}-${announcement.processNumber}`.slice(0, 22)}...
+                    {`${fileTranslation[file.name]}-${announcement.id}`.slice(0, 22)}...
                   </Description>
                 </DescriptionWrapper>
               </Space>
@@ -269,8 +272,8 @@ export default function LawsuitView({ children, announcement }: IProps) {
               <DescriptionWrapper>
                 <Description
                   as="a"
-                  href={user?.role === 'admin' ? announcement.procurationUrl : ''}
-                  title={user?.role === 'admin' ? 'Clique para fazer download' : ''}
+                  href={isPermittedToDownload ? announcement.procurationUrl : ''}
+                  title={isPermittedToDownload ? 'Clique para fazer download' : ''}
                 >
                   <File size={18} />
                   {`Procuracao-${announcement.processNumber}`.slice(0, 22)}...
