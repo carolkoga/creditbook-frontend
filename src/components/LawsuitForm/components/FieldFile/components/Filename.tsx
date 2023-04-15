@@ -19,6 +19,7 @@ export function FilenameComingAPI({ file, fileName }: FilenameProps) {
             {' '}
           </span>
           {name}
+          X
         </Filename>
       )}
     </>

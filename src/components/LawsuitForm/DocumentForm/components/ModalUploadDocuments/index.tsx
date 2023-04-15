@@ -16,7 +16,9 @@ export default function ModalUploadDocuments({ isVisible, onCloseModal }: IProps
   if (!isVisible) {
     return null;
   }
-  const { register, watch, formState: { errors } } = useFormContext();
+  const {
+    register, watch, formState: { errors }, resetField,
+  } = useFormContext();
   const [initialPetition, initialPetitionUrl] = watch(['initialPetition', 'initialPetitionUrl']);
   const [sentence, sentenceUrl] = watch(['sentence', 'sentenceUrl']);
   const [resources, resourcesUrl] = watch(['resources', 'resourcesUrl']);
@@ -44,6 +46,7 @@ export default function ModalUploadDocuments({ isVisible, onCloseModal }: IProps
           <div className="uploads">
             <FieldFile
               {...register('initialPetition')}
+              resetField={() => resetField('initialPetition')}
               error={errors?.initialPetition?.message}
               fileName={initialPetitionUrl}
               file={initialPetition?.[0]}
@@ -52,6 +55,7 @@ export default function ModalUploadDocuments({ isVisible, onCloseModal }: IProps
 
             <FieldFile
               {...register('sentence')}
+              resetField={() => resetField('sentence')}
               file={sentence?.[0]}
               fileName={sentenceUrl}
               label="Setença"
@@ -59,6 +63,7 @@ export default function ModalUploadDocuments({ isVisible, onCloseModal }: IProps
 
             <FieldFile
               {...register('resources')}
+              resetField={() => resetField('resources')}
               file={resources?.[0]}
               fileName={resourcesUrl}
               label="Recursos"
@@ -66,6 +71,7 @@ export default function ModalUploadDocuments({ isVisible, onCloseModal }: IProps
 
             <FieldFile
               {...register('contestation')}
+              resetField={() => resetField('contestation')}
               file={contestation?.[0]}
               fileName={contestationUrl}
               label="Contestação"
@@ -73,6 +79,7 @@ export default function ModalUploadDocuments({ isVisible, onCloseModal }: IProps
 
             <FieldFile
               {...register('accordion')}
+              resetField={() => resetField('accordion')}
               file={accordion?.[0]}
               fileName={accordionUrl}
               label="Acordão"
@@ -80,6 +87,7 @@ export default function ModalUploadDocuments({ isVisible, onCloseModal }: IProps
 
             <FieldFile
               {...register('finalCertificate')}
+              resetField={() => resetField('finalCertificate')}
               file={finalCertificate?.[0]}
               fileName={finalCertificateUrl}
               label="Cert. transitado em julgado"
@@ -87,6 +95,7 @@ export default function ModalUploadDocuments({ isVisible, onCloseModal }: IProps
 
             <FieldFile
               {...register('judgmentOfApprovalOfLaborCalculations')}
+              resetField={() => resetField('judgmentOfApprovalOfLaborCalculations')}
               file={judgmentOfApprovalOfLaborCalculations?.[0]}
               fileName={judgmentOfApprovalOfLaborCalculationsUrl}
               label="Sentença de homologação de cálculos trabalhistas"
@@ -94,6 +103,7 @@ export default function ModalUploadDocuments({ isVisible, onCloseModal }: IProps
 
             <FieldFile
               {...register('anotherRelevantParts')}
+              resetField={() => resetField('anotherRelevantParts')}
               file={anotherRelevantParts?.[0]}
               fileName={anotherRelevantPartsUrl}
               label="Outras peças relevantes"

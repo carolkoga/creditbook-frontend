@@ -29,6 +29,13 @@ export const ContainerInputFile = styled.label`
   }
 `;
 
+export const WrapperFilename = styled.div`
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.8rem 2.4rem;
+`;
+
 export const Filename = styled.small`
   color: ${({ theme }) => theme.colors.grey[40]};
   font-weight: 400 !important;
@@ -41,4 +48,11 @@ export const Filename = styled.small`
     font-weight: 700 !important;
     font-size: 12px;
   }
+`;
+
+export const RemoveFileButton = styled.button`
+  border: none;
+  padding: 0;
+  line-height: 0;
+  background: none;
 `;
