@@ -1,4 +1,11 @@
-export const FAQSections = [
+import { translationSectionFAQ } from '@mocks/FAQ';
+
+interface FAQ {
+  label: string,
+  value: keyof typeof translationSectionFAQ;
+}
+
+export const FAQSections: FAQ[] = [
   {
     label: 'Creditbook',
     value: 'creditbook',
@@ -25,7 +32,7 @@ export const FAQSections = [
   },
 
   {
-    label: 'Habilitação param a Compra',
+    label: 'Habilitação para a Compra',
     value: 'habilitacaoParaCompra',
   },
 

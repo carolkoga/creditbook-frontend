@@ -8,44 +8,8 @@ import { Select } from '@components/Select';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { FAQSchemaValidation } from '@validations/yup/FAQ';
 import { Controller, useForm } from 'react-hook-form';
+import { FAQSections } from '@mocks/ReactSelectOptions/FAQSections';
 import { Container } from './styled';
-
-const FAQSections = [
-  {
-    label: 'Creditbook',
-    value: 'creditbook',
-  },
-
-  {
-    label: 'Venda e Compra de Direitos Creditórios',
-    value: 'vendaCompraDireitosCreditoórios',
-  },
-
-  {
-    label: 'Anúncio',
-    value: 'anuncio',
-  },
-
-  {
-    label: 'Usuários',
-    value: 'usuarios',
-  },
-
-  {
-    label: 'Lotes',
-    value: 'lotes',
-  },
-
-  {
-    label: 'Custos',
-    value: 'custos',
-  },
-
-  {
-    label: 'Outras Perguntas Frequentes',
-    value: 'outrasPerguntasFrequentes',
-  },
-];
 
 interface IProps {
   title: string,
