@@ -75,7 +75,7 @@ export class LawsuitService extends HttpClient {
 
   private _convertToFormData(
     newData: any,
-    type?: 'new' | 'update',
+    type: 'new' | 'update' = 'new',
     currentData?: any,
   ) {
     const formData = new FormData();
@@ -100,7 +100,15 @@ export class LawsuitService extends HttpClient {
           return formData.append('announcementId', value as string);
         }
 
-        if (currentData[key] === value) return;
+        if (key === 'processPrice' || key === 'income') {
+          if (Number(currentData[key]) === Number(value)) {
+            return;
+          }
+        }
+
+        if (currentData[key] === value) {
+          return;
+        }
 
         if (key === 'files') return;
 
@@ -110,19 +118,21 @@ export class LawsuitService extends HttpClient {
       return formData;
     }
 
-    Object.entries(newData).forEach((field) => {
-      const [key, value] = field;
-      if (key === 'files') return;
-      if (!value) return;
+    if (type === 'new') {
+      Object.entries(newData).forEach((field) => {
+        const [key, value] = field;
+        if (key === 'files') return;
+        if (!value) return;
 
-      formData.append(key, (value as string | Blob));
-    });
+        formData.append(key, (value as string | Blob));
+      });
 
-    const isPremium = formData.get('isPremium');
-    const byPercent = formData.get('byPercent');
+      const isPremium = formData.get('isPremium');
+      const byPercent = formData.get('byPercent');
 
-    if (isPremium === '1' && byPercent === '1') {
-      formData.set('plan', 'both');
+      if (isPremium === '1' && byPercent === '1') {
+        formData.set('plan', 'both');
+      }
     }
 
     return formData;
