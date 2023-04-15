@@ -1,10 +1,11 @@
 import { Button } from '@components/Button';
 import FormGroup from '@components/FormGroup';
-import { Input, MaskInput } from '@components/Input';
+import { Input } from '@components/Input';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { preSignUpValidation } from '@validations/yup/UserForm/preSignUp';
 import { useRouter } from 'next/router';
 import { Controller, useForm } from 'react-hook-form';
+import { InputPhone } from '@components/Form/Input/Mask/InputPhone';
 import { Container, Content, Header } from './styled';
 
 interface PreSignUpProps {
@@ -79,11 +80,8 @@ export function PreSignUp({ isVisible }: PreSignUpProps) {
                 title: 'Telefone',
               }}
             >
-              <MaskInput
+              <InputPhone
                 id="phone"
-                inputMode="numeric"
-                placeholder=" "
-                mask="(00) 0000-0000"
                 {...field}
               />
             </FormGroup>

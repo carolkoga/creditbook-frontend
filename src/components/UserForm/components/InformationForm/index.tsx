@@ -5,6 +5,7 @@ import FormGroup from '@components/FormGroup';
 import { Input, MaskInput } from '@components/Input';
 
 import { AllCommonType } from '@components/UserForm/types';
+import { InputPhone } from '@components/Form/Input/Mask/InputPhone';
 import { Fieldset } from '../Fieldset';
 import NationalitySelect from '../NationalitySelect';
 
@@ -86,11 +87,8 @@ export default function InformationForm({
               title: 'Telefone',
             }}
           >
-            <MaskInput
+            <InputPhone
               id="phone"
-              inputMode="numeric"
-              placeholder=" "
-              mask="(00) 0000-0000"
               {...field}
             />
           </FormGroup>

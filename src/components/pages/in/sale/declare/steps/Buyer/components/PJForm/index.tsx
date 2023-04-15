@@ -1,3 +1,4 @@
+import { InputPhone } from '@components/Form/Input/Mask/InputPhone';
 import FormGroup from '@components/FormGroup';
 import { Input, MaskInput } from '@components/Input';
 import { FieldDeclareFormTypes } from '@type/creditbook/sale/declare';
@@ -45,7 +46,7 @@ export function PJForm() {
             error={errors?.buyer?.pj?.cellphone?.message}
             label={{ title: 'Telefone', forId: 'cellphone' }}
           >
-            <MaskInput mask="(00) 0000-0000" id="cellphone" {...field} />
+            <InputPhone id="cellphone" {...field} />
           </FormGroup>
         )}
       />

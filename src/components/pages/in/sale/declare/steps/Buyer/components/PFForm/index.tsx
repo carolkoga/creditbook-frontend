@@ -1,3 +1,4 @@
+import { InputPhone } from '@components/Form/Input/Mask/InputPhone';
 import FormGroup from '@components/FormGroup';
 import { Input, MaskInput } from '@components/Input';
 import { FieldDeclareFormTypes } from '@type/creditbook/sale/declare';
@@ -52,7 +53,7 @@ export function PFForm() {
             error={errors?.buyer?.pf?.cellphone?.message}
             label={{ title: 'Telefone', forId: 'phone' }}
           >
-            <MaskInput mask="(00) 0000-0000" id="phone" {...field} />
+            <InputPhone id="phone" {...field} />
           </FormGroup>
         )}
       />
