@@ -40,7 +40,7 @@ export function PreSignUp({ isVisible }: PreSignUpProps) {
   if (!isVisible) return null;
 
   return (
-    <Container noValidate onSubmit={handleSubmit(handleContinueSignUp)}>
+    <Container noValidate onSubmit={handleSubmit(handleContinueSignUp)} className="pre-sign-up-form">
       <Header>
         <h3>Faça seu cadastro</h3>
         <h4>Crie seu anúncio. Procure as melhores oportunidade para investir. Tudo online.</h4>

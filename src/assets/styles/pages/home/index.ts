@@ -80,6 +80,21 @@ export const WrapperImageHero = styled.div`
   }
 `;
 
+export const RelativeImageWrapper = styled.div`
+  position: relative;
+
+  .pre-sign-up-form {
+    position: absolute;
+    bottom: -180px;
+    left: 20%;
+  }
+
+  @media screen and (max-width: 900px) {
+    display: none;
+
+  }
+`;
+
 export const ContainerVideoAndInfo = styled.div`
   display: flex;
   align-items: center;

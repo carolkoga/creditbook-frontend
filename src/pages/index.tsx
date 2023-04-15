@@ -8,6 +8,7 @@ import {
   WrapperInfoCard,
   InfoCard,
   ContainerVideoAndInfo,
+  RelativeImageWrapper,
 } from '@styles/pages/home';
 
 import { Section } from '@components/Section';
@@ -49,7 +50,7 @@ export default function HomeLadingPage() {
           </Actions>
         </ContentHero>
 
-        {isAuthenticated && (
+        <RelativeImageWrapper>
           <WrapperImageHero>
             <Image
               src="/assets/images/hero.png"
@@ -60,9 +61,10 @@ export default function HomeLadingPage() {
               alt="Hero"
             />
           </WrapperImageHero>
-        )}
 
-        <PreSignUp isVisible={!isAuthenticated} />
+          <PreSignUp isVisible={!isAuthenticated} />
+        </RelativeImageWrapper>
+
       </SectionHero>
 
       <Section.Container>
