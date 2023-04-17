@@ -17,6 +17,10 @@ export function handleCatchErrorRequest(
   }
 
   if (typeof error?.response?.status === 'number') {
+    if (error?.response?.data?.error?.toLowerCase() === 'account not exists') {
+      return toast.info('Essa conta não existe', { position: 'bottom-center' });
+    }
+
     if (error?.response?.data?.error?.toLowerCase() === 'aguardando confirmação de cadastro') {
       return toast.warn('Aguardando confirmação de cadastro', { position: 'bottom-center' });
     }

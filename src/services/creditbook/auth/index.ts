@@ -29,15 +29,24 @@ class AuthCreditBookService {
 
     if (user.status === 'fulfilled') {
       return user.value;
-    } if (admin.status === 'fulfilled') {
+    }
+
+    if (admin.status === 'fulfilled') {
       return admin.value;
     }
 
-    if (user.status === 'rejected') {
+    const userAccountExists = user.reason.response.data?.error.toLowerCase() !== 'account not exists';
+    const adminAccountExists = admin.reason.response.data?.error.toLowerCase() !== 'account not exists';
+
+    if (user.status === 'rejected' && userAccountExists) {
       throw user.reason;
-    } if (admin.status === 'rejected') {
+    }
+
+    if (admin.status === 'rejected' && adminAccountExists) {
       throw admin.reason;
     }
+
+    throw user.reason;
   }
 }
 
