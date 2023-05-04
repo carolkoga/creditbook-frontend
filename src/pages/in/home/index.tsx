@@ -14,9 +14,26 @@ export default function Home() {
     isLoading: isLoadingPremium,
   } = useAnnouncements(undefined, { params: { isPremium: true } });
 
+  const isPremiumAnnouncementsAvailable = (
+    !isLoadingPremium
+    && announcementsPremium
+    && announcementsPremium?.results?.length > 0
+  );
+
+  const {
+    announcements: favoriteAnnouncements,
+    isLoading: isLoadingFavorite,
+  } = useAnnouncements(undefined, { params: { isFavorite: true } });
+
+  const isFavoriteAnnouncementsAvailable = (
+    !isLoadingFavorite
+    && favoriteAnnouncements
+    && favoriteAnnouncements?.results?.length > 0
+  );
+
   return (
     <>
-      {(!isLoadingPremium && announcementsPremium && announcementsPremium?.results?.length > 0) && (
+      {isPremiumAnnouncementsAvailable && (
         <Section.Container bg="light">
           <Section.Header>
             <Direction direction="horizontal" alignItems="center">
@@ -30,7 +47,21 @@ export default function Home() {
         </Section.Container>
       )}
 
-      <Section.Container>
+      {isFavoriteAnnouncementsAvailable && (
+        <Section.Container bg="light" style={{ marginTop: 32 }}>
+          <Section.Header>
+            <Direction direction="horizontal" alignItems="center">
+              <Section.Title as="h3">Favoritos</Section.Title>
+              <Link href="/in/my-favorites" variant="dark">
+                Ver Todos
+              </Link>
+            </Direction>
+          </Section.Header>
+          <LawsuitCardSwiper lawsuits={favoriteAnnouncements.results} />
+        </Section.Container>
+      )}
+
+      <Section.Container style={{ marginTop: 32 }}>
         <Section.Header>
           <Section.Title as="h3">
             Anúncios Gerais

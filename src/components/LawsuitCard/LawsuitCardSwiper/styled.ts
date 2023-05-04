@@ -5,7 +5,7 @@ export const Container = styled.div`
   align-items: center;
   justify-content: center;
   gap: 13px;
-  padding: 42px 0;
+  /* padding: 42px 0; */
   position: relative;
 
   .swiper-pagination {
