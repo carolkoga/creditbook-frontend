@@ -46,7 +46,7 @@ export default function InformationForm({
         error={errors?.fullName?.message}
         label={{
           forId: 'full-name',
-          title: type === 'PJ' ? 'Nome do representante PJ' : 'Nome Completo',
+          title: type === 'PJ' ? 'Nome do representante da pessoa jurídica' : 'Nome Completo',
         }}
       >
         <Input

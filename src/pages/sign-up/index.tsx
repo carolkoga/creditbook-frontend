@@ -44,10 +44,6 @@ export default function SignUp() {
     mode: 'onBlur',
   });
 
-  function handleToggleRegisterAccountType() {
-    setRegisterAccountType((oldState) => (oldState === 'person' ? 'corporation' : 'person'));
-  }
-
   function handleSetRegisterTypeAccountPerson() {
     setRegisterAccountType('person');
   }
