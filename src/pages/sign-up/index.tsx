@@ -48,6 +48,14 @@ export default function SignUp() {
     setRegisterAccountType((oldState) => (oldState === 'person' ? 'corporation' : 'person'));
   }
 
+  function handleSetRegisterTypeAccountPerson() {
+    setRegisterAccountType('person');
+  }
+
+  function handleSetRegisterTypeAccountCorporation() {
+    setRegisterAccountType('corporation');
+  }
+
   async function handleSignUpPersonAccount(data: AccountPerson) {
     try {
       setIsLoading(true);
@@ -97,10 +105,20 @@ export default function SignUp() {
       <Section.Header>
         <Direction>
           <Section.Title as="h2" textColor="dark">Cadastro</Section.Title>
-          <Button variant="dark" type="button" onClick={() => handleToggleRegisterAccountType()}>
-            Ou cadastre como pessoa
-            {' '}
-            {registerAccountType === 'person' ? 'jurídica' : 'física'}
+          <Button
+            variant={registerAccountType === 'person' ? 'default' : 'white'}
+            type="button"
+            onClick={handleSetRegisterTypeAccountPerson}
+          >
+            Cadastre como pessoa física
+          </Button>
+
+          <Button
+            variant={registerAccountType === 'corporation' ? 'default' : 'white'}
+            type="button"
+            onClick={handleSetRegisterTypeAccountCorporation}
+          >
+            Cadastre como pessoa jurídica
           </Button>
         </Direction>
       </Section.Header>

@@ -20,7 +20,7 @@ export default function PrivateIndividual({
     <Section.Container bg="white">
       {validation === 'register' && (
         <Section.Header>
-          <Section.Title as="h1">Cadastro Pessoa Física</Section.Title>
+          <Section.Title as="h1">Cadastrar Pessoa Física</Section.Title>
         </Section.Header>
       )}
 

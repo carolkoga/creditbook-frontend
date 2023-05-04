@@ -27,7 +27,7 @@ export default function LegalEntity({
     <Section.Container bg="white">
       {validation === 'register' && (
         <Section.Header>
-          <Section.Title>Cadastro Pessoa Jurídica</Section.Title>
+          <Section.Title>Cadastrar Pessoa Jurídica</Section.Title>
         </Section.Header>
       )}
 
