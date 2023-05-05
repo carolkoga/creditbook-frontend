@@ -107,12 +107,15 @@ export default function NewLawsuit() {
               <div className="right__content">
                 <DocumentForm />
                 <OwnerOrAttorney />
-                <PledgeOrGuarantee />
-                <AcceptNegotiation />
-                <Prices />
+
                 {ownOrAttorneyField === 'attorney' && (
                   <ProcurationField />
                 )}
+
+                <PledgeOrGuarantee />
+                <AcceptNegotiation />
+                <Prices />
+
                 <Button
                   type="button"
                   onClick={handleOpenModalToSelectPlan}
