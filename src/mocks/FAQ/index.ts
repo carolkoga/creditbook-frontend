@@ -1,11 +1,11 @@
 export const translationSectionFAQ = {
   creditbook: 'Creditbook',
   vendaCompraDireitosCreditoórios: 'Venda e Compra de Direitos Creditórios',
-  anuncio: 'Anúncio',
+  anuncio: 'Anúncios',
   usuarios: 'Usuários',
   lotes: 'Lotes',
-  habilitacaoParaCompra: 'Habilitação param a Compra',
-  cessaoDireitosCreditos: 'Cessão de Direitos do Créditos',
+  habilitacaoParaCompra: 'Habilitação para a compra',
+  cessaoDireitosCreditos: 'Cessão de Direitos Creditórios',
   custos: 'Custos',
   outrasPerguntasFrequentes: 'Outras Perguntas Frequentes',
 };
