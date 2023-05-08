@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 
 import FormGroup from '@components/FormGroup';
@@ -7,20 +7,42 @@ import { RegistrationParams } from '@type/creditbook/auth/register';
 import { cepService } from '@services/cep';
 
 import { AllCommonType } from '@components/UserForm/types';
+import { Select } from '@components/Select';
+import { UFListAsOptionSelect } from '@mocks/ReactSelectOptions/BrazilStatesInUF';
+import { IBGEService } from '@services/ibge';
+import { UFList } from '@type/brazil/BrazilStatesInUFTypes';
 import { Fieldset } from '../Fieldset';
 
 export default function AddressForm({ formGroupDirection }: AllCommonType) {
+  const [citiesOptions, setCitiesOptions] = useState([{ label: 'Selecione um estado', value: '' }]);
+
   const {
     register, formState: { errors }, watch, setValue, control,
   } = useFormContext<RegistrationParams<'person'>>();
   const cep = watch('address.cep');
+  const uf = watch('address.uf') as any;
+
+  const loadCityOptionsByUf = useCallback(async () => {
+    if (uf) {
+      const selectedUf = uf.value;
+
+      const { data: cities } = await IBGEService.municipalitiesByUF(selectedUf as keyof UFList);
+
+      const options = cities.map((city: { nome: string }) => ({
+        label: city.nome,
+        value: city.nome,
+      }));
+
+      setCitiesOptions(options);
+    }
+  }, [uf]);
 
   async function setAddressValuesFromCEP() {
     if (cep?.trim().replace('-', '').length === 8) {
       const { data: address } = await cepService.getAddressByCep(cep);
 
-      setValue('address.city', address.localidade);
-      setValue('address.uf', address.uf);
+      setValue('address.city', { label: address.localidade, value: address.localidade } as any);
+      setValue('address.uf', { label: address.uf, value: address.uf } as any);
       setValue('address.address', address.logradouro);
     }
   }
@@ -53,6 +75,10 @@ export default function AddressForm({ formGroupDirection }: AllCommonType) {
     setAddressValuesFromCEP();
   }, [cep]);
 
+  useEffect(() => {
+    loadCityOptionsByUf();
+  }, [loadCityOptionsByUf]);
+
   return (
     <Fieldset>
       <legend>Endereço</legend>
@@ -80,35 +106,66 @@ export default function AddressForm({ formGroupDirection }: AllCommonType) {
         )}
       />
 
-      <FormGroup
-        direction={formGroupDirection}
-        error={errors?.address?.uf?.message}
-        label={{
-          forId: 'address.uf',
-          title: 'UF',
-        }}
-      >
-        <Input
+      {/* <Select
           id="address.uf"
           placeholder=" "
           {...registeredFields.uf}
-        />
-      </FormGroup>
+        /> */}
 
-      <FormGroup
-        direction={formGroupDirection}
-        error={errors?.address?.city?.message}
-        label={{
-          forId: 'address.city',
-          title: 'Cidade',
-        }}
-      >
-        <Input
-          id="address.city"
-          placeholder=" "
-          {...registeredFields.city}
-        />
-      </FormGroup>
+      <Controller
+        name="address.uf"
+        control={control}
+        render={({ field }) => (
+          <FormGroup
+            direction={formGroupDirection}
+            error={errors?.address?.uf?.message}
+            label={{
+              forId: 'address.uf',
+              title: 'UF',
+            }}
+          >
+            <Select
+              options={UFListAsOptionSelect}
+              placeholder="UF"
+              id="uf"
+              instanceId="uf"
+              className="selects"
+              isSearchable={false}
+              {...field}
+            />
+
+          </FormGroup>
+
+        )}
+      />
+
+      <Controller
+        name="address.city"
+        control={control}
+        render={({ field }) => (
+          <FormGroup
+            direction={formGroupDirection}
+            error={errors?.address?.city?.message}
+            label={{
+              forId: 'address.city',
+              title: 'Cidade',
+            }}
+          >
+
+            <Select
+              {...field}
+              placeholder="Cidade"
+              id="city"
+              instanceId="city"
+              className="selects"
+              isSearchable={false}
+              options={citiesOptions}
+            />
+
+          </FormGroup>
+
+        )}
+      />
 
       <FormGroup
         direction={formGroupDirection}

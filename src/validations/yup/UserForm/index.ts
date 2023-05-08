@@ -7,11 +7,17 @@ const addressValidationSchema = yup.object().shape({
   cep: yup.string()
     .required('Campo obrigatório')
     .test('CEP is invalid', 'Digite um CEP válido', async (value: any) => validateCep(value)),
-  uf: yup.string().required('Campo obrigatório').test('uf', 'Digite um UF válido', (value: any) => validateUF(value)),
+  uf: yup.mixed()
+    .required('Escolha um estado')
+    .test('uf', 'Digite um UF válido', (val: any) => validateUF(val))
+    .transform((val: any) => val.value),
   number: yup.string().required('Campo obrigatório'),
   complement: yup.string().notRequired(),
   address: yup.string().required('Campo obrigatório'),
-  city: yup.string().required('Campo obrigatório'),
+  city: yup
+    .mixed()
+    .required('Campo obrigatório')
+    .transform((val) => val.value),
 });
 
 export const corporationValidation = {
