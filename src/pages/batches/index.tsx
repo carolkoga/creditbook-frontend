@@ -34,6 +34,8 @@ export const getServerSideProps: GetServerSideProps = async () => {
 
   try {
     const response = await batchServices.list();
+    console.log(response);
+
     batches = response.data;
   } catch {
     console.error('Happened an Error');

@@ -51,13 +51,22 @@ export default function NewLawsuit() {
   const isValidIncome = !methods.formState.errors?.income && methods.watch('income');
   const isValidToContinue = !(isValidIncome && isValidProcessPrice);
   const [plan, isPremium] = methods.watch(['plan', 'isPremium']);
+  const selectedPaymentMethodId = methods.watch('paymentMethodId');
 
   function handleNavigateToHome() {
     router.push('/');
   }
 
+  console.log(selectedPaymentMethodId);
+
   function handleOpenModalToSelectPlan() {
     setStepForm('4');
+  }
+
+  function handleInvalidField() {
+    toast.warning('Tem campos obrigatórios faltando');
+    setStepForm('0');
+    methods.trigger();
   }
 
   async function handleSubmitNewLawsuit(data: any) {
@@ -77,13 +86,6 @@ export default function NewLawsuit() {
     }
   }
 
-  function handleInvalidField() {
-    toast.warning('Tem campos obrigatórios faltando');
-    setStepForm('0');
-    methods.trigger();
-    return;
-  }
-
   return (
     <>
       <Section.Header>
@@ -95,7 +97,7 @@ export default function NewLawsuit() {
           <LawsuitFormProvider>
             <FormLayout
               noValidate
-              onSubmit={methods.handleSubmit(handleSubmitNewLawsuit, handleInvalidField)}
+            // onSubmit={methods.handleSubmit(handleSubmitNewLawsuit, handleInvalidField)}
             >
 
               <div className="left__content">
@@ -147,7 +149,7 @@ export default function NewLawsuit() {
                 isVisible={stepForm === '5'}
                 onBack={() => setStepForm('4')}
               >
-                <Button onClick={() => setStepForm('6')}>
+                <Button onClick={() => setStepForm('6')} disabled={!selectedPaymentMethodId}>
                   Resumo
                 </Button>
               </ChooseCreditCard>
@@ -155,10 +157,10 @@ export default function NewLawsuit() {
               <ModalResume isVisible={stepForm === '6'} onClose={() => setStepForm('0')}>
                 <Button
                   isLoading={loading}
-                  type="submit"
+                  // type="submit"
                   size="outline-filled-round"
-                  disabled={!methods.formState.isValid}
-                  onClick={methods.handleSubmit(handleSubmitNewLawsuit)}
+                  // disabled={!methods.formState.isValid}
+                  onClick={methods.handleSubmit(handleSubmitNewLawsuit, handleInvalidField)}
                 >
                   {!loading ? 'Cadastrar' : 'Cadastrando'}
                 </Button>
