@@ -5,6 +5,7 @@ export const Container = styled.form`
   padding: 18px;
   border-radius: 10px;
   max-width: 320px;
+  border: 3px solid ${({ theme }) => theme.colors.grey[30]};
 `;
 
 export const Header = styled.div`
@@ -21,7 +22,7 @@ export const Header = styled.div`
 export const Content = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 22px;
 
   button {
     flex: 1;

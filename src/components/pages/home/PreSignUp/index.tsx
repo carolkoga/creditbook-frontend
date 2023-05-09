@@ -50,22 +50,14 @@ export function PreSignUp({ isVisible }: PreSignUpProps) {
       <Content>
         <FormGroup
           error={errors?.name?.message}
-          label={{
-            forId: 'name',
-            title: 'Nome',
-          }}
         >
-          <Input id="name" {...register('name')} />
+          <Input id="name" placeholder="Nome" {...register('name')} />
         </FormGroup>
 
         <FormGroup
           error={errors?.email?.message}
-          label={{
-            forId: 'email',
-            title: 'E-mail',
-          }}
         >
-          <Input id="email" type="email" {...register('email')} />
+          <Input id="email" type="email" placeholder="E-mail" {...register('email')} />
         </FormGroup>
 
         <Controller
@@ -75,13 +67,10 @@ export function PreSignUp({ isVisible }: PreSignUpProps) {
           render={({ field }) => (
             <FormGroup
               error={errors?.cellphone?.message}
-              label={{
-                forId: 'phone',
-                title: 'Telefone',
-              }}
             >
               <InputPhone
                 id="phone"
+                placeholder="Telefone"
                 {...field}
               />
             </FormGroup>

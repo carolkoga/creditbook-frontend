@@ -85,8 +85,8 @@ export const RelativeImageWrapper = styled.div`
 
   .pre-sign-up-form {
     position: absolute;
-    bottom: -180px;
-    left: 20%;
+    top: 75px;
+    left: 10%;
   }
 
   @media screen and (max-width: 900px) {
