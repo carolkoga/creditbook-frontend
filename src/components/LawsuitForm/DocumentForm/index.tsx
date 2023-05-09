@@ -10,6 +10,8 @@ import { Input } from '@components/Input';
 
 import { commonToastProps } from '@configs/toast';
 
+import { Tooltip } from '@components/Tooltip';
+import { TooltipIcon } from '@components/Tooltip/styles';
 import { Fieldset } from '../components/Fieldset';
 import { LawsuitCheckType } from './components/LawsuitCheckType';
 import ModalUploadDocuments from './components/ModalUploadDocuments';
@@ -69,6 +71,7 @@ export default function DocumentForm() {
 
         {lawsuitType === 'digital' && (
           <Direction>
+
             <FormGroup
               direction="horizontal"
               error={errors?.digitalProcess?.message}
@@ -77,11 +80,22 @@ export default function DocumentForm() {
                 title: 'Processo Digital',
               }}
             >
-              <Input
-                {...register('digitalProcess')}
-                id="digital-process"
-                placeholder="Coloque o link do processo digital"
-              />
+              <>
+                <Tooltip
+                  title="O link do processo pode ser obtido atraves da
+                  consulta processual no site do tribunal
+                  onde o processo esta localizado."
+                >
+                  <TooltipIcon>?</TooltipIcon>
+                </Tooltip>
+
+                <Input
+                  {...register('digitalProcess')}
+                  id="digital-process"
+                  placeholder="Coloque o link do processo digital"
+                />
+
+              </>
             </FormGroup>
           </Direction>
         )}
