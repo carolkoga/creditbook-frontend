@@ -22,7 +22,8 @@ export function RIchTextEditor({ onSubmit, buttonProps, ...props }: IProps) {
       ['bold', 'italic', 'underline', 'strike'],
       [{ link: true }],
       [{ list: 'ordered' }, { list: 'bullet' }, { indent: '-1' }, { indent: '+1' }],
-      [{ align: [false, 'right', 'center', 'justify'] }],
+      // [{ align: [false, 'right', 'center', 'justify'] }],
+      [{ align: '' }, { align: 'right' }, { align: 'center' }, { align: 'justify' }],
     ],
   };
   const formats = [
