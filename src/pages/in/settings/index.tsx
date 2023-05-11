@@ -77,6 +77,7 @@ export default function Profile() {
   async function handleUpdateAccount(data: UserDefaultValues) {
     try {
       setIsLoading(true);
+
       const dataParsed = {
         ...data,
         nationality: data.nationality.value,
