@@ -96,6 +96,7 @@ export function AnnouncementsFilterDrawer({ onGetResponseResults, customQuery }:
       };
 
       const filterOptionsParse = {};
+
       Object.entries(filterOptions).forEach((field) => {
         const [key, value] = field;
         if (key === 'rangePriceSuggestion') return;
