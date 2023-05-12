@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { ToastOptions } from 'react-toastify';
+import { toast, ToastOptions } from 'react-toastify';
 
 import { Button } from '@components/Button';
 import LegalEntity from '@components/UserForm/LegalEntity';
@@ -57,6 +57,9 @@ export default function SignUp() {
       setIsLoading(true);
 
       await authCreditBookService.register({ ...data, type: 'person' });
+
+      toast.success('Cadastro realizado com Sucesso. Um e-mail foi encaminhado.');
+
       router.push('/login');
     } catch (error) {
       handleCatchErrorRequest(error as never, customToastPropsToSignUp);
@@ -70,6 +73,8 @@ export default function SignUp() {
       setIsLoading(true);
 
       await authCreditBookService.register({ ...data, type: 'corporation' });
+
+      toast.success('Cadastro realizado com Sucesso. Um e-mail foi encaminhado.');
 
       router.push('/login');
     } catch (error) {
