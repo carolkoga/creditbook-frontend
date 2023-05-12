@@ -2,8 +2,8 @@ import AnnouncementList from '@components/LawsuitCard';
 
 import { Section } from '@components/Section';
 import TabBatchAnnouncement from '@components/TabBatchAnnouncement';
-import { FilterDrawer, ResponseFilterCreditsProps } from '@components/FilterDrawer';
 import useAnnouncements from '@services/creditbook/lawsuit/hooks/useAnnouncements';
+import { AnnouncementsFilterDrawer, ResponseFilterCreditsProps } from '@components/FilterDrawer/Announcements';
 
 export default function SingleLawsuits() {
   const response = useAnnouncements(undefined, {
@@ -29,7 +29,7 @@ export default function SingleLawsuits() {
           {!response.isFiltered && 'Anúncios Individuais'}
           {response.isFiltered && 'Anúncios relacionados ao filtro'}
         </Section.Title>
-        <FilterDrawer onGetResponseResults={handleProcessAnnouncementsFiltered} />
+        <AnnouncementsFilterDrawer onGetResponseResults={handleProcessAnnouncementsFiltered} />
       </Section.Header>
 
       <Section.Container>

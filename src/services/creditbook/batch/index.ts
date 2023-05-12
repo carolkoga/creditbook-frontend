@@ -1,3 +1,4 @@
+import { QueriesToIndexBatches } from '@type/creditbook';
 import { NewBatchParams } from '@type/creditbook/Batch';
 import { mapperCurrency } from '@utils/mapperCurrency';
 import { HttpClient } from '../http';
@@ -19,8 +20,12 @@ export class BatchServices extends HttpClient {
     return this.httpClient.post('/batch', newBatch);
   }
 
-  async list() {
-    return this.httpClient.get('/batch/all');
+  async list(options?: QueriesToIndexBatches) {
+    return this.httpClient.get('/batch/all', {
+      params: {
+        ...options?.params,
+      },
+    });
   }
 
   async listUserBatches() {

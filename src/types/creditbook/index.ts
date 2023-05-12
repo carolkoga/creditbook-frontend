@@ -81,6 +81,15 @@ export interface QueriesToIndexAnnouncements {
   }
 }
 
+export interface QueriesToIndexBatches {
+  params: {
+    text?: string;
+    minValue?: number;
+    maxValue?: number;
+    announcementQuantity?: number;
+  }
+}
+
 export interface CustomResponseAnnouncements {
   result: LawsuitParams[],
   pagination: PaginationLawsuitProps
