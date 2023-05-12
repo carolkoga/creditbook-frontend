@@ -45,7 +45,7 @@ export default function OwnedNoBatch({ lawsuitId, userBatches }: OwnedNoBatchPar
     <Actions>
       <Content>
         <Link href={`/in/ads/${lawsuitId}`} size="small-large" variant="secondary">
-          Informação
+          Informações
         </Link>
         <DropdownMenu.Root>
           <DropdownButton>

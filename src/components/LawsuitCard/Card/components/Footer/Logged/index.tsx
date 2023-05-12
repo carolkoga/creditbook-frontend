@@ -7,7 +7,7 @@ export default function LoggedFooter({ lawsuitId, batchId }: CommonPropsTypes) {
     <Actions>
       <Content>
         <Link href={`/in/ads/${lawsuitId}`} size="small-large" variant="secondary">
-          Informação
+          Informações
         </Link>
 
         {!batchId && (

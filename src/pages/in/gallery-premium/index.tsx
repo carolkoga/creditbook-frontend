@@ -1,4 +1,4 @@
-import { FilterDrawer, ResponseFilterCreditsProps } from '@components/FilterDrawer';
+import { AnnouncementsFilterDrawer, ResponseFilterCreditsProps } from '@components/FilterDrawer/Announcements';
 import LawsuitCardList from '@components/LawsuitCard';
 
 import { Section } from '@components/Section';
@@ -22,7 +22,7 @@ export default function GalleryPremium() {
           {!response?.isFiltered && 'Galeria Premium'}
           {response?.isFiltered && 'Anúncios relacionados ao filtro'}
         </Section.Title>
-        <FilterDrawer
+        <AnnouncementsFilterDrawer
           onGetResponseResults={handleProcessAnnouncementsFiltered}
           customQuery={{ isPremium: true }}
         />

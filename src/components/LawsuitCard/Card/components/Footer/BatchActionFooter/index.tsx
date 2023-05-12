@@ -64,7 +64,7 @@ export default function BatchActionFooter({ originalLawsuit, originalBatchId }: 
     <Actions>
       <Content>
         <Link href={`/in/ads/${originalLawsuit.id}`} size="small-large" variant="secondary">
-          Informação
+          Informações
         </Link>
 
         <Button onClick={() => handleOnClick()} variant={lawsuitBelongsBatch ? 'danger' : 'default'}>

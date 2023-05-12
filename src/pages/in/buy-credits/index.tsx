@@ -1,4 +1,4 @@
-import { FilterDrawer, ResponseFilterCreditsProps } from '@components/FilterDrawer';
+import { AnnouncementsFilterDrawer, ResponseFilterCreditsProps } from '@components/FilterDrawer/Announcements';
 import AnnouncementList from '@components/LawsuitCard';
 
 import { Section } from '@components/Section';
@@ -24,7 +24,7 @@ export default function BuyAnnouncements() {
           {!response.isFiltered && 'Comprar anúncios'}
           {response.isFiltered && 'Anúncios relacionados ao filtro'}
         </Section.Title>
-        <FilterDrawer onGetResponseResults={handleProcessAnnouncementsFiltered} />
+        <AnnouncementsFilterDrawer onGetResponseResults={handleProcessAnnouncementsFiltered} />
       </Section.Header>
 
       <Section.Container>

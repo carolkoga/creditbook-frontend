@@ -70,6 +70,7 @@ export default function SignUp() {
       setIsLoading(true);
 
       await authCreditBookService.register({ ...data, type: 'corporation' });
+
       router.push('/login');
     } catch (error) {
       handleCatchErrorRequest(error as never);

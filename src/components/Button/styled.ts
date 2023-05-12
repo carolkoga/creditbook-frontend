@@ -10,12 +10,12 @@ export interface ButtonProps {
 
 const sizesButton = {
   small: css`
-    padding: 5px 30px;
+    padding: 5px 28px;
     font-size: 13px;
   `,
 
   'small-large': css`
-    padding: 3px 30px;
+    padding: 3px 28px;
     font-size: 13px;
   `,
 
