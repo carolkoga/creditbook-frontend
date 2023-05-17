@@ -53,36 +53,38 @@ export function AuthProvider({ children }: IProps) {
   function handleSignOut() {
     handleAddCustomLoadingScreen();
     setUser(null);
-    Router.push('/');
     localStorage.removeItem('nextauth.token');
     destroyAuthCookies();
+    Router.push('/');
+
+    delete creditbookApi.defaults.headers.common.Authorization;
   }
 
-  function setAuthorizationHeader(token: string) {
-    creditbookApi.interceptors.request.use((config) => {
-      // eslint-disable-next-line no-param-reassign
-      config.headers = {
-        ...config.headers,
-        Authorization: `Bearer ${token}`,
-      };
+  // function setAuthorizationHeader(token: string) {
+  //   creditbookApi.interceptors.request.use((config) => {
+  //     // eslint-disable-next-line no-param-reassign
+  //     config.headers = {
+  //       ...config.headers,
+  //       Authorization: `Bearer ${token}`,
+  //     };
 
-      return config;
-    }, (error) => {
-      if (error.response.status === 401) {
-        handleSignOut();
-      }
+  //     return config;
+  //   }, (error) => {
+  //     if (error.response.status === 401) {
+  //       handleSignOut();
+  //     }
 
-      return Promise.reject(error);
-    });
+  //     return Promise.reject(error);
+  //   });
 
-    creditbookApi.interceptors.response.use((response) => response, (error) => {
-      if (error.response.status === 401) {
-        handleSignOut();
-      }
+  //   creditbookApi.interceptors.response.use((response) => response, (error) => {
+  //     if (error.response.status === 401) {
+  //       handleSignOut();
+  //     }
 
-      return Promise.reject(error);
-    });
-  }
+  //     return Promise.reject(error);
+  //   });
+  // }
 
   async function handleSignIn(data: LoginParams) {
     const toastId = toast.loading('Estamos verificando seus dados, aguarde um momento...', customToastProps);
@@ -97,6 +99,7 @@ export function AuthProvider({ children }: IProps) {
         path: '/',
       });
       localStorage.setItem('nextauth.token', token);
+      creditbookApi.defaults.headers.common.Authorization = `Bearer ${token}`;
 
       if (userSignIn.role === 'user') {
         Router.replace('/in/home');
@@ -107,7 +110,7 @@ export function AuthProvider({ children }: IProps) {
       }
 
       setUser(userSignIn);
-      setAuthorizationHeader(token);
+      // setAuthorizationHeader(token);
 
       setCookie(undefined, 'nextauth.user', JSON.stringify({
         ...userSignIn,
@@ -133,6 +136,7 @@ export function AuthProvider({ children }: IProps) {
 
   async function getUserInformation(token?: string) {
     const { 'nextauth.user': userDataSaved } = parseCookies();
+
     if (!userDataSaved) return handleSignOut();
     setUser(JSON.parse(userDataSaved));
 
@@ -149,12 +153,15 @@ export function AuthProvider({ children }: IProps) {
 
   useEffect(() => {
     const { 'nextauth.token': nextAuthToken } = parseCookies();
+
     if (nextAuthToken) {
       getUserInformation(nextAuthToken);
-      setAuthorizationHeader(nextAuthToken);
+      // setAuthorizationHeader(nextAuthToken);
+      creditbookApi.defaults.headers.common.Authorization = `Bearer ${nextAuthToken}`;
     } else {
       setUser(null);
       destroyAuthCookies();
+      delete creditbookApi.defaults.headers.common.Authorization;
     }
   }, []);
 
@@ -164,7 +171,7 @@ export function AuthProvider({ children }: IProps) {
     handleSignIn,
     handleSignOut,
     handleUpdateUser: (data: AuthenticatedUserData) => updateUser(data),
-  }), [isAuthenticated, user, updateUser]);
+  }), [isAuthenticated, user, updateUser, handleSignOut, handleSignIn]);
 
   return (
     <AuthContext.Provider value={values}>
