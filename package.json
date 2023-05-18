@@ -29,7 +29,7 @@
     "react-dom": "18.2.0",
     "react-error-boundary": "^3.1.4",
     "react-hook-form": "^7.34.2",
-    "react-imask": "^6.4.2",
+    "react-imask": "^6.6.1",
     "react-lite-youtube-embed": "^2.3.1",
     "react-loader-spinner": "^5.3.4",
     "react-number-format": "^5.0.1",
