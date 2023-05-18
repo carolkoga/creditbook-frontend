@@ -38,7 +38,7 @@ export default function AddressForm({ formGroupDirection }: AllCommonType) {
   }, [uf]);
 
   async function setAddressValuesFromCEP() {
-    if (cep?.trim().replace('-', '').length === 8) {
+    if (cep.trim().replace('-', '').length === 8) {
       const { data: address } = await cepService.getAddressByCep(cep);
 
       setValue('address.city', { label: address.localidade, value: address.localidade } as any);
@@ -111,46 +111,45 @@ export default function AddressForm({ formGroupDirection }: AllCommonType) {
           placeholder=" "
           {...registeredFields.uf}
         /> */}
+      <FormGroup
+        direction={formGroupDirection}
+        error={errors?.address?.uf?.message}
+        label={{
+          forId: 'address.uf',
+          title: 'UF',
+        }}
+      >
 
-      <Controller
-        name="address.uf"
-        control={control}
-        render={({ field }) => (
-          <FormGroup
-            direction={formGroupDirection}
-            error={errors?.address?.uf?.message}
-            label={{
-              forId: 'address.uf',
-              title: 'UF',
-            }}
-          >
+        <Controller
+          name="address.uf"
+          control={control}
+          render={({ field }) => (
             <Select
+              {...field}
               options={UFListAsOptionSelect}
               placeholder="UF"
               id="uf"
               instanceId="uf"
               className="selects"
               isSearchable={false}
-              {...field}
             />
 
-          </FormGroup>
+          )}
+        />
+      </FormGroup>
 
-        )}
-      />
-
-      <Controller
-        name="address.city"
-        control={control}
-        render={({ field }) => (
-          <FormGroup
-            direction={formGroupDirection}
-            error={errors?.address?.city?.message}
-            label={{
-              forId: 'address.city',
-              title: 'Cidade',
-            }}
-          >
+      <FormGroup
+        direction={formGroupDirection}
+        error={errors?.address?.city?.message}
+        label={{
+          forId: 'address.city',
+          title: 'Cidade',
+        }}
+      >
+        <Controller
+          name="address.city"
+          control={control}
+          render={({ field }) => (
 
             <Select
               {...field}
@@ -162,10 +161,9 @@ export default function AddressForm({ formGroupDirection }: AllCommonType) {
               options={citiesOptions}
             />
 
-          </FormGroup>
-
-        )}
-      />
+          )}
+        />
+      </FormGroup>
 
       <FormGroup
         direction={formGroupDirection}
