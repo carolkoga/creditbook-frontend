@@ -45,7 +45,13 @@ const subjectSelectOptions = [
 ];
 
 export default function Contact() {
-  const { register, handleSubmit, control } = useForm<ContactSupportParamsForm>();
+  const {
+    register, handleSubmit, control, reset,
+  } = useForm<ContactSupportParamsForm>({
+    defaultValues: {
+      subject: { label: '', value: '' },
+    },
+  });
   const [isLoading, setIsLoading] = useState(false);
 
   async function handleContactSupport(data: ContactSupportParamsForm) {
@@ -53,6 +59,7 @@ export default function Contact() {
       setIsLoading(true);
       await emailServices.contactSupport({ ...data, subject: data.subject.label });
       toast.success('Obrigado pelo seu feedback!');
+      reset();
     } catch (error) {
       handleCatchErrorRequest(error as never);
     } finally {
