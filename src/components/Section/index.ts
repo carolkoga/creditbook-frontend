@@ -1,8 +1,14 @@
 import styled from 'styled-components';
-import { HeaderSectionProps, SectionContainerProps, SectionTitleProps } from './types';
+import {
+  HeaderSectionProps,
+  SectionContainerProps,
+  SectionTitleProps,
+} from './types';
 import { sectionBgColors, sectionTextColors } from './utils';
 
 const SectionContainer = styled.section<SectionContainerProps>`
+  align-items: ${({ align }) => align || 'flex-start'};
+  justify-content: center;
   display: flex;
   flex-direction: column;
   border-radius: 10px;
@@ -45,7 +51,12 @@ const HeaderSection = styled.header<HeaderSectionProps>`
   gap: ${({ gap }) => (!gap ? '1.6rem' : gap)};
   margin-bottom: 32px;
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     margin-bottom: 0;
   }
 `;

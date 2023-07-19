@@ -1,7 +1,7 @@
 import LinkNext from 'next/link';
 import { ChangeEvent, FormEvent, useState } from 'react';
 
-import { Button, Link } from '@components/Button';
+import { Button } from '@components/Button';
 import FormGroup from '@components/FormGroup';
 import { Input } from '@components/Input';
 import { Section } from '@components/Section';
@@ -9,14 +9,41 @@ import { WrapperForm } from '@styles/pages/login';
 import useAuth from 'hooks/useAuth';
 import CheckboxShownPassword from '@components/UserForm/components/CheckboxShownPassword';
 import { Direction } from '@components/Direction';
+import router from 'next/router';
+import { userCreditbookService } from '@services/creditbook/user';
 
 export default function Login() {
   const [email, setEmail] = useState('');
+  const [emailError, setEmailError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const { handleSignIn } = useAuth();
   const [password, setPassword] = useState('');
   const [shownPassword, setShownPassword] = useState<'text' | 'password'>('password');
   const isValid = !email.length && !password.length;
+
+  async function handleRegisterRedirect() {
+    if (email) {
+      const response = await userCreditbookService.verifyEmailInUse(email);
+
+      if (response.data.emailInUse) {
+        setEmailError('Email ja cadastrado');
+      } else {
+        router.push({
+          pathname: '/sign-up',
+          query: {
+            email,
+          },
+        });
+      }
+    } else {
+      router.push({
+        pathname: '/sign-up',
+        query: {
+          email,
+        },
+      });
+    }
+  }
 
   async function onSignIn(event: FormEvent<HTMLFormElement>) {
     try {
@@ -45,7 +72,7 @@ export default function Login() {
 
       <WrapperForm>
         <form noValidate onSubmit={onSignIn}>
-          <FormGroup label={{ title: 'E-mail', forId: 'email' }}>
+          <FormGroup label={{ title: 'E-mail', forId: 'email' }} error={emailError}>
             <Input
               type="email"
               placeholder=" "
@@ -83,9 +110,9 @@ export default function Login() {
         </form>
 
         <div className="actions">
-          <Link href="/sign-up" size="large" variant="white">
+          <Button onClick={handleRegisterRedirect} size="large" variant="white">
             Realize seu cadastro
-          </Link>
+          </Button>
 
           <LinkNext href="/reset-password">
             <a className="forget__password">

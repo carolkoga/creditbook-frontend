@@ -32,7 +32,7 @@ export default function SingleLawsuits() {
         <AnnouncementsFilterDrawer onGetResponseResults={handleProcessAnnouncementsFiltered} />
       </Section.Header>
 
-      <Section.Container>
+      <Section.Container align="center">
         <AnnouncementList {...response} notFoundProps={{ type: 'children', children: null }} />
       </Section.Container>
     </TabBatchAnnouncement>

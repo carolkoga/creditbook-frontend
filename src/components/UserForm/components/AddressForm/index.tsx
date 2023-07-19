@@ -38,7 +38,7 @@ export default function AddressForm({ formGroupDirection }: AllCommonType) {
   }, [uf]);
 
   async function setAddressValuesFromCEP() {
-    if (cep.trim().replace('-', '').length === 8) {
+    if (cep?.trim().replace('-', '').length === 8) {
       const { data: address } = await cepService.getAddressByCep(cep);
 
       setValue('address.city', { label: address.localidade, value: address.localidade } as any);

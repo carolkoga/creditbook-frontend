@@ -6,6 +6,7 @@ import { preSignUpValidation } from '@validations/yup/UserForm/preSignUp';
 import { useRouter } from 'next/router';
 import { Controller, useForm } from 'react-hook-form';
 import { InputPhone } from '@components/Form/Input/Mask/InputPhone';
+import { userCreditbookService } from '@services/creditbook/user/index';
 import { Container, Content, Header } from './styled';
 
 interface PreSignUpProps {
@@ -21,21 +22,27 @@ interface PreSignUParams {
 export function PreSignUp({ isVisible }: PreSignUpProps) {
   const router = useRouter();
   const {
-    register, control, formState: { errors }, handleSubmit,
+    register, control, formState: { errors }, handleSubmit, setError,
   } = useForm<PreSignUParams>({
     resolver: yupResolver(preSignUpValidation),
     mode: 'onSubmit',
   });
 
-  function handleContinueSignUp(data: PreSignUParams) {
-    router.push({
-      pathname: '/sign-up',
-      query: {
-        name: data.name,
-        email: data.email,
-        cellphone: data.cellphone,
-      },
-    });
+  async function handleContinueSignUp(data: PreSignUParams) {
+    const response = await userCreditbookService.verifyEmailInUse(data.email);
+
+    if (response.data.emailInUse) {
+      setError('email', { message: 'Email está em uso' });
+    } else {
+      router.push({
+        pathname: '/sign-up',
+        query: {
+          name: data.name,
+          email: data.email,
+          cellphone: data.cellphone,
+        },
+      });
+    }
   }
 
   if (!isVisible) return null;

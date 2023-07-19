@@ -1,6 +1,6 @@
 import { RegistrationParams } from '@type/creditbook/auth/register';
 
-import { Button, Link } from '@components/Button';
+import { Button } from '@components/Button';
 import { Section } from '@components/Section';
 
 import AddressForm from '../components/AddressForm';
@@ -56,11 +56,11 @@ export default function PrivateIndividual({
         )}
 
         <div className="actions">
-          {validation !== 'update' && (
+          {/* {validation !== 'update' && (
             <Link href="/login" size="outline-filled-round" variant="white">
               Login
             </Link>
-          )}
+          )} */}
 
           <Button
             type="submit"

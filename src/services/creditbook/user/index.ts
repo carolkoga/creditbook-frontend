@@ -19,6 +19,10 @@ class UserCreditbookService {
       },
     });
   }
+
+  async verifyEmailInUse(email: string) {
+    return creditbookApi.get(`/email-in-use?email=${email}`);
+  }
 }
 
 export const userCreditbookService = new UserCreditbookService();

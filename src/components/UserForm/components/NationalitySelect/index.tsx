@@ -37,6 +37,21 @@ export default function NationalitySelect({ formGroupDirection, label }: IProps)
       ));
     }
 
+    const brasilIndex = optionReactSelect.findIndex(({ value }: OptionType) => value === 'Brasil');
+    optionReactSelect.splice(brasilIndex, 1);
+
+    optionReactSelect.sort((a: OptionType, b: OptionType) => {
+      if (a.value < b.value) {
+        return -1;
+      }
+      if (a.value > b.value) {
+        return 1;
+      }
+      return 0;
+    });
+
+    optionReactSelect.unshift({ value: 'Brasil', label: '🇧🇷 Brasil' });
+
     return optionReactSelect;
   }, [inputNationalityValue]);
 

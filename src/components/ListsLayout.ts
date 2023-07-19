@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const ListLayoutSingleLawsuits = styled.div`
   /* max-width: 1366px; */
-  width: 100%;
+  width: 94%;
   display: flex;
   /* grid-template-columns: repeat(3, 1fr);
   grid-template-rows: auto; */
