@@ -8,6 +8,8 @@ export const Container = styled.div`
   /* padding: 42px 0; */
   position: relative;
 
+  width: 100%;
+
   .swiper-pagination {
     margin-top: 42px;
   }

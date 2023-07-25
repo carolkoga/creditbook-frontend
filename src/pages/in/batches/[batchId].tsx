@@ -36,6 +36,7 @@ export default function ShowBatchPage({
       batchId: router.query.batchId,
     },
   });
+  const isCreating = router.query.creating;
 
   const announcementsResponse = useUserAnnouncements({
     params: {
@@ -123,7 +124,7 @@ export default function ShowBatchPage({
             <BatchForm onSubmit={methods.handleSubmit(handleUpdateBatch)}>
               <WrapperActionsForm>
                 <Button type="submit" isLoading={updatingLoading}>
-                  Salvar
+                  {isCreating ? 'Criar anúncios do lote' : 'Salvar'}
                 </Button>
                 <Button
                   type="button"

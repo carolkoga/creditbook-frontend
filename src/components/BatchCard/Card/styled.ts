@@ -12,6 +12,8 @@ export const Container = styled.div`
   background: ${({ theme }) => theme.colors.grey[20]};
   min-height: 156px;
 
+  width: 100%;
+
   @media (max-width: 700px) {
     gap: 32px 0;
   }
@@ -72,8 +74,9 @@ export const RightContent = styled.div`
   .actions {
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
-    align-items: center;
+    justify-content: end;
+
+    width: 100%;
   }
 
   @media (max-width: 700px) {

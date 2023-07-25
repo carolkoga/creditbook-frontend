@@ -67,7 +67,7 @@ export default function AnnouncementList({
 
   return (
     <>
-      <ListLayoutSingleLawsuits>
+      <ListLayoutSingleLawsuits alignItems="center" justifyContent="center">
         {announcements?.results?.map((lawsuit: LawsuitParams) => (
           <LawsuitCard
             key={lawsuit.id}

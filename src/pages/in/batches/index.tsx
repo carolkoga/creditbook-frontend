@@ -32,7 +32,7 @@ export default function Batches({ initialBatches }: IProps) {
     try {
       const { data: newestBatch } = await batchServices.create(data);
       setNewBatchModalIsVisible(false);
-      router.push(`/in/batches/${newestBatch.id}`);
+      router.push(`/in/batches/${newestBatch.id}?creating=true`);
     } catch (error) {
       handleCatchErrorRequest(error as any);
     }

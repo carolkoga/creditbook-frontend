@@ -12,6 +12,7 @@ const SectionContainer = styled.section<SectionContainerProps>`
   display: flex;
   flex-direction: column;
   border-radius: 10px;
+  flex-wrap: wrap;
 
   & + & {
     margin-top: 92px;
