@@ -34,7 +34,7 @@ export default function LawsuitNewCard({
   moreAboutOnly,
   userBatches,
 }: IProps) {
-  const { user, isAuthenticated } = useAuth();
+  const { user } = useAuth();
   const [lawsuit, setLawsuit] = useState(originalLawsuit);
   const router = useRouter();
 
@@ -75,7 +75,7 @@ export default function LawsuitNewCard({
             </Lawsuit.Header.PremiumTitle>
           )}
 
-          {isAuthenticated && (
+          {lawsuit.userId !== user?.id && (
             <button
               type="button"
               onClick={() => (
@@ -158,6 +158,7 @@ export default function LawsuitNewCard({
 
         {lawsuit.userId === user?.id && (
           <span style={{ opacity: '.7' }}>
+            {lawsuit.status === 'accepted' && 'Anúncio Aprovado'}
             {lawsuit.status === 'rejected' && 'Anúncio Reprovado'}
             {lawsuit.status === 'edition_requested' && 'Solicitado Edição'}
             {lawsuit.status === 'pending' && 'Aguardando Aprovação'}

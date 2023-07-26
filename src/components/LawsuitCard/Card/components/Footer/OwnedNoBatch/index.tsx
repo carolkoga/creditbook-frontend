@@ -10,7 +10,7 @@ import { BatchParams } from '@type/creditbook/Batch';
 
 import {
   DropdownArrow,
-  DropdownButton,
+  // DropdownButton,
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
 } from './styled';
@@ -24,7 +24,7 @@ interface OwnedNoBatchParams extends CommonPropsTypes {
 export default function OwnedNoBatch({ lawsuitId, userBatches }: OwnedNoBatchParams) {
   const [errorWithBatch, setErrorWithBatch] = useState(false);
   const [value, setValue] = useState('1');
-  const [hasBatch, setHasBatch] = useState<boolean>(false);
+  // const [hasBatch, setHasBatch] = useState<boolean>(false);
 
   const handleAddBatch = useCallback(async (batchId: string) => {
     try {
@@ -34,7 +34,7 @@ export default function OwnedNoBatch({ lawsuitId, userBatches }: OwnedNoBatchPar
       });
 
       setValue(batchId);
-      setHasBatch(true);
+      // setHasBatch(true);
     } catch (error) {
       handleCatchErrorRequest(error as never);
       setErrorWithBatch(true);
@@ -48,10 +48,10 @@ export default function OwnedNoBatch({ lawsuitId, userBatches }: OwnedNoBatchPar
           Informações
         </Link>
         <DropdownMenu.Root>
-          <DropdownButton>
+          {/* <DropdownButton>
             {!hasBatch && 'Lotear'}
             {hasBatch && 'Adicionado'}
-          </DropdownButton>
+          </DropdownButton> */}
           <DropdownMenu.Portal>
             <DropdownMenu.Content>
               <DropdownArrow />
