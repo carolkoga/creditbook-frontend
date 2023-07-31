@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import { useForm, FormProvider } from 'react-hook-form';
-import { Alert } from 'antd';
+// import { Alert } from 'antd';
 
 import { Button, Link } from '@components/Button';
 import { Direction } from '@components/Direction';
@@ -18,6 +18,7 @@ import { handleCatchErrorRequest } from '@utils/handleCatchErrorRequest';
 import LawsuitCardList from '@components/LawsuitCard';
 import useUserAnnouncements from '@services/creditbook/lawsuit/hooks/useUserAnnouncements';
 import convertToCurrency from '@utils/convertToCurrency';
+import NewLawsuit from '../ads/new';
 
 interface IProps {
   initialBatch: BatchParams
@@ -108,24 +109,27 @@ export default function ShowBatchPage({
           showIcon
           closable={false}
         /> */}
-        <Alert
+        {/* <Alert
           message="Atenção"
           description="O lote será ativado automaticamente após adicionar ao menos um anúncio"
           type="warning"
           showIcon
           closable={false}
-        />
+        /> */}
       </Section.Header>
 
       <Section.Container>
         <Direction>
           <Section.Title as="h1">Lote: {batch.name}</Section.Title>
           <FormProvider {...methods}>
-            <BatchForm onSubmit={methods.handleSubmit(handleUpdateBatch)}>
+            <BatchForm onSubmit={methods.handleSubmit(handleUpdateBatch)} disableValue>
               <WrapperActionsForm>
-                <Button type="submit" isLoading={updatingLoading}>
-                  {isCreating ? 'Criar anúncios do lote' : 'Salvar'}
-                </Button>
+                {!isCreating
+                  && (
+                  <Button type="submit" isLoading={updatingLoading}>
+                    Salvar
+                  </Button>
+                  )}
                 <Button
                   type="button"
                   variant="danger"
@@ -147,6 +151,12 @@ export default function ShowBatchPage({
             </BatchForm>
           </FormProvider>
         </Direction>
+
+        <br />
+        <br />
+        <br />
+
+        {isCreating && <NewLawsuit batchId={batch.id} />}
       </Section.Container>
 
       {announcementsInBatch?.announcements?.results?.length > 0 && (

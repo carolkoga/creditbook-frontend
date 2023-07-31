@@ -29,7 +29,11 @@ import ChooseCreditCard from '@components/LawsuitForm/ChooseCreditCard';
 import { toast } from 'react-toastify';
 import { ModalResume } from '@components/LawsuitForm/ModalResume';
 
-export default function NewLawsuit() {
+type NewLawsuitParameters = {
+  batchId?: string
+};
+
+export default function NewLawsuit({ batchId }: NewLawsuitParameters) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [stepForm, setStepForm] = useState('1');
@@ -86,6 +90,25 @@ export default function NewLawsuit() {
     }
   }
 
+  async function handleSubmitNewLawsuitInBatch(data: any) {
+    try {
+      setLoading(true);
+
+      await lawsuitService.createLawsuit({
+        ...data,
+        isPremium: data.isPremium ? '1' : '0',
+        isFavorite: data.isFavorite ? '1' : '0',
+        batchId,
+      });
+
+      toast.info('Anuncio Adicionado ao Lote com Sucesso');
+    } catch (error) {
+      handleCatchErrorRequest(error as any);
+    } finally {
+      setLoading(false);
+    }
+  }
+
   return (
     <>
       <Section.Header>
@@ -123,7 +146,7 @@ export default function NewLawsuit() {
                   onClick={handleOpenModalToSelectPlan}
                   disabled={isValidToContinue}
                 >
-                  Escolher o plano
+                  {batchId ? 'Adicionar ao lote' : 'Escolher o plano'}
                 </Button>
               </div>
 
@@ -160,7 +183,9 @@ export default function NewLawsuit() {
                   // type="submit"
                   size="outline-filled-round"
                   // disabled={!methods.formState.isValid}
-                  onClick={methods.handleSubmit(handleSubmitNewLawsuit, handleInvalidField)}
+                  onClick={batchId
+                    ? methods.handleSubmit(handleSubmitNewLawsuitInBatch, handleInvalidField)
+                    : methods.handleSubmit(handleSubmitNewLawsuit, handleInvalidField)}
                 >
                   {!loading ? 'Cadastrar' : 'Cadastrando'}
                 </Button>

@@ -10,9 +10,10 @@ import { Container } from './styled';
 interface IProps {
   children?: ReactNode,
   onSubmit: () => Promise<void>,
+  disableValue?: boolean
 }
 
-export default function BatchForm({ children, onSubmit }: IProps) {
+export default function BatchForm({ children, onSubmit, disableValue = false }: IProps) {
   const {
     register, formState: { errors }, control,
   } = useFormContext<NewBatchParams>();
@@ -61,6 +62,7 @@ export default function BatchForm({ children, onSubmit }: IProps) {
             }}
           >
             <InputCurrency
+              disabled={disableValue}
               id="value"
               {...field}
             />

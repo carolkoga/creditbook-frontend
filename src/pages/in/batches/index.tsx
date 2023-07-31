@@ -18,7 +18,8 @@ interface IProps {
 
 export default function Batches({ initialBatches }: IProps) {
   const router = useRouter();
-  const [newBatchModalIsVisible, setNewBatchModalIsVisible] = useState(false);
+  const modalOpen = Boolean(router.query?.modalOpen) || false;
+  const [newBatchModalIsVisible, setNewBatchModalIsVisible] = useState(modalOpen);
 
   function handleOpenNewBatchModal() {
     setNewBatchModalIsVisible(true);

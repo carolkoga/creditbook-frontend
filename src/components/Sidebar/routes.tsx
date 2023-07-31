@@ -19,6 +19,12 @@ export const routes = [
   },
 
   {
+    label: 'Pagina Creditbook',
+    icon: <House size={24} weight="regular" />,
+    link: '/',
+  },
+
+  {
     label: 'Comprar',
     icon: <ShoppingCart size={24} weight="regular" />,
     link: '/ads',
@@ -31,7 +37,7 @@ export const routes = [
   },
 
   {
-    label: 'Novo Anúncio',
+    label: 'Novo Anúncio Individual',
     icon: <DiceSix size={24} weight="regular" />,
     link: `${DEFAULT_PATH}/ads/new`,
   },
@@ -40,6 +46,12 @@ export const routes = [
     label: 'Meus Anúncios',
     icon: <CurrencyCircleDollar size={24} weight="regular" />,
     link: `${DEFAULT_PATH}/my-ads`,
+  },
+
+  {
+    label: 'Novo Lote',
+    icon: <DiceSix size={24} weight="regular" />,
+    link: `${DEFAULT_PATH}/batches?modalOpen=true`,
   },
 
   {

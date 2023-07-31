@@ -63,7 +63,9 @@ export function NewBatchFormModal({ isVisible, onCloseModal, onCreateBatch }: IP
               <ol>
                 <li>Passo 1 - Inserir  um título e uma descrição para o lote</li>
                 <li>Passo 2 - Inserir o valor pelo qual o lote será vendido</li>
-                <li>Passo 3 - Salvar</li>
+                <li>Passo 3 - Inserir qual será o tipo de plano</li>
+                <li>Passo 4 - Inserir os Anúncios</li>
+                <li>Passo 5 - Finalizar</li>
               </ol>
             </div>
           </ContentHeader>
@@ -78,7 +80,7 @@ export function NewBatchFormModal({ isVisible, onCloseModal, onCreateBatch }: IP
                 >
                   Cancelar
                 </Button>
-                <Button type="submit">Salvar</Button>
+                <Button type="submit">Adicionar Anúncios</Button>
               </div>
             </BatchForm>
           </FormProvider>
