@@ -28,12 +28,14 @@ import ModalToSelectPlan from '@components/LawsuitForm/ModalToSelectPlan';
 import ChooseCreditCard from '@components/LawsuitForm/ChooseCreditCard';
 import { toast } from 'react-toastify';
 import { ModalResume } from '@components/LawsuitForm/ModalResume';
+import { AnnouncementResponse } from '@services/creditbook/lawsuit/hooks/types';
 
 type NewLawsuitParameters = {
   batchId?: string
+  setAnnouncementsInBatch?: Function
 };
 
-export default function NewLawsuit({ batchId }: NewLawsuitParameters) {
+export default function NewLawsuit({ batchId, setAnnouncementsInBatch }: NewLawsuitParameters) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [stepForm, setStepForm] = useState('1');
@@ -41,7 +43,7 @@ export default function NewLawsuit({ batchId }: NewLawsuitParameters) {
     resolver: yupResolver(newLawsuitSchemaValidation),
     mode: 'all',
     defaultValues: {
-      plan: 'byMonth',
+      plan: 'batch',
       type: 'digital',
       acceptNegotiation: '1',
       pledgeOrGuarantee: '1',
@@ -50,6 +52,7 @@ export default function NewLawsuit({ batchId }: NewLawsuitParameters) {
       isPremium: false,
     },
   });
+
   const ownOrAttorneyField = methods.watch('ownOrAttorney');
   const isValidProcessPrice = !methods.formState.errors?.processPrice && methods.watch('processPrice');
   const isValidIncome = !methods.formState.errors?.income && methods.watch('income');
@@ -61,13 +64,13 @@ export default function NewLawsuit({ batchId }: NewLawsuitParameters) {
     router.push('/');
   }
 
-  console.log(selectedPaymentMethodId);
-
   function handleOpenModalToSelectPlan() {
     setStepForm('4');
   }
 
-  function handleInvalidField() {
+  function handleInvalidField(error: any) {
+    console.log(error);
+
     toast.warning('Tem campos obrigatórios faltando');
     setStepForm('0');
     methods.trigger();
@@ -94,14 +97,18 @@ export default function NewLawsuit({ batchId }: NewLawsuitParameters) {
     try {
       setLoading(true);
 
-      await lawsuitService.createLawsuit({
+      const response = await lawsuitService.createLawsuit({
         ...data,
         isPremium: data.isPremium ? '1' : '0',
         isFavorite: data.isFavorite ? '1' : '0',
         batchId,
       });
 
-      toast.info('Anuncio Adicionado ao Lote com Sucesso');
+      setAnnouncementsInBatch!((prevState: { announcements: AnnouncementResponse }) => ({
+        announcements: { results: [...prevState.announcements.results, response.data], pages: 0 },
+      }));
+
+      toast.success('Anuncio Adicionado ao Lote com Sucesso');
     } catch (error) {
       handleCatchErrorRequest(error as any);
     } finally {
@@ -143,7 +150,11 @@ export default function NewLawsuit({ batchId }: NewLawsuitParameters) {
 
                 <Button
                   type="button"
-                  onClick={handleOpenModalToSelectPlan}
+                  onClick={
+                    batchId
+                      ? methods.handleSubmit(handleSubmitNewLawsuitInBatch, handleInvalidField)
+                      : handleOpenModalToSelectPlan
+                  }
                   disabled={isValidToContinue}
                 >
                   {batchId ? 'Adicionar ao lote' : 'Escolher o plano'}
@@ -183,9 +194,7 @@ export default function NewLawsuit({ batchId }: NewLawsuitParameters) {
                   // type="submit"
                   size="outline-filled-round"
                   // disabled={!methods.formState.isValid}
-                  onClick={batchId
-                    ? methods.handleSubmit(handleSubmitNewLawsuitInBatch, handleInvalidField)
-                    : methods.handleSubmit(handleSubmitNewLawsuit, handleInvalidField)}
+                  onClick={methods.handleSubmit(handleSubmitNewLawsuit, handleInvalidField)}
                 >
                   {!loading ? 'Cadastrar' : 'Cadastrando'}
                 </Button>

@@ -16,7 +16,7 @@ import AlertModal from '@components/AlertModal';
 import { toast } from 'react-toastify';
 import { handleCatchErrorRequest } from '@utils/handleCatchErrorRequest';
 import LawsuitCardList from '@components/LawsuitCard';
-import useUserAnnouncements from '@services/creditbook/lawsuit/hooks/useUserAnnouncements';
+// import useUserAnnouncements from '@services/creditbook/lawsuit/hooks/useUserAnnouncements';
 import convertToCurrency from '@utils/convertToCurrency';
 import NewLawsuit from '../ads/new';
 
@@ -30,20 +30,27 @@ export default function ShowBatchPage({
   const router = useRouter();
   const [batch, setBatch] = useState(initialBatch);
   const [modalBatchBeingDelete, setModalBatchBeingDelete] = useState<boolean>(false);
+  const [modalBatchCreationFinishing, setModalBatchCreationFinishing] = useState<boolean>(false);
   const [deletingLoading, setDeletingLoading] = useState<boolean>(false);
   const [updatingLoading, setUpdatingLoading] = useState<boolean>(false);
-  const announcementsInBatch = useUserAnnouncements({
-    params: {
-      batchId: router.query.batchId,
-    },
-  });
-  const isCreating = router.query.creating;
+  const [finishingLoading, setFinishingLoading] = useState<boolean>(false);
+  const [announcementsInBatch, setAnnouncementsInBatch] = useState(
+    { announcements: { results: batch.announcement, pages: 1 } },
+  );
 
-  const announcementsResponse = useUserAnnouncements({
-    params: {
-      type: 'single',
-    },
-  });
+  // const announcementsInBatch = useUserAnnouncements({
+  //   params: {
+  //     batchId: router.query.batchId || batch.id,
+  //   },
+  // });
+
+  const isCreating = Boolean(router.query?.creating) || batch.status === 'being_created';
+
+  // const announcementsResponse = useUserAnnouncements({
+  //   params: {
+  //     type: 'single',
+  //   },
+  // });
 
   const methods = useForm<NewBatchParams>({
     defaultValues: {
@@ -61,6 +68,10 @@ export default function ShowBatchPage({
     setModalBatchBeingDelete(false);
   }
 
+  function handleCloseModalCanFinishBatchCreation() {
+    setModalBatchCreationFinishing(false);
+  }
+
   function backToLastRoute() {
     router.back();
   }
@@ -76,6 +87,19 @@ export default function ShowBatchPage({
       handleCatchErrorRequest(error as any);
     } finally {
       setDeletingLoading(false);
+    }
+  }
+
+  async function handleFinishBatchCreating() {
+    try {
+      setFinishingLoading(true);
+      await batchServices.update({ id: batch.id, batch: { status: 'inactive' } });
+
+      toast.success('O lote foi criado com sucesso');
+    } catch (error) {
+      handleCatchErrorRequest(error as any);
+    } finally {
+      setFinishingLoading(false);
     }
   }
 
@@ -156,13 +180,19 @@ export default function ShowBatchPage({
         <br />
         <br />
 
-        {isCreating && <NewLawsuit batchId={batch.id} />}
+        {isCreating && (
+        <NewLawsuit
+          batchId={batch.id}
+          setAnnouncementsInBatch={setAnnouncementsInBatch}
+        />
+        )}
       </Section.Container>
 
-      {announcementsInBatch?.announcements?.results?.length > 0 && (
+      {announcementsInBatch?.announcements.results?.length > 0 && (
         <Section.Container>
           <Section.Title>Anúncios desse lote</Section.Title>
           <LawsuitCardList
+            isLoading={false}
             {...announcementsInBatch}
             lawsuitCardProps={{
               batchIdForActions: batch.id,
@@ -171,7 +201,17 @@ export default function ShowBatchPage({
         </Section.Container>
       )}
 
-      {announcementsResponse?.announcements?.results?.length > 0 && (
+      <br />
+      <br />
+      <br />
+
+      {isCreating && (
+      <Button onClick={() => setModalBatchCreationFinishing(true)}>
+        Concluir Criação do Lote
+      </Button>
+      )}
+
+      {/* {announcementsResponse?.announcements?.results?.length > 0 && (
         <Section.Container>
           <Section.Title>Adicionar Anúncios ao lote</Section.Title>
           <LawsuitCardList
@@ -181,7 +221,7 @@ export default function ShowBatchPage({
             }}
           />
         </Section.Container>
-      )}
+      )} */}
 
       <AlertModal
         title={`Você está preste a deletar o lote: ${batch.name}`}
@@ -197,6 +237,23 @@ export default function ShowBatchPage({
         cancel={{
           label: 'Cancelar',
           onCancelButton: handleCloseModalCanDeleteBatchConfirmation,
+        }}
+      />
+
+      <AlertModal
+        title={`Você está preste a concluir a criação do lote: ${batch.name}`}
+        description="Você não poderá alterar os anúncios desse lote posteriormente"
+        isLoading={finishingLoading}
+        isVisible={modalBatchCreationFinishing}
+        type="danger"
+        _css={{ maxWidth: '625px' }}
+        confirm={{
+          label: 'Sim, concluir',
+          onConfirmButton: handleFinishBatchCreating,
+        }}
+        cancel={{
+          label: 'Cancelar',
+          onCancelButton: handleCloseModalCanFinishBatchCreation,
         }}
       />
     </>

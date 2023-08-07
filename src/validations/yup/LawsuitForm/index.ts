@@ -49,7 +49,7 @@ export const newLawsuitSchemaValidation = yup.object().shape({
     .mixed()
     .nullable()
     .when('plan', {
-      is: (plan: 'byPercent' | 'byMonth' | 'both') => plan !== 'byPercent',
+      is: (plan?: 'byPercent' | 'byMonth' | 'both' | 'batch') => plan !== 'batch' && plan !== 'byPercent',
       then: (rule) => rule.required(),
     })
     .when('isPremium', {

@@ -1,11 +1,11 @@
 import { QueriesToIndexBatches } from '@type/creditbook';
-import { NewBatchParams } from '@type/creditbook/Batch';
+import { NewBatchParams, UpdateBatchParams } from '@type/creditbook/Batch';
 import { mapperCurrency } from '@utils/mapperCurrency';
 import { HttpClient } from '../http';
 
 interface UpdateParams {
   id: string,
-  batch: NewBatchParams,
+  batch: UpdateBatchParams,
 }
 
 interface AddAnnouncementParams { announcementId: string, batchId: string }

@@ -52,7 +52,7 @@ interface Lawsuit {
   pledgeOrGuarantee: boolean;
   acceptNegotiation: boolean;
   ownOrAttorney: 'own' | 'attorney';
-  plan: 'byMonth' | 'byPercent' | 'both',
+  plan: 'byMonth' | 'byPercent' | 'both' | 'batch',
   paymentMethodId: string;
 }
 
