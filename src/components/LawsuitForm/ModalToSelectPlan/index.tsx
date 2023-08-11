@@ -97,9 +97,8 @@ export default function ModalToSelectPlan({ isVisible, children }: IProps) {
             </PlanHeader>
 
             <p>
-              Período mínimo da assinatura:
-              <br />
-              6 meses {convertToCurrency(price * 6)}
+              Período mínimo de assinatura: 6 meses <br />
+              Total: {convertToCurrency(price * 6)}
             </p>
 
             <PlanContent>
@@ -146,15 +145,15 @@ export default function ModalToSelectPlan({ isVisible, children }: IProps) {
           <PlanContainer>
             <PlanHeader>
               <h2>
-                Aumente visiblidade por apenas
+                Aumente a visibilidade por apenas
                 {' '}
                 {convertToCurrency(price)}
               </h2>
             </PlanHeader>
 
             <p>
-              Período mínimo da assinatura:
-              6 meses {convertToCurrency(price * 6)}
+              Período mínimo de assinatura: 6 meses <br />
+              Total: {convertToCurrency(price * 6)}
 
             </p>
 

@@ -29,6 +29,7 @@ import ChooseCreditCard from '@components/LawsuitForm/ChooseCreditCard';
 import { toast } from 'react-toastify';
 import { ModalResume } from '@components/LawsuitForm/ModalResume';
 import { AnnouncementResponse } from '@services/creditbook/lawsuit/hooks/types';
+// import { Form } from 'antd';
 
 type NewLawsuitParameters = {
   batchId?: string
@@ -68,6 +69,16 @@ export default function NewLawsuit({ batchId, setAnnouncementsInBatch }: NewLaws
     setStepForm('4');
   }
 
+  function handleChoosePlan() {
+    methods.trigger();
+
+    setTimeout(() => {
+      if (methods.formState.isValid) {
+        handleOpenModalToSelectPlan();
+      }
+    }, 200);
+  }
+
   function handleInvalidField(error: any) {
     console.log(error);
 
@@ -85,6 +96,9 @@ export default function NewLawsuit({ batchId, setAnnouncementsInBatch }: NewLaws
         isPremium: data.isPremium ? '1' : '0',
         isFavorite: data.isFavorite ? '1' : '0',
       });
+
+      toast.success('Anúncio está sob análise e será liberado após a verificação');
+
       router.push(`/in/ads/${response.data.id}`);
     } catch (error) {
       handleCatchErrorRequest(error as any);
@@ -109,6 +123,7 @@ export default function NewLawsuit({ batchId, setAnnouncementsInBatch }: NewLaws
       }));
 
       toast.success('Anuncio Adicionado ao Lote com Sucesso');
+      methods.reset();
     } catch (error) {
       handleCatchErrorRequest(error as any);
     } finally {
@@ -153,7 +168,7 @@ export default function NewLawsuit({ batchId, setAnnouncementsInBatch }: NewLaws
                   onClick={
                     batchId
                       ? methods.handleSubmit(handleSubmitNewLawsuitInBatch, handleInvalidField)
-                      : handleOpenModalToSelectPlan
+                      : handleChoosePlan
                   }
                   disabled={isValidToContinue}
                 >

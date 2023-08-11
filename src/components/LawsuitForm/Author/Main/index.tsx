@@ -14,15 +14,15 @@ export default function MainAuthor() {
       <Section.Title as="strong" textColor="dark">
         Autor Principal
       </Section.Title>
-
-      <FieldCPForCNPJ
-        name="mainActorCpfOrCnpj"
-        error={errors?.mainActorCpfOrCnpj?.message}
-      />
       <FieldCorporationNameOrName
         error={errors?.mainActorCorporationNameOrName?.message}
         {...register('mainActorCorporationNameOrName')}
       />
+      <FieldCPForCNPJ
+        name="mainActorCpfOrCnpj"
+        error={errors?.mainActorCpfOrCnpj?.message}
+      />
+
     </Direction>
   );
 }

@@ -158,31 +158,6 @@ export default function ProcessInfoForm() {
         />
 
         <Controller
-          name="kind"
-          control={control}
-          render={({ field }) => (
-            <FormGroup
-              direction={formGroupDirection}
-              error={errors?.kind?.message}
-              label={{
-                forId: 'kind',
-                title: 'Espécie',
-              }}
-            >
-              <Select
-                options={lawsuitKind}
-                placeholder="Espécie"
-                id="kind"
-                isSearchable={false}
-                instanceId="kind"
-                className="selects"
-                {...field}
-              />
-            </FormGroup>
-          )}
-        />
-
-        <Controller
           name="processGender"
           control={control}
           render={({ field }) => (
@@ -208,6 +183,31 @@ export default function ProcessInfoForm() {
         />
 
         <Controller
+          name="kind"
+          control={control}
+          render={({ field }) => (
+            <FormGroup
+              direction={formGroupDirection}
+              error={errors?.kind?.message}
+              label={{
+                forId: 'kind',
+                title: 'Espécie',
+              }}
+            >
+              <Select
+                options={lawsuitKind}
+                placeholder="Espécie"
+                id="kind"
+                isSearchable={false}
+                instanceId="kind"
+                className="selects"
+                {...field}
+              />
+            </FormGroup>
+          )}
+        />
+
+        <Controller
           name="actionPhase"
           control={control}
           render={({ field }) => (
@@ -216,12 +216,12 @@ export default function ProcessInfoForm() {
               error={errors?.actionPhase?.message}
               label={{
                 forId: 'actionPhase',
-                title: 'Fase de ação',
+                title: 'Fase da ação',
               }}
             >
               <Select
                 options={lawsuitActionPhase}
-                placeholder="Fase de ação"
+                placeholder="Fase da ação"
                 isSearchable={false}
                 id="actionPhase"
                 instanceId="actionPhase"

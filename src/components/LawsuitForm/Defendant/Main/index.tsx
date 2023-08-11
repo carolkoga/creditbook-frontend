@@ -14,15 +14,15 @@ export default function MainDefendant() {
       <Section.Title as="strong" textColor="dark">
         Réu Principal
       </Section.Title>
-
-      <FieldCPForCNPJ
-        error={errors?.mainDefendantCpfOrCnpj?.message}
-        name="mainDefendantCpfOrCnpj"
-      />
       <FieldCorporationNameOrName
         error={errors?.mainDefendantCorporationNameOrName?.message}
         {...register('mainDefendantCorporationNameOrName')}
       />
+      <FieldCPForCNPJ
+        error={errors?.mainDefendantCpfOrCnpj?.message}
+        name="mainDefendantCpfOrCnpj"
+      />
+
     </Direction>
   );
 }

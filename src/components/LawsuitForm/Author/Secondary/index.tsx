@@ -13,13 +13,13 @@ export default function SecondaryAuthor() {
         Autor Secundário (opcional):
       </Section.Title>
 
+      <FieldCorporationNameOrName
+        {...register('secondaryActorCorporationNameOrName')}
+      />
+
       <FieldCPForCNPJ
         name="secondaryActorCpfOrCnpj"
         error={errors?.secondaryActorCpfOrCnpj?.message}
-      />
-
-      <FieldCorporationNameOrName
-        {...register('secondaryActorCorporationNameOrName')}
       />
     </Direction>
   );
