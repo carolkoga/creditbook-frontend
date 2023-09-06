@@ -1,10 +1,17 @@
 import { Address, AnnouncementStatus } from '..';
+import { BatchParams, BatchStatus } from '../Batch';
 import { ResponseListAllAnnouncements } from '../Lawsuits';
 
 export type UpdateAnnouncementStatusParams = {
   editionRequirements?: string;
   status: AnnouncementStatus;
   announcementId: string;
+};
+
+export type UpdateBatchStatusParams = {
+  editionRequirements?: string;
+  status: BatchStatus;
+  batchId: string;
 };
 
 interface QueryPagination {
@@ -48,6 +55,11 @@ export interface UsersAdminResponse {
   users: UserParams[],
   pages: number
 }
+
+export type BatchesAdminResponse = {
+  batches: BatchParams[],
+  pages: number
+};
 
 // Response
 export type AnnouncementsAdminResponse = ResponseListAllAnnouncements<NewLawsuitParamsResponse>;

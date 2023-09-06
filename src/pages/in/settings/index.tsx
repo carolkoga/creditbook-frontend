@@ -34,6 +34,7 @@ export default function Profile() {
     newPassword: null,
     currentPassword: null,
     nationality: { label: user?.nationality, value: user?.nationality },
+    address: user?.address,
     profilePicture: user?.profilePictureUrl,
   }), [user]);
 
@@ -59,6 +60,8 @@ export default function Profile() {
       currentPassword: null,
       nationality: { label: user?.nationality, value: user?.nationality },
       profilePicture: user?.profilePictureUrl,
+      address: user?.address,
+
     });
     methodsPerson.reset({
       ...user,
@@ -67,6 +70,7 @@ export default function Profile() {
       currentPassword: null,
       nationality: { label: user?.nationality, value: user?.nationality },
       profilePicture: user?.profilePictureUrl,
+      address: user?.address,
     });
   }, [user]);
 
@@ -112,6 +116,7 @@ export default function Profile() {
             loading={isLoading}
             formGroupDirection={widthOverlimit ? 'horizontal' : 'vertical'}
             label={isLoading ? 'Atualizando' : 'Atualizar'}
+            defaultValues={defaultValues}
           />
         </FormProvider>
       )}
@@ -124,6 +129,7 @@ export default function Profile() {
             loading={isLoading}
             formGroupDirection={widthOverlimit ? 'horizontal' : 'vertical'}
             label={isLoading ? 'Atualizando' : 'Atualizar'}
+            defaultValues={defaultValues}
           />
         </FormProvider>
       )}

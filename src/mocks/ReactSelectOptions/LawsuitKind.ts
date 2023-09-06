@@ -1,5 +1,9 @@
 export const lawsuitKind = [
   {
+    label: 'Selecione um Espécie da ação',
+    value: '',
+  },
+  {
     label: 'Ação Indenizatória',
     value: 'acaoIndenizatoria',
   },
@@ -38,5 +42,4 @@ export const lawsuitKind = [
     label: 'Crédito Tributário',
     value: 'creditoTributario',
   },
-
 ];

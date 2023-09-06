@@ -67,7 +67,7 @@ export const FirstStepProcess = memo(() => {
 
   const loadProcess = useCallback(async () => {
     try {
-      const { data } = await creditbookApi.get<Process[]>('/batchies-and-announcements');
+      const { data } = await creditbookApi.get<Process[]>('/batches-and-announcements');
       const processData = [] as OptionType[];
       setProcess(data);
 

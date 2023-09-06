@@ -19,11 +19,12 @@ interface IProps {
   originalBatchId?: string,
   moreAboutOnly?: boolean,
   lawsuit: LawsuitParams,
-  userBatches: BatchParams[]
+  userBatches: BatchParams[],
+  admin: boolean
 }
 
 export default function Footer({
-  mine, lawsuit, originalBatchId, moreAboutOnly, userBatches,
+  mine, lawsuit, originalBatchId, moreAboutOnly, userBatches, admin,
 }: IProps) {
   const { isAuthenticated } = useAuth();
 
@@ -39,6 +40,8 @@ export default function Footer({
     return <BatchActionFooter originalBatchId={originalBatchId} originalLawsuit={lawsuit} />;
   }
 
+  console.log(admin);
+
   return (
     <>
       {(mine && !lawsuit.batchId) && (
@@ -49,8 +52,11 @@ export default function Footer({
         <OwnedInBatch lawsuitId={lawsuit.id} batchId={lawsuit.batchId} />
       )}
 
-      {(!mine && isAuthenticated) && (
+      {(!mine && isAuthenticated && !admin) && (
         <LoggedFooter lawsuitId={lawsuit.id} batchId={lawsuit.batchId} />)}
+
+      {admin && (
+        <OnlyMoreInformation lawsuitId={lawsuit.id} status={lawsuit.status} />)}
     </>
   );
 }

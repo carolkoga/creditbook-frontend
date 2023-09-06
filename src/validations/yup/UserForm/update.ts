@@ -32,9 +32,11 @@ const updateValidation = {
 
 export const updatePersonAccountSchema = yup.object().shape({
   ...updateValidation,
+  address: yup.object().nullable(),
 }, [['currentPassword', 'currentPassword']]);
 
 export const updateCorporationAccountSchema = yup.object().shape({
   ...updateValidation,
   ...corporationValidation,
+  address: yup.object().nullable(),
 }, [['currentPassword', 'currentPassword']]);

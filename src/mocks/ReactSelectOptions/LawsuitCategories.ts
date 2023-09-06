@@ -1,5 +1,9 @@
 export const lawsuitCategories = [
   {
+    label: 'Selecione uma categoria',
+    value: '',
+  },
+  {
     label: 'Cível',
     value: 'civel',
   },

@@ -19,6 +19,7 @@ import { LawsuitCardProps } from '../types/Props';
 
 interface IProps extends LawsuitCardProps {
   userBatches: BatchParams[]
+  admin: boolean
 }
 
 interface ChangeFavoriteOptions {
@@ -33,6 +34,7 @@ export default function LawsuitNewCard({
   batchIdForActions,
   moreAboutOnly,
   userBatches,
+  admin,
 }: IProps) {
   const { user } = useAuth();
   const [lawsuit, setLawsuit] = useState(originalLawsuit);
@@ -154,6 +156,7 @@ export default function LawsuitNewCard({
           originalBatchId={batchIdForActions}
           moreAboutOnly={moreAboutOnly}
           userBatches={userBatches}
+          admin={admin}
         />
 
         {lawsuit.userId === user?.id && (

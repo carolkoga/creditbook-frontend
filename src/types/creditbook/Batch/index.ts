@@ -21,3 +21,13 @@ export interface BatchParams {
   status: string
   announcement: []
 }
+
+export type BatchStatus =
+  | 'active'
+  | 'deleted'
+  | 'rejected'
+  | 'pending'
+  | 'inactive'
+  | 'edition_requested'
+  | 'payment_failed'
+  | 'sold';

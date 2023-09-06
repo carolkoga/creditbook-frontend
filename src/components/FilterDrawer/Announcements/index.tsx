@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm, Controller } from 'react-hook-form';
 import { toast } from 'react-toastify';
@@ -26,7 +27,7 @@ import { BatchParams } from '@type/creditbook/Batch';
 import { factoryOptionReactSelect } from '@utils/factoryOptionReactSelect';
 import { UFList } from '@type/brazil/BrazilStatesInUFTypes';
 import { IBGEService } from '@services/ibge';
-import { QueriesToIndexAnnouncements } from '@type/creditbook';
+import { QueriesToIndexAnnouncements, UFBrazilType } from '@type/creditbook';
 import { useCallback, useEffect, useState } from 'react';
 import { Space } from 'antd';
 import { Button } from '@components/Button';
@@ -45,14 +46,14 @@ interface IProps {
 }
 
 const rangePrice = [
-  'R$ 00,00 - R$ 1.344.695,00',
-  'R$ 1.344.695,00 - R$ 2.689.390,00',
-  'R$ 2.689.390,00 - R$ 4.034.085,00',
-  'R$ 4.034.085,00 - R$ 5.378.780,00',
-  'R$ 5.378.780,00 - R$ 9.412.865,00',
-  'R$ 9.412.865,00 - R$ 10.757.560,00',
-  'R$ 10.757.560,00 - R$ 12.102.255,00',
-  'R$ 12.102.255,00 - R$ 13.446.950,00',
+  'R$ 00,00 - R$ 50.000,00',
+  'R$ 50.000,00 - R$ 100.000,00',
+  'R$ 100.000,00 - R$ 300.000,00',
+  'R$ 300.000,00 - R$ 500.000,00',
+  'R$ 500.000,00 - R$ 700.000,00',
+  'R$ 700.000,00 - R$ 1.000.000,00',
+  'R$ 1.000.000,00 - R$ 10.000.000,00',
+  'R$ 10.000.000,00 - R$ 20.000.000,00',
 ];
 
 export function AnnouncementsFilterDrawer({ onGetResponseResults, customQuery }: IProps) {
@@ -61,7 +62,7 @@ export function AnnouncementsFilterDrawer({ onGetResponseResults, customQuery }:
   const {
     register, control, handleSubmit, watch,
   } = useForm({ resolver: yupResolver(filterAnnouncementSchemaValidation) });
-  const uf = watch('uf') as any;
+  const uf = watch('uf') as { value: UFBrazilType };
   const [citiesOptions, setCitiesOptions] = useState([{ label: 'Selecione um estado', value: '' }]);
 
   const loadCitiesOptions = useCallback(() => {
@@ -103,7 +104,7 @@ export function AnnouncementsFilterDrawer({ onGetResponseResults, customQuery }:
         if (!value) return;
 
         if (key === 'actors' || key === 'defendants') {
-          return Object.assign(filterOptionsParse, { [key]: JSON.stringify(value) });
+          return Object.assign(filterOptionsParse, { [key]: value });
         }
 
         Object.assign(filterOptionsParse, { [key]: value });
@@ -148,7 +149,7 @@ export function AnnouncementsFilterDrawer({ onGetResponseResults, customQuery }:
           <FormGroup
             label={{
               forId: 'processNumber',
-              title: 'CPF/CNPJ do autor Principal',
+              title: 'Número do Processo',
             }}
           >
             <Controller
@@ -217,7 +218,7 @@ export function AnnouncementsFilterDrawer({ onGetResponseResults, customQuery }:
               >
                 <Select
                   className="custom-react-select-style"
-                  options={courtsOptions.AC}
+                  options={[{ value: '', label: 'Selecione o Tribunal' }, ...(uf ? courtsOptions[uf.value] : [])]}
                   isSearchable={false}
                   placeholder="Selecione o tribunal"
                   {...field}
@@ -233,7 +234,7 @@ export function AnnouncementsFilterDrawer({ onGetResponseResults, customQuery }:
               <FormGroup
                 label={{
                   forId: 'processGender',
-                  title: 'Categoria',
+                  title: 'Gênero',
                 }}
               >
                 <Select
@@ -308,7 +309,7 @@ export function AnnouncementsFilterDrawer({ onGetResponseResults, customQuery }:
               <FormGroup
                 label={{
                   forId: 'main-author-cnpj-cpf',
-                  title: 'CNPJ/CPF do autor Secundário',
+                  title: 'CNPJ/CPF do autor Principal',
                 }}
               >
                 <InputCPForCNPJ

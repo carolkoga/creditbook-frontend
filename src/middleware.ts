@@ -45,7 +45,7 @@ export function middleware(req: NextRequest) {
         path = '/in/home';
       }
     } else if (user?.role === 'admin') {
-      path = '/admin/dashboard';
+      // path = '/admin/dashboard';
     }
 
     return NextResponse.rewrite(new URL(path, req.url));

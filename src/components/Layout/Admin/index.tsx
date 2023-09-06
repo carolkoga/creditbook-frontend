@@ -24,6 +24,11 @@ const adminRoutes: TopicProps[] = [
   },
 
   {
+    label: 'Gerenciar Lotes',
+    link: `${adminRoutesPrefix}/manage-batches`,
+  },
+
+  {
     label: 'Gerenciar Clientes',
     link: `${adminRoutesPrefix}/manage-clients`,
   },

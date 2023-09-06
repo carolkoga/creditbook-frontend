@@ -28,6 +28,7 @@ interface IProps {
   announcements: AnnouncementResponse,
   notFoundProps?: NotFoundDataProps,
   error?: boolean
+  admin?: boolean
 }
 
 export default function AnnouncementList({
@@ -37,6 +38,7 @@ export default function AnnouncementList({
   loadMoreAnnouncement,
   notFoundProps,
   error,
+  admin = false,
 }: IProps) {
   const [page, setPage] = useState(1);
   const { batches: userBatches } = useUserBatches();
@@ -70,6 +72,7 @@ export default function AnnouncementList({
       <ListLayoutSingleLawsuits alignItems="center" justifyContent="center">
         {announcements?.results?.map((lawsuit: LawsuitParams) => (
           <LawsuitCard
+            admin={admin}
             key={lawsuit.id}
             lawsuit={lawsuit}
             userBatches={userBatches}

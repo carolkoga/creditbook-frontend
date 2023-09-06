@@ -1,5 +1,9 @@
 export const lawsuitActionPhase = [
   {
+    label: 'Selecione uma fase da ação',
+    value: '',
+  },
+  {
     label: 'Não Sentenciada',
     value: 'naoSentenciada',
   },
@@ -33,5 +37,4 @@ export const lawsuitActionPhase = [
     label: 'Cumprimento de Sentença',
     value: 'cumprimentoDeSentenca',
   },
-
 ];

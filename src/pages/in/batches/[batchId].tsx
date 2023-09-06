@@ -93,7 +93,7 @@ export default function ShowBatchPage({
   async function handleFinishBatchCreating() {
     try {
       setFinishingLoading(true);
-      await batchServices.update({ id: batch.id, batch: { status: 'inactive' } });
+      await batchServices.update({ id: batch.id, batch: { status: 'pending' } });
 
       toast.success('O lote foi criado com sucesso');
     } catch (error) {
