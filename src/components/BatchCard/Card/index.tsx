@@ -13,10 +13,10 @@ import {
 interface IProps {
   mine: boolean,
   batch: BatchParams,
-  admin: boolean
+  admin?: boolean
 }
 
-export function BatchCard({ mine, batch, admin }: IProps) {
+export function BatchCard({ mine, batch, admin = false }: IProps) {
   return (
     <Container>
       <LeftContent>
