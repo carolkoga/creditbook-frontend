@@ -8,6 +8,38 @@ interface IProps extends TableProps<any> {
   dataSource: BatchesAdminResponse['batches'],
 }
 
+const planIs = [
+  {
+    plan: 'byPercent',
+    ptBR: '8%',
+  },
+
+  {
+    plan: 'byMonth',
+    ptBR: 'Mensal',
+  },
+
+  {
+    plan: 'byPercent + isPremium',
+    ptBR: '8% + Premium',
+  },
+
+  {
+    plan: 'byMonth + Premium',
+    ptBR: 'Mensal + Premium',
+  },
+
+  {
+    plan: 'both',
+    ptBR: '8% + Mensal',
+  },
+
+  {
+    plan: 'both + Premium',
+    ptBR: '8% + Mensal + Premium',
+  },
+];
+
 const columns = [
   {
     title: 'Sobre',
@@ -31,6 +63,11 @@ const columns = [
     title: 'Plano',
     dataIndex: 'plan',
     key: 'plan',
+    render: (plan: string) => {
+      const selectedPlan = planIs.find((currentPlan) => currentPlan.plan === plan);
+
+      return selectedPlan ? selectedPlan.ptBR : 'Sem Plano';
+    },
   },
 ];
 
