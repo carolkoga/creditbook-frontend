@@ -16,7 +16,7 @@ export default function LoggedFooter({ lawsuitId, batchId }: CommonPropsTypes) {
             size="small-large"
             variant="default"
           >
-            Comprar
+            Negociar
           </Link>
         )}
 

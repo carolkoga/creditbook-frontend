@@ -36,22 +36,36 @@ type NewLawsuitParameters = {
   setAnnouncementsInBatch?: Function
 };
 
-export default function NewLawsuit({ batchId, setAnnouncementsInBatch }: NewLawsuitParameters) {
+const defaultValues = {
+  plan: 'batch',
+  type: 'digital',
+  acceptNegotiation: '1',
+  pledgeOrGuarantee: '1',
+  ownOrAttorney: 'own',
+  isFavorite: false,
+  isPremium: false,
+  uf: '',
+  city: '',
+  income: '',
+  processPrice: '',
+  kind: '',
+  processGender: '',
+  tribunal: '',
+  actionPhase: '',
+};
+
+export default function NewLawsuit({
+  batchId,
+  setAnnouncementsInBatch,
+}: NewLawsuitParameters) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [stepForm, setStepForm] = useState('1');
   const methods = useForm<NewLawsuitParams>({
     resolver: yupResolver(newLawsuitSchemaValidation),
     mode: 'all',
-    defaultValues: {
-      plan: 'batch',
-      type: 'digital',
-      acceptNegotiation: '1',
-      pledgeOrGuarantee: '1',
-      ownOrAttorney: 'own',
-      isFavorite: false,
-      isPremium: false,
-    },
+    // @ts-ignore
+    defaultValues,
   });
 
   const ownOrAttorneyField = methods.watch('ownOrAttorney');
@@ -123,6 +137,7 @@ export default function NewLawsuit({ batchId, setAnnouncementsInBatch }: NewLaws
       }));
 
       toast.success('Anuncio Adicionado ao Lote com Sucesso');
+
       methods.reset();
     } catch (error) {
       handleCatchErrorRequest(error as any);

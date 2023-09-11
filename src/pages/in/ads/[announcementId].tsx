@@ -80,7 +80,7 @@ export default function AnnouncementId() {
       </Section.Container>
 
       <Section.Container as="footer">
-        <Direction>
+        <Direction direction="horizontal">
           {(user?.id === announcement.userId && announcement.status !== 'pending') && (
             <Direction direction="horizontal">
               <Link size="large" href={`/in/ads/edit/${announcement.id}`}>
@@ -106,6 +106,18 @@ export default function AnnouncementId() {
             </Direction>
           )}
 
+          {(announcement.status !== 'pending' && user?.id !== announcement.userId && announcement.acceptNegotiation === true) && (
+            <Link
+              size="large"
+              href={!announcement.batchId
+                ? `/in/contact-announcer/${announcement.id}`
+                : `/in/contact-announcer/${announcement.batchId}?type=batch`}
+            >
+              Negociar
+            </Link>
+
+          )}
+
           {(announcement.status !== 'pending' && user?.id !== announcement.userId) && (
             <Link
               size="large"
@@ -113,8 +125,9 @@ export default function AnnouncementId() {
                 ? `/in/contact-announcer/${announcement.id}`
                 : `/in/contact-announcer/${announcement.batchId}?type=batch`}
             >
-              Fazer oferta
+              Comprar
             </Link>
+
           )}
         </Direction>
       </Section.Container>

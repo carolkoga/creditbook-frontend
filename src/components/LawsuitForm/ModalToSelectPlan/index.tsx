@@ -20,11 +20,11 @@ interface IProps {
   children?: ReactNode
 }
 
-const plansValues = {
-  180: 300000,
-  120: 50000,
-  69.90: 50000,
-};
+// const plansValues = {
+//   180: 300000,
+//   120: 50000,
+//   69.90: 50000,
+// };
 
 export default function ModalToSelectPlan({ isVisible, children }: IProps) {
   const {
@@ -78,13 +78,9 @@ export default function ModalToSelectPlan({ isVisible, children }: IProps) {
       <Container>
         <Section.Header className="header">
           <Section.Title>
-            Planos
-            {' '}
-            {price === 69.90 ? 'abaixo' : 'acima'}
-            {' '}
-            de
-            {' '}
-            {convertToCurrency(plansValues[price as never])}
+            {price === 69.90 && 'Anúncios de até R$50.000,00'}
+            {price === 120 && 'Anúncios superiores a R$50.000,00 até R$300.000,00'}
+            {price === 180 && 'Anúncios superiores a R$300.000,00'}
           </Section.Title>
         </Section.Header>
 

@@ -99,13 +99,20 @@ export default function LandingPageHeader() {
               <ul>
                 {routes.map((route) => (
                   <li key={route.label}>
-                    <Link href={route.link}>
+                    <Link href={
+                      route.label === 'Comprar'
+                        ? isAuthenticated
+                          ? route.link : '/login'
+                        : route.link
+}
+                    >
                       <a>
                         {route.label}
                       </a>
                     </Link>
                   </li>
                 ))}
+
               </ul>
             </Navigation>
 

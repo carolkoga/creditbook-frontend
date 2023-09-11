@@ -73,9 +73,7 @@ export default function ContactAnnouncementAnnouncer() {
     <Direction alignItems="center">
       <Section.Header>
         <Section.Title as="h1">
-          Entrar em contato sobre um
-          {' '}
-          {router.query.type === 'announcement' ? 'anúncio' : 'lote'}
+          Entre em contato com o vendedor
         </Section.Title>
         {product?.type === 'announcement' && (
           <Section.Subtitle>

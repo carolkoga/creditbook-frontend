@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import { useRouter } from 'next/router';
 import { useForm, FormProvider } from 'react-hook-form';
 // import { Alert } from 'antd';
@@ -37,14 +38,13 @@ export default function ShowBatchPage({
   const [announcementsInBatch, setAnnouncementsInBatch] = useState(
     { announcements: { results: batch.announcement, pages: 1 } },
   );
+  const [isCreating, setCreating] = useState<boolean>(Boolean(router.query?.creating) || batch.status === 'being_created');
 
   // const announcementsInBatch = useUserAnnouncements({
   //   params: {
   //     batchId: router.query.batchId || batch.id,
   //   },
   // });
-
-  const isCreating = Boolean(router.query?.creating) || batch.status === 'being_created';
 
   // const announcementsResponse = useUserAnnouncements({
   //   params: {
@@ -96,6 +96,8 @@ export default function ShowBatchPage({
       await batchServices.update({ id: batch.id, batch: { status: 'pending' } });
 
       toast.success('O lote foi criado com sucesso');
+      handleCloseModalCanFinishBatchCreation();
+      setCreating(false);
     } catch (error) {
       handleCatchErrorRequest(error as any);
     } finally {
@@ -206,9 +208,12 @@ export default function ShowBatchPage({
       <br />
 
       {isCreating && (
-      <Button onClick={() => setModalBatchCreationFinishing(true)}>
-        Concluir Criação do Lote
-      </Button>
+        <Button
+          onClick={() => setModalBatchCreationFinishing(true)}
+          disabled={announcementsInBatch?.announcements.results?.length < 2}
+        >
+          Concluir Criação do Lote
+        </Button>
       )}
 
       {/* {announcementsResponse?.announcements?.results?.length > 0 && (
