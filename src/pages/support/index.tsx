@@ -31,7 +31,7 @@ export default function FAQ({ questions }: ServerSideProps) {
               {translationSectionFAQ[faq.section]}
             </Section.Title>
             <AccordionList.Wrapper>
-              <AccordionContainer type="single" collapsible>
+              <AccordionContainer type="multiple">
                 {faq.questions.map((question) => (
                   <AccordionList.Content key={question.id}>
                     <AccordionItem value={question.title}>

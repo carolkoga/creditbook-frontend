@@ -1,6 +1,7 @@
 import { createGlobalStyle } from 'styled-components';
+import { light } from './themes/light';
 
-export default createGlobalStyle`
+export default createGlobalStyle<{ theme: typeof light }>`
   * {
     margin: 0;
     padding: 0;

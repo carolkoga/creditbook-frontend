@@ -45,7 +45,7 @@ export function BatchCard({ mine, batch, admin = false }: IProps) {
         >
           {(!mine && !admin) && (
           <Link href={`/in/contact-announcer/${batch.id}?type=batch`}>
-            Comprar
+            Comprar Lote
           </Link>
           )}
           {(!mine && !admin) && <Link href={`/in/batches/about/${batch.id}`} variant="secondary">Informações</Link>}
