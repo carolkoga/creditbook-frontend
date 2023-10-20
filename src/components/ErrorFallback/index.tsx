@@ -1,9 +1,9 @@
 import { useMemo } from 'react';
-import { Link } from '@components/Button';
 import { Direction } from '@components/Direction';
 import { Section } from '@components/Section';
 import useAuth from '@hooks/useAuth';
 import Image from 'next/image';
+import { Link } from '@components/Button';
 
 export default function ErrorFallback() {
   const { user } = useAuth();

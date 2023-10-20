@@ -22,6 +22,7 @@ interface QueryPagination {
 export interface AnnouncementQueriesOptions {
   params: QueryPagination & {
     status: AnnouncementStatus
+    single?: boolean
   }
 }
 

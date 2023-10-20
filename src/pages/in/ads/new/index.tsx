@@ -71,7 +71,7 @@ export default function NewLawsuit({
   const ownOrAttorneyField = methods.watch('ownOrAttorney');
   const isValidProcessPrice = !methods.formState.errors?.processPrice && methods.watch('processPrice');
   const isValidIncome = !methods.formState.errors?.income && methods.watch('income');
-  const isValidToContinue = !(isValidIncome && isValidProcessPrice);
+  const isValidToContinue = batchId ? false : !(isValidIncome && isValidProcessPrice);
   const [plan, isPremium] = methods.watch(['plan', 'isPremium']);
   const selectedPaymentMethodId = methods.watch('paymentMethodId');
 
@@ -176,7 +176,8 @@ export default function NewLawsuit({
 
                 <PledgeOrGuarantee />
                 <AcceptNegotiation />
-                <Prices />
+
+                {!batchId && <Prices />}
 
                 <Button
                   type="button"

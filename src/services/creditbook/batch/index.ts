@@ -6,6 +6,7 @@ import { HttpClient } from '../http';
 interface UpdateParams {
   id: string,
   batch: UpdateBatchParams,
+
 }
 
 interface AddAnnouncementParams { announcementId: string, batchId: string }

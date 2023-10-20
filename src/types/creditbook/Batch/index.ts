@@ -9,6 +9,8 @@ export interface UpdateBatchParams {
   name?: string,
   value?: string,
   status?: string
+  plan?: string,
+  paymentMethodId?: string
 }
 
 export interface BatchParams {

@@ -16,13 +16,13 @@ import 'react-quill/dist/quill.snow.css';
 import 'antd/dist/antd.css';
 import '@validations/yup/methods';
 
-import { light } from '@styles/themes/light';
 import GlobalStyle from '@styles/global';
 
 import Layout from '@components/Layout';
 import SidebarContextProvider from '@context/SidebarContext';
 import { AuthProvider } from 'context/AuthContext';
 import ErrorFallback from '@components/ErrorFallback';
+import { light } from '@styles/themes/light';
 
 export default function MyApp({ Component, pageProps }: AppProps) {
   return (

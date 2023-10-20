@@ -1,6 +1,7 @@
-import { Link } from '@components/Button';
+/* eslint-disable max-len */
 import { BatchParams } from '@type/creditbook/Batch';
 import convertToCurrency from '@utils/convertToCurrency';
+import { Link } from '@components/Button';
 import {
   Container,
   LeftContent,
@@ -35,8 +36,19 @@ export function BatchCard({ mine, batch, admin = false }: IProps) {
             {convertToCurrency(Number(batch.value))}
           </span>
         </BatchIncome>
-        <div className="actions">
-          {(!mine && !admin) && <Link href={`/in/batches/about/${batch.id}`} variant="secondary">Mais informações</Link>}
+
+        <div
+          className="actions"
+          style={{
+            width: '100%', display: 'flex', justifyContent: 'flex-end', gap: '10px',
+          }}
+        >
+          {(!mine && !admin) && (
+          <Link href={`/in/contact-announcer/${batch.id}?type=batch`}>
+            Comprar
+          </Link>
+          )}
+          {(!mine && !admin) && <Link href={`/in/batches/about/${batch.id}`} variant="secondary">Informações</Link>}
           {mine && <Link href={`/in/batches/${batch.id}`}>Ver Anúncios</Link>}
         </div>
       </RightContent>

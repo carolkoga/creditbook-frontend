@@ -25,7 +25,6 @@ import { LawsuitParams } from '@type/creditbook/Lawsuits';
 import { BatchParams } from '@type/creditbook/Batch';
 
 import { factoryOptionReactSelect } from '@utils/factoryOptionReactSelect';
-import { UFList } from '@type/brazil/BrazilStatesInUFTypes';
 import { IBGEService } from '@services/ibge';
 import { QueriesToIndexAnnouncements, UFBrazilType } from '@type/creditbook';
 import { useCallback, useEffect, useState } from 'react';
@@ -60,22 +59,21 @@ export function AnnouncementsFilterDrawer({ onGetResponseResults, customQuery }:
   const [isOpen, setIsOpen] = useState(false);
 
   const {
-    register, control, handleSubmit, watch,
+    register, control, handleSubmit, setValue,
   } = useForm({ resolver: yupResolver(filterAnnouncementSchemaValidation) });
-  const uf = watch('uf') as { value: UFBrazilType };
+  const [uf, setUf] = useState<UFBrazilType | ''>('');
   const [citiesOptions, setCitiesOptions] = useState([{ label: 'Selecione um estado', value: '' }]);
 
   const loadCitiesOptions = useCallback(() => {
     (async () => {
       if (uf) {
-        const selectUF = uf.value;
-        const { data: cities } = await IBGEService.municipalitiesByUF(selectUF as keyof UFList);
+        const { data: cities } = await IBGEService.municipalitiesByUF(uf);
         const options = cities.map((_: any, index: any, array: any) => {
           const asPath = `${index}.nome`;
           return factoryOptionReactSelect(asPath, asPath, array);
         });
 
-        setCitiesOptions(options);
+        setCitiesOptions([{ value: '', label: 'Selecione a cidade' }].concat(options));
       }
     })();
   }, [uf]);
@@ -164,7 +162,7 @@ export function AnnouncementsFilterDrawer({ onGetResponseResults, customQuery }:
           <Controller
             control={control}
             name="uf"
-            render={({ field }) => (
+            render={(/* {field} */) => (
               <FormGroup
                 label={{
                   forId: 'uf',
@@ -173,9 +171,21 @@ export function AnnouncementsFilterDrawer({ onGetResponseResults, customQuery }:
               >
                 <Select
                   className="custom-react-select-style"
-                  options={UFListAsOptionSelect}
+                  options={[{ value: '', label: 'Selecionar' }, ...UFListAsOptionSelect]}
                   placeholder="Selecione um estado"
-                  {...field}
+                  onChange={(value) => {
+                    // @ts-ignore
+                    if (value.value !== uf) {
+                      setValue('city', '');
+                      setValue('tribunal', '');
+                    }
+
+                    console.log(value);
+
+                    // @ts-ignore
+                    setUf(value.value as UFBrazilType);
+                  }}
+                  // {...field}
                 />
               </FormGroup>
             )}
@@ -218,7 +228,7 @@ export function AnnouncementsFilterDrawer({ onGetResponseResults, customQuery }:
               >
                 <Select
                   className="custom-react-select-style"
-                  options={[{ value: '', label: 'Selecione o Tribunal' }, ...(uf ? courtsOptions[uf.value] : [])]}
+                  options={[{ value: '', label: 'Selecione o tribunal' }].concat(uf ? courtsOptions[uf] : [])}
                   isSearchable={false}
                   placeholder="Selecione o tribunal"
                   {...field}

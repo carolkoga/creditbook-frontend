@@ -21,6 +21,7 @@ export default function ManageAnnouncements() {
         params: {
           status: active,
           page: currentPage,
+          single: true,
         },
       });
 

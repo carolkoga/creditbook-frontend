@@ -1,12 +1,13 @@
 import { GetServerSideProps } from 'next';
 
-import { Section } from '@components/Section';
+import { BatchesFilterDrawer, ResponseFilterBatchesProps } from '@components/FilterDrawer/Batches';
 import TabBatchAnnouncement from '@components/TabBatchAnnouncement';
 import { batchServices } from '@services/creditbook/batch';
 import { BatchParams } from '@type/creditbook/Batch';
-import BatchesList from '@components/BatchCard';
 import NotFoundData from '@components/NotFoundData';
-import { BatchesFilterDrawer, ResponseFilterBatchesProps } from '@components/FilterDrawer/Batches';
+import BatchesList from '@components/BatchCard';
+import { Section } from '@components/Section';
+
 import { useState } from 'react';
 
 interface IProps {

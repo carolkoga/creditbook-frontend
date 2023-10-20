@@ -45,6 +45,8 @@ export default function ProcessInfoForm() {
           return factoryOptionReactSelect(asPath, asPath, array);
         });
 
+        console.log(options);
+
         setCitiesOptions(options);
       }
     })();

@@ -19,6 +19,9 @@ import { handleCatchErrorRequest } from '@utils/handleCatchErrorRequest';
 import LawsuitCardList from '@components/LawsuitCard';
 // import useUserAnnouncements from '@services/creditbook/lawsuit/hooks/useUserAnnouncements';
 import convertToCurrency from '@utils/convertToCurrency';
+import ModalToSelectPlan from '@components/BatchForm/ModalToSelectPlan';
+// import ChooseCreditCard from '@components/LawsuitForm/ChooseCreditCard';
+import ChooseCreditCard from '@components/BatchForm/ChooseCreditCard';
 import NewLawsuit from '../ads/new';
 
 interface IProps {
@@ -40,6 +43,12 @@ export default function ShowBatchPage({
   );
   const [isCreating, setCreating] = useState<boolean>(Boolean(router.query?.creating) || batch.status === 'being_created');
 
+  const [openChoosePlanModal, setModalChoosePlanModal] = useState(false);
+  const [choosePaymentMethodModal, setModalChoosePaymentMethod] = useState(false);
+
+  const [planSelected, setSelectedPlan] = useState('');
+  const [paymentMethodId, setPaymentMethodId] = useState(undefined);
+
   // const announcementsInBatch = useUserAnnouncements({
   //   params: {
   //     batchId: router.query.batchId || batch.id,
@@ -59,6 +68,32 @@ export default function ShowBatchPage({
       value: convertToCurrency(Number(batch.value)),
     },
   });
+
+  // function handleOpenModalChoosePlan() {
+  //
+  // }
+
+  function handleSelectPlan(plan: string) {
+    if (plan === 'byMonth') {
+      if (planSelected !== 'byMonth' && planSelected !== 'both') {
+        setSelectedPlan('byMonth');
+      }
+    } else if (plan === 'byPercent') {
+      if (planSelected !== 'byPercent' && planSelected !== 'both') {
+        setSelectedPlan('byPercent');
+      }
+    } else {
+      setSelectedPlan('both');
+    }
+  }
+
+  function handleOpenModalChoosePaymentMethod() {
+    setModalChoosePaymentMethod(true);
+  }
+
+  function handleCloseModalChoosePaymentMethod() {
+    setModalChoosePaymentMethod(false);
+  }
 
   function handleOpenModalCanDeleteBatchConfirmation() {
     setModalBatchBeingDelete(true);
@@ -93,10 +128,19 @@ export default function ShowBatchPage({
   async function handleFinishBatchCreating() {
     try {
       setFinishingLoading(true);
-      await batchServices.update({ id: batch.id, batch: { status: 'pending' } });
+      await batchServices.update({
+        id: batch.id,
+        batch: {
+          status: 'pending',
+          plan: planSelected,
+          paymentMethodId: planSelected === 'byPercent' ? undefined : paymentMethodId,
+        },
+      });
 
       toast.success('O lote foi criado com sucesso');
       handleCloseModalCanFinishBatchCreation();
+      setModalChoosePlanModal(false);
+      setModalChoosePaymentMethod(false);
       setCreating(false);
     } catch (error) {
       handleCatchErrorRequest(error as any);
@@ -124,6 +168,35 @@ export default function ShowBatchPage({
 
   return (
     <>
+      <ChooseCreditCard setPaymentMethod={setPaymentMethodId} choosenCreditCard={paymentMethodId} onBack={handleCloseModalChoosePaymentMethod} isVisible={choosePaymentMethodModal} />
+
+      <ModalToSelectPlan planSelected={planSelected} isVisible={openChoosePlanModal} batchValue={Number(batch.value)} setPlan={handleSelectPlan}>
+        <button type="button" onClick={() => setModalChoosePlanModal(false)}>
+          Voltar
+        </button>
+
+        {(planSelected === 'byPercent') && (
+        <Button onClick={handleFinishBatchCreating}>
+          Concluir
+        </Button>
+        )}
+
+        {(planSelected !== 'byPercent') && (
+        <Button type="button" onClick={handleOpenModalChoosePaymentMethod} disabled={!planSelected}>
+          Escolher pagamento
+        </Button>
+        )}
+      </ModalToSelectPlan>
+      {/*
+      <ChooseCreditCard
+        isVisible={openChoosePaymentModal}
+        onBack={() => setOpenChoosePaymentModal(false)}
+      >
+        <Button onClick={() => setOpenChoosePaymentModal(false)} disabled={!paymentMethodId}>
+          Resumo
+        </Button>
+      </ChooseCreditCard> */}
+
       <Section.Header>
         <Button variant="white" onClick={backToLastRoute}>Voltar</Button>
         {/* <Alert
@@ -150,7 +223,7 @@ export default function ShowBatchPage({
           <FormProvider {...methods}>
             <BatchForm onSubmit={methods.handleSubmit(handleUpdateBatch)} disableValue>
               <WrapperActionsForm>
-                {!isCreating
+                {(!isCreating) && (batch.status === 'active' || batch.status === 'edition_requested')
                   && (
                   <Button type="submit" isLoading={updatingLoading}>
                     Salvar
@@ -209,7 +282,7 @@ export default function ShowBatchPage({
 
       {isCreating && (
         <Button
-          onClick={() => setModalBatchCreationFinishing(true)}
+          onClick={() => setModalChoosePlanModal(true)}
           disabled={announcementsInBatch?.announcements.results?.length < 2}
         >
           Concluir Criação do Lote

@@ -120,19 +120,26 @@ export const newLawsuitSchemaValidation = yup.object().shape({
   ownOrAttorney: yup.string(),
   pledgeOrGuarantee: yup.string(),
   processPrice: yup.mixed()
+    .nullable()
     .transform((value) => mapperCurrency(value))
     .test({
       name: 'Income need to be higher than one hundred',
       message: 'Valor precisa ser maior que R$ 199,00',
-      test: (value: any) => (typeof value !== 'undefined' ? mapperCurrency(value) > 199 : true),
-    })
-    .required(),
+      test: (value: any) => {
+        if (!value) {
+          return true;
+        }
+        return mapperCurrency(value) > 199;
+      },
+    }),
+  // .when('plan', {
+  //   is: (value: any) => value !== 'batch',
+  //   then: (rule) => rule.required('Campo Obrigatório'),
+  //   otherwise: (rule) => rule.transform(() => null),
+  // })
 
   income: yup.mixed()
-    .nullable()
     .when('processPrice', (processPrice, schema: StringSchema | any) => {
-      if (!processPrice) return;
-
       const processPriceParsed = mapperCurrency(processPrice);
 
       if (processPriceParsed) {
@@ -151,9 +158,13 @@ export const newLawsuitSchemaValidation = yup.object().shape({
     .test({
       name: 'Income need to be higher than one hundred',
       message: 'Valor precisa ser maior que R$ 100,00',
-      test: (value: any) => (value === 100 || value > 100),
-    })
-    .required(),
+      test: (value: any) => {
+        if (!value) {
+          return true;
+        }
+        return (value === 100 || value > 100);
+      },
+    }),
 
   // Files
   initialPetition: yup.mixed()
