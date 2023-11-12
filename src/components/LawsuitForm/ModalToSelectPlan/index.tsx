@@ -32,7 +32,7 @@ export default function ModalToSelectPlan({ isVisible, children }: IProps) {
   } = useFormContext();
   const income: number = mapperCurrency(watch('income'));
   const isPlanByPercent = watch('plan') === 'byPercent';
-  const planSelected = watch('plan');
+  const planSelected = watch('plan') || '';
   const isPremium = watch('isPremium');
 
   const price = useMemo(() => {

@@ -44,12 +44,12 @@ export const newLawsuitSchemaValidation = yup.object().shape({
     .test('uf', 'Digite um UF válido', (val: any) => validateUF(val))
     .transform((val: any) => val.value),
 
-  plan: yup.string().required(),
+  plan: yup.string(),
   paymentMethodId: yup
     .mixed()
     .nullable()
     .when('plan', {
-      is: (plan?: 'byPercent' | 'byMonth' | 'both' | 'batch') => plan !== 'batch' && plan !== 'byPercent',
+      is: (plan?: 'byPercent' | 'byMonth' | 'both' | 'batch') => plan && plan !== 'byPercent',
       then: (rule) => rule.required(),
     })
     .when('isPremium', {

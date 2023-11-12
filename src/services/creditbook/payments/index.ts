@@ -14,9 +14,18 @@ export interface IuguTokenResponse {
   id: string
 }
 
+type CreatePaymentMethodParams = {
+  userId: string
+  paymentMethodId: string
+};
+
 export class PaymentServices extends HttpClient {
   async listPayments() {
     return this.httpClient.get('/payment');
+  }
+
+  async createPaymentMethod({ userId, paymentMethodId }: CreatePaymentMethodParams) {
+    return this.httpClient.post('/payment', { userId, paymentMethodId });
   }
 
   async createPayment(payment: IuguTokenResponse) {

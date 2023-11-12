@@ -37,7 +37,6 @@ type NewLawsuitParameters = {
 };
 
 const defaultValues = {
-  plan: 'batch',
   type: 'digital',
   acceptNegotiation: '1',
   pledgeOrGuarantee: '1',
@@ -75,6 +74,8 @@ export default function NewLawsuit({
   const [plan, isPremium] = methods.watch(['plan', 'isPremium']);
   const selectedPaymentMethodId = methods.watch('paymentMethodId');
 
+  console.log(plan);
+
   function handleNavigateToHome() {
     router.push('/');
   }
@@ -84,7 +85,7 @@ export default function NewLawsuit({
   }
 
   function handleChoosePlan() {
-    methods.trigger();
+    methods.trigger().then(() => console.log(methods.formState.errors));
 
     setTimeout(() => {
       if (methods.formState.isValid) {
@@ -129,6 +130,7 @@ export default function NewLawsuit({
         ...data,
         isPremium: data.isPremium ? '1' : '0',
         isFavorite: data.isFavorite ? '1' : '0',
+        plan: 'batch',
         batchId,
       });
 
@@ -204,7 +206,7 @@ export default function NewLawsuit({
                 )}
 
                 {(plan !== 'byPercent' || isPremium) && (
-                  <Button isLoading={loading} type="button" onClick={() => setStepForm('5')}>
+                  <Button disabled={!plan} isLoading={loading} type="button" onClick={() => setStepForm('5')}>
                     Escolher pagamento
                   </Button>
                 )}
