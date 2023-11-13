@@ -113,6 +113,7 @@ export default function ChooseCreditCard({
 
           <FormProvider {...methodsToCreateCard}>
             <NewCreditCard
+              onClose={() => setIsVisibleCreditCardModal(false)}
               isVisible={isVisibleCreditCardModal}
             />
           </FormProvider>

@@ -129,6 +129,7 @@ export default function ChooseCreditCard({
           <FormProvider {...methodsToCreateCard}>
             <NewCreditCard
               submitLabel={!creatingPaymentLoader ? 'Criar' : 'Criando'}
+              onClose={() => setIsVisibleCreditCardModal(false)}
               isVisible={isVisibleCreditCardModal}
               // @ts-ignore
               title="Adicionar Cartão"

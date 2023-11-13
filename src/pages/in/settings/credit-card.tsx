@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import { useCallback, useEffect, useState } from 'react';
 
 import { Button } from '@components/Button';
@@ -119,11 +120,10 @@ export default function CreditCard() {
           </ListCreditCard>
         )}
 
+        {isVisibleCreditCardModal && <CreditCardForm onClose={() => setIsVisibleCreditCardModal(false)} />}
+
         {creditCards?.length <= 0 && (
           <NotFoundData title="Não há cartão cadastrado" type="children">
-            <Button onClick={handleOpenVisibilityCreditCardModal} size="outline-filled-round">
-              Novo cartão
-            </Button>
             <Alert
               type="info"
               message={`
@@ -133,8 +133,6 @@ export default function CreditCard() {
           </NotFoundData>
         )}
       </Section.Container>
-
-      {isVisibleCreditCardModal && <CreditCardForm />}
 
       <AlertModal
         _css={{ maxWidth: '574px' }}

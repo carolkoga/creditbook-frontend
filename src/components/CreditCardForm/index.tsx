@@ -3,16 +3,16 @@
 
 // import FormGroup from '@components/FormGroup';
 // import { Input, MaskInput } from '@components/Input';
-import { CollectPayment } from '@components/CollectPayment';
 // import { Container, WrapperInput, Actions } from './styled';
 
-// interface IProps {
-//   children?: ReactNode,
-//   title?: string | null,
-//   onSubmit: () => void,
-// }
+import { Button } from '@components/Button';
+import { CollectPayment } from '@components/CollectPayment';
 
-export default function CreditCardForm() {
+interface IProps {
+  onClose: any
+}
+
+export default function CreditCardForm({ onClose }: IProps) {
   // const { register, formState: { errors }, control } = useFormContext();
   // return (
   //   <Container onSubmit={onSubmit} noValidate>
@@ -101,7 +101,13 @@ export default function CreditCardForm() {
   //   </Container>
   // );
 
-  return <CollectPayment />;
+  return (
+    <>
+      <Button onClick={onClose}> Fechar </Button>
+      <br />
+      <CollectPayment />
+    </>
+  );
 }
 
 CreditCardForm.defaultProps = {
