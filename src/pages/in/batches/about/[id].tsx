@@ -63,7 +63,7 @@ export default function BatchInformation({ batch }: IProps) {
 
             <GroupInformation className="actions">
               <Link href={`/in/contact-announcer/${batch.id}?type=batch`} size="outline-filled-round">
-                Comprar
+                Comprar Lote
               </Link>
             </GroupInformation>
           </Direction>
