@@ -2,7 +2,7 @@ import PaymentStatus from '@components/CollectPayment/PaymentStatus';
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 
-const stripePromise = loadStripe('pk_test_51NhdIIH8PxgHFSdOstUviuPjs4SH1RdIpos4QlYhdaPahJxaLERXDkV367VF5FlLU7MKqXTwmog7xdXqll12AfZI008dfLL8l0');
+const stripePromise = loadStripe('pk_live_51NhdIIH8PxgHFSdOarmTEkBIQl6IwC4dQD7UULqzbEsrRUxmX7BXUYV8PK4TtQ97KmbXbFzLCM3kHNSy3eJZDQgK00LyfVuGaB');
 
 export default function PaymentStatusPage() {
   return (
