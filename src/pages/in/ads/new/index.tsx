@@ -74,8 +74,6 @@ export default function NewLawsuit({
   const [plan, isPremium] = methods.watch(['plan', 'isPremium']);
   const selectedPaymentMethodId = methods.watch('paymentMethodId');
 
-  console.log(plan);
-
   function handleNavigateToHome() {
     router.push('/');
   }

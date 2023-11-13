@@ -12,5 +12,6 @@ export interface NewPaymentParams {
   cardNumber: string,
   secureCode: string,
   completeName: string,
-  validate: string
+  validate: string,
+  paymentMethodId?: string;
 }

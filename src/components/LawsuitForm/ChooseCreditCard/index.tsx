@@ -47,8 +47,8 @@ export default function ChooseCreditCard({
   async function handleRegisterCreditCard(data: NewPaymentParams) {
     try {
       setCreatingPaymentLoader(true);
-      const { data: createdToken } = await paymentServices.createToken(data);
-      const { data: newPayment } = await paymentServices.createPayment(createdToken);
+      // @ts-ignore
+      const { data: newPayment } = await paymentServices.createPaymentMethod(data);
       mutate(newPayment);
       setValue('paymentMethodId', newPayment.id);
       handleCloseVisibilityCreditCardModal();
@@ -130,6 +130,7 @@ export default function ChooseCreditCard({
             <NewCreditCard
               submitLabel={!creatingPaymentLoader ? 'Criar' : 'Criando'}
               isVisible={isVisibleCreditCardModal}
+              // @ts-ignore
               title="Adicionar Cartão"
               onSubmit={methodsToCreateCard.handleSubmit(handleRegisterCreditCard)}
               onCancel={handleCloseVisibilityCreditCardModal}

@@ -45,22 +45,22 @@ export default function PaymentStatus() {
               { paymentMethodId: setupIntent?.payment_method as string, userId: user.id as string },
             ).then(({ status }) => {
               if (status < 200 || status > 299) {
-                setMessage('Fail! Your payment method has not been saved.');
+                setMessage('Algo deu errado, seu método de pagamento não foi salvo');
               } else {
-                setMessage('Success! Your payment method has been saved.');
+                setMessage('Tudo certo, seu método de pagamento foi salvo com sucesso');
               }
             });
 
             break;
 
           case 'processing':
-            setMessage("Processing payment details. We'll update you when processing is complete.");
+            setMessage('Processando os detalhes de seu pagamento, logo você será atualizado!');
             break;
 
           case 'requires_payment_method':
             // Redirect your user back to your payment page to attempt collecting
             // payment again
-            setMessage('Failed to process payment details. Please try another payment method.');
+            setMessage('Falha ao processar os dados, tente um outro método de pagamento!');
             break;
         }
       });

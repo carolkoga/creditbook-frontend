@@ -7,7 +7,6 @@ import { Section } from '@components/Section';
 import { paymentServices } from '@services/creditbook/payments';
 import { Direction } from '@styles/pages/home';
 import { NewPaymentParams, PaymentParams } from '@type/creditbook/payment';
-import { handleCatchErrorRequest } from '@utils/handleCatchErrorRequest';
 import { ReactNode, useRef, useState } from 'react';
 import {
   Controller, FormProvider, useForm,
@@ -29,8 +28,7 @@ export default function ChooseCreditCard({
   isVisible, onBack, children, choosenCreditCard, setPaymentMethod,
 }: IProps) {
   const [isVisibleCreditCardModal, setIsVisibleCreditCardModal] = useState(false);
-  const [creatingPaymentLoader, setCreatingPaymentLoader] = useState(false);
-  const { data: payments, mutate } = useSWR<PaymentParams[]>('credit_cards', async () => (await paymentServices.listPayments()).data);
+  const { data: payments } = useSWR<PaymentParams[]>('credit_cards', async () => (await paymentServices.listPayments()).data);
   const methodsToCreateCard = useForm<NewPaymentParams>();
   const inputRadioRef = useRef<any>();
 
@@ -38,26 +36,11 @@ export default function ChooseCreditCard({
     setIsVisibleCreditCardModal(true);
   }
 
-  function handleCloseVisibilityCreditCardModal() {
-    setIsVisibleCreditCardModal(false);
-    methodsToCreateCard.clearErrors();
-    methodsToCreateCard.reset();
-  }
-
-  async function handleRegisterCreditCard(data: NewPaymentParams) {
-    try {
-      setCreatingPaymentLoader(true);
-      const { data: createdToken } = await paymentServices.createToken(data);
-      const { data: newPayment } = await paymentServices.createPayment(createdToken);
-      mutate(newPayment);
-      setPaymentMethod(newPayment.id);
-      handleCloseVisibilityCreditCardModal();
-    } catch (error) {
-      handleCatchErrorRequest(error as never);
-    } finally {
-      setCreatingPaymentLoader(false);
-    }
-  }
+  // function handleCloseVisibilityCreditCardModal() {
+  //   setIsVisibleCreditCardModal(false);
+  //   methodsToCreateCard.clearErrors();
+  //   methodsToCreateCard.reset();
+  // }
 
   if (!isVisible) return null;
 
@@ -83,6 +66,7 @@ export default function ChooseCreditCard({
                     <DebitAndCreditCard card={payment} />
                     <Controller
                       name="paymentMethodId"
+                      control={methodsToCreateCard.control}
                       render={({ field }) => (
                         <input
                           ref={inputRadioRef}
@@ -129,12 +113,7 @@ export default function ChooseCreditCard({
 
           <FormProvider {...methodsToCreateCard}>
             <NewCreditCard
-              submitLabel={!creatingPaymentLoader ? 'Criar' : 'Criando'}
               isVisible={isVisibleCreditCardModal}
-              title="Adicionar Cartão"
-              onSubmit={methodsToCreateCard.handleSubmit(handleRegisterCreditCard)}
-              onCancel={handleCloseVisibilityCreditCardModal}
-              loading={creatingPaymentLoader}
             />
           </FormProvider>
         </Container>

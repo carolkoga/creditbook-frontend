@@ -1,4 +1,4 @@
-import { NewPaymentParams } from '@type/creditbook/payment';
+// import { NewPaymentParams } from '@type/creditbook/payment';
 
 import { HttpClient } from '../http';
 
@@ -28,23 +28,14 @@ export class PaymentServices extends HttpClient {
     return this.httpClient.post('/payment', { userId, paymentMethodId });
   }
 
-  async createPayment(payment: IuguTokenResponse) {
-    return this.httpClient.post('/payment', {
-      token: {
-        ...payment,
-        method: 'credit_card',
-      },
-    });
-  }
-
-  async createToken(payment: NewPaymentParams) {
-    return this.httpClient.post<IuguTokenResponse>('/payment/token', {
-      ...payment,
-      cardNumber: payment.cardNumber.replaceAll(' ', ''),
-      validate: payment.validate.split('/').join('/20'),
-      method: 'credit_card',
-    });
-  }
+  // async createToken(payment: NewPaymentParams) {
+  //   return this.httpClient.post<IuguTokenResponse>('/payment/token', {
+  //     ...payment,
+  //     cardNumber: payment.cardNumber.replaceAll(' ', ''),
+  //     validate: payment.validate.split('/').join('/20'),
+  //     method: 'credit_card',
+  //   });
+  // }
 
   async deletePayment(id: string) {
     return this.httpClient.delete(`/payment/${id}`);
