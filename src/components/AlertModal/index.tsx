@@ -8,9 +8,12 @@ import { Overlay } from '@components/Overlay';
 import ReactPortal from '@components/ReactPortal';
 import { Button } from '@components/Button';
 
+import { ReactNode } from 'react';
 import { Container, Title } from './styled';
 
 interface IProps {
+  children?: ReactNode,
+
   title: string,
   description?: string | null,
   type: 'danger' | 'default',
@@ -33,6 +36,7 @@ interface IProps {
 }
 
 export default function AlertModal({
+  children,
   title,
   description,
   type,
@@ -59,6 +63,12 @@ export default function AlertModal({
           {description && (
             <div className="body__modal">
               <p dangerouslySetInnerHTML={{ __html: description }} />
+            </div>
+          )}
+
+          {children && (
+            <div className="body__modal">
+              {children}
             </div>
           )}
 

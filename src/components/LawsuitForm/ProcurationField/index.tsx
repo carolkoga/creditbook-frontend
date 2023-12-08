@@ -9,7 +9,7 @@ export default function ProcurationField() {
   const [procuration, procurationUrl] = watch(['procuration', 'procurationUrl']);
   return (
     <Fieldset>
-      <legend>4.1 Procuração</legend>
+      <legend>* Procuração</legend>
       <FieldFile
         label="Anexar Procuração"
         error={errors?.procuration?.message}

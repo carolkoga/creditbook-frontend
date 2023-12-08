@@ -21,7 +21,7 @@ export default function Prices({ fields }: PriceProps) {
 
   return (
     <Fieldset>
-      <legend>7. Valores</legend>
+      <legend>6. Valores</legend>
       <Direction direction="horizontal">
         <Controller
           control={control}

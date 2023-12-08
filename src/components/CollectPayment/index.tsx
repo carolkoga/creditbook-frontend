@@ -40,7 +40,11 @@ export function CollectPayment() {
       </Elements>
       )}
 
-      {!secret && <Loader loading />}
+      {!secret && (
+      <div className="pd-4">
+        <Loader loading />
+      </div>
+      )}
     </>
   );
 }

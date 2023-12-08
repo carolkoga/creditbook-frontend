@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-import { BatchParams } from '@type/creditbook/Batch';
+import { BatchParams, batchLabel } from '@type/creditbook/Batch';
 import convertToCurrency from '@utils/convertToCurrency';
 import { Link } from '@components/Button';
 import {
@@ -8,7 +8,7 @@ import {
   Title,
   QuantityADS,
   RightContent,
-  BatchIncome,
+  BatchSmall,
 } from './styled';
 
 interface IProps {
@@ -29,13 +29,13 @@ export function BatchCard({ mine, batch, admin = false }: IProps) {
       </LeftContent>
 
       <RightContent>
-        <BatchIncome>
+        <BatchSmall>
           Valor da liquidação
           <span>
             {' '}
             {convertToCurrency(Number(batch.value))}
           </span>
-        </BatchIncome>
+        </BatchSmall>
 
         <div
           className="actions"
@@ -51,6 +51,7 @@ export function BatchCard({ mine, batch, admin = false }: IProps) {
           {(!mine && !admin) && <Link href={`/in/batches/about/${batch.id}`} variant="secondary">Informações</Link>}
           {mine && <Link href={`/in/batches/${batch.id}`}>Ver Anúncios</Link>}
         </div>
+        {mine && <BatchSmall>{batchLabel[batch.status]}</BatchSmall>}
       </RightContent>
     </Container>
   );

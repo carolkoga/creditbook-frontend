@@ -102,11 +102,12 @@ export default function CreditCardForm({ onClose }: IProps) {
   // );
 
   return (
-    <>
+    <div style={{ padding: '14px' }}>
       <Button onClick={onClose}> Fechar </Button>
       <br />
+
       <CollectPayment />
-    </>
+    </div>
   );
 }
 

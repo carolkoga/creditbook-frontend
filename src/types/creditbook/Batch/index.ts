@@ -20,7 +20,7 @@ export interface BatchParams {
   value: string,
   userId: string,
   announcementQuantity: number,
-  status: string
+  status: BatchStatus
   announcement: []
 }
 
@@ -32,4 +32,17 @@ export type BatchStatus =
   | 'inactive'
   | 'edition_requested'
   | 'payment_failed'
+  | 'being_created'
   | 'sold';
+
+export const batchLabel = {
+  active: 'aprovado',
+  rejected: 'não aprovado',
+  deleted: 'deletado',
+  pending: 'pendente de aprovação',
+  inactive: 'inativo',
+  edition_requested: 'edição solicitada',
+  payment_failed: 'pagamento falhou',
+  being_created: 'em criação',
+  sold: 'vendido',
+};

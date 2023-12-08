@@ -84,7 +84,7 @@ export const RightContent = styled.div`
   }
 `;
 
-export const BatchIncome = styled.small`
+export const BatchSmall = styled.small`
   font-size: 14px;
   font-weight: 600;
   color: ${({ theme }) => theme.colors.grey[50]};

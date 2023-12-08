@@ -79,7 +79,7 @@ export default function NewLawsuit({
   }
 
   function handleOpenModalToSelectPlan() {
-    setStepForm('4');
+    setStepForm('5');
   }
 
   function handleChoosePlan() {
@@ -168,7 +168,6 @@ export default function NewLawsuit({
 
               <div className="right__content">
                 <DocumentForm />
-                <OwnerOrAttorney />
 
                 {ownOrAttorneyField === 'attorney' && (
                   <ProcurationField />
@@ -192,34 +191,34 @@ export default function NewLawsuit({
                 </Button>
               </div>
 
-              <ModalToSelectPlan isVisible={stepForm === '4'}>
+              <ModalToSelectPlan isVisible={stepForm === '5'}>
                 <button type="button" onClick={() => setStepForm('0')}>
                   Voltar
                 </button>
 
                 {(plan === 'byPercent' && !isPremium) && (
-                  <Button onClick={() => setStepForm('6')}>
+                  <Button onClick={() => setStepForm('7')}>
                     Resumo
                   </Button>
                 )}
 
                 {(plan !== 'byPercent' || isPremium) && (
-                  <Button disabled={!plan} isLoading={loading} type="button" onClick={() => setStepForm('5')}>
+                  <Button disabled={!plan} isLoading={loading} type="button" onClick={() => setStepForm('6')}>
                     Escolher pagamento
                   </Button>
                 )}
               </ModalToSelectPlan>
 
               <ChooseCreditCard
-                isVisible={stepForm === '5'}
-                onBack={() => setStepForm('4')}
+                isVisible={stepForm === '6'}
+                onBack={() => setStepForm('5')}
               >
-                <Button onClick={() => setStepForm('6')} disabled={!selectedPaymentMethodId}>
+                <Button onClick={() => setStepForm('7')} disabled={!selectedPaymentMethodId}>
                   Resumo
                 </Button>
               </ChooseCreditCard>
 
-              <ModalResume isVisible={stepForm === '6'} onClose={() => setStepForm('0')}>
+              <ModalResume isVisible={stepForm === '7'} onClose={() => setStepForm('0')}>
                 <Button
                   isLoading={loading}
                   // type="submit"
@@ -230,6 +229,19 @@ export default function NewLawsuit({
                   {!loading ? 'Cadastrar' : 'Cadastrando'}
                 </Button>
               </ModalResume>
+
+              <AlertModal
+                title=""
+                isVisible={stepForm === '4'}
+                confirm={{
+                  label: 'Confirmar',
+                  onConfirmButton(): void {
+                    setStepForm('0');
+                  },
+                }}
+              >
+                <OwnerOrAttorney />
+              </AlertModal>
             </FormLayout>
           </LawsuitFormProvider>
         </FormProvider>
@@ -277,7 +289,7 @@ export default function NewLawsuit({
         }}
         cancel={{
           label: 'Não',
-          onCancelButton: () => setStepForm('0'),
+          onCancelButton: () => setStepForm('4'),
         }}
         isVisible={stepForm === '2'}
       />
@@ -298,6 +310,7 @@ export default function NewLawsuit({
         }}
         isVisible={stepForm === '3'}
       />
+
     </>
   );
 }

@@ -11,7 +11,7 @@ export default function PledgeOrGuarantee() {
 
   return (
     <Fieldset>
-      <legend>5. Penhora ou outra garantia</legend>
+      <legend>4. Penhora ou outra garantia</legend>
       <Direction direction="horizontal">
         <div>
           <RadioLabel htmlFor="YesPledgeOrGuarantee">

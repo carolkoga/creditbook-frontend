@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import {
   useCallback, useEffect, useState,
 } from 'react';
@@ -32,25 +33,32 @@ export default function ProcessInfoForm() {
     control, watch, formState: { errors },
   } = useFormContext<FormContextType>();
   const [citiesOptions, setCitiesOptions] = useState([{ label: 'Selecione um estado', value: '' }]);
+  const [searchCityTerm, setSearchCityTerm] = useState<string | null>(null);
   const { formGroupDirection } = useLawsuitForm();
   const uf = watch('uf') as any;
 
-  const loadCitiesOptions = useCallback(() => {
-    (async () => {
-      if (uf) {
-        const selectUF = uf.value;
-        const { data: cities } = await IBGEService.municipalitiesByUF(selectUF as keyof UFList);
-        const options = cities.map((_: any, index: any, array: any) => {
-          const asPath = `${index}.nome`;
-          return factoryOptionReactSelect(asPath, asPath, array);
-        });
+  function onCityInputChange(searchTerm: string) {
+    setSearchCityTerm(searchTerm);
+  }
 
-        console.log(options);
+  const loadCitiesOptions = useCallback(async () => {
+    if (uf) {
+      const selectUF = uf.value;
+      const { data: cities } = await IBGEService.municipalitiesByUF(selectUF as keyof UFList);
+      const options = cities.map((_: any, index: any, array: any) => {
+        const asPath = `${index}.nome`;
+        return factoryOptionReactSelect(asPath, asPath, array);
+      });
+      if (searchCityTerm) {
+        const filteredOptions = options.filter(({ value }: { value: string }) => value.toLowerCase().includes(searchCityTerm.toLowerCase()));
+        console.log(filteredOptions);
 
+        setCitiesOptions(filteredOptions);
+      } else {
         setCitiesOptions(options);
       }
-    })();
-  }, [uf]);
+    }
+  }, [uf, searchCityTerm]);
 
   useEffect(() => {
     loadCitiesOptions();
@@ -123,8 +131,9 @@ export default function ProcessInfoForm() {
                 instanceId="city"
                 className="selects"
                 cacheOptions
-                isSearchable={false}
+                onInputChange={onCityInputChange}
                 defaultOptions={citiesOptions}
+                // @ts-ignore
                 loadOptions={loadCitiesOptions}
               />
             </FormGroup>

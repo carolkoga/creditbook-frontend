@@ -11,7 +11,7 @@ export default function AcceptNegotiation() {
 
   return (
     <Fieldset>
-      <legend>6. Aceita Negociação</legend>
+      <legend>5. Aceita Negociação</legend>
       <Direction direction="horizontal">
         <div>
           <RadioLabel htmlFor="field-yes">
