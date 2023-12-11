@@ -11,6 +11,6 @@ export const InputCurrency = forwardRef((props: InputAttributes, refForward: any
     thousandSeparator="."
     decimalSeparator=","
     prefix="R$ "
-    // decimalScale={2}
+    decimalScale={2}
   />
 ));
