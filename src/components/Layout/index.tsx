@@ -26,7 +26,7 @@ export default function Layout({ children }: IProps) {
   }
 
   if (
-    (isAuthenticated) && router.pathname.startsWith('/in') && user?.role === 'user') {
+    (isAuthenticated) && user?.role === 'user' && (router.pathname.startsWith('/in') || router.pathname.startsWith('/ads') || router.pathname.startsWith('/batches'))) {
     return (
       <ContainerLayout customMaxWidth={1920}>
         <LayoutLogged>
