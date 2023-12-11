@@ -45,17 +45,17 @@ export const newLawsuitSchemaValidation = yup.object().shape({
     .transform((val: any) => val.value),
 
   plan: yup.string(),
-  paymentMethodId: yup
-    .mixed()
-    .nullable()
-    .when('plan', {
-      is: (plan?: 'byPercent' | 'byMonth' | 'both' | 'batch') => plan && plan !== 'byPercent',
-      then: (rule) => rule.required(),
-    })
-    .when('isPremium', {
-      is: (isPremium: '1' | '0') => isPremium === '1',
-      then: (rule) => rule.required(),
-    }),
+  // paymentMethodId: yup
+  //   .mixed()
+  //   .nullable()
+  //   .when('plan', {
+  //     is: (plan?: 'byPercent' | 'byMonth' | 'both' | 'batch') => plan && plan !== 'byPercent',
+  //     then: (rule) => rule.required(),
+  //   })
+  //   .when('isPremium', {
+  //     is: (isPremium: '1' | '0') => isPremium === '1',
+  //     then: (rule) => rule.required(),
+  //   }),
 
   city: yup.mixed()
     .transform((val: any) => val.value)
