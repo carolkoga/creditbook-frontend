@@ -161,7 +161,7 @@ export default function BatchIdAdmin({ batch }: IProps) {
 
             <ButtonAntd
               type="primary"
-              disabled={batchUpdated?.status === 'accepted'}
+              disabled={batchUpdated?.status === 'active'}
               onClick={handleChangeBatchStatusToAccepted}
               loading={approvingLoader}
             >
