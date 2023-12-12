@@ -27,6 +27,10 @@ export default function BatchInformation({ batch }: IProps) {
     },
   });
 
+  console.log(batch);
+
+  console.log(announcementsInBatch);
+
   function backToLastRoute() {
     router.back();
   }
@@ -69,11 +73,13 @@ export default function BatchInformation({ batch }: IProps) {
           </Direction>
         </AboutContainer>
 
-        {announcementsInBatch?.announcements?.results?.length > 0 && (
-          <Section.Container style={{ marginTop: '52px' }}>
+        {batch.announcement.length > 0 && (
+          <Section.Container style={{ marginTop: '52px', width: '100%' }}>
             <Section.Title>Anúncios desse lote</Section.Title>
             <AnnouncementList
-              {...announcementsInBatch}
+            // @ts-ignore
+              announcements={{ results: batch.announcement, pages: 1 }}
+              isLoading={false}
               lawsuitCardProps={{
                 batchIdForActions: batch.id,
               }}
