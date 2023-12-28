@@ -1,6 +1,7 @@
 /* eslint-disable react/no-unstable-nested-components */
 import { Switch, Table, TableProps } from 'antd';
 import { useMemo } from 'react';
+import { Trash } from 'phosphor-react';
 import { WrapperTable } from '../../WrapperTable';
 import InformationTable from './InformationTable';
 import { DataType } from './types';
@@ -9,6 +10,7 @@ interface IProps {
   dataSource: DataType[] | [],
   // eslint-disable-next-line no-unused-vars
   onChangeStatus: (clientId: string) => void,
+  onClickDeleteUser: (userId: string) => void,
   changingStatusLoader: boolean,
   _tableProps?: TableProps<any>
 }
@@ -16,6 +18,7 @@ interface IProps {
 export default function ClientsTable({
   dataSource,
   onChangeStatus,
+  onClickDeleteUser,
   changingStatusLoader,
   _tableProps,
 }: IProps) {
@@ -52,6 +55,20 @@ export default function ClientsTable({
           style={{ width: '100%' }}
           loading={changingStatusLoader}
           checked={isActive}
+        />
+      ),
+    },
+
+    {
+      title: 'Deletar',
+      dataIndex: 'delete',
+      key: 'delete',
+      width: '8%',
+      render: (_: boolean, record: DataType) => (
+        <Trash
+          onClick={() => onClickDeleteUser(record.id)}
+          cursor="pointer"
+          style={{ width: '100%' }}
         />
       ),
     },

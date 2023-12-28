@@ -1,3 +1,6 @@
+/* eslint-disable max-len */
+/* eslint-disable @typescript-eslint/no-shadow */
+import AlertModal from '@components/AlertModal';
 import { Textarea } from '@components/Input';
 import ClientsTable from '@components/pages/admin/ManageClients/ClientsTable';
 import { Section } from '@components/Section';
@@ -6,6 +9,7 @@ import { UserParams } from '@type/creditbook/admin';
 import { handleCatchErrorRequest } from '@utils/handleCatchErrorRequest';
 import { Modal } from 'antd';
 import { useCallback, useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 
 export default function ManageClients() {
   const [clients, setClients] = useState([] as UserParams[]);
@@ -14,6 +18,7 @@ export default function ManageClients() {
   const [deactivationUser, setDeactivationUser] = useState(false);
   const [loading, setLoading] = useState(false);
   const [deactivationReason, setDeactivationReason] = useState('');
+  const [confirmUserDelete, setUserDelete] = useState(false);
   const [userId, setUserId] = useState('');
   const isMessageValid = deactivationReason.length > 5;
 
@@ -61,6 +66,29 @@ export default function ManageClients() {
     }
   }
 
+  async function handleDeleteUser() {
+    try {
+      await adminServices.deleteUser(userId);
+
+      toast.success('usuário deletado com sucesso');
+
+      setClients((prevState) => [...prevState.filter((user) => user.id !== userId)]);
+      setUserDelete(false);
+      setUserId('');
+    } catch (error) {
+      handleCatchErrorRequest(error as never);
+    }
+  }
+
+  function handleOnClickDeleteUser(userId: string) {
+    setUserDelete(true);
+    setUserId(userId);
+  }
+
+  function handleCancelDeleteUser() {
+    setUserDelete(false);
+  }
+
   function handleOpenModalDeactivationUser(id: string) {
     setDeactivationUser(true);
     setUserId(id);
@@ -84,6 +112,7 @@ export default function ManageClients() {
       <Section.Title as="h1" textColor="dark">Gerenciar Clientes</Section.Title>
       <ClientsTable
         onChangeStatus={handleNeedOpenModalOrChangeStatusUserDirect}
+        onClickDeleteUser={handleOnClickDeleteUser}
         changingStatusLoader={false}
         dataSource={clients}
         _tableProps={{
@@ -116,6 +145,8 @@ export default function ManageClients() {
           onChange={(e) => setDeactivationReason(e.target.value)}
         />
       </Modal>
+
+      <AlertModal title="Deletar Usuário" description="deseja confirmar a exclusão desse usuário? A ação não poderá ser desfeita!" isVisible={confirmUserDelete} confirm={{ label: 'Excluir', onConfirmButton: handleDeleteUser }} cancel={{ onCancelButton: handleCancelDeleteUser, label: 'Cancelar' }} />
 
     </>
   );

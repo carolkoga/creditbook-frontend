@@ -8,6 +8,18 @@ export type UpdateAnnouncementStatusParams = {
   announcementId: string;
 };
 
+export type CreateAdminParams = {
+  fullname: string;
+  email: string;
+  password: string;
+  passwordConfirmation: string;
+};
+
+export type ListAdminsResponse = {
+  admins: any[],
+  pages: number
+};
+
 export type UpdateBatchStatusParams = {
   editionRequirements?: string;
   status: BatchStatus;
@@ -30,6 +42,11 @@ export interface UserChangeStatusParams {
   userId: string,
   action: 'active' | 'deactivate',
   deactivationReason?: string,
+}
+
+export interface AdminChangeStatusParams {
+  adminId: string,
+  isActive: boolean,
 }
 
 export interface NewLawsuitParamsResponse {

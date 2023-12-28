@@ -87,6 +87,7 @@ export interface QueriesToIndexBatches {
     minValue?: number;
     maxValue?: number;
     announcementQuantity?: number;
+    currentUserId?: string;
   }
 }
 

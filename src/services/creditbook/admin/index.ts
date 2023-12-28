@@ -6,6 +6,9 @@ import {
   UserChangeStatusParams,
   UsersAdminResponse,
   UpdateBatchStatusParams,
+  ListAdminsResponse,
+  AdminChangeStatusParams,
+  CreateAdminParams,
 } from '@type/creditbook/admin';
 
 import { HttpClient } from '../http';
@@ -56,9 +59,36 @@ export class AdminServices extends HttpClient {
     });
   }
 
+  async indexAdmins(params?: { page?: number }) {
+    return this.httpClient.get<ListAdminsResponse>('/admin', {
+      params: {
+        ...params,
+        page: params?.page ?? 1,
+      },
+    });
+  }
+
   async changeStatusUser({ userId, action, deactivationReason }: UserChangeStatusParams) {
     return this.httpClient.patch(`${PREFIX_USER}/status`, {
       userId, action, deactivationReason,
+    });
+  }
+
+  async changeStatusAdmin({ adminId, isActive }: AdminChangeStatusParams) {
+    return this.httpClient.patch(`/admin/${adminId}`, {
+      isActive,
+    });
+  }
+
+  async deleteUser(userId: string) {
+    return this.httpClient.delete(`${PREFIX_USER}/delete/${userId}`);
+  }
+
+  async createAdmin({
+    fullname, email, password, passwordConfirmation,
+  }: CreateAdminParams) {
+    return this.httpClient.post('/admin/registration', {
+      fullname, email, password, passwordConfirmation,
     });
   }
 }

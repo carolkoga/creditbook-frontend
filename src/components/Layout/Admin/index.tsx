@@ -34,6 +34,11 @@ const adminRoutes: TopicProps[] = [
   },
 
   {
+    label: 'Gerenciar Admins',
+    link: `${adminRoutesPrefix}/manage-admins`,
+  },
+
+  {
     label: 'Termos de uso',
     link: `${adminRoutesPrefix}/terms-of-services`,
   },

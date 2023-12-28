@@ -15,7 +15,7 @@ import { Button } from '@components/Button';
 import { handleCatchErrorRequest } from '@utils/handleCatchErrorRequest';
 import { adminServices } from '@services/creditbook/admin';
 import { Textarea } from '@components/Input';
-import AlertModal from '@components/AlertModal';
+import AlertModal from '@components/AdminFormModal/AlertModal';
 import { toast } from 'react-toastify';
 
 interface IProps {
