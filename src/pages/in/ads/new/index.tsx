@@ -12,7 +12,7 @@ import DefendantForm from '@components/LawsuitForm/Defendant/Form';
 import DocumentForm from '@components/LawsuitForm/DocumentForm';
 import ProcessInfoForm from '@components/LawsuitForm/ProcessInfo';
 import { LawsuitFormProvider } from '@components/LawsuitForm/context/LawsuitFormContext';
-import AlertModal from '@components/AdminFormModal/AlertModal';
+import AlertModal from '@components/AlertModal';
 import AcceptNegotiation from '@components/LawsuitForm/AcceptNegotiation';
 import PledgeOrGuarantee from '@components/LawsuitForm/PledgeOrGuarantee';
 import OwnerOrAttorney from '@components/LawsuitForm/OwnerOrAttorney';

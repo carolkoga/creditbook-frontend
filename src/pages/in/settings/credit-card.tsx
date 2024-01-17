@@ -10,7 +10,7 @@ import { PaymentParams } from '@type/creditbook/payment';
 import { handleCatchErrorRequest } from '@utils/handleCatchErrorRequest';
 import { paymentServices } from '@services/creditbook/payments';
 import { ListCreditCard } from '@components/pages/in/ListCreditCard';
-import AlertModal from '@components/AdminFormModal/AlertModal';
+import AlertModal from '@components/AlertModal';
 import NotFoundData from '@components/NotFoundData';
 import { Alert } from 'antd';
 import WrapperLoader from '@components/Loader/WrapperLoader';

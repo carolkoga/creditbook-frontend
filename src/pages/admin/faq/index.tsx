@@ -11,7 +11,7 @@ import { useCallback, useEffect, useState } from 'react';
 import FAQForm from '@components/pages/admin/FAQ/FAQForm';
 import { FAQService } from '@services/creditbook/support/faq';
 import { handleCatchErrorRequest } from '@utils/handleCatchErrorRequest';
-import AlertModal from '@components/AdminFormModal/AlertModal';
+import AlertModal from '@components/AlertModal';
 import { AccordionList } from '@styles/AccordionList';
 import { translationSectionFAQ } from '@mocks/FAQ';
 import { FAQResponseType, QuestionResponseType, SectionFaqParams } from '@type/creditbook/support/faq';

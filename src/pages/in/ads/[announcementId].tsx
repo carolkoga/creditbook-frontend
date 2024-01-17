@@ -10,7 +10,7 @@ import useAuth from '@hooks/useAuth';
 import { Button, Link } from '@components/Button';
 import NotFoundData from '@components/NotFoundData';
 import WrapperLoader from '@components/Loader/WrapperLoader';
-import AlertModal from '@components/AdminFormModal/AlertModal';
+import AlertModal from '@components/AlertModal';
 import { handleCatchErrorRequest } from '@utils/handleCatchErrorRequest';
 import { toast } from 'react-toastify';
 
