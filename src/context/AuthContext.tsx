@@ -10,7 +10,7 @@ import { authCreditBookService } from '@services/creditbook/auth';
 import { LoginParams } from '@type/creditbook/auth/login';
 import { creditbookApi } from '@api/creditbookApi';
 import { commonToastProps } from '@configs/toast';
-import { userCreditbookService } from '@services/creditbook/user';
+import { userCreditbookService } from '@type/user';
 import OverlayLoader from '@components/Loader/OverlayLoader';
 import { AxiosResponse } from 'axios';
 import { handleCatchErrorRequest } from '@utils/handleCatchErrorRequest';

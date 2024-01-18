@@ -6,7 +6,7 @@ import { preSignUpValidation } from '@validations/yup/UserForm/preSignUp';
 import { useRouter } from 'next/router';
 import { Controller, useForm } from 'react-hook-form';
 import { InputPhone } from '@components/Form/Input/Mask/InputPhone';
-import { userCreditbookService } from '@services/creditbook/user/index';
+import { userCreditbookService } from '@type/user/index';
 import { Container, Content, Header } from './styled';
 
 interface PreSignUpProps {

@@ -1,14 +1,14 @@
 import { OptionType } from '@components/Select';
 import { AccountCorporation, AccountPerson } from '@type/creditbook/auth/register';
 
-function validateURL(url: string) {
-  try {
-    const isValid = new URL(url);
-    return !!isValid;
-  } catch {
-    return false;
-  }
-}
+// function validateURL(url: string) {
+//   try {
+//     const isValid = new URL(url);
+//     return !!isValid;
+//   } catch {
+//     return false;
+//   }
+// }
 
 class RegisterUseCase {
   handle(data: AccountCorporation | AccountPerson) {
@@ -30,18 +30,28 @@ class RegisterUseCase {
         return formData.append(key, date.toISOString());
       }
 
-      if (key === 'profilePicture') {
-        if (typeof value === 'string' && !(validateURL(value))) return;
+      if (key === 'profilePictureKey' || key === 'profilePictureUrl' || key === 'profilePicture') {
+        const profilePictureValue = value;
 
-        const profilePictureIsFile = value as File[];
+        if (!profilePictureValue) return;
 
-        if (profilePictureIsFile?.length >= 0) {
+        if (typeof profilePictureValue === 'string') {
           return;
         }
-
-        // @ts-ignore
-        if (profilePictureIsFile?.name as File) return;
       }
+
+      // if (key === 'profilePicture') {
+      //   if (typeof value === 'string' && !(validateURL(value))) return;
+
+      //   const profilePictureIsFile = value as File[];
+
+      //   if (profilePictureIsFile?.length >= 0) {
+      //     return;
+      //   }
+
+      //   // @ts-ignore
+      //   if (profilePictureIsFile?.name as File) return;
+      // }
 
       if (key === 'socialContract') {
         if (typeof value === 'string') return;

@@ -10,7 +10,7 @@ import useAuth from 'hooks/useAuth';
 import CheckboxShownPassword from '@components/UserForm/components/CheckboxShownPassword';
 import { Direction } from '@components/Direction';
 import router from 'next/router';
-import { userCreditbookService } from '@services/creditbook/user';
+import { userCreditbookService } from '@type/user';
 
 export default function Login() {
   const [email, setEmail] = useState('');

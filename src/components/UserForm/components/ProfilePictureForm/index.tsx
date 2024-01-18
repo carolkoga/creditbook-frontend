@@ -12,7 +12,7 @@ interface IProps extends AllCommonType {
 
 export default function ProfilePictureForm({ formGroupDirection, label, size = 40 }: IProps) {
   const {
-    register, formState: { errors }, watch, setValue,
+    register, formState: { errors }, watch, setValue, getValues,
   } = useFormContext();
   const profilePictureFileList = watch('profilePicture', null);
   const [profilePreview, setProfilePreview] = useState<string | any>('');
@@ -25,6 +25,8 @@ export default function ProfilePictureForm({ formGroupDirection, label, size = 4
   }
 
   useEffect(() => {
+    console.log('value', getValues('profilePicture'));
+
     if (typeof profilePictureFileList === 'string') {
       return setProfilePreview(profilePictureFileList);
     }

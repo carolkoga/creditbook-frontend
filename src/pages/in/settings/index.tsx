@@ -14,7 +14,7 @@ import useDimensions from '@hooks/useDimensions';
 
 import { UserDefaultValues } from '@type/creditbook';
 
-import { userCreditbookService } from '@services/creditbook/user';
+import { userCreditbookService } from '@type/user';
 
 import { Direction } from '@styles/pages/home';
 
