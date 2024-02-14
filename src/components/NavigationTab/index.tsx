@@ -17,7 +17,7 @@ export default function NavigationTab({ routes }: IProps) {
       <WrapperListNav>
         {routes.map((route) => (
           <NavContent key={route.label} isActive={router.pathname === route.link}>
-            <Link href={route.link}>
+            <Link legacyBehavior href={route.link}>
               <a>
                 {route.label}
               </a>

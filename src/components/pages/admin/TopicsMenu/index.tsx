@@ -30,7 +30,7 @@ export default function TopicsMenu({ topics }: IProps) {
           key={topic.link}
           onClick={() => setCurrentRouteSelected(topic.link)}
         >
-          <Link href={topic.link}>
+          <Link legacyBehavior href={topic.link}>
             <Route>
               {topic?.icon && (
                 <div className="wrapper__icon">

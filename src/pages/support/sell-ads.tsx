@@ -28,7 +28,7 @@ export default function SellAds() {
             Vamos começar?
           </p>
 
-          <Link href="/in/ads/new" size="x-large">
+          <Link legacyBehavior href="/in/ads/new" size="x-large">
             Anunciar
           </Link>
         </ADSContent>

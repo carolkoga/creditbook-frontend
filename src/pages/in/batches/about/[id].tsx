@@ -66,7 +66,7 @@ export default function BatchInformation({ batch }: IProps) {
             </GroupInformation>
 
             <GroupInformation className="actions">
-              <Link href={`/in/contact-announcer/${batch.id}?type=batch`} size="outline-filled-round">
+              <Link legacyBehavior href={`/in/contact-announcer/${batch.id}?type=batch`} size="outline-filled-round">
                 Comprar Lote
               </Link>
             </GroupInformation>

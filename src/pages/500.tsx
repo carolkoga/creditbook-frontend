@@ -14,11 +14,11 @@ export default function InternalServerError() {
         <Image
           src="/assets/images/errors/500.svg"
           alt="Aconteceu algum erro no nosso servidor"
-          width="581px"
-          height="583px"
+          width="581"
+          height="583"
         />
 
-        <Link href="/contact">Falar com Suporte</Link>
+        <Link legacyBehavior href="/contact">Falar com Suporte</Link>
       </Direction>
     </Section.Container>
   );

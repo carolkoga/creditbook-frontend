@@ -45,11 +45,12 @@ export default function NavBarAdmin({ menu }: IProps) {
       </Drawer>
 
       <div className="last__content">
-        <Link href="/">
+        <Link legacyBehavior href="/">
           <a>
             <Image
-              width="120px"
-              height="35px"
+              width="120"
+              alt="logo"
+              height="35"
               layout="intrinsic"
               src="/assets/images/logo.svg"
             />

@@ -36,12 +36,12 @@ export default function MyPlanCard({ plan }: MyPlanCardProps) {
       </Body>
 
       <Footer>
-        <Link size="x-large" variant="secondary" href={`/in/ads/${plan.id}`}>
+        <Link legacyBehavior size="x-large" variant="secondary" href={`/in/ads/${plan.id}`}>
           Sobre Anúncio
         </Link>
 
         {plan.plan !== '8%' && (
-          <Link href={`/in/ads/edit/${plan.id}`}>
+          <Link legacyBehavior href={`/in/ads/edit/${plan.id}`}>
             Trocar cartão
           </Link>
         )}

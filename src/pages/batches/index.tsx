@@ -1,4 +1,4 @@
-import { GetServerSideProps } from 'next';
+// import { GetServerSideProps } from 'next';
 
 import { BatchesFilterDrawer, ResponseFilterBatchesProps } from '@components/FilterDrawer/Batches';
 import TabBatchAnnouncement from '@components/TabBatchAnnouncement';
@@ -8,14 +8,31 @@ import NotFoundData from '@components/NotFoundData';
 import BatchesList from '@components/BatchCard';
 import { Section } from '@components/Section';
 
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 
-interface IProps {
-  batches: BatchParams[] | null
-}
+// interface IProps {
+// batches: BatchParams[] | null
+// }
 
-export default function Batches({ batches }: IProps) {
-  const [allBatches, setAllBatches] = useState<BatchParams[]>(batches ?? []);
+export default function Batches(/* { batches }: IProps */) {
+  const [allBatches, setAllBatches] = useState<BatchParams[]>([]);
+
+  const loadBatches = useCallback(async () => {
+    try {
+      const response = await batchServices.list();
+
+      setAllBatches([
+        ...response.data,
+      ]);
+    } catch {
+      toast.error('ocorreu um erro, tente novamente');
+    }
+  }, []);
+
+  useEffect(() => {
+    loadBatches();
+  }, []);
 
   function handleProcessBatchesFiltered(filteredBatches: ResponseFilterBatchesProps) {
     setAllBatches(filteredBatches.results);
@@ -50,20 +67,22 @@ export default function Batches({ batches }: IProps) {
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async () => {
-  let batches = null;
+// export const getServerSideProps: GetServerSideProps = async () => {
+//   let batches = null;
 
-  try {
-    const response = await batchServices.list();
+//   try {
+//     const response = await batchServices.list({ params: { currentUserId: user.id } });
 
-    batches = response.data;
-  } catch {
-    console.error('Happened an Error');
-  }
+//     console.log(response);
 
-  return {
-    props: {
-      batches,
-    },
-  };
-};
+//     batches = response.data;
+//   } catch {
+//     console.error('Happened an Error');
+//   }
+
+//   return {
+//     props: {
+//       batches,
+//     },
+//   };
+// };

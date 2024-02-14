@@ -44,12 +44,12 @@ export function BatchCard({ mine, batch, admin = false }: IProps) {
           }}
         >
           {(!mine && !admin) && (
-          <Link href={`/in/contact-announcer/${batch.id}?type=batch`}>
+          <Link legacyBehavior href={`/in/contact-announcer/${batch.id}?type=batch`}>
             Comprar Lote
           </Link>
           )}
-          {(!mine && !admin) && <Link href={`/in/batches/about/${batch.id}`} variant="secondary">Informações</Link>}
-          {mine && <Link href={`/in/batches/${batch.id}`}>Ver Anúncios</Link>}
+          {(!mine && !admin) && <Link legacyBehavior href={`/in/batches/about/${batch.id}`} variant="secondary">Informações</Link>}
+          {mine && <Link legacyBehavior href={`/in/batches/${batch.id}`}>Ver Anúncios</Link>}
         </div>
         {mine && <BatchSmall>{batchLabel[batch.status]}</BatchSmall>}
       </RightContent>

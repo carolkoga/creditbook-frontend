@@ -3,7 +3,7 @@ import { ThirdStepPaymentInformation } from '@components/pages/in/sale/declare/s
 import { useState } from 'react';
 import { LastStepEmitContractForm } from '@components/pages/in/sale/declare/steps/EmitContract';
 import { SecondStepBuyer } from '@components/pages/in/sale/declare/steps/Buyer';
-import { FirstStepProcess } from '@components/pages/in/sale/declare/steps/Process';
+// import { FirstStepProcess } from '@components/pages/in/sale/declare/steps/Process';
 import { Button } from '@components/Button';
 import { Container, Action } from '@components/pages/in/sale/declare/styles';
 import { FormProvider, useForm } from 'react-hook-form';
@@ -14,12 +14,17 @@ import { toast } from 'react-toastify';
 import { contactSale } from '@services/creditbook/contactSale/ContactSaleService';
 import { useRouter } from 'next/router';
 import { handleCatchErrorRequest } from '@utils/handleCatchErrorRequest';
+import { useSearchParams } from 'next/navigation';
 
 const LAST_STEP = 2;
 
 export default function DeclareSalePage() {
   const router = useRouter();
   const [step, setStep] = useState(1);
+
+  const searchParams = useSearchParams();
+  const processId = searchParams.get('processId');
+
   const methods = useForm<FieldDeclareFormTypes>({
     mode: 'all',
     resolver: yupResolver(declareSaleValidation),
@@ -30,7 +35,13 @@ export default function DeclareSalePage() {
       payment: {
         paymentType: 'installments',
       },
-      emitContract: '1',
+      emitContract: 1,
+      processInfo: {
+        processId: {
+          value: (processId || router.query?.processId || '') as any,
+          label: '',
+        },
+      },
     },
   });
   const { watch, trigger } = methods;
@@ -58,7 +69,10 @@ export default function DeclareSalePage() {
 
       setIsLoading(true);
       const data = methods.watch();
-      await contactSale.declareSale(data);
+      data.processInfo.processId = processId as any;
+      await contactSale.declareSale(
+        data,
+      );
 
       router.replace('/in/home');
     } catch (error) {
@@ -85,7 +99,7 @@ export default function DeclareSalePage() {
       <Container onSubmit={methods.handleSubmit(handleDeclareSale)}>
         {step === 1 && (
           <>
-            <FirstStepProcess />
+            {/* <FirstStepProcess /> */}
             <br />
             <br />
             <br />

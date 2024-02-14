@@ -46,7 +46,7 @@ const columns = [
     dataIndex: 'id',
     key: 'id',
     render: (id: string) => (
-      <Link href={`/admin/batches/${id}`}>
+      <Link legacyBehavior href={`/admin/batches/${id}`}>
         <a>
           <Info size={32} />
         </a>

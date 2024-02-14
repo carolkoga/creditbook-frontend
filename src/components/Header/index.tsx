@@ -15,9 +15,9 @@ export default function Header() {
       </button>
 
       <div className="wrapper__image">
-        <Link href="/">
+        <Link legacyBehavior href="/">
           <a>
-            <Image src="/assets/images/logo.svg" layout="fixed" width="137px" height="50px" />
+            <Image src="/assets/images/logo.svg" alt="logo" layout="fixed" width="137" height="50" />
           </a>
         </Link>
       </div>

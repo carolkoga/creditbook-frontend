@@ -83,7 +83,7 @@ export default function AnnouncementId() {
         <Direction direction="horizontal">
           {(user?.id === announcement.userId && announcement.status !== 'pending') && (
             <Direction direction="horizontal">
-              <Link size="large" href={`/in/ads/edit/${announcement.id}`}>
+              <Link legacyBehavior size="large" href={`/in/ads/edit/${announcement.id}`}>
                 Editar
               </Link>
 
@@ -93,6 +93,7 @@ export default function AnnouncementId() {
 
               {announcement.status === 'accepted' && (
                 <Link
+                  legacyBehavior
                   size="large"
                   variant="secondary"
                   replace
@@ -108,6 +109,7 @@ export default function AnnouncementId() {
 
           {(announcement.status !== 'pending' && user?.id !== announcement.userId && announcement.acceptNegotiation === true) && (
             <Link
+              legacyBehavior
               size="large"
               href={!announcement.batchId
                 ? `/in/contact-announcer/${announcement.id}`
@@ -120,6 +122,7 @@ export default function AnnouncementId() {
 
           {(announcement.status !== 'pending' && user?.id !== announcement.userId) && (
             <Link
+              legacyBehavior
               size="large"
               href={!announcement.batchId
                 ? `/in/contact-announcer/${announcement.id}`

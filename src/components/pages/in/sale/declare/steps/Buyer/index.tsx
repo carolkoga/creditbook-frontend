@@ -12,7 +12,7 @@ export const SecondStepBuyer = memo(() => {
   const personType = watch('buyer.personType');
 
   return (
-    <FieldsetDeclare title="2. Dados da parte compradora">
+    <FieldsetDeclare title="1. Dados da parte compradora">
       <WrapperRadio>
         <LabelContainer htmlFor="pj">
           <input type="radio" id="pj" value="pj" {...register('buyer.personType')} />

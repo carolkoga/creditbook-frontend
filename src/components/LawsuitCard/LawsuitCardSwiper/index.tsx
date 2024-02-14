@@ -35,8 +35,8 @@ export default function LawsuitCardSwiper({ lawsuits }: LawsuitCardListProps) {
       <ButtonControl type="button" onClick={() => handleGoToPrev()}>
         <Image
           src="/assets/icons/double-arrow.svg"
-          width="24px"
-          height="20px"
+          width="24"
+          height="20"
           alt="Anterior"
           layout="fixed"
         />
@@ -65,8 +65,8 @@ export default function LawsuitCardSwiper({ lawsuits }: LawsuitCardListProps) {
       >
         <Image
           src="/assets/icons/double-arrow.svg"
-          width="24px"
-          height="20px"
+          width="24"
+          height="20"
           alt="Próximo"
           layout="fixed"
         />

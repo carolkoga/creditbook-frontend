@@ -30,7 +30,7 @@ export default function PlanCard({
             <h4>{information.subtitle}</h4>
           </div>
 
-          <Link href="/support/terms-of-service">
+          <Link legacyBehavior href="/support/terms-of-service">
             <a>
               Ver regras e termos
             </a>

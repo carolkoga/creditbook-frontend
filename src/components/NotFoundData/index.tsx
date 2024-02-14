@@ -42,9 +42,9 @@ export default function NotFoundData(props: NotFoundDataProps) {
     <Direction alignItems="center">
       <Image
         src="/assets/images/errors/no-data.svg"
-        alt={props.title}
-        width="581px"
-        height="483px"
+        alt={props.title!}
+        width="581"
+        height="483"
       />
 
       <Section.Title as="h1" textColor="dark">

@@ -44,8 +44,8 @@ export default function SafetTips() {
           <WrapperImage>
             <Image
               src="/assets/images/about/image_2.jpg"
-              width="452px"
-              height="463px"
+              width="452"
+              height="463"
               alt="Segurança"
               layout="fixed"
             />

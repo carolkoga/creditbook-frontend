@@ -34,11 +34,12 @@ export default function ErrorFallback() {
         <Image
           src="/assets/images/errors/404.svg"
           alt="Essa pagina não foi encontrada"
-          width="581px"
-          height="583px"
+          width="581"
+          height="583"
         />
 
         <Link
+          legacyBehavior
           href={routeToRedirect}
           size="outline-filled-round"
           replace

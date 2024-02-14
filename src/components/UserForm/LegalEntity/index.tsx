@@ -87,7 +87,7 @@ export default function LegalEntity({
 
         <div className="actions">
           {validation !== 'update' && (
-            <Link href="/login" size="outline-filled-round" variant="white">
+            <Link legacyBehavior href="/login" size="outline-filled-round" variant="white">
               Login
             </Link>
           )}

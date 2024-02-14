@@ -6,12 +6,13 @@ export default function LoggedFooter({ lawsuitId, batchId }: CommonPropsTypes) {
   return (
     <Actions>
       <Content>
-        <Link href={`/in/ads/${lawsuitId}`} size="small-large" variant="secondary">
+        <Link legacyBehavior href={`/in/ads/${lawsuitId}`} size="small-large" variant="secondary">
           Informações
         </Link>
 
         {!batchId && (
           <Link
+            legacyBehavior
             href={`/in/contact-announcer/${lawsuitId}?type=announcement`}
             size="small-large"
             variant="default"
@@ -22,6 +23,7 @@ export default function LoggedFooter({ lawsuitId, batchId }: CommonPropsTypes) {
 
         {batchId && (
           <Link
+            legacyBehavior
             href={`/in/batches/about/${batchId}`}
             size="small-large"
             variant="default"

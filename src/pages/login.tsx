@@ -114,7 +114,7 @@ export default function Login() {
             Realize seu cadastro
           </Button>
 
-          <LinkNext href="/reset-password">
+          <LinkNext legacyBehavior href="/reset-password">
             <a className="forget__password">
               Esqueci minha senha
             </a>

@@ -3,10 +3,13 @@ import { FieldDeclareFormTypes } from '@type/creditbook/sale/declare';
 import { mapperCurrency } from '@utils/mapperCurrency';
 
 export function SendMapper(data: FieldDeclareFormTypes) {
+  console.log('Data', data);
+
   const dataParsed = {
-    emitContract: Boolean(data.emitContract),
+    emitContract: Boolean(Number(data.emitContract)),
     announcementId: data.processInfo.processType === 'announcement' ? data.processInfo.processId.value : null,
     batchId: data.processInfo.processType === 'batch' ? data.processInfo.processId.value : null,
+    processId: data.processInfo.processId,
     paymentData: {
       accountNumber: data.payment.bankInfo.numberAccount,
       holderDocument: data.payment.bankInfo.holderDocument,
@@ -21,7 +24,7 @@ export function SendMapper(data: FieldDeclareFormTypes) {
       inCash: data.payment.paymentType === 'cash',
     },
     saleValue: mapperCurrency(data.processPrice),
-  } as CommunicateSellingParams;
+  } as unknown as CommunicateSellingParams;
 
   if (data.buyer.personType === 'pf') {
     const buyerPF = data.buyer.pf;

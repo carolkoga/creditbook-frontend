@@ -41,7 +41,7 @@ export function Link({
   children, size, variant, isLoading, ...restAttributes
 }: ILinkProps) {
   return (
-    <LinkRouter {...restAttributes}>
+    <LinkRouter legacyBehavior {...restAttributes}>
       <StyleButton as="a" variant={variant} size={size}>
         {children}
       </StyleButton>

@@ -239,6 +239,7 @@ export default function ShowBatchPage({
 
                 {batch.announcementQuantity > 0 && (
                   <Link
+                    legacyBehavior
                     variant="secondary"
                     replace
                     href={`/in/sale/declare?processId=${batch.id}`}

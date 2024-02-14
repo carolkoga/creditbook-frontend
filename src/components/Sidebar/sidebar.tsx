@@ -46,7 +46,7 @@ export default function CoreSidebar({ smallDevice }: IProps) {
       <Navigation>
         {routes.map((route) => (
           <Route key={route.label}>
-            <Link href={route.link}>
+            <Link legacyBehavior href={route.link}>
               <a>
                 {route.icon}
                 {!isCollapsed && route.label}

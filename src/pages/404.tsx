@@ -26,11 +26,11 @@ export default function Custom404() {
         <Image
           src="/assets/images/errors/404.svg"
           alt="Essa pagina não foi encontrada"
-          width="581px"
-          height="583px"
+          width="581"
+          height="583"
         />
 
-        <Link href={routeToRedirect} size="outline-filled-round">Volta para Home</Link>
+        <Link legacyBehavior href={routeToRedirect} size="outline-filled-round">Volta para Home</Link>
       </Direction>
     </Section.Container>
   );

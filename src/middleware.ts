@@ -13,7 +13,7 @@ export function middleware(req: NextRequest) {
     const userDataAsJSON = req.cookies.get('nextauth.user');
 
     if (userDataAsJSON) {
-      user = JSON.parse(userDataAsJSON as string);
+      user = JSON.parse(userDataAsJSON.value as string);
     }
 
     return { token, user };

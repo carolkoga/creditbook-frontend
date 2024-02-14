@@ -41,10 +41,10 @@ export default function HomeLadingPage() {
           </h2>
 
           <Actions>
-            <Link href="/login">
+            <Link legacyBehavior href="/login">
               Vender
             </Link>
-            <Link href="/login" variant="secondary">
+            <Link legacyBehavior href="/login" variant="secondary">
               Comprar
             </Link>
           </Actions>
@@ -55,8 +55,8 @@ export default function HomeLadingPage() {
             <Image
               src="/assets/images/hero.png"
               layout="fixed"
-              width="527px"
-              height="430px"
+              width="527"
+              height="430"
               priority
               alt="Hero"
             />
@@ -82,8 +82,8 @@ export default function HomeLadingPage() {
             <InfoCard>
               <Image
                 src="/assets/icons/home/list-icon.svg"
-                width="85px"
-                height="85px"
+                width="85"
+                height="85"
                 alt="De Lista"
                 layout="fixed"
               />
@@ -94,8 +94,8 @@ export default function HomeLadingPage() {
               <div className="wrapper__image">
                 <Image
                   src="/assets/icons/home/insight.png"
-                  width="85px"
-                  height="85px"
+                  width="85"
+                  height="85"
                   alt="De insight"
                   layout="fixed"
                 />
@@ -109,8 +109,8 @@ export default function HomeLadingPage() {
               <div className="wrapper__image">
                 <Image
                   src="/assets/icons/home/hand-money.svg"
-                  width="85px"
-                  height="85px"
+                  width="85"
+                  height="85"
                   alt="De uma bolsa de dinheiro flutuando na mão (ilustrativa)"
                   layout="fixed"
                 />
@@ -124,8 +124,8 @@ export default function HomeLadingPage() {
               <div className="wrapper__image">
                 <Image
                   src="/assets/icons/home/dollar-icon.svg"
-                  width="85px"
-                  height="85px"
+                  width="85"
+                  height="85"
                   alt="De Sinal de dolar"
                   layout="fixed"
                 />
@@ -139,8 +139,8 @@ export default function HomeLadingPage() {
               <div className="wrapper__image">
                 <Image
                   src="/assets/icons/home/money-bag.png"
-                  width="85px"
-                  height="85px"
+                  width="85"
+                  height="85"
                   alt="Bolsa de dinheiro"
                   layout="fixed"
                 />
@@ -154,8 +154,8 @@ export default function HomeLadingPage() {
               <div className="wrapper__image">
                 <Image
                   src="/assets/icons/home/partner.png"
-                  width="85px"
-                  height="85px"
+                  width="85"
+                  height="85"
                   alt="Duas mãos fechando acordo"
                   layout="fixed"
                 />
@@ -173,7 +173,7 @@ export default function HomeLadingPage() {
           <Section.Header>
             <Direction direction="horizontal" alignItems="center">
               <Section.Title as="h3">Galeria Premium</Section.Title>
-              <Link href="/in/gallery-premium" variant="dark">
+              <Link legacyBehavior href="/in/gallery-premium" variant="dark">
                 Ver Todos
               </Link>
             </Direction>

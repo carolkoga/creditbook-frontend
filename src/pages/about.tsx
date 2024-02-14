@@ -48,8 +48,8 @@ export default function About() {
           <WrapperImage>
             <Image
               src="/assets/images/about/image_1.jpg"
-              width="452px"
-              height="463px"
+              width="452"
+              height="463"
               alt="Estatisticas"
               layout="fixed"
             />

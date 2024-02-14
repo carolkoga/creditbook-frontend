@@ -39,4 +39,5 @@ export type CommunicateSellingParams = {
 
   batchId?: string | null;
   announcementId?: string | null;
+  processId?: string;
 };

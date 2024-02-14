@@ -63,7 +63,7 @@ export default function BatchActionFooter({ originalLawsuit, originalBatchId }: 
   return (
     <Actions>
       <Content>
-        <Link href={`/in/ads/${originalLawsuit.id}`} size="small-large" variant="secondary">
+        <Link legacyBehavior href={`/in/ads/${originalLawsuit.id}`} size="small-large" variant="secondary">
           Informações
         </Link>
 

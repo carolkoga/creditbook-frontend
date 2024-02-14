@@ -31,6 +31,9 @@ export default function useAnnouncements(
           page,
         },
       });
+
+      console.log(response);
+
       setCurrentAnnouncements({
         pages: response.data.pages,
         results: response.data.announcements,

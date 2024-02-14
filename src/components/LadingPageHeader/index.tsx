@@ -87,9 +87,9 @@ export default function LandingPageHeader() {
   return (
     <HeaderStyle>
       <Content>
-        <Link href="/">
+        <Link legacyBehavior href="/">
           <a>
-            <Image src="/assets/images/logo.svg" width="137px" height="50px" alt="logo" layout="fixed" />
+            <Image src="/assets/images/logo.svg" width="137" height="50" alt="logo" layout="fixed" />
           </a>
         </Link>
 
@@ -99,7 +99,9 @@ export default function LandingPageHeader() {
               <ul>
                 {routes.map((route) => (
                   <li key={route.label}>
-                    <Link href={
+                    <Link
+                      legacyBehavior
+                      href={
                       route.label === 'Comprar'
                         ? isAuthenticated
                           ? route.link : '/login'
@@ -118,7 +120,7 @@ export default function LandingPageHeader() {
 
             <Actions>
               {(isAuthenticated && user?.role === 'admin') && (
-                <Link href="/admin/dashboard">
+                <Link legacyBehavior href="/admin/dashboard">
                   <a>
                     Dashboard
                   </a>
@@ -126,7 +128,7 @@ export default function LandingPageHeader() {
               )}
 
               {(isAuthenticated && user?.role === 'user') && (
-                <Link href="/in/home">
+                <Link legacyBehavior href="/in/home">
                   <a>
                     Painel do Usuário
                   </a>
@@ -135,13 +137,13 @@ export default function LandingPageHeader() {
 
               {!isAuthenticated && (
                 <>
-                  <Link href="/login">
+                  <Link legacyBehavior href="/login">
                     <a>
                       Entrar
                     </a>
                   </Link>
 
-                  {/* <Link href="/sign-up">
+                  {/* <Link legacyBehavior  href="/sign-up">
                     <a>
                       Cadastrar
                     </a>
@@ -155,17 +157,17 @@ export default function LandingPageHeader() {
         {compactMenu.isSmallDevice && (
           <>
             <button type="button" onClick={() => handleToggleVisibilityMenu()} className="action__menu">
-              <Image src="/assets/icons/menu.svg" width="32px" height="32px" layout="fixed" alt="Abri o menu" />
+              <Image src="/assets/icons/menu.svg" width="32" height="32" layout="fixed" alt="Abri o menu" />
             </button>
             {compactMenu.isVisibleMenu && (
             <CompactMenu>
               <div className="header">
                 <button type="button" onClick={() => handleToggleVisibilityMenu()} className="action__menu">
-                  <Image src="/assets/icons/close.svg" width="32px" height="32px" layout="fixed" alt="Fecha o menu" />
+                  <Image src="/assets/icons/close.svg" width="32" height="32" layout="fixed" alt="Fecha o menu" />
                 </button>
                 <Actions>
                   {isAuthenticated && (
-                    <Link href={user?.role === 'admin' ? '/admin/dashboard' : '/in/home'}>
+                    <Link legacyBehavior href={user?.role === 'admin' ? '/admin/dashboard' : '/in/home'}>
                       <a>
                         Acessar
                       </a>
@@ -174,13 +176,13 @@ export default function LandingPageHeader() {
 
                   {!isAuthenticated && (
                   <>
-                    <Link href="/login">
+                    <Link legacyBehavior href="/login">
                       <a>
                         Entrar
                       </a>
                     </Link>
 
-                    {/* <Link href="/sign-up">
+                    {/* <Link legacyBehavior  href="/sign-up">
                       <a>
                         Cadastrar
                       </a>
@@ -195,7 +197,7 @@ export default function LandingPageHeader() {
                   <ul>
                     {routes.map((route) => (
                       <li key={route.label}>
-                        <Link href={route.link}>
+                        <Link legacyBehavior href={route.link}>
                           <a>
                             {route.label}
                           </a>

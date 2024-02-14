@@ -6,7 +6,7 @@ export default function OwnedInBatch({ batchId }: CommonPropsTypes) {
   return (
     <Actions>
       <Content>
-        <Link href={`/in/batches/${batchId}`} size="small-large" variant="default">
+        <Link legacyBehavior href={`/in/batches/${batchId}`} size="small-large" variant="default">
           Ver anúncio do lote
         </Link>
       </Content>

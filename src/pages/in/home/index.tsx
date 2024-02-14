@@ -38,7 +38,7 @@ export default function Home() {
           <Section.Header>
             <Direction direction="horizontal" alignItems="center">
               <Section.Title as="h3">Galeria Premium</Section.Title>
-              <Link href="/in/gallery-premium" variant="dark">
+              <Link legacyBehavior href="/in/gallery-premium" variant="dark">
                 Ver Todos
               </Link>
             </Direction>
@@ -52,7 +52,7 @@ export default function Home() {
           <Section.Header>
             <Direction direction="horizontal" alignItems="center">
               <Section.Title as="h3">Favoritos</Section.Title>
-              <Link href="/in/my-favorites" variant="dark">
+              <Link legacyBehavior href="/in/my-favorites" variant="dark">
                 Ver Todos
               </Link>
             </Direction>

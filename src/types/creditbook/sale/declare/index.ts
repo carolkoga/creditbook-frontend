@@ -48,5 +48,5 @@ export interface FieldDeclareFormTypes {
   },
 
   processPrice: string,
-  emitContract: boolean | string,
+  emitContract: boolean | number,
 }
