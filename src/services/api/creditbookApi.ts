@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-// const CREDITBOOK_URL = 'https://api.creditbook.com.br';
-const CREDITBOOK_URL = 'http://localhost:3333';
+const CREDITBOOK_URL = 'https://api.creditbook.com.br';
+// const CREDITBOOK_URL = 'http://localhost:3333';
 
 export function setupAPIClient(token: any = undefined) {
   if (token) {
