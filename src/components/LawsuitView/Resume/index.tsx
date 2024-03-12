@@ -136,7 +136,7 @@ export default function Resume({ children = null, announcement }: IProps) {
             <Space direction="vertical" size="middle">
               <Title>Link do processo</Title>
               <DescriptionWrapper>
-                <Description as="a" href={announcement.digitalProcess}>
+                <Description as="a" target="_blank" href={announcement.digitalProcess}>
                   {announcement.digitalProcess}
                 </Description>
               </DescriptionWrapper>
@@ -214,7 +214,7 @@ export default function Resume({ children = null, announcement }: IProps) {
             <Title>Penhora ou outra garantia</Title>
             <DescriptionWrapper>
               <Description>
-                {announcement.pledgeOrGuarantee ? 'Sim' : 'Não'}
+                {Number(announcement.pledgeOrGuarantee) ? 'Sim' : 'Não'}
               </Description>
             </DescriptionWrapper>
           </Space>

@@ -1,3 +1,4 @@
+/* eslint-disable implicit-arrow-linebreak */
 import { mapperCurrency } from '@utils/mapperCurrency';
 import { MixedSchema } from 'yup/lib/mixed';
 import { validateUF } from 'validations-br';
@@ -23,7 +24,7 @@ const fileNotRequiredWithUrl = {
 
 const isAlreadySetIdentificationNumber = (
   personIdentification: any,
-  schema: StringSchema | any,
+  schema: StringSchema | any
 ) => {
   if (!personIdentification) return;
 
@@ -35,16 +36,22 @@ const isAlreadySetIdentificationNumber = (
 };
 
 export const newLawsuitSchemaValidation = yup.object().shape({
-  processNumber: yup.string()
+  processNumber: yup
+    .string()
     .required('Campo obrigatório')
-    .test('process number invalid', 'Número do processo inválido', (val: any) => val?.length > 17),
+    .test(
+      'process number invalid',
+      'Número do processo inválido',
+      (val: any) => val?.length > 17
+    ),
   type: yup.string().oneOf(['digital', 'physical']).required(),
-  uf: yup.mixed()
+  uf: yup
+    .mixed()
     .required('Escolha um estado')
     .test('uf', 'Digite um UF válido', (val: any) => validateUF(val))
     .transform((val: any) => val.value),
 
-  plan: yup.string(),
+  plan: yup.string().nullable(),
   // paymentMethodId: yup
   //   .mixed()
   //   .nullable()
@@ -57,33 +64,37 @@ export const newLawsuitSchemaValidation = yup.object().shape({
   //     then: (rule) => rule.required(),
   //   }),
 
-  city: yup.mixed()
+  city: yup
+    .mixed()
     .transform((val: any) => val.value)
     .required('Campo obrigatório'),
 
-  tribunal: yup.mixed()
+  tribunal: yup
+    .mixed()
     .transform((val: any) => val.value)
     .required('Campo obrigatório'),
 
-  processGender: yup.mixed()
+  processGender: yup
+    .mixed()
     .transform((val: any) => val.value)
     .required('Campo obrigatório'),
 
-  actionPhase: yup.mixed()
+  actionPhase: yup
+    .mixed()
     .transform((val: any) => val.value)
     .required('Campo obrigatório'),
 
-  kind: yup.mixed()
+  kind: yup
+    .mixed()
     .transform((val: any) => val.value)
     .required('Campo obrigatório'),
 
   mainActorCorporationNameOrName: yup.string().required('Campo obrigatório'),
-  mainActorCpfOrCnpj: yup.string()
-    .required('Campo obrigatório')
-    .cpfOrcnpj(),
+  mainActorCpfOrCnpj: yup.string().required('Campo obrigatório').cpfOrcnpj(),
 
   secondaryActorCorporationNameOrName: yup.string().nullable().notRequired(),
-  secondaryActorCpfOrCnpj: yup.string()
+  secondaryActorCpfOrCnpj: yup
+    .string()
     .nullable()
     .when({
       is: (val: any) => val,
@@ -92,14 +103,21 @@ export const newLawsuitSchemaValidation = yup.object().shape({
     .notRequired()
     .when('mainActorCpfOrCnpj', isAlreadySetIdentificationNumber),
 
-  mainDefendantCorporationNameOrName: yup.string().required('Campo obrigatório'),
-  mainDefendantCpfOrCnpj: yup.string()
+  mainDefendantCorporationNameOrName: yup
+    .string()
+    .required('Campo obrigatório'),
+  mainDefendantCpfOrCnpj: yup
+    .string()
     .required('Campo obrigatório')
     .cpfOrcnpj()
     .when('mainActorCpfOrCnpj', isAlreadySetIdentificationNumber),
 
-  secondaryDefendantCorporationNameOrName: yup.string().nullable().notRequired(),
-  secondaryDefendantCpfOrCnpj: yup.string()
+  secondaryDefendantCorporationNameOrName: yup
+    .string()
+    .nullable()
+    .notRequired(),
+  secondaryDefendantCpfOrCnpj: yup
+    .string()
     .nullable()
     .when({
       is: (val: any) => val,
@@ -108,18 +126,21 @@ export const newLawsuitSchemaValidation = yup.object().shape({
     .notRequired()
     .when('mainDefendantCpfOrCnpj', isAlreadySetIdentificationNumber),
 
-  digitalProcess: yup.string()
+  digitalProcess: yup
+    .string()
     .nullable()
     .when('type', {
       is: (value: any) => value.toLowerCase() === 'digital',
-      then: (rule) => rule.url('Digite uma URL válida').required('Campo Obrigatório'),
+      then: (rule) =>
+        rule.url('Digite uma URL válida').required('Campo Obrigatório'),
       otherwise: (rule) => rule.transform(() => null),
     }),
 
   acceptNegotiation: yup.string(),
   ownOrAttorney: yup.string(),
   pledgeOrGuarantee: yup.string(),
-  processPrice: yup.mixed()
+  processPrice: yup
+    .mixed()
     .nullable()
     .transform((value) => mapperCurrency(value))
     .test({
@@ -138,7 +159,8 @@ export const newLawsuitSchemaValidation = yup.object().shape({
   //   otherwise: (rule) => rule.transform(() => null),
   // })
 
-  income: yup.mixed()
+  income: yup
+    .mixed()
     .when('processPrice', (processPrice, schema: StringSchema | any) => {
       const processPriceParsed = mapperCurrency(processPrice);
 
@@ -162,12 +184,13 @@ export const newLawsuitSchemaValidation = yup.object().shape({
         if (!value) {
           return true;
         }
-        return (value === 100 || value > 100);
+        return value === 100 || value > 100;
       },
     }),
 
   // Files
-  initialPetition: yup.mixed()
+  initialPetition: yup
+    .mixed()
     .nullable()
     .transform((val: any) => val[0])
     .when('type', {
@@ -176,42 +199,50 @@ export const newLawsuitSchemaValidation = yup.object().shape({
       otherwise: (rule) => rule.transform(() => null),
     }),
 
-  judgmentOfApprovalOfLaborCalculations: yup.mixed()
+  judgmentOfApprovalOfLaborCalculations: yup
+    .mixed()
     .nullable()
     .transform((val: any) => val[0])
     .when('type', fileNotRequired),
 
-  anotherRelevantParts: yup.mixed()
+  anotherRelevantParts: yup
+    .mixed()
     .nullable()
     .transform((val: any) => val[0])
     .when('type', fileNotRequired),
 
-  finalCertificate: yup.mixed()
+  finalCertificate: yup
+    .mixed()
     .nullable()
     .transform((val: any) => val[0])
     .when('type', fileNotRequired),
 
-  contestation: yup.mixed()
+  contestation: yup
+    .mixed()
     .nullable()
     .transform((val: any) => val[0])
     .when('type', fileNotRequired),
 
-  resources: yup.mixed()
+  resources: yup
+    .mixed()
     .nullable()
     .transform((val: any) => val[0])
     .when('type', fileNotRequired),
 
-  accordion: yup.mixed()
+  accordion: yup
+    .mixed()
     .nullable()
     .transform((val: any) => val[0])
     .when('type', fileNotRequired),
 
-  sentence: yup.mixed()
+  sentence: yup
+    .mixed()
     .nullable()
     .transform((val: any) => val[0])
     .when('type', fileNotRequired),
 
-  procuration: yup.mixed()
+  procuration: yup
+    .mixed()
     .nullable()
     .transform((val: any) => val[0])
     .when('ownOrAttorney', {
@@ -221,11 +252,13 @@ export const newLawsuitSchemaValidation = yup.object().shape({
     }),
 });
 
-export const updateLawsuitSchemaValidation = yup.object()
+export const updateLawsuitSchemaValidation = yup
+  .object()
   .concat(newLawsuitSchemaValidation)
   .shape({
     initialPetitionUrl: yup.string(),
-    initialPetition: yup.mixed()
+    initialPetition: yup
+      .mixed()
       .nullable()
       .transform((val: any) => val[0])
       .when(['type', 'initialPetitionUrl'], {
@@ -242,49 +275,60 @@ export const updateLawsuitSchemaValidation = yup.object()
       }),
 
     judgmentOfApprovalOfLaborCalculationsUrl: yup.string(),
-    judgmentOfApprovalOfLaborCalculations: yup.mixed()
+    judgmentOfApprovalOfLaborCalculations: yup
+      .mixed()
       .nullable()
       .transform((val: any) => val[0])
-      .when(['type', 'judgmentOfApprovalOfLaborCalculationsUrl'], fileNotRequiredWithUrl),
+      .when(
+        ['type', 'judgmentOfApprovalOfLaborCalculationsUrl'],
+        fileNotRequiredWithUrl
+      ),
 
     anotherRelevantPartsUrl: yup.string(),
-    anotherRelevantParts: yup.mixed()
+    anotherRelevantParts: yup
+      .mixed()
       .nullable()
       .transform((val: any) => val[0])
       .when(['type', 'anotherRelevantPartsUrl'], fileNotRequiredWithUrl),
 
     finalCertificateUrl: yup.string(),
-    finalCertificate: yup.mixed()
+    finalCertificate: yup
+      .mixed()
       .nullable()
       .transform((val: any) => val[0])
       .when(['type', 'finalCertificateUrl'], fileNotRequiredWithUrl),
 
     contestationUrl: yup.string(),
-    contestation: yup.mixed()
+    contestation: yup
+      .mixed()
       .nullable()
       .transform((val: any) => val[0])
       .when(['type', 'contestationUrl'], fileNotRequiredWithUrl),
 
     resourcesUrl: yup.string(),
-    resources: yup.mixed()
+    resources: yup
+      .mixed()
       .nullable()
       .transform((val: any) => val[0])
       .when(['type', 'resourcesUrl'], fileNotRequiredWithUrl),
 
     accordionUrl: yup.string(),
-    accordion: yup.mixed()
+    accordion: yup
+      .mixed()
       .nullable()
       .transform((val: any) => val[0])
       .when(['type', 'accordionUrl'], fileNotRequiredWithUrl),
 
     sentenceUrl: yup.string(),
-    sentence: yup.mixed()
+    sentence: yup
+      .mixed()
       .nullable()
       .transform((val: any) => val[0])
       .when(['type', 'sentenceUrl'], fileNotRequiredWithUrl),
 
     procurationUrl: yup.string(),
-    procuration: yup.mixed()
+    procuration: yup
+      .mixed()
       .nullable()
       .transform((val: any) => val[0])
       .when(['ownOrAttorney', 'procurationUrl'], {

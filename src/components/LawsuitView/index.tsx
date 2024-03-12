@@ -142,7 +142,7 @@ export default function LawsuitView({ children, announcement }: IProps) {
             <Space direction="vertical" size="middle">
               <Title>Link do processo</Title>
               <DescriptionWrapper>
-                <Description as="a" href={announcement.digitalProcessUrl}>
+                <Description as="a" target="_blank" href={announcement.digitalProcessUrl}>
                   {announcement.digitalProcessUrl}
                 </Description>
               </DescriptionWrapper>

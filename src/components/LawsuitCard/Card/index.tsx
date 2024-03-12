@@ -161,14 +161,22 @@ export default function LawsuitNewCard({
 
         {lawsuit.userId === user?.id && (
           <span style={{ opacity: '.7' }}>
-            {lawsuit.status === 'accepted' && 'Anúncio Aprovado'}
-            {lawsuit.status === 'rejected' && 'Anúncio Reprovado'}
-            {lawsuit.status === 'edition_requested' && 'Solicitado Edição'}
-            {lawsuit.status === 'pending' && 'Aguardando Aprovação'}
-            {lawsuit.status === 'inactive' && 'Anúncio Inativo'}
-            {lawsuit.status === 'deleted' && 'Anúncio Deletado'}
-            {lawsuit.status === 'payment_failed' && 'Falha no pagamento'}
-            {lawsuit.status === 'sold' && 'Anúncio Vendido'}
+
+            {lawsuit.batchId && 'Lote'}
+
+            {!lawsuit.batchId
+              && (
+              <>
+                {lawsuit.status === 'accepted' && 'Anúncio Aprovado'}
+                {lawsuit.status === 'rejected' && 'Anúncio Reprovado'}
+                {lawsuit.status === 'edition_requested' && 'Solicitado Edição'}
+                {lawsuit.status === 'pending' && 'Aguardando Aprovação'}
+                {lawsuit.status === 'inactive' && 'Anúncio Inativo'}
+                {lawsuit.status === 'deleted' && 'Anúncio Deletado'}
+                {lawsuit.status === 'payment_failed' && 'Falha no pagamento'}
+                {lawsuit.status === 'sold' && 'Anúncio Vendido'}
+              </>
+              )}
           </span>
         )}
       </Lawsuit.WrapperContent>

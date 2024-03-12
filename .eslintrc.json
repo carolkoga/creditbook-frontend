@@ -1,57 +1,60 @@
 {
-    "env": {
-        "browser": true,
-        "es2021": true,
-        "node": true
+  "env": {
+    "browser": true,
+    "es2021": true,
+    "node": true
+  },
+  "extends": ["plugin:react/recommended", "airbnb", "airbnb-typescript"],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": "./tsconfig.json",
+    "ecmaFeatures": {
+      "jsx": true
     },
-    "extends": [
-        "plugin:react/recommended",
-        "airbnb",
-        "airbnb-typescript"
+    "ecmaVersion": "latest",
+    "sourceType": "module"
+  },
+  "plugins": ["react", "@typescript-eslint"],
+  "rules": {
+    "no-nested-ternary": "off",
+    "react/jsx-filename-extension": [
+      1,
+      { "extensions": [".ts", ".tsx", ".js"] }
     ],
-    "parser": "@typescript-eslint/parser",
-    "parserOptions": {
-        "project": "./tsconfig.json",
-        "ecmaFeatures": {
-            "jsx": true
-        },
-        "ecmaVersion": "latest",
-        "sourceType": "module"
-    },
-    "plugins": [
-        "react",
-        "@typescript-eslint"
-    ],
-    "rules": {
-      "no-nested-ternary": "off",
-      "react/jsx-filename-extension": [1, { "extensions": [".ts", ".tsx", ".js"] }],
-      "react/react-in-jsx-scope": "off",
-      "react/jsx-props-no-spreading": "off",
-      "import/prefer-default-export": "off",
-      "jsx-a11y/label-has-associated-control": ["error", {
+    "react/react-in-jsx-scope": "off",
+    "react/jsx-props-no-spreading": "off",
+    "import/prefer-default-export": "off",
+    "jsx-a11y/label-has-associated-control": [
+      "error",
+      {
         "required": {
           "some": ["nesting", "id"]
         }
-      }],
-      "jsx-a11y/anchor-is-valid": "off",
-      "import/no-unresolved": "off",
-      "import/extensions": ["error", {
+      }
+    ],
+    "jsx-a11y/anchor-is-valid": "off",
+    "import/no-unresolved": "off",
+    "import/extensions": [
+      "error",
+      {
         ".ts": "never",
         ".tsx": "never",
         ".js": "never",
         ".jsx": "never"
-      }],
-      "consistent-return": "off",
-      "no-return-await": "off",
-      "class-methods-use-this": "off",
-      "react/jsx-no-bind": "off",
-      "react/default-props-match-prop-types": "off",
-      "react/jsx-one-expression-per-line": "off",
-      "no-underscore-dangle": "off",
-      "no-useless-constructor": "off",
-      "no-return-assign": "off",
-      "import/no-cycle": "off",
-      "no-useless-return": "off",
-      "react/require-default-props": "off"
-    }
+      }
+    ],
+    "consistent-return": "off",
+    "no-return-await": "off",
+    "class-methods-use-this": "off",
+    "react/jsx-no-bind": "off",
+    "react/default-props-match-prop-types": "off",
+    "react/jsx-one-expression-per-line": "off",
+    "no-underscore-dangle": "off",
+    "no-useless-constructor": "off",
+    "no-return-assign": "off",
+    "import/no-cycle": "off",
+    "no-useless-return": "off",
+    "react/require-default-props": "off",
+    "@typescript-eslint/comma-dangle": "off"
+  }
 }
