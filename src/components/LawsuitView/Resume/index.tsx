@@ -225,7 +225,7 @@ export default function Resume({ children = null, announcement }: IProps) {
             <Title>Aceita negociação</Title>
             <DescriptionWrapper>
               <Description>
-                {announcement.acceptNegotiation ? 'Sim' : 'Não'}
+                {Number(announcement.acceptNegotiation) ? 'Sim' : 'Não'}
               </Description>
             </DescriptionWrapper>
           </Space>
