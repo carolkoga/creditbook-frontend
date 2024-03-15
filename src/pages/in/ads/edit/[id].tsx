@@ -80,8 +80,8 @@ export default function EditLawsuitByIdPage({ announcement }: IProps) {
     methods.reset({
       ...announcement,
       digitalProcess: announcement.digitalProcessUrl,
-      acceptNegotiation: announcement?.acceptNegotiation ? '1' : '0',
-      pledgeOrGuarantee: announcement?.pledgeOrGuarantee ? '1' : '0',
+      acceptNegotiation: Number(announcement?.acceptNegotiation) ? '1' : '0',
+      pledgeOrGuarantee: Number(announcement?.pledgeOrGuarantee) ? '1' : '0',
       isFavorite: announcement?.isFavorite,
       isPremium: announcement?.isPremium,
       city: { label: announcement.city, value: announcement.city },

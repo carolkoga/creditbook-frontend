@@ -20,7 +20,7 @@ import { Direction } from '@styles/pages/home';
 
 import { updateCorporationAccountSchema, updatePersonAccountSchema } from '@validations/yup/UserForm/update';
 import { handleCatchErrorRequest } from '@utils/handleCatchErrorRequest';
-import { commonToastProps } from '@configs/toast';
+import { commonToastProps } from '@components/configs/toast';
 import { StructureSettings } from '@components/pages/in/Settings/StructureSettings';
 
 export default function Profile() {

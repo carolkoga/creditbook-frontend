@@ -8,7 +8,7 @@ import FormGroup from '@components/FormGroup';
 import { ErrorMessage } from '@components/FormGroup/styled';
 import { Input } from '@components/Input';
 
-import { commonToastProps } from '@configs/toast';
+import { commonToastProps } from '@components/configs/toast';
 
 import { Tooltip } from '@components/Tooltip';
 import { TooltipIcon } from '@components/Tooltip/styles';

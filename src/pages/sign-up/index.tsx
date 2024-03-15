@@ -18,7 +18,7 @@ import { authCreditBookService } from '@services/creditbook/auth';
 import { AccountTypes } from '@type/creditbook';
 import { AccountCorporation, AccountPerson } from '@type/creditbook/auth/register';
 
-import { commonToastProps } from '@configs/toast';
+import { commonToastProps } from '@components/configs/toast';
 import { handleCatchErrorRequest } from '@utils/handleCatchErrorRequest';
 import { registerCorporationAccountSchema, registerPersonAccountSchema } from '@validations/yup/UserForm';
 import { useRouter } from 'next/router';
