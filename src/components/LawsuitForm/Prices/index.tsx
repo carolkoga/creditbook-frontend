@@ -16,7 +16,7 @@ interface PriceProps {
 }
 
 export default function Prices({ fields }: PriceProps) {
-  const { control, formState: { errors } } = useFormContext();
+  const { control, setValue, formState: { errors } } = useFormContext();
   const { formGroupDirection } = useLawsuitForm();
 
   return (
@@ -40,6 +40,9 @@ export default function Prices({ fields }: PriceProps) {
                 id="processPrice"
                 {...fields?._processPriceProps}
                 {...field}
+                onChange={() => {
+                  setValue('income', 0);
+                }}
               />
             </FormGroup>
           )}

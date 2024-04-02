@@ -65,6 +65,8 @@ export default function ModalToSelectPlan({ isVisible, children }: IProps) {
   }, [planSelected, isPremium]);
 
   useEffect(() => {
+    console.log('Income', income);
+
     resetField('plan');
     if (income > 300000) {
       setValue('plan', 'both');
