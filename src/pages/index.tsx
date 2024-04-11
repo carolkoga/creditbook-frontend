@@ -41,10 +41,10 @@ export default function HomeLadingPage() {
           </h2>
 
           <Actions>
-            <Link legacyBehavior href="/login">
+            <Link legacyBehavior href="/in/ads/new">
               Vender
             </Link>
-            <Link legacyBehavior href="/login" variant="secondary">
+            <Link legacyBehavior href="/in/buy-credits" variant="secondary">
               Comprar
             </Link>
           </Actions>
