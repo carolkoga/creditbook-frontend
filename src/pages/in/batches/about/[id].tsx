@@ -27,8 +27,6 @@ export default function BatchInformation({ batch }: IProps) {
     },
   });
 
-  console.log(batch);
-
   console.log(announcementsInBatch);
 
   function backToLastRoute() {

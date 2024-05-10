@@ -5,6 +5,7 @@ import { Direction } from '@components/Direction';
 
 import FormGroup from '@components/FormGroup';
 import { InputCurrency } from '@components/Form/Input/Mask/InputCurrency';
+import { ChangeEvent } from 'react';
 import { Fieldset } from '../components/Fieldset';
 import useLawsuitForm from '../hooks/useLawsuitForm';
 
@@ -40,8 +41,10 @@ export default function Prices({ fields }: PriceProps) {
                 id="processPrice"
                 {...fields?._processPriceProps}
                 {...field}
-                onChange={() => {
+                onChange={(e: ChangeEvent) => {
                   setValue('income', 0);
+                  // @ts-ignore
+                  setValue('processPrice', e.target.value);
                 }}
               />
             </FormGroup>

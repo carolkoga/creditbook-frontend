@@ -15,7 +15,6 @@ export default function TermsOfServices({ terms }: any) {
   // const loadTerms = useCallback(async () => {
   //   const { data } = await termsService.getTerms();
   //   setTerms(data);
-  //   console.log(data);
   // }, []);
 
   // useEffect(() => {

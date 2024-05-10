@@ -31,8 +31,6 @@ export default function ManageAdmins() {
   const loadAdmins = useCallback(async (params?: { page?: number }) => {
     try {
       const response = await adminServices.indexAdmins(params);
-      console.log(response);
-
       setAdmins(response.data.admins);
       setTotalPages(response.data.pages * 10);
       setCurrentPage(response.config.params.page);

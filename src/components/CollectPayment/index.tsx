@@ -16,14 +16,9 @@ export function CollectPayment() {
   const getSecret = useCallback(async () => {
     const response = await creditbookApi.get('/payment/secret');
 
-    console.log(response.data);
-
     if (response.status > 199 && response.status < 300) {
       setSecret(response.data?.client_secret);
     } else {
-      console.log('Response', response.data);
-      console.log('Status', response.status);
-
       toast.error('ocorreu um erro, tente novamente');
     }
   }, []);

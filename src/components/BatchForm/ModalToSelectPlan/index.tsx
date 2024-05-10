@@ -30,7 +30,6 @@ export default function ModalToSelectPlan({
   isVisible, batchValue, children, planSelected, setPlan,
 }: IProps) {
   if (!isVisible) return null;
-  console.log(planSelected);
 
   const price = useMemo(() => {
     if (batchValue > 50000 && batchValue < 300000) return 120;

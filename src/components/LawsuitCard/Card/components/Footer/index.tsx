@@ -40,8 +40,6 @@ export default function Footer({
     return <BatchActionFooter originalBatchId={originalBatchId} originalLawsuit={lawsuit} />;
   }
 
-  console.log(admin);
-
   return (
     <>
       {(mine && !lawsuit.batchId) && (

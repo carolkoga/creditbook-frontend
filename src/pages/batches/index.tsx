@@ -73,8 +73,6 @@ export default function Batches(/* { batches }: IProps */) {
 //   try {
 //     const response = await batchServices.list({ params: { currentUserId: user.id } });
 
-//     console.log(response);
-
 //     batches = response.data;
 //   } catch {
 //     console.error('Happened an Error');

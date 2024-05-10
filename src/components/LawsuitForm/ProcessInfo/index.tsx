@@ -30,7 +30,7 @@ LawsuitParams, 'uf' | 'city' | 'kind' | 'processNumber' | 'processGender' | 'tri
 
 export default function ProcessInfoForm() {
   const {
-    control, watch, formState: { errors },
+    control, watch, formState: { errors }
   } = useFormContext<FormContextType>();
   const [citiesOptions, setCitiesOptions] = useState([{ label: 'Selecione um estado', value: '' }]);
   const [searchCityTerm, setSearchCityTerm] = useState<string | null>(null);
@@ -51,8 +51,6 @@ export default function ProcessInfoForm() {
       });
       if (searchCityTerm) {
         const filteredOptions = options.filter(({ value }: { value: string }) => value.toLowerCase().includes(searchCityTerm.toLowerCase()));
-        console.log(filteredOptions);
-
         setCitiesOptions(filteredOptions);
       } else {
         setCitiesOptions(options);
@@ -78,9 +76,15 @@ export default function ProcessInfoForm() {
         >
           <Controller
             name="processNumber"
-            control={control}
             render={({ field }) => (
-              <InputProcessNumber {...field} id="processNumber" />
+              <InputProcessNumber
+                {...field}
+                id="processNumber"
+                // onChange={((e: ChangeEvent) => {
+                //   // @ts-ignore
+                //   setValue('processNumber', e.target.value);
+                // })}
+              />
             )}
           />
         </FormGroup>

@@ -1,6 +1,7 @@
+/* eslint-disable prefer-destructuring */
 import { useState } from 'react';
 import { useRouter } from 'next/router';
-import { useForm, FormProvider } from 'react-hook-form';
+import { useForm, FormProvider, FieldValues } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 import { Button } from '@components/Button';
@@ -29,6 +30,7 @@ import ChooseCreditCard from '@components/LawsuitForm/ChooseCreditCard';
 import { toast } from 'react-toastify';
 import { ModalResume } from '@components/LawsuitForm/ModalResume';
 import { AnnouncementResponse } from '@services/creditbook/lawsuit/hooks/types';
+import { safeSessionStorageGetItem } from '@utils/safeSessionStorageGetItem';
 // import { Form } from 'antd';
 
 type NewLawsuitParameters = {
@@ -60,11 +62,18 @@ export default function NewLawsuit({
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [stepForm, setStepForm] = useState('1');
+
+  const initialValue = safeSessionStorageGetItem<FormData>('credit-form');
+
+  // @ts-ignore
   const methods = useForm<NewLawsuitParams>({
     resolver: yupResolver(newLawsuitSchemaValidation),
     mode: 'all',
     // @ts-ignore
-    defaultValues,
+    defaultValues: {
+      ...defaultValues,
+      ...initialValue
+    }
   });
 
   const ownOrAttorneyField = methods.watch('ownOrAttorney');
@@ -73,6 +82,12 @@ export default function NewLawsuit({
   const isValidToContinue = batchId ? false : !(isValidIncome && isValidProcessPrice);
   const [plan, isPremium] = methods.watch(['plan', 'isPremium']);
   const selectedPaymentMethodId = methods.watch('paymentMethodId');
+
+  function handleCreateNewCard(values: FieldValues): void {
+    sessionStorage.setItem('credit-form', JSON.stringify(values));
+  }
+
+  console.log(isValidToContinue);
 
   function handleNavigateToHome() {
     router.push('/');
@@ -83,7 +98,7 @@ export default function NewLawsuit({
   }
 
   function handleChoosePlan() {
-    methods.trigger().then(() => console.log(methods.formState.errors));
+    methods.trigger();
 
     setTimeout(() => {
       if (methods.formState.isValid) {
@@ -92,9 +107,7 @@ export default function NewLawsuit({
     }, 200);
   }
 
-  function handleInvalidField(error: any) {
-    console.log(error);
-
+  function handleInvalidField() {
     toast.warning('Tem campos obrigatórios faltando');
     setStepForm('0');
     methods.trigger();
@@ -111,6 +124,8 @@ export default function NewLawsuit({
       });
 
       toast.success('Anúncio está sob análise e será liberado após a verificação');
+
+      sessionStorage.removeItem('credit-form');
 
       router.push(`/in/ads/${response.data.id}`);
     } catch (error) {
@@ -212,6 +227,7 @@ export default function NewLawsuit({
               <ChooseCreditCard
                 isVisible={stepForm === '6'}
                 onBack={() => setStepForm('5')}
+                onNewCard={handleCreateNewCard}
               >
                 <Button onClick={() => setStepForm('7')} disabled={!selectedPaymentMethodId}>
                   Resumo

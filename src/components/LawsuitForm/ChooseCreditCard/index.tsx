@@ -10,7 +10,7 @@ import { NewPaymentParams, PaymentParams } from '@type/creditbook/payment';
 import { handleCatchErrorRequest } from '@utils/handleCatchErrorRequest';
 import { ReactNode, useRef, useState } from 'react';
 import {
-  Controller, FormProvider, useForm, useFormContext,
+  Controller, FieldValues, FormProvider, useForm, useFormContext,
 } from 'react-hook-form';
 import useSWR from 'swr';
 import { Actions } from '../ModalToSelectPlan/styled';
@@ -21,20 +21,25 @@ interface IProps {
   isVisible: boolean,
   children?: ReactNode,
   onBack: () => void,
+  onNewCard: (values: FieldValues) => void,
 }
 
 export default function ChooseCreditCard({
-  isVisible, onBack, children,
+  isVisible, onBack, children, onNewCard
 }: IProps) {
   const [isVisibleCreditCardModal, setIsVisibleCreditCardModal] = useState(false);
   const [creatingPaymentLoader, setCreatingPaymentLoader] = useState(false);
   const { data: payments, mutate } = useSWR<PaymentParams[]>('credit_cards', async () => (await paymentServices.listPayments()).data);
   const methodsToCreateCard = useForm<NewPaymentParams>();
-  const { control, watch, setValue } = useFormContext();
+  const {
+    control, watch, setValue, getValues
+  } = useFormContext();
   const chosenCreditCard = watch('paymentMethodId');
   const inputRadioRef = useRef<any>();
 
   function handleOpenVisibilityCreditCardModal() {
+    onNewCard(getValues());
+
     setIsVisibleCreditCardModal(true);
   }
 

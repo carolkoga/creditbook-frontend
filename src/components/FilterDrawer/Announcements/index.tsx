@@ -180,8 +180,6 @@ export function AnnouncementsFilterDrawer({ onGetResponseResults, customQuery }:
                       setValue('tribunal', '');
                     }
 
-                    console.log(value);
-
                     // @ts-ignore
                     setUf(value.value as UFBrazilType);
                   }}

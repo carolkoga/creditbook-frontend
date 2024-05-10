@@ -24,8 +24,6 @@ export default function ManageBatches() {
         },
       });
 
-      console.log(response);
-
       setBatches({
         batches: response.data.batches,
         pages: response.data.pages === 0 ? 10 : response.data.pages * 10,

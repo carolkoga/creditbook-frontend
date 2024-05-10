@@ -1,3 +1,4 @@
+/* eslint-disable operator-linebreak */
 import { AxiosError } from 'axios';
 import { toast, ToastOptions } from 'react-toastify';
 import { commonToastProps } from '@components/configs/toast';
