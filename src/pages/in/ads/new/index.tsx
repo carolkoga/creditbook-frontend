@@ -1,7 +1,7 @@
 /* eslint-disable prefer-destructuring */
 import { useState } from 'react';
 import { useRouter } from 'next/router';
-import { useForm, FormProvider, FieldValues } from 'react-hook-form';
+import { useForm, FormProvider } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 import { Button } from '@components/Button';
@@ -83,7 +83,9 @@ export default function NewLawsuit({
   const [plan, isPremium] = methods.watch(['plan', 'isPremium']);
   const selectedPaymentMethodId = methods.watch('paymentMethodId');
 
-  function handleCreateNewCard(values: FieldValues): void {
+  function handleCreateNewCard(): void {
+    const values = methods.getValues();
+
     sessionStorage.setItem('credit-form', JSON.stringify(values));
   }
 

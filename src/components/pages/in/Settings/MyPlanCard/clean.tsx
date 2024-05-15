@@ -1,13 +1,23 @@
+/* eslint-disable max-len */
 import { AnnouncementPlanType } from '@type/creditbook/Lawsuits';
+import { Button } from '@components/Button';
 import {
   TagHeader, Header, Body, Information, ContainerClean,
 } from './styled';
 
 interface MyPlanCardProps {
   plan: Pick<AnnouncementPlanType, 'type' | 'plan' | 'premium'>
+  isPremium: boolean;
+  onPremiumToggleClick: () => void;
+  premiumState: 'add' | 'remove' | null;
+  planMode: 'byMonth' | 'byPercent' | 'both' | 'batch',
 }
 
-export default function MyPlanCleanCard({ plan }: MyPlanCardProps) {
+export default function MyPlanCleanCard({
+  plan, isPremium, onPremiumToggleClick, premiumState, planMode
+}: MyPlanCardProps) {
+  console.log(plan);
+
   return (
     <ContainerClean>
       <Header>
@@ -24,8 +34,22 @@ export default function MyPlanCleanCard({ plan }: MyPlanCardProps) {
         </Information.Container>
 
         <Information.Container>
-          <Information.Title>Premium</Information.Title>
+          <Information.Title>Premium
+          </Information.Title>
           <Information.Content>{plan.premium}</Information.Content>
+
+          {(!premiumState && planMode !== 'byPercent') && (
+            <Button onClick={onPremiumToggleClick} type="button">
+              {isPremium ? 'Remover Premium' : 'Adicionar Premium'}
+            </Button>
+          )}
+
+          {(premiumState && planMode !== 'byPercent') && (
+          <Button variant="secondary" onClick={onPremiumToggleClick} type="button">
+            Cancelar
+          </Button>
+          )}
+
         </Information.Container>
       </Body>
     </ContainerClean>

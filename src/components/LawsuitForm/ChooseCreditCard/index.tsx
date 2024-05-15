@@ -32,14 +32,12 @@ export default function ChooseCreditCard({
   const { data: payments, mutate } = useSWR<PaymentParams[]>('credit_cards', async () => (await paymentServices.listPayments()).data);
   const methodsToCreateCard = useForm<NewPaymentParams>();
   const {
-    control, watch, setValue, getValues
+    control, watch, setValue
   } = useFormContext();
   const chosenCreditCard = watch('paymentMethodId');
   const inputRadioRef = useRef<any>();
 
   function handleOpenVisibilityCreditCardModal() {
-    onNewCard(getValues());
-
     setIsVisibleCreditCardModal(true);
   }
 
@@ -141,6 +139,7 @@ export default function ChooseCreditCard({
               onSubmit={methodsToCreateCard.handleSubmit(handleRegisterCreditCard)}
               onCancel={handleCloseVisibilityCreditCardModal}
               loading={creatingPaymentLoader}
+              onNewCard={onNewCard}
             />
           </FormProvider>
         </Container>

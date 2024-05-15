@@ -2,7 +2,11 @@ import { Button } from '@components/Button';
 import { PaymentElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import { FormEvent, useState } from 'react';
 
-export function SetupPaymentForm() {
+type IProps = {
+  onNewCard: any
+};
+
+export function SetupPaymentForm({ onNewCard }: IProps) {
   const stripe = useStripe();
   const elements = useElements();
 
@@ -12,6 +16,8 @@ export function SetupPaymentForm() {
     // We don't want to let default form submission happen here,
     // which would refresh the page.
     event.preventDefault();
+
+    onNewCard();
 
     if (!stripe || !elements) {
       // Stripe.js hasn't yet loaded.

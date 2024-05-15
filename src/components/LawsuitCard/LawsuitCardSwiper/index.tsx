@@ -2,7 +2,7 @@ import { useRef, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import {
-  Pagination, A11y,
+  Pagination, A11y, Autoplay
 } from 'swiper';
 import Image from 'next/image';
 
@@ -17,6 +17,8 @@ export default function LawsuitCardSwiper({ lawsuits }: LawsuitCardListProps) {
   const [swiperCustom, setSwiperCustom] = useState<any>(null);
   const containerRef = useRef<HTMLDivElement>(null!);
   const { batches: userBatches } = useUserBatches();
+
+  console.log(swiperCustom);
 
   function handleGoToNext() {
     if (swiperCustom !== null) {
@@ -41,13 +43,15 @@ export default function LawsuitCardSwiper({ lawsuits }: LawsuitCardListProps) {
           layout="fixed"
         />
       </ButtonControl>
+
       <Swiper
         onSwiper={setSwiperCustom}
         spaceBetween={24}
         slidesPerView={0.1}
+        autoplay={{ delay: 2000 }}
         breakpoints={breakpointsSwiper}
         direction="horizontal"
-        modules={[Pagination, A11y]}
+        modules={[Pagination, A11y, Autoplay]}
         pagination={{ dynamicBullets: true, clickable: true }}
         mousewheel
         style={{ width: '100%' }}
@@ -58,6 +62,7 @@ export default function LawsuitCardSwiper({ lawsuits }: LawsuitCardListProps) {
           </SwiperSlide>
         ))}
       </Swiper>
+
       <ButtonControl
         type="button"
         onClick={() => handleGoToNext()}

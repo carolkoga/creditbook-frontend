@@ -6,11 +6,13 @@ import { Content } from './styled';
 interface IProps {
   isVisible: boolean,
   onClose: any,
+  onNewCard: any
 }
 
 export default function NewCreditCard({
   isVisible,
   onClose,
+  onNewCard
 }: IProps) {
   if (!isVisible) return null;
 
@@ -18,7 +20,7 @@ export default function NewCreditCard({
     <ReactPortal>
       <Overlay style={{ zIndex: 1000 }}>
         <Content>
-          <CreditCardForm onClose={onClose} />
+          <CreditCardForm onNewCard={onNewCard} onClose={onClose} />
         </Content>
       </Overlay>
     </ReactPortal>

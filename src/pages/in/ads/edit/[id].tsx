@@ -65,6 +65,7 @@ interface CustomUpdateLawsuitParams extends Omit<UpdateLawsuitParams,
 
 export default function EditLawsuitByIdPage({ announcement }: IProps) {
   const [loading, setLoading] = useState(false);
+  const [premium, setPremium] = useState<'add' | 'remove' | null>(null);
   const [stepForm, setStepForm] = useState('none');
   const router = useRouter();
 
@@ -75,6 +76,20 @@ export default function EditLawsuitByIdPage({ announcement }: IProps) {
 
   const [plan, isPremium] = methods.watch(['plan', 'isPremium']);
   const ownOrAttorneyField = methods.watch('ownOrAttorney');
+
+  function handlePremiumToggle() {
+    if (premium === 'add' || premium === 'remove') {
+      setPremium(null);
+    } else {
+      if (isPremium) {
+        setPremium('remove');
+      }
+
+      if (!isPremium) {
+        setPremium('add');
+      }
+    }
+  }
 
   const setDefaultInformationToForm = useCallback(() => {
     methods.reset({
@@ -111,7 +126,7 @@ export default function EditLawsuitByIdPage({ announcement }: IProps) {
   async function handleSubmitNewLawsuit(data: any) {
     try {
       setLoading(true);
-      const response = await lawsuitService.update(data, announcement);
+      const response = await lawsuitService.update({ ...data, premium }, announcement);
       router.push(`/in/ads/${response.data.id}`);
     } catch (error) {
       handleCatchErrorRequest(error as any);
@@ -194,7 +209,13 @@ export default function EditLawsuitByIdPage({ announcement }: IProps) {
 
                 <Fieldset style={{ width: '100%' }}>
                   <legend>Plano</legend>
-                  <MyPlanCleanCard plan={announcement.planInfo} />
+                  <MyPlanCleanCard
+                    planMode={plan}
+                    onPremiumToggleClick={handlePremiumToggle}
+                    plan={announcement.planInfo}
+                    isPremium={isPremium}
+                    premiumState={premium}
+                  />
                 </Fieldset>
 
                 <Direction gap="12px">

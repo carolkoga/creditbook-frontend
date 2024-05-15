@@ -10,7 +10,11 @@ import { SetupPaymentForm } from './SetupPaymentForm';
 
 const stripePromise = loadStripe('pk_live_51NhdIIH8PxgHFSdOarmTEkBIQl6IwC4dQD7UULqzbEsrRUxmX7BXUYV8PK4TtQ97KmbXbFzLCM3kHNSy3eJZDQgK00LyfVuGaB');
 
-export function CollectPayment() {
+type IProps = {
+  onNewCard: any
+};
+
+export function CollectPayment({ onNewCard }: IProps) {
   const [secret, setSecret] = useState('');
 
   const getSecret = useCallback(async () => {
@@ -31,7 +35,7 @@ export function CollectPayment() {
     <>
       {secret && (
       <Elements stripe={stripePromise} options={{ clientSecret: secret }}>
-        <SetupPaymentForm />
+        <SetupPaymentForm onNewCard={onNewCard} />
       </Elements>
       )}
 

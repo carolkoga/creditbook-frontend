@@ -10,9 +10,10 @@ import { CollectPayment } from '@components/CollectPayment';
 
 interface IProps {
   onClose: any
+  onNewCard: any
 }
 
-export default function CreditCardForm({ onClose }: IProps) {
+export default function CreditCardForm({ onClose, onNewCard }: IProps) {
   // const { register, formState: { errors }, control } = useFormContext();
   // return (
   //   <Container onSubmit={onSubmit} noValidate>
@@ -106,7 +107,7 @@ export default function CreditCardForm({ onClose }: IProps) {
       <Button onClick={onClose}> Fechar </Button>
       <br />
 
-      <CollectPayment />
+      <CollectPayment onNewCard={onNewCard} />
     </div>
   );
 }
