@@ -25,14 +25,19 @@ export default function useAnnouncements(
   const loadAnnouncements = useCallback(async (page?: number) => {
     try {
       setIsLoading(true);
-      const response = await lawsuitService.listAll({
-        params: {
-          ...fetcherOptions?.params,
-          page,
-        },
-      });
 
-      console.log(response);
+      let response;
+
+      if (fetcherOptions?.getOnlyPremium === true) {
+        response = await lawsuitService.getPremium();
+      } else {
+        response = await lawsuitService.listAll({
+          params: {
+            ...fetcherOptions?.params,
+            page,
+          },
+        });
+      }
 
       setCurrentAnnouncements({
         pages: response.data.pages,

@@ -23,7 +23,7 @@ import useAuth from '@hooks/useAuth';
 import { PreSignUp } from '@components/pages/home/PreSignUp';
 
 export default function HomeLadingPage() {
-  const announcementsAsPremium = useAnnouncements(undefined, { params: { isPremium: true } });
+  const announcementsAsPremium = useAnnouncements(undefined, { getOnlyPremium: true, params: {} });
   const { isAuthenticated } = useAuth();
 
   return (

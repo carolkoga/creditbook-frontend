@@ -1,5 +1,9 @@
 import { PaginationLawsuitProps } from '@components/LawsuitCard/types/Props';
-import { AnnouncementActionPhase, AnnouncementGender, AnnouncementKind } from '@type/creditbook/Lawsuits/AnnouncementTypes';
+import {
+  AnnouncementActionPhase,
+  AnnouncementGender,
+  AnnouncementKind,
+} from '@type/creditbook/Lawsuits/AnnouncementTypes';
 import { AccountCommonParams } from './auth/register';
 import { LawsuitParams } from './Lawsuits';
 
@@ -8,41 +12,47 @@ export * from './Lawsuits/AnnouncementStatus';
 export type AccountTypes = 'person' | 'corporation';
 
 export type Address = {
-  cep: string,
-  uf: string,
-  number: string,
-  complement: string,
-  address: string,
-  city: string,
+  cep: string;
+  uf: string;
+  number: string;
+  complement: string;
+  address: string;
+  city: string;
 };
 
-export interface UserUpdateParams extends Omit<AccountCommonParams, 'passwordConfirmation' | 'password' | 'profilePicture'> {
-  newPassword?: string | null,
-  currentPassword?: string | null,
-  profilePicture?: string,
+export interface UserUpdateParams
+  extends Omit<
+  AccountCommonParams,
+  'passwordConfirmation' | 'password' | 'profilePicture'
+  > {
+  newPassword?: string | null;
+  currentPassword?: string | null;
+  profilePicture?: string;
 }
 
-export interface UserDefaultValues extends Omit<UserUpdateParams, 'nationality'> {
-  nationality: { label: string, value: string },
+export interface UserDefaultValues
+  extends Omit<UserUpdateParams, 'nationality'> {
+  nationality: { label: string; value: string };
 }
 
 export interface ContactAnnouncerParams {
-  userId: string,
-  phone: string,
-  message: string,
-  type: 'batch' | 'announcement',
-  creditId: string,
-  name: string,
+  userId: string;
+  phone: string;
+  message: string;
+  type: 'batch' | 'announcement';
+  creditId: string;
+  name: string;
 }
 
-export interface ContactSupportParams extends Omit<ContactAnnouncerParams, 'userId' | 'type' | 'creditId'> {
-  subject: string,
-  email: string,
+export interface ContactSupportParams
+  extends Omit<ContactAnnouncerParams, 'userId' | 'type' | 'creditId'> {
+  subject: string;
+  email: string;
 }
 
 export interface PersonSearchParams {
   corporationNameOrName?: string;
-  cpfOrcnpj?: string
+  cpfOrcnpj?: string;
 }
 
 export interface QueriesToIndexAnnouncements {
@@ -76,9 +86,10 @@ export interface QueriesToIndexAnnouncements {
     isFavorite?: boolean;
 
     orderBy?: {
-      isPremium?: boolean,
-    }
-  }
+      isPremium?: boolean;
+    };
+  };
+  getOnlyPremium?: boolean;
 }
 
 export interface QueriesToIndexBatches {
@@ -88,15 +99,15 @@ export interface QueriesToIndexBatches {
     maxValue?: number;
     announcementQuantity?: number;
     currentUserId?: string;
-  }
+  };
 }
 
 export interface CustomResponseAnnouncements {
-  result: LawsuitParams[],
-  pagination: PaginationLawsuitProps
+  result: LawsuitParams[];
+  pagination: PaginationLawsuitProps;
 }
 
-export type UFBrazilType = (
+export type UFBrazilType =
   | 'RO'
   | 'AC'
   | 'AM'
@@ -121,5 +132,4 @@ export type UFBrazilType = (
   | 'MS'
   | 'MT'
   | 'GO'
-  | 'DF'
-);
+  | 'DF';

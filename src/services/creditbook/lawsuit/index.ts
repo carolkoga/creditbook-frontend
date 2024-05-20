@@ -7,11 +7,11 @@ import { HttpClient } from '../http';
 
 export interface OptionsListAnnouncementsUser {
   params?: {
-    type?: 'single',
-    batchId?: string | string[] | undefined,
-    batchIdToExclude?: string | string[] | undefined
-    isFavorite?: 'true' | 'false'
-  }
+    type?: 'single';
+    batchId?: string | string[] | undefined;
+    batchIdToExclude?: string | string[] | undefined;
+    isFavorite?: 'true' | 'false';
+  };
 }
 
 export class LawsuitService extends HttpClient {
@@ -57,8 +57,17 @@ export class LawsuitService extends HttpClient {
     });
   }
 
-  async changeFavorite({ id, isFavorite }: { id: string, isFavorite: '1' | '0' }) {
-    const formData = this._convertToFormData({ isFavorite, announcementId: id });
+  async changeFavorite({
+    id,
+    isFavorite,
+  }: {
+    id: string;
+    isFavorite: '1' | '0';
+  }) {
+    const formData = this._convertToFormData({
+      isFavorite,
+      announcementId: id,
+    });
 
     return this.httpClient.patch('/announcement', formData, {
       headers: { ...this.customHeaders },
@@ -69,6 +78,10 @@ export class LawsuitService extends HttpClient {
     return this.httpClient.get(`/announcement/${id}`);
   }
 
+  async getPremium() {
+    return this.httpClient.get('/announcement/premium');
+  }
+
   async deleteAnnouncement(id: string) {
     return this.httpClient.delete(`/announcement/user/${id}`);
   }
@@ -76,7 +89,7 @@ export class LawsuitService extends HttpClient {
   private _convertToFormData(
     newData: any,
     type: 'new' | 'update' = 'new',
-    currentData?: any,
+    currentData?: any
   ) {
     const formData = new FormData();
 
@@ -112,7 +125,7 @@ export class LawsuitService extends HttpClient {
 
         if (key === 'files') return;
 
-        formData.append(key, (value as string | Blob));
+        formData.append(key, value as string | Blob);
       });
 
       return formData;
@@ -124,7 +137,7 @@ export class LawsuitService extends HttpClient {
         if (key === 'files') return;
         if (!value) return;
 
-        formData.append(key, (value as string | Blob));
+        formData.append(key, value as string | Blob);
       });
 
       const isPremium = formData.get('isPremium');
