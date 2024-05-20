@@ -10,7 +10,7 @@ import { CollectPayment } from '@components/CollectPayment';
 
 interface IProps {
   onClose: any
-  onNewCard: any
+  onNewCard?: any
 }
 
 export default function CreditCardForm({ onClose, onNewCard }: IProps) {

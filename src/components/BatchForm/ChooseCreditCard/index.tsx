@@ -21,11 +21,12 @@ interface IProps {
   children?: ReactNode,
   onBack: () => void,
   choosenCreditCard?: string,
-  setPaymentMethod: Function
+  setPaymentMethod: Function,
+  onNewCard?: () => void
 }
 
 export default function ChooseCreditCard({
-  isVisible, onBack, children, choosenCreditCard, setPaymentMethod,
+  isVisible, onBack, children, choosenCreditCard, setPaymentMethod, onNewCard
 }: IProps) {
   const [isVisibleCreditCardModal, setIsVisibleCreditCardModal] = useState(false);
   const { data: payments } = useSWR<PaymentParams[]>('credit_cards', async () => (await paymentServices.listPayments()).data);
@@ -115,6 +116,7 @@ export default function ChooseCreditCard({
             <NewCreditCard
               onClose={() => setIsVisibleCreditCardModal(false)}
               isVisible={isVisibleCreditCardModal}
+              onNewCard={onNewCard}
             />
           </FormProvider>
         </Container>
