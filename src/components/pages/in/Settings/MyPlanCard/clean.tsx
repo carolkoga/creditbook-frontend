@@ -16,8 +16,6 @@ interface MyPlanCardProps {
 export default function MyPlanCleanCard({
   plan, isPremium, onPremiumToggleClick, premiumState, planMode
 }: MyPlanCardProps) {
-  console.log(plan);
-
   return (
     <ContainerClean>
       <Header>

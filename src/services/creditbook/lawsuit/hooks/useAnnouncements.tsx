@@ -38,7 +38,6 @@ export default function useAnnouncements(
           },
         });
       }
-
       setCurrentAnnouncements({
         pages: response.data.pages,
         results: response.data.announcements,

@@ -1,9 +1,13 @@
+/* eslint-disable @typescript-eslint/indent */
 import { FileTranslationTypes } from '@utils/translation/announcement/fileTranslation';
 import { PaymentParams } from '../payment';
 import { AnnouncementStatus } from './AnnouncementStatus';
 
 import {
-  AnnouncementActionPhase, AnnouncementGender, AnnouncementKind, AnnouncementTypes,
+  AnnouncementActionPhase,
+  AnnouncementGender,
+  AnnouncementKind,
+  AnnouncementTypes,
 } from './AnnouncementTypes';
 
 interface LawsuitFiles {
@@ -52,40 +56,51 @@ interface Lawsuit {
   pledgeOrGuarantee: boolean;
   acceptNegotiation: boolean;
   ownOrAttorney: 'own' | 'attorney';
-  plan: 'byMonth' | 'byPercent' | 'both' | 'batch',
+  plan: 'byMonth' | 'byPercent' | 'both' | 'batch';
   paymentMethodId: string;
 }
 
-export interface LawsuitParams extends Omit<Lawsuit, 'digitalProcess' | 'procuration'> {
-  id: string,
-  userId: string,
-  status: AnnouncementStatus,
-  digitalProcessUrl: string,
-  overSixMonths: boolean,
-  procurationUrl: string,
-  paymentMethod?: PaymentParams,
-  paymentFailed?: boolean,
+export interface LawsuitParams
+  extends Omit<Lawsuit, 'digitalProcess' | 'procuration'> {
+  id: string;
+  userId: string;
+  status: AnnouncementStatus;
+  digitalProcessUrl: string;
+  overSixMonths: boolean;
+  procurationUrl: string;
+  paymentMethod?: PaymentParams;
+  paymentFailed?: boolean;
   batch?: {
-    id: string,
-    name: string
-  },
+    id: string;
+    name: string;
+  };
   planInfo: {
-    type: 'announcement' | 'batch',
-    plan: string,
-    premium: string,
-  },
+    type: 'announcement' | 'batch';
+    plan: string;
+    premium: string;
+  };
   files: {
-    name: keyof FileTranslationTypes,
-    url: string,
-  }[]
-  favoriteId?: string | null | undefined
+    name: keyof FileTranslationTypes;
+    url: string;
+  }[];
+  favoriteId?: string | null | undefined;
 }
 
-export interface NewLawsuitParams extends LawsuitFiles, Omit<Lawsuit, 'batchId' | 'pledgeOrGuarantee' | 'acceptNegotiation' | 'isFavorite' | 'isPremium'> {
+export interface NewLawsuitParams
+  extends LawsuitFiles,
+    Omit<
+      Lawsuit,
+      | 'batchId'
+      | 'pledgeOrGuarantee'
+      | 'acceptNegotiation'
+      | 'isFavorite'
+      | 'isPremium'
+    > {
   pledgeOrGuarantee: '1' | '0';
   acceptNegotiation: '1' | '0';
   isFavorite: boolean;
   isPremium: boolean;
+  discountCode?: string;
 }
 
 export interface UpdateLawsuitParams extends NewLawsuitParams {
@@ -101,8 +116,8 @@ export interface UpdateLawsuitParams extends NewLawsuitParams {
 }
 
 export interface ResponseListAllAnnouncements<NewType = 'undefined'> {
-  pages: number,
-  announcements: NewType extends 'undefined' ? LawsuitParams[] : NewType[],
+  pages: number;
+  announcements: NewType extends 'undefined' ? LawsuitParams[] : NewType[];
 }
 
 export interface AnnouncementPlanType {

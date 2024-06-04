@@ -56,8 +56,6 @@ export default function SignUp() {
     try {
       setIsLoading(true);
 
-      console.log('aqui');
-
       await authCreditBookService.register({ ...data, type: 'person' });
 
       toast.success('Cadastro realizado com Sucesso. Um e-mail foi encaminhado.');

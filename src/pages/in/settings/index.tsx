@@ -29,8 +29,6 @@ export default function Profile() {
   const { dimensionsOverlimit } = useDimensions();
   const { widthOverlimit } = dimensionsOverlimit(870);
 
-  console.log(user);
-
   const defaultValues = useMemo(() => ({
     ...user,
     bornDate: user?.bornDate.substring(0, 10),

@@ -344,4 +344,6 @@ export const updateLawsuitSchemaValidation = yup
         then: (rule: MixedSchema) => rule.required(),
         otherwise: (rule: MixedSchema) => rule.transform(() => null),
       }),
+
+    discountCode: yup.string().optional(),
   });

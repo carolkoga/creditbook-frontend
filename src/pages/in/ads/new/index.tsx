@@ -31,6 +31,7 @@ import { toast } from 'react-toastify';
 import { ModalResume } from '@components/LawsuitForm/ModalResume';
 import { AnnouncementResponse } from '@services/creditbook/lawsuit/hooks/types';
 import { safeSessionStorageGetItem } from '@utils/safeSessionStorageGetItem';
+import { Input } from '@components/Input';
 // import { Form } from 'antd';
 
 type NewLawsuitParameters = {
@@ -88,8 +89,6 @@ export default function NewLawsuit({
 
     sessionStorage.setItem('credit-form', JSON.stringify(values));
   }
-
-  console.log(isValidToContinue);
 
   function handleNavigateToHome() {
     router.push('/');
@@ -209,9 +208,12 @@ export default function NewLawsuit({
               </div>
 
               <ModalToSelectPlan isVisible={stepForm === '5'}>
+
                 <button type="button" onClick={() => setStepForm('0')}>
                   Voltar
                 </button>
+
+                <Input {...methods.register('discountCode')} placeholder="CUPOM DE DESCONTO" name="discountCode" type="text" />
 
                 {(plan === 'byPercent' && !isPremium) && (
                   <Button onClick={() => setStepForm('7')}>

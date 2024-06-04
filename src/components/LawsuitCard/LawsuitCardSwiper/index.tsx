@@ -18,8 +18,6 @@ export default function LawsuitCardSwiper({ lawsuits }: LawsuitCardListProps) {
   const containerRef = useRef<HTMLDivElement>(null!);
   const { batches: userBatches } = useUserBatches();
 
-  console.log(swiperCustom);
-
   function handleGoToNext() {
     if (swiperCustom !== null) {
       swiperCustom.slideNext();

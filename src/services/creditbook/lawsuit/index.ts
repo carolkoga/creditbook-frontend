@@ -92,11 +92,9 @@ export class LawsuitService extends HttpClient {
     currentData?: any
   ) {
     const formData = new FormData();
-
     if (type === 'update') {
       Object.entries(newData).forEach((field) => {
         const [key, value] = field;
-
         if (key === 'digitalProcess') {
           if (currentData.digitalProcessUrl === value) return;
         }
@@ -114,7 +112,12 @@ export class LawsuitService extends HttpClient {
         }
 
         if (key === 'processPrice' || key === 'income') {
-          if (Number(currentData[key]) === Number(value)) {
+          const currentDataFormatted = Number(currentData[key])
+            .toString()
+            .replaceAll('.', '');
+          const valueFormatted = Number(value).toString().replaceAll('.', '');
+
+          if (currentDataFormatted === valueFormatted) {
             return;
           }
         }
