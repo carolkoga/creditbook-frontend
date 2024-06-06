@@ -70,6 +70,15 @@ export function handleCatchErrorRequest(
 
       if (
         error?.response?.data?.error?.toLowerCase() ===
+        'selecione um método de pagamento'
+      ) {
+        return toast.error(
+          'Selecione um método de pagamento para adicionar o premium ao seu anúncio'
+        );
+      }
+
+      if (
+        error?.response?.data?.error?.toLowerCase() ===
         `${prefixErrorMessageParamInUse} rg`
       ) {
         return toast.error('O RG já está em uso');

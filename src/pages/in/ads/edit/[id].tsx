@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import { useCallback, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useForm, FormProvider } from 'react-hook-form';
@@ -78,6 +79,8 @@ export default function EditLawsuitByIdPage({ announcement }: IProps) {
   const ownOrAttorneyField = methods.watch('ownOrAttorney');
 
   function handlePremiumToggle() {
+    console.log('oi');
+
     if (premium === 'add' || premium === 'remove') {
       setPremium(null);
     } else {
@@ -202,7 +205,8 @@ export default function EditLawsuitByIdPage({ announcement }: IProps) {
                 )}
 
                 <CreditCardFieldset
-                  isVisible={announcement.plan !== 'byPercent' || announcement.isPremium || !!announcement.paymentMethodId}
+                  isVisible
+                  // isVisible={announcement.plan !== 'byPercent' || announcement.isPremium || !!announcement.paymentMethodId}
                   onOpenChooseCreditCardModal={handleOpenChooseCreditCardModal}
                   creditCard={announcement.paymentMethod}
                 />
@@ -210,7 +214,7 @@ export default function EditLawsuitByIdPage({ announcement }: IProps) {
                 <Fieldset style={{ width: '100%' }}>
                   <legend>Plano</legend>
                   <MyPlanCleanCard
-                    planMode={plan}
+                    // planMode={plan}
                     onPremiumToggleClick={handlePremiumToggle}
                     plan={announcement.planInfo}
                     isPremium={isPremium}
