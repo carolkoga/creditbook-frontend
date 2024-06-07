@@ -156,26 +156,30 @@ export default function LawsuitView({ children, announcement }: IProps) {
       <>
         <Divider orientation="left">Processo Fisico</Divider>
         <Row>
-          {announcement.files.map((file) => (
-            <Col key={file.name}>
-              <Space direction="vertical" size="middle">
-                <Title>
-                  {fileTranslation[file.name]}
-                </Title>
-                <DescriptionWrapper>
-                  <Description
-                    as="a"
-                    href={isPermittedToDownload ? file.url : ''}
-                    title={isPermittedToDownload ? 'Clique para fazer download' : ''}
-                    download={isPermittedToDownload}
-                  >
-                    <File size={18} />
-                    {`${fileTranslation[file.name]}-${announcement.id}`.slice(0, 22)}...
-                  </Description>
-                </DescriptionWrapper>
-              </Space>
-            </Col>
-          ))}
+          {announcement.files.map((file) => {
+            console.log(file);
+
+            return (
+              <Col key={file.name}>
+                <Space direction="vertical" size="middle">
+                  <Title>
+                    {fileTranslation[file.name]}
+                  </Title>
+                  <DescriptionWrapper>
+                    <Description
+                      as="a"
+                      href={isPermittedToDownload ? file.url : ''}
+                      title={isPermittedToDownload ? 'Clique para fazer download' : ''}
+                      download={isPermittedToDownload}
+                    >
+                      <File size={18} />
+                      {`${fileTranslation[file.name]}-${announcement.id}`.slice(0, 22)}...
+                    </Description>
+                  </DescriptionWrapper>
+                </Space>
+              </Col>
+            );
+          })}
         </Row>
       </>
       )}
