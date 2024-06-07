@@ -71,7 +71,7 @@ export default function LawsuitNewCard({
         </Lawsuit.Header.Title>
 
         <Direction direction="horizontal" gap="8px" alignItems="center">
-          {lawsuit.isPremium && (
+          {(lawsuit.isPremium && lawsuit.batch) && (
             <Lawsuit.Header.PremiumTitle isSold={lawsuit.status === 'sold'}>
               Premium
             </Lawsuit.Header.PremiumTitle>
