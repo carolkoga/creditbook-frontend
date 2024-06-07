@@ -1,13 +1,13 @@
 export interface FileTranslationTypes {
-  initialPetitionUrl: string,
-  sentenceUrl: string,
-  accordionUrl: string,
-  resourcesUrl: string,
-  procurationUrl: string,
-  contestationUrl: string,
-  finalCertificateUrl: string,
-  anotherRelevantPartsUrl: string,
-  judgmentOfApprovalOfLaborCalculationsUrl: string,
+  initialPetitionUrl: string;
+  sentenceUrl: string;
+  accordionUrl: string;
+  resourcesUrl: string;
+  procurationUrl: string;
+  contestationUrl: string;
+  finalCertificateUrl: string;
+  anotherRelevantPartsUrl: string;
+  judgmentOfApprovalOfLaborCalculationsUrl: string;
 }
 
 export const fileTranslation: FileTranslationTypes = {
@@ -19,5 +19,6 @@ export const fileTranslation: FileTranslationTypes = {
   contestationUrl: 'Contestação',
   finalCertificateUrl: 'Cert. transitado em julgado',
   anotherRelevantPartsUrl: 'Outras peças relevantes',
-  judgmentOfApprovalOfLaborCalculationsUrl: 'Sentença de homologação de cálculos trabalhistas',
+  judgmentOfApprovalOfLaborCalculationsUrl:
+    'Sentença de homologação de cálculos trab...',
 };
