@@ -41,6 +41,7 @@ import { Fieldset } from '@components/LawsuitForm/components/Fieldset';
 import { GetServerSideProps } from 'next';
 import { setupAPIClient } from '@api/creditbookApi';
 import { UFBrazilType } from '@type/creditbook';
+import { toast } from 'react-toastify';
 
 interface IPropsSelect { label: string, value: string }
 
@@ -131,6 +132,10 @@ export default function EditLawsuitByIdPage({ announcement }: IProps) {
       setLoading(true);
       const response = await lawsuitService.update({ ...data, premium }, announcement);
       router.push(`/in/ads/${response.data.id}`);
+
+      if (data.paymentMethodId) {
+        toast.success('seu pagamento será processado!');
+      }
     } catch (error) {
       handleCatchErrorRequest(error as any);
     } finally {
