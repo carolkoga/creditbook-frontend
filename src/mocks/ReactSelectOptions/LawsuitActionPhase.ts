@@ -3,10 +3,6 @@ export const lawsuitActionPhase = [
     label: 'Selecione uma fase da ação',
     value: '',
   },
-  {
-    label: 'Não Sentenciada',
-    value: 'naoSentenciada',
-  },
 
   {
     label: 'Sentenciada com Recurso',
