@@ -239,7 +239,7 @@ export default function EditLawsuitByIdPage({ announcement }: IProps) {
                 onBack={() => handleBackPrevModalChooseCreditCard()}
                 onNewCard={() => {}}
               >
-                <Button isLoading={loading} type="button" onClick={methods.handleSubmit(handleSubmitNewLawsuit)}>
+                <Button isLoading={loading} type="button" onClick={handleBackPrevModalChooseCreditCard}>
                   {!loading ? 'Atualizar' : 'Atualizando'}
                 </Button>
               </ChooseCreditCard>
