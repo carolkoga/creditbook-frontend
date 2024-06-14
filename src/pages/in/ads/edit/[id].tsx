@@ -210,8 +210,7 @@ export default function EditLawsuitByIdPage({ announcement }: IProps) {
                 )}
 
                 <CreditCardFieldset
-                  isVisible
-                  // isVisible={announcement.plan !== 'byPercent' || announcement.isPremium || !!announcement.paymentMethodId}
+                  isVisible={announcement.plan !== 'batch'}
                   onOpenChooseCreditCardModal={handleOpenChooseCreditCardModal}
                   creditCard={announcement.paymentMethod}
                 />
@@ -219,7 +218,7 @@ export default function EditLawsuitByIdPage({ announcement }: IProps) {
                 <Fieldset style={{ width: '100%' }}>
                   <legend>Plano</legend>
                   <MyPlanCleanCard
-                    // planMode={plan}
+                    planMode={plan}
                     onPremiumToggleClick={handlePremiumToggle}
                     plan={announcement.planInfo}
                     isPremium={isPremium}

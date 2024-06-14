@@ -81,7 +81,7 @@ export default function AnnouncementId() {
 
       <Section.Container as="footer">
         <Direction direction="horizontal">
-          {(user?.id === announcement.userId && announcement.status !== 'pending') && (
+          {(user?.id === announcement.userId && (announcement.status !== 'pending' || announcement.plan === 'batch')) && (
             <Direction direction="horizontal">
               <Link legacyBehavior size="large" href={`/in/ads/edit/${announcement.id}`}>
                 Editar
@@ -107,7 +107,7 @@ export default function AnnouncementId() {
             </Direction>
           )}
 
-          {(announcement.status !== 'pending' && user?.id !== announcement.userId && announcement.acceptNegotiation === true) && (
+          {((announcement.status !== 'pending' || announcement.plan === 'batch') && user?.id !== announcement.userId && announcement.acceptNegotiation === true) && (
             <Link
               legacyBehavior
               size="large"
@@ -120,7 +120,7 @@ export default function AnnouncementId() {
 
           )}
 
-          {(announcement.status !== 'pending' && user?.id !== announcement.userId) && (
+          {((announcement.status !== 'pending' || announcement.plan === 'batch') && user?.id !== announcement.userId) && (
             <Link
               legacyBehavior
               size="large"

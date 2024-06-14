@@ -10,11 +10,11 @@ interface MyPlanCardProps {
   isPremium: boolean;
   onPremiumToggleClick: () => void;
   premiumState: 'add' | 'remove' | null;
-  // planMode: 'byMonth' | 'byPercent' | 'both' | 'batch',
+  planMode: 'byMonth' | 'byPercent' | 'both' | 'batch';
 }
 
 export default function MyPlanCleanCard({
-  plan, isPremium, onPremiumToggleClick, premiumState
+  plan, isPremium, onPremiumToggleClick, premiumState, planMode
 }: MyPlanCardProps) {
   return (
     <ContainerClean>
@@ -36,7 +36,7 @@ export default function MyPlanCleanCard({
           </Information.Title>
           <Information.Content>{plan.premium}</Information.Content>
 
-          {(!premiumState) && (
+          {(!premiumState && planMode !== 'batch') && (
           <Button onClick={onPremiumToggleClick} type="button">
             {isPremium ? 'Remover Premium' : 'Adicionar Premium'}
           </Button>
