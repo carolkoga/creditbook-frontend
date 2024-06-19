@@ -42,6 +42,7 @@ import { GetServerSideProps } from 'next';
 import { setupAPIClient } from '@api/creditbookApi';
 import { UFBrazilType } from '@type/creditbook';
 import { toast } from 'react-toastify';
+import { Input } from '@components/Input';
 
 interface IPropsSelect { label: string, value: string }
 
@@ -224,6 +225,9 @@ export default function EditLawsuitByIdPage({ announcement }: IProps) {
                     isPremium={isPremium}
                     premiumState={premium}
                   />
+
+                  <Input {...methods.register('discountCode')} placeholder="CUPOM DE DESCONTO" name="discountCode" type="text" />
+
                 </Fieldset>
 
                 <Direction gap="12px">
