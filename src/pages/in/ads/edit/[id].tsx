@@ -138,7 +138,7 @@ export default function EditLawsuitByIdPage({ announcement }: IProps) {
       const response = await lawsuitService.update({ ...data }, announcement);
       router.push(`/in/ads/${response.data.id}`);
 
-      if (data.paymentMethodId && premium) {
+      if (data.paymentMethodId && premium && premium === 'add') {
         toast.success('Seu anúncio foi editado com sucesso e seu pagamento será processado!');
       } else {
         toast.success('Anúncio editado, aguarde até que as mudanças sejam aprovadas!');
