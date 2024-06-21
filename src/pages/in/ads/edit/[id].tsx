@@ -81,8 +81,6 @@ export default function EditLawsuitByIdPage({ announcement }: IProps) {
   const ownOrAttorneyField = methods.watch('ownOrAttorney');
 
   function handlePremiumToggle() {
-    console.log('oi');
-
     if (premium === 'add' || premium === 'remove') {
       setPremium(null);
     } else {
@@ -133,15 +131,17 @@ export default function EditLawsuitByIdPage({ announcement }: IProps) {
       setLoading(true);
       if (premium) {
         await lawsuitService.updatePremium({
-          premium, paymentMethodId: data?.paymentMethodId, discountCode: data?.discountCode, announcementId: announcement.id
+          ...data, premium, announcementId: data.id
         });
       }
 
       const response = await lawsuitService.update({ ...data }, announcement);
       router.push(`/in/ads/${response.data.id}`);
 
-      if (data.paymentMethodId) {
-        toast.success('seu pagamento será processado!');
+      if (data.paymentMethodId && premium) {
+        toast.success('Seu anúncio foi editado com sucesso e seu pagamento será processado!');
+      } else {
+        toast.success('Anúncio editado, aguarde até que as mudanças sejam aprovadas!');
       }
     } catch (error) {
       handleCatchErrorRequest(error as any);
