@@ -5,6 +5,13 @@ import { AxiosInstance } from 'axios';
 import { LawsuitParams } from '../../../types/creditbook/Lawsuits/index';
 import { HttpClient } from '../http';
 
+type UpdatePremiumData = {
+  premium: 'add' | 'remove';
+  discountCode?: string;
+  paymentMethodId?: string;
+  announcementId: string;
+};
+
 export interface OptionsListAnnouncementsUser {
   params?: {
     type?: 'single';
@@ -53,6 +60,12 @@ export class LawsuitService extends HttpClient {
     const formData = this._convertToFormData(data, 'update', currentData);
 
     return this.httpClient.patch('/announcement', formData, {
+      headers: { ...this.customHeaders },
+    });
+  }
+
+  async updatePremium(data: UpdatePremiumData) {
+    return this.httpClient.patch('/announcement/update-premium', data, {
       headers: { ...this.customHeaders },
     });
   }

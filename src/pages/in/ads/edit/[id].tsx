@@ -131,7 +131,13 @@ export default function EditLawsuitByIdPage({ announcement }: IProps) {
   async function handleSubmitNewLawsuit(data: any) {
     try {
       setLoading(true);
-      const response = await lawsuitService.update({ ...data, premium }, announcement);
+      if (premium) {
+        await lawsuitService.updatePremium({
+          premium, paymentMethodId: data?.paymentMethodId, discountCode: data?.discountCode, announcementId: announcement.id
+        });
+      }
+
+      const response = await lawsuitService.update({ ...data }, announcement);
       router.push(`/in/ads/${response.data.id}`);
 
       if (data.paymentMethodId) {

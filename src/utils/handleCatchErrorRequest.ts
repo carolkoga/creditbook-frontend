@@ -40,6 +40,10 @@ export function handleCatchErrorRequest(
       );
     }
 
+    if (error?.response?.data?.error?.toLowerCase() === 'Incorrect data') {
+      return toast.error('Verifique se não há nenhum dado errado.');
+    }
+
     if (error?.response?.data?.error?.toLowerCase() === 'Batch length') {
       return toast.error('O numero minimo de anuncios para um lote é 2!');
     }
