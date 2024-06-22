@@ -65,9 +65,7 @@ export class LawsuitService extends HttpClient {
   }
 
   async updatePremium(data: UpdatePremiumData) {
-    return this.httpClient.patch('/announcement/update-premium', data, {
-      headers: { ...this.customHeaders },
-    });
+    return this.httpClient.patch('/announcement/update-premium', data);
   }
 
   async changeFavorite({

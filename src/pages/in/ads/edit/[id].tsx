@@ -1,3 +1,5 @@
+/* eslint-disable arrow-body-style */
+/* eslint-disable no-plusplus */
 /* eslint-disable max-len */
 import { useCallback, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
@@ -129,19 +131,34 @@ export default function EditLawsuitByIdPage({ announcement }: IProps) {
   async function handleSubmitNewLawsuit(data: any) {
     try {
       setLoading(true);
+
       if (premium) {
         await lawsuitService.updatePremium({
           ...data, premium, announcementId: data.id
         });
       }
 
-      const response = await lawsuitService.update({ ...data }, announcement);
-      router.push(`/in/ads/${response.data.id}`);
+      // @ts-ignore
+      const touchedFields = Object.entries(
+        methods.formState.touchedFields
+      ).filter((field) => {
+        return field[0] !== 'discountCode'
+        // @ts-ignore
+          && (field[0] !== 'paymentMethodId' && premium !== null);
+      });
+
+      if (
+        touchedFields.length > 0
+      ) {
+        const response = await lawsuitService.update({ ...data }, announcement);
+
+        router.push(`/in/ads/${response.data.id}`);
+      }
 
       if (data.paymentMethodId && premium && premium === 'add') {
         toast.success('Seu anúncio foi editado com sucesso e seu pagamento será processado!');
       } else {
-        toast.success('Anúncio editado, aguarde até que as mudanças sejam aprovadas!');
+        toast.success('Anúncio editado com sucesso, aguarde até que as mudanças sejam aprovadas!');
       }
     } catch (error) {
       handleCatchErrorRequest(error as any);
