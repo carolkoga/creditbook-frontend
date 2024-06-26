@@ -23,11 +23,13 @@ import SidebarContextProvider from '@context/SidebarContext';
 import { AuthProvider } from 'context/AuthContext';
 import ErrorFallback from '@components/ErrorFallback';
 import { light } from '@styles/themes/light';
+import { GoogleAnalytics } from '@components/GoogleAnalyticsTracking';
 
 export default function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
+        
         <meta charSet="UTF-8" />
         <meta name="theme-color" content="#FFFFFF" />
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
@@ -37,7 +39,11 @@ export default function MyApp({ Component, pageProps }: AppProps) {
 Precisando de dinheiro? Procurando uma forma lucrativa para investir? Chegou a plataforma definitiva para negociar créditos, ações e direitos judiciais. É simples, rápido e seguro."
         />
         <title>CreditBook</title>
+        
       </Head>
+
+      <GoogleAnalytics />
+
       <AuthProvider>
         <ThemeProvider theme={light}>
           <ErrorBoundary FallbackComponent={ErrorFallback}>
