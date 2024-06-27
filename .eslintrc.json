@@ -55,6 +55,9 @@
     "import/no-cycle": "off",
     "no-useless-return": "off",
     "react/require-default-props": "off",
-    "@typescript-eslint/comma-dangle": "off"
+    "@typescript-eslint/comma-dangle": "off",
+    "object-curly-newline": "off",
+    "padded-blocks": "off",
+    "no-trailing-spaces": "off"
   }
 }
