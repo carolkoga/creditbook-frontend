@@ -32,7 +32,6 @@ export const Content = styled.div`
   @media screen and (max-width: 252px) {
     flex-direction: column;
     justify-content: flex-start;
-
   }
 `;
 
@@ -60,6 +59,10 @@ export const Navigation = styled.nav`
   }
 `;
 
+export const NewLink = styled.a`
+  background-color: #30d686 !important;
+`;
+
 export const Actions = styled.div`
   a {
     padding: 6px 34px;
@@ -74,7 +77,6 @@ export const Actions = styled.div`
       margin-left: 8px;
       background: ${({ theme }) => theme.colors.primary.main};
     }
-
   }
 `;
 
@@ -91,7 +93,7 @@ export const CompactMenu = styled.div`
   align-items: center;
   gap: 80px;
   padding: 80px 0;
-  transition: all .35s ease-in-out;
+  transition: all 0.35s ease-in-out;
   overflow-y: scroll;
 
   .header {
@@ -125,15 +127,14 @@ export const CompactMenu = styled.div`
         align-items: center;
         gap: 24px;
 
-
         li {
           border-bottom: 3px solid ${({ theme }) => theme.colors.grey[10]};
-          transition: all .35s ease;
+          transition: all 0.35s ease;
           padding: 8px;
           border-radius: 3px;
           :hover {
             background: #eee;
-            border-bottom-color: #7A70D2;
+            border-bottom-color: #7a70d2;
           }
         }
       }

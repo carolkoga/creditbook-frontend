@@ -1,11 +1,26 @@
 import { Section } from '@components/Section';
 import styled from 'styled-components';
 
+import { light } from '@styles/themes/light';
+
+export const PreSignupWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  height: 100%;
+  width: 100%;
+`;
+
 export const SectionHero = styled(Section.Container)`
+  padding: 90px 10px;
+
   display: grid;
-  grid-template-columns: repeat(2, auto);
-  gap: 0 127px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0 10px;
   margin-bottom: 32px;
+
+  background-color: ${light.colors.primary.main};
 
   @media screen and (max-width: 434px) {
     gap: 0;
@@ -19,17 +34,39 @@ export const SectionHero = styled(Section.Container)`
 `;
 
 export const ContentHero = styled.div`
+  padding: 0px 80px;
+
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: left;
   justify-content: center;
+
+  gap: 10px;
+
+  div.actions {
+    max-width: 100%;
+    width: 80%;
+
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+
+    margin-top: -18%;
+
+    img {
+      width: 40%;
+
+      cursor: pointer;
+    }
+  }
 
   h1 {
     color: ${({ theme }) => theme.colors.primary.main};
     font-size: 25px;
     line-height: 40px;
 
-    &, strong {
+    &,
+    strong {
       font-weight: 500;
     }
 
@@ -48,7 +85,8 @@ export const ContentHero = styled.div`
     margin: 28px 0;
   }
 
-  h1, h2 {
+  h1,
+  h2 {
     max-width: 478px;
   }
 
@@ -66,6 +104,8 @@ export const ContentHero = styled.div`
 `;
 
 export const WrapperImageHero = styled.div`
+  margin-top: -14px;
+
   width: 527px;
   height: 430px;
   position: relative;
@@ -91,7 +131,6 @@ export const RelativeImageWrapper = styled.div`
 
   @media screen and (max-width: 900px) {
     display: none;
-
   }
 `;
 
@@ -117,7 +156,6 @@ export const WrapperInfoCard = styled.ul`
   gap: 24px 18px;
   flex-wrap: wrap;
   max-width: 567px;
-
 
   @media screen and (max-width: 1000px) {
     justify-content: center;
@@ -160,7 +198,6 @@ export const InfoCard = styled.li`
     max-width: 124px;
     max-height: 180px;
   }
-
 `;
 
 export const Direction = styled.div`

@@ -5,10 +5,9 @@ export const FooterStyle = styled.footer`
   align-items: center;
   justify-content: space-between;
   padding: 59px 96px;
-  background: #EFEDFF;
-  border-top: 1px solid #DDDDDD;
+  background: #efedff;
+  border-top: 1px solid #dddddd;
   margin-top: 85px;
-
 
   li {
     list-style: none;
@@ -22,7 +21,7 @@ export const FooterStyle = styled.footer`
       gap: 18px;
 
       li {
-        background: rgba(22, 8, 131, .13);
+        /* background: rgba(22, 8, 131, .13); */
         border-radius: 5px;
         padding: 11px;
 
@@ -91,7 +90,7 @@ export const FooterStyle = styled.footer`
       }
     }
 
-   .left-content {
+    .left-content {
       .networking__media {
         flex-wrap: wrap;
         justify-content: center;
@@ -100,6 +99,6 @@ export const FooterStyle = styled.footer`
           align-items: center;
         }
       }
-   }
+    }
   }
 `;

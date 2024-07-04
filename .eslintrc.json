@@ -59,5 +59,6 @@
     "object-curly-newline": "off",
     "padded-blocks": "off",
     "no-trailing-spaces": "off"
+    
   }
 }

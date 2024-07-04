@@ -4,7 +4,12 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import {
-  Actions, CompactMenu, Content, HeaderStyle, Navigation,
+  Actions,
+  CompactMenu,
+  Content,
+  HeaderStyle,
+  Navigation,
+  NewLink,
 } from './styled';
 
 const routes = [
@@ -43,8 +48,8 @@ export default function LandingPageHeader() {
   const router = useRouter();
   const { user, isAuthenticated } = useAuth();
   const [compactMenu, setCompactMenu] = useState<{
-    isSmallDevice: boolean,
-    isVisibleMenu: boolean,
+    isSmallDevice: boolean;
+    isVisibleMenu: boolean;
   }>({
     isSmallDevice: false,
     isVisibleMenu: false,
@@ -89,7 +94,13 @@ export default function LandingPageHeader() {
       <Content>
         <Link legacyBehavior href="/">
           <a>
-            <Image src="/assets/images/logo.svg" width="137" height="50" alt="logo" layout="fixed" />
+            <Image
+              src="/assets/images/creditbook_logo.png"
+              width={200}
+              height={50}
+              alt="logo"
+              layout="fixed"
+            />
           </a>
         </Link>
 
@@ -102,45 +113,37 @@ export default function LandingPageHeader() {
                     <Link
                       legacyBehavior
                       href={
-                      route.label === 'Comprar'
-                        ? isAuthenticated
-                          ? route.link : '/login'
-                        : route.link
-}
+                        route.label === 'Comprar'
+                          ? isAuthenticated
+                            ? route.link
+                            : '/login'
+                          : route.link
+                      }
                     >
-                      <a>
-                        {route.label}
-                      </a>
+                      <a>{route.label}</a>
                     </Link>
                   </li>
                 ))}
-
               </ul>
             </Navigation>
 
             <Actions>
-              {(isAuthenticated && user?.role === 'admin') && (
+              {isAuthenticated && user?.role === 'admin' && (
                 <Link legacyBehavior href="/admin/dashboard">
-                  <a>
-                    Dashboard
-                  </a>
+                  <a>Dashboard</a>
                 </Link>
               )}
 
-              {(isAuthenticated && user?.role === 'user') && (
+              {isAuthenticated && user?.role === 'user' && (
                 <Link legacyBehavior href="/in/home">
-                  <a>
-                    Painel do Usuário
-                  </a>
+                  <a>Painel do Usuário</a>
                 </Link>
               )}
 
               {!isAuthenticated && (
                 <>
                   <Link legacyBehavior href="/login">
-                    <a>
-                      Entrar
-                    </a>
+                    <NewLink>Entrar</NewLink>
                   </Link>
 
                   {/* <Link legacyBehavior  href="/sign-up">
@@ -156,58 +159,79 @@ export default function LandingPageHeader() {
 
         {compactMenu.isSmallDevice && (
           <>
-            <button type="button" onClick={() => handleToggleVisibilityMenu()} className="action__menu">
-              <Image src="/assets/icons/menu.svg" width="32" height="32" layout="fixed" alt="Abri o menu" />
+            <button
+              type="button"
+              onClick={() => handleToggleVisibilityMenu()}
+              className="action__menu"
+            >
+              <Image
+                src="/assets/icons/menu.svg"
+                width="32"
+                height="32"
+                layout="fixed"
+                alt="Abri o menu"
+              />
             </button>
             {compactMenu.isVisibleMenu && (
-            <CompactMenu>
-              <div className="header">
-                <button type="button" onClick={() => handleToggleVisibilityMenu()} className="action__menu">
-                  <Image src="/assets/icons/close.svg" width="32" height="32" layout="fixed" alt="Fecha o menu" />
-                </button>
-                <Actions>
-                  {isAuthenticated && (
-                    <Link legacyBehavior href={user?.role === 'admin' ? '/admin/dashboard' : '/in/home'}>
-                      <a>
-                        Acessar
-                      </a>
-                    </Link>
-                  )}
+              <CompactMenu>
+                <div className="header">
+                  <button
+                    type="button"
+                    onClick={() => handleToggleVisibilityMenu()}
+                    className="action__menu"
+                  >
+                    <Image
+                      src="/assets/icons/close.svg"
+                      width="32"
+                      height="32"
+                      layout="fixed"
+                      alt="Fecha o menu"
+                    />
+                  </button>
+                  <Actions>
+                    {isAuthenticated && (
+                      <Link
+                        legacyBehavior
+                        href={
+                          user?.role === 'admin'
+                            ? '/admin/dashboard'
+                            : '/in/home'
+                        }
+                      >
+                        <a>Acessar</a>
+                      </Link>
+                    )}
 
-                  {!isAuthenticated && (
-                  <>
-                    <Link legacyBehavior href="/login">
-                      <a>
-                        Entrar
-                      </a>
-                    </Link>
+                    {!isAuthenticated && (
+                      <>
+                        <Link legacyBehavior href="/login">
+                          <a>Entrar</a>
+                        </Link>
 
-                    {/* <Link legacyBehavior  href="/sign-up">
+                        {/* <Link legacyBehavior  href="/sign-up">
                       <a>
                         Cadastrar
                       </a>
                     </Link> */}
-                  </>
-                  )}
-                </Actions>
-              </div>
+                      </>
+                    )}
+                  </Actions>
+                </div>
 
-              <div className="body">
-                <Navigation>
-                  <ul>
-                    {routes.map((route) => (
-                      <li key={route.label}>
-                        <Link legacyBehavior href={route.link}>
-                          <a>
-                            {route.label}
-                          </a>
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                </Navigation>
-              </div>
-            </CompactMenu>
+                <div className="body">
+                  <Navigation>
+                    <ul>
+                      {routes.map((route) => (
+                        <li key={route.label}>
+                          <Link legacyBehavior href={route.link}>
+                            <a>{route.label}</a>
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </Navigation>
+                </div>
+              </CompactMenu>
             )}
           </>
         )}

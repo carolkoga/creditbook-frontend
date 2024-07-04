@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import NextLink from 'next/link';
 import LiteYouTubeEmbed from 'react-lite-youtube-embed';
 
 import {
@@ -9,6 +10,7 @@ import {
   InfoCard,
   ContainerVideoAndInfo,
   RelativeImageWrapper,
+  PreSignupWrapper,
 } from '@styles/pages/home';
 
 import { Section } from '@components/Section';
@@ -23,65 +25,73 @@ import useAuth from '@hooks/useAuth';
 import { PreSignUp } from '@components/pages/home/PreSignUp';
 
 export default function HomeLadingPage() {
-  const announcementsAsPremium = useAnnouncements(undefined, { getOnlyPremium: true, params: {} });
+  const announcementsAsPremium = useAnnouncements(undefined, {
+    getOnlyPremium: true,
+    params: {},
+  });
   const { isAuthenticated } = useAuth();
 
   return (
     <>
       <SectionHero>
         <ContentHero>
-          <h1>
-            <strong>CreditBook.</strong>
-            A revolução do jeito de negociar créditos, ações e direitos judiciais.
-          </h1>
-          <h2>
-            Precisando de dinheiro? Procurando uma forma lucrativa para investir?
-            Chegou a plataforma definitiva para negociar créditos, ações e direitos judiciais.
-            É simples, rápido e seguro.
-          </h2>
+          <RelativeImageWrapper>
+            <WrapperImageHero>
+              <Image
+                src="/assets/images/home/creditbook_banner_texto.png"
+                layout="fixed"
+                width="580"
+                height="320"
+                priority
+                alt="Hero"
+              />
+            </WrapperImageHero>
+          </RelativeImageWrapper>
 
-          <Actions>
-            <Link legacyBehavior href="/in/ads/new">
-              Vender
-            </Link>
-            <Link legacyBehavior href="/in/buy-credits" variant="secondary">
-              Comprar
-            </Link>
+          <Actions className="actions">
+            <NextLink legacyBehavior href="/in/ads/new">
+              <img
+                src="/assets/images/home/creditbook_banner_botão1.png"
+                alt="comprar"
+                style={{ cursor: 'pointer' }}
+              />
+            </NextLink>
+            <NextLink legacyBehavior href="/in/buy-credits">
+              <img
+                src="/assets/images/home/creditbook_banner_botão2.png"
+                alt="vender"
+                style={{ cursor: 'pointer' }}
+              />
+            </NextLink>
           </Actions>
         </ContentHero>
 
-        <RelativeImageWrapper>
-          <WrapperImageHero>
-            <Image
-              src="/assets/images/hero.png"
-              layout="fixed"
-              width="527"
-              height="430"
-              priority
-              alt="Hero"
-            />
-          </WrapperImageHero>
-
+        <PreSignupWrapper>
           <PreSignUp isVisible={!isAuthenticated} />
-        </RelativeImageWrapper>
-
+        </PreSignupWrapper>
       </SectionHero>
 
       <Section.Container>
         <Section.Header>
           <Section.Title>Como funciona a venda e compra?</Section.Title>
-          <Section.Subtitle>Assista abaixo como funciona a venda e compra:</Section.Subtitle>
+          <Section.Subtitle>
+            Assista abaixo como funciona a venda e compra:
+          </Section.Subtitle>
         </Section.Header>
 
         <ContainerVideoAndInfo>
           <WrapperVideo>
-            <LiteYouTubeEmbed id="w87t420-TWg" title="Creditbook" poster="hqdefault" />
+            <LiteYouTubeEmbed
+              id="w87t420-TWg"
+              title="Creditbook"
+              poster="hqdefault"
+            />
           </WrapperVideo>
 
           <WrapperInfoCard>
             <InfoCard>
               <Image
-                src="/assets/icons/home/list-icon.svg"
+                src="/assets/icons/home/creditbook_icone_anuncie.svg"
                 width="85"
                 height="85"
                 alt="De Lista"
@@ -93,76 +103,66 @@ export default function HomeLadingPage() {
             <InfoCard>
               <div className="wrapper__image">
                 <Image
-                  src="/assets/icons/home/insight.png"
+                  src="/assets/icons/home/creditbook_icone_avalie.svg"
                   width="85"
                   height="85"
                   alt="De insight"
                   layout="fixed"
                 />
               </div>
-              <span>
-                Avalie as ofertas
-              </span>
+              <span>Avalie as ofertas</span>
             </InfoCard>
 
             <InfoCard>
               <div className="wrapper__image">
                 <Image
-                  src="/assets/icons/home/hand-money.svg"
+                  src="/assets/icons/home/creditbook_icone_receba.svg"
                   width="85"
                   height="85"
                   alt="De uma bolsa de dinheiro flutuando na mão (ilustrativa)"
                   layout="fixed"
                 />
               </div>
-              <span>
-                Receba o valor
-              </span>
+              <span>Receba o valor</span>
             </InfoCard>
 
             <InfoCard>
               <div className="wrapper__image">
                 <Image
-                  src="/assets/icons/home/dollar-icon.svg"
+                  src="/assets/icons/home/creditbook_icone_busque.svg"
                   width="85"
                   height="85"
                   alt="De Sinal de dolar"
                   layout="fixed"
                 />
               </div>
-              <span>
-                Busque anúncios
-              </span>
+              <span>Busque anúncios</span>
             </InfoCard>
 
             <InfoCard>
               <div className="wrapper__image">
                 <Image
-                  src="/assets/icons/home/money-bag.png"
+                  src="/assets/icons/home/creditbook_icone_oferta.svg"
                   width="85"
                   height="85"
                   alt="Bolsa de dinheiro"
                   layout="fixed"
                 />
               </div>
-              <span>
-                Faça uma oferta
-              </span>
+              <span>Faça uma oferta</span>
             </InfoCard>
 
             <InfoCard>
               <div className="wrapper__image">
                 <Image
-                  src="/assets/icons/home/partner.png"
+                  src="/assets/icons/home/creditbook_icone_compre.svg"
                   width="85"
                   height="85"
                   alt="Duas mãos fechando acordo"
                   layout="fixed"
                 />
               </div>
-              <span>
-                Compre crédito
-              </span>
+              <span>Compre crédito</span>
             </InfoCard>
           </WrapperInfoCard>
         </ContainerVideoAndInfo>
@@ -178,7 +178,9 @@ export default function HomeLadingPage() {
               </Link>
             </Direction>
           </Section.Header>
-          <LawsuitCardSwiper lawsuits={announcementsAsPremium?.announcements?.results} />
+          <LawsuitCardSwiper
+            lawsuits={announcementsAsPremium?.announcements?.results}
+          />
         </Section.Container>
       )}
     </>
