@@ -44,6 +44,8 @@ export const ContentHero = styled.div`
   gap: 10px;
 
   div.actions {
+    z-index: 50;
+
     max-width: 100%;
     width: 80%;
 
@@ -56,7 +58,7 @@ export const ContentHero = styled.div`
     img {
       width: 40%;
 
-      cursor: pointer;
+      cursor: pointer !important;
     }
   }
 

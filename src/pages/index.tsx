@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import Image from 'next/image';
 import NextLink from 'next/link';
 import LiteYouTubeEmbed from 'react-lite-youtube-embed';
@@ -53,14 +55,12 @@ export default function HomeLadingPage() {
               <img
                 src="/assets/images/home/creditbook_banner_botão1.png"
                 alt="comprar"
-                style={{ cursor: 'pointer' }}
               />
             </NextLink>
             <NextLink legacyBehavior href="/in/buy-credits">
               <img
                 src="/assets/images/home/creditbook_banner_botão2.png"
                 alt="vender"
-                style={{ cursor: 'pointer' }}
               />
             </NextLink>
           </Actions>
