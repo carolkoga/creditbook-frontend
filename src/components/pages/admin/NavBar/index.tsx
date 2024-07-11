@@ -10,7 +10,7 @@ import { Nav } from './styled';
 import TopicsMenu, { TopicProps } from '../TopicsMenu';
 
 interface IProps {
-  menu: TopicProps[]
+  menu: TopicProps[];
 }
 
 export default function NavBarAdmin({ menu }: IProps) {
@@ -39,7 +39,6 @@ export default function NavBarAdmin({ menu }: IProps) {
         placement="left"
         onClose={handleCloseDrawer}
         open={visible}
-
       >
         <TopicsMenu topics={menu} />
       </Drawer>
@@ -48,11 +47,11 @@ export default function NavBarAdmin({ menu }: IProps) {
         <Link legacyBehavior href="/">
           <a>
             <Image
-              width="120"
+              width="140"
               alt="logo"
               height="35"
               layout="intrinsic"
-              src="/assets/images/logo.svg"
+              src="/assets/images/creditbook_logo.png"
             />
           </a>
         </Link>

@@ -9,15 +9,23 @@ export default function Header() {
   return (
     <Container>
       <button type="button" onClick={() => handleToggleSidebarIsCollapsed()}>
-        {isCollapsed
-          ? <CaretDoubleRight size={24} />
-          : <CaretDoubleLeft size={24} />}
+        {isCollapsed ? (
+          <CaretDoubleRight size={24} />
+        ) : (
+          <CaretDoubleLeft size={24} />
+        )}
       </button>
 
       <div className="wrapper__image">
         <Link legacyBehavior href="/">
           <a>
-            <Image src="/assets/images/logo.svg" alt="logo" layout="fixed" width="137" height="50" />
+            <Image
+              src="/assets/images/creditbook_logo.png"
+              alt="logo"
+              layout="fixed"
+              width="160"
+              height="50"
+            />
           </a>
         </Link>
       </div>
