@@ -10,7 +10,7 @@ export default function Footer() {
           <a>
             <Image
               src="/assets/images/creditbook_logo.png"
-              width="200"
+              width="180"
               height="50"
               alt="Logo"
               layout="fixed"

@@ -47,9 +47,9 @@ export default function NavBarAdmin({ menu }: IProps) {
         <Link legacyBehavior href="/">
           <a>
             <Image
-              width="140"
+              width="180"
               alt="logo"
-              height="35"
+              height="50"
               layout="intrinsic"
               src="/assets/images/creditbook_logo.png"
             />

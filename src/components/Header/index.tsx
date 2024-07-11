@@ -23,7 +23,7 @@ export default function Header() {
               src="/assets/images/creditbook_logo.png"
               alt="logo"
               layout="fixed"
-              width="160"
+              width="180"
               height="50"
             />
           </a>

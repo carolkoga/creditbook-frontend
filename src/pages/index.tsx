@@ -179,7 +179,7 @@ export default function HomeLadingPage() {
           </Section.Header>
           <LawsuitCardSwiper
             lawsuits={announcementsAsPremium?.announcements?.results.filter(
-              ({ userId }) => userId !== user.id
+              ({ userId }) => userId !== user?.id
             )}
           />
         </Section.Container>
