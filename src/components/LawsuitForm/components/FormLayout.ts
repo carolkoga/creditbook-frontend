@@ -10,7 +10,8 @@ export const FormLayout = styled.form`
   flex-direction: row;
   gap: 24px;
 
-  .left__content, .right__content {
+  .left__content,
+  .right__content {
     display: flex;
     flex-direction: column;
     gap: 24px;
@@ -36,7 +37,8 @@ export const FormLayout = styled.form`
         flex-wrap: wrap;
         > div {
           width: 45%;
-          &:nth-child(5), &:nth-child(6) {
+          &:nth-child(5),
+          &:nth-child(6) {
             width: 100%;
             label {
               width: 35%;
@@ -47,11 +49,10 @@ export const FormLayout = styled.form`
           }
           .selects {
             width: 100%;
-
           }
         }
 
-        @media (max-width: 1100px) {
+        @media (max-width: 1000px) {
           flex-direction: column;
 
           > div {
@@ -84,7 +85,8 @@ export const FormLayout = styled.form`
     display: flex;
     flex-direction: column;
 
-    .left__content, .right__content {
+    .left__content,
+    .right__content {
       width: 80%;
     }
 
@@ -94,11 +96,11 @@ export const FormLayout = styled.form`
   }
 
   @media (max-width: 540px) {
-    .left__content, .right__content {
+    .left__content,
+    .right__content {
       width: 100%;
     }
   }
-
 
   @media (max-width: 460px) {
     .left__content > fieldset {
@@ -112,5 +114,4 @@ export const FormLayout = styled.form`
       }
     }
   }
-
 `;

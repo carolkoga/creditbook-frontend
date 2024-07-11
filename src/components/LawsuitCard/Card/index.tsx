@@ -14,19 +14,23 @@ import { favoriteAnnouncementService } from '@services/creditbook/favoriteAnnoun
 
 import Footer from './components/Footer';
 import { Lawsuit } from './styled';
-import { processCategoryTranslation, actionPhaseTranslation, processKindTranslation } from './utils/translations';
+import {
+  processCategoryTranslation,
+  actionPhaseTranslation,
+  processKindTranslation,
+} from './utils/translations';
 import { LawsuitCardProps } from '../types/Props';
 
 interface IProps extends LawsuitCardProps {
-  userBatches: BatchParams[]
-  admin?: boolean
+  userBatches: BatchParams[];
+  admin?: boolean;
 }
 
 interface ChangeFavoriteOptions {
-  announcementId: string,
-  isFavorite: boolean | undefined,
-  userId: string,
-  favoriteId?: string | null | undefined
+  announcementId: string;
+  isFavorite: boolean | undefined;
+  userId: string;
+  favoriteId?: string | null | undefined;
 }
 
 export default function LawsuitNewCard({
@@ -40,32 +44,37 @@ export default function LawsuitNewCard({
   const [lawsuit, setLawsuit] = useState(originalLawsuit);
   const router = useRouter();
 
-  const handleChangeFavorite = useCallback(async (options: ChangeFavoriteOptions) => {
-    try {
-      const {
-        announcementId, isFavorite, favoriteId = null,
-      } = options;
+  const handleChangeFavorite = useCallback(
+    async (options: ChangeFavoriteOptions) => {
+      try {
+        const { announcementId, isFavorite, favoriteId = null } = options;
 
-      const response = isFavorite
-        ? await favoriteAnnouncementService.remove(favoriteId as string)
-        : await favoriteAnnouncementService.favorite({ announcementId });
+        const response = isFavorite
+          ? await favoriteAnnouncementService.remove(favoriteId as string)
+          : await favoriteAnnouncementService.favorite({ announcementId });
 
-      setLawsuit({
-        ...response.data.announcement,
-        favoriteId: response.data.id,
-      });
+        setLawsuit({
+          ...response.data.announcement,
+          favoriteId: response.data.id,
+        });
 
-      if (router.pathname === '/in/my-favorites') {
-        router.reload();
+        if (router.pathname === '/in/my-favorites') {
+          router.reload();
+        }
+      } catch (error) {
+        handleCatchErrorRequest(error as never);
       }
-    } catch (error) {
-      handleCatchErrorRequest(error as never);
-    }
-  }, []);
+    },
+    []
+  );
 
   return (
     <Lawsuit.Wrapper>
-      <Lawsuit.Header.Container category={lawsuit.processGender} status={lawsuit.status} isSold={lawsuit.status === 'sold'}>
+      <Lawsuit.Header.Container
+        category={lawsuit.processGender}
+        status={lawsuit.status}
+        isSold={lawsuit.status === 'sold'}
+      >
         <Lawsuit.Header.Title isSold={lawsuit.status === 'sold'}>
           {processCategoryTranslation[lawsuit.processGender]}
         </Lawsuit.Header.Title>
@@ -80,23 +89,23 @@ export default function LawsuitNewCard({
           {lawsuit.userId !== user?.id && (
             <button
               type="button"
-              onClick={() => (
-                handleChangeFavorite({
-                  announcementId: lawsuit.id,
-                  isFavorite: lawsuit.isFavorite,
-                  userId: lawsuit.userId,
-                  favoriteId: lawsuit?.favoriteId,
-                })
-              )}
+              onClick={() => handleChangeFavorite({
+                announcementId: lawsuit.id,
+                isFavorite: lawsuit.isFavorite,
+                userId: lawsuit.userId,
+                favoriteId: lawsuit?.favoriteId,
+              })}
               style={{
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
               }}
             >
-              {lawsuit.isFavorite
-                ? <Heart size={24} weight="fill" color="#F16565" />
-                : <Heart size={24} weight="regular" color="#F16565" />}
+              {lawsuit.isFavorite ? (
+                <Heart size={24} weight="fill" color="#F16565" />
+              ) : (
+                <Heart size={24} weight="regular" color="#F16565" />
+              )}
             </button>
           )}
         </Direction>
@@ -118,23 +127,30 @@ export default function LawsuitNewCard({
           </Lawsuit.Info.Container>
 
           <Lawsuit.Info.Container>
-            <Lawsuit.Info.KeyInformation>Fase do Processo:</Lawsuit.Info.KeyInformation>
+            <Lawsuit.Info.KeyInformation>
+              Fase do Processo:
+            </Lawsuit.Info.KeyInformation>
             <Lawsuit.Info.ValueInformation>
-              {
-                actionPhaseTranslation[lawsuit.actionPhase]?.length > 16
-                  ? `${actionPhaseTranslation[lawsuit.actionPhase]?.slice(0, 14)}...`
-                  : actionPhaseTranslation[lawsuit.actionPhase]
-              }
+              {actionPhaseTranslation[lawsuit.actionPhase]?.length > 16
+                ? `${actionPhaseTranslation[lawsuit.actionPhase]?.slice(
+                  0,
+                  14
+                )}...`
+                : actionPhaseTranslation[lawsuit.actionPhase]}
             </Lawsuit.Info.ValueInformation>
           </Lawsuit.Info.Container>
 
           <Lawsuit.Info.Container>
-            <Lawsuit.Info.KeyInformation>Penhora ou garantia:</Lawsuit.Info.KeyInformation>
+            <Lawsuit.Info.KeyInformation>
+              Penhora ou garantia:
+            </Lawsuit.Info.KeyInformation>
             <Lawsuit.Info.ValueInformation>Não</Lawsuit.Info.ValueInformation>
           </Lawsuit.Info.Container>
 
           <Lawsuit.Info.Container>
-            <Lawsuit.Info.KeyInformation>Valor do Processo:</Lawsuit.Info.KeyInformation>
+            <Lawsuit.Info.KeyInformation>
+              Valor do Processo:
+            </Lawsuit.Info.KeyInformation>
             <Lawsuit.Info.ValueInformation>
               {convertToCurrency(lawsuit.processPrice)}
             </Lawsuit.Info.ValueInformation>
@@ -144,7 +160,7 @@ export default function LawsuitNewCard({
             <Lawsuit.Info.KeyInformation>
               Valor de liquidação:
             </Lawsuit.Info.KeyInformation>
-            <Lawsuit.Info.ValueInformation bold>
+            <Lawsuit.Info.ValueInformation bold className="moreSpace">
               {convertToCurrency(lawsuit.income)}
             </Lawsuit.Info.ValueInformation>
           </Lawsuit.Info.Container>
@@ -161,11 +177,9 @@ export default function LawsuitNewCard({
 
         {lawsuit.userId === user?.id && (
           <span style={{ opacity: '.7' }}>
-
             {lawsuit.batchId && 'Lote'}
 
-            {!lawsuit.batchId
-              && (
+            {!lawsuit.batchId && (
               <>
                 {lawsuit.status === 'accepted' && 'Anúncio Aprovado'}
                 {lawsuit.status === 'rejected' && 'Anúncio Reprovado'}
@@ -176,7 +190,7 @@ export default function LawsuitNewCard({
                 {lawsuit.status === 'payment_failed' && 'Falha no pagamento'}
                 {lawsuit.status === 'sold' && 'Anúncio Vendido'}
               </>
-              )}
+            )}
           </span>
         )}
       </Lawsuit.WrapperContent>

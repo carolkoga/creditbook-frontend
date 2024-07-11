@@ -9,7 +9,7 @@ export const InfoList = styled.div`
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 12px;
 
-  @media (max-width: 720px) {
+  @media (max-width: 1000px) {
     grid-template-columns: repeat(2, 1fr);
     grid-gap: 20px 12px;
   }
@@ -17,7 +17,7 @@ export const InfoList = styled.div`
   @media (max-width: 530px) {
     display: flex;
     flex-direction: column;
-    gap: 24px
+    gap: 24px;
   }
 `;
 

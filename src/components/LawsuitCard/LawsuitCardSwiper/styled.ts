@@ -11,13 +11,13 @@ export const Container = styled.div`
   width: 100%;
 
   .swiper-pagination {
-    margin-top: 42px;
+    margin-top: 42px !important;
   }
 `;
 
 export const ButtonControl = styled.button`
   background: ${({ theme }) => theme.colors.primary.main};
-  opacity: .5;
+  opacity: 0.5;
   border-radius: 50%;
   width: 32px;
   height: 32px;
@@ -35,5 +35,7 @@ export const ButtonControl = styled.button`
     left: 0;
   }
 
-  transform: rotate(${({ right }: { right?: boolean }) => (right ? '180deg' : '0deg')});
+  transform: rotate(
+    ${({ right }: { right?: boolean }) => (right ? '180deg' : '0deg')}
+  );
 `;

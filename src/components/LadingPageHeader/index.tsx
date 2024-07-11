@@ -67,14 +67,14 @@ export default function LandingPageHeader() {
       setTimeout(() => {
         setCompactMenu((lastState) => ({
           ...lastState,
-          isSmallDevice: window.innerWidth <= 900,
+          isSmallDevice: window.innerWidth <= 1000,
         }));
       }, 800);
     }
 
     setCompactMenu((lastState) => ({
       ...lastState,
-      isSmallDevice: window.innerWidth <= 900,
+      isSmallDevice: window.innerWidth <= 1000,
     }));
 
     if (router.pathname) {

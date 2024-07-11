@@ -3,9 +3,9 @@ import { AnnouncementGender } from '@type/creditbook/Lawsuits/AnnouncementTypes'
 import styled, { css } from 'styled-components';
 
 interface HeaderProps {
-  category: keyof AnnouncementGender,
-  status: AnnouncementStatus,
-  isSold: boolean,
+  category: keyof AnnouncementGender;
+  status: AnnouncementStatus;
+  isSold: boolean;
 }
 
 // Utils
@@ -30,7 +30,8 @@ const statusColor = {
     background: #333d5ad1;
     // #394770b5
 
-    small, strong {
+    small,
+    strong {
       color: #fff;
     }
   `,
@@ -51,6 +52,8 @@ const WrapperCard = styled.article`
   box-shadow: 2px 2px 5px rgba(133, 133, 133, 0.1);
   padding-bottom: 0;
   background: ${({ theme }) => theme.colors.grey[10]};
+  max-height: fit-content;
+
   @media (max-width: 634px) {
     max-width: 345px;
   }
@@ -66,7 +69,7 @@ const HeaderContainer = styled.header<HeaderProps>`
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   padding: 8px 24px;
-  background: ${({ category }) => (headerCategories[category])};
+  background: ${({ category }) => headerCategories[category]};
 
   background: ${({ isSold }) => isSold && '#4d609e'};
 
@@ -85,10 +88,11 @@ const HeaderContainer = styled.header<HeaderProps>`
 
 const HeaderTitle = styled.strong<{ isSold: boolean }>`
   ${firstLatterUpercase};
-    font-weight: 500;
-    font-size: 18px;
-    /* color: ${({ theme, isSold }) => (!isSold ? theme.colors.grey[80] : '#fff')}; */
+  font-weight: 500;
+  font-size: 18px;
 `;
+// color: ${({ theme, isSold }) =>
+//  !isSold ? theme.colors.grey[80] : '#fff'};
 
 const PremiumTitle = styled.small<{ isSold: boolean }>`
   font-weight: 500;
@@ -117,6 +121,10 @@ const WrapperInformation = styled.div`
   & + & {
     margin-top: 8px;
   }
+
+  small.moreSpace {
+    margin-left: -10px;
+  }
 `;
 
 const KeyInformation = styled.strong`
@@ -125,12 +133,12 @@ const KeyInformation = styled.strong`
 `;
 
 const ValueInformation = styled.small`
-  font-size: 13px;
-  ${({ bold }: { bold?: boolean }) => bold && css`
-    font-weight: 500;
-    color: ${({ theme }) => theme.colors.grey[50]};
-  `}
-
+  font-size: 12px;
+  ${({ bold }: { bold?: boolean }) => bold
+    && css`
+      font-weight: 500;
+      color: ${({ theme }) => theme.colors.grey[50]};
+    `}
 `;
 
 export const Lawsuit = {

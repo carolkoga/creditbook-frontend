@@ -1,18 +1,18 @@
-import {
-  useEffect, useState, createContext, useMemo, ReactNode,
-} from 'react';
+import { useEffect, useState, createContext, useMemo, ReactNode } from 'react';
 
 interface SidebarContextType {
-  isCollapsed: boolean,
-  handleToggleSidebarIsCollapsed: () => void,
+  isCollapsed: boolean;
+  handleToggleSidebarIsCollapsed: () => void;
   // eslint-disable-next-line no-unused-vars
-  handleControlSidebar: (collapsed: boolean) => void,
+  handleControlSidebar: (collapsed: boolean) => void;
 }
 
-export const SidebarContext = createContext<SidebarContextType>({} as SidebarContextType);
+export const SidebarContext = createContext<SidebarContextType>(
+  {} as SidebarContextType
+);
 
 interface IProps {
-  children: ReactNode,
+  children: ReactNode;
 }
 
 export default function SidebarContextProvider({ children }: IProps) {
@@ -20,11 +20,11 @@ export default function SidebarContextProvider({ children }: IProps) {
 
   function watchResizeWindowWidhAndChangeIsCollapsed() {
     setTimeout(() => {
-      if (window.innerWidth > 900) {
+      if (window.innerWidth > 1000) {
         setIsCollapsed(false);
       }
 
-      if (window.innerWidth <= 900) {
+      if (window.innerWidth <= 1000) {
         setIsCollapsed(true);
       }
     }, 500);
@@ -35,21 +35,28 @@ export default function SidebarContextProvider({ children }: IProps) {
   }
 
   useEffect(() => {
-    window.addEventListener('resize', watchResizeWindowWidhAndChangeIsCollapsed);
+    window.addEventListener(
+      'resize',
+      watchResizeWindowWidhAndChangeIsCollapsed
+    );
     watchResizeWindowWidhAndChangeIsCollapsed();
 
-    return () => window.removeEventListener('resize', watchResizeWindowWidhAndChangeIsCollapsed);
+    return () => window.removeEventListener(
+      'resize',
+      watchResizeWindowWidhAndChangeIsCollapsed
+    );
   }, []);
 
-  const values = useMemo(() => ({
-    isCollapsed,
-    handleControlSidebar: (collapsed: boolean) => setIsCollapsed(!collapsed),
-    handleToggleSidebarIsCollapsed,
-  }), [isCollapsed]);
+  const values = useMemo(
+    () => ({
+      isCollapsed,
+      handleControlSidebar: (collapsed: boolean) => setIsCollapsed(!collapsed),
+      handleToggleSidebarIsCollapsed,
+    }),
+    [isCollapsed]
+  );
 
   return (
-    <SidebarContext.Provider value={values}>
-      {children}
-    </SidebarContext.Provider>
+    <SidebarContext.Provider value={values}>{children}</SidebarContext.Provider>
   );
 }

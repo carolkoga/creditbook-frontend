@@ -26,9 +26,13 @@ export const SectionHero = styled(Section.Container)`
     gap: 0;
   }
 
-  @media screen and (max-width: 720px) {
+  @media screen and (max-width: 1000px) {
     display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 40px 10px;
+
     gap: 32px;
   }
 `;
@@ -103,6 +107,23 @@ export const ContentHero = styled.div`
       line-height: 24px;
     }
   }
+
+  @media screen and (max-width: 1000px) {
+    height: 420px;
+
+    padding: 20px;
+    align-items: center;
+    justify-content: space-between;
+
+    div.actions {
+      justify-content: center;
+      gap: 12%;
+
+      img {
+        width: 26%;
+      }
+    }
+  }
 `;
 
 export const WrapperImageHero = styled.div`
@@ -112,13 +133,19 @@ export const WrapperImageHero = styled.div`
   height: 430px;
   position: relative;
 
-  @media screen and (max-width: 1027px) {
-    width: 427px;
-    height: 330px;
+  @media screen and (max-width: 1000px) {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin: auto;
   }
 
-  @media screen and (max-width: 900px) {
-    display: none;
+  @media screen and (max-width: 1000px) {
+    /* display: none; */
   }
 `;
 
@@ -129,10 +156,6 @@ export const RelativeImageWrapper = styled.div`
     position: absolute;
     top: 75px;
     left: 10%;
-  }
-
-  @media screen and (max-width: 900px) {
-    display: none;
   }
 `;
 

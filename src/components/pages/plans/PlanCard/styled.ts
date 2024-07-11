@@ -16,7 +16,7 @@ export const Container = styled.article`
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 84px;
+    height: 120px;
     h2 {
       font-size: 20px;
       text-align: center;
@@ -30,14 +30,16 @@ export const WrapperContent = styled.main`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: #F5F5F7;
+  background: #f5f5f7;
   box-shadow: 2px 4px 10px rgba(133, 133, 133, 0.2);
   border-radius: 15px;
   padding: 32px;
   margin: 48px 32px;
   min-height: 354px;
 
-  .body__header, .body__header > div, footer{
+  .body__header,
+  .body__header > div,
+  footer {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -45,7 +47,9 @@ export const WrapperContent = styled.main`
   }
 
   .body__header {
-    h3, h4, span {
+    h3,
+    h4,
+    span {
       font-weight: 700;
       font-size: 20px;
       line-height: 29px;

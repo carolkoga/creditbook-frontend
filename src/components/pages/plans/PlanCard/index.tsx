@@ -3,18 +3,21 @@ import { ReactNode } from 'react';
 import { Container, WrapperContent } from './styled';
 
 interface PlanCardProps {
-  title: string,
+  title: string;
   information: {
-    title: string,
-    detail: string,
-    subtitle: string,
-  }
-  description: string,
-  children?: ReactNode,
+    title: string;
+    detail: string;
+    subtitle: string;
+  };
+  description: string;
+  children?: ReactNode;
 }
 
 export default function PlanCard({
-  title, information, description, children,
+  title,
+  information,
+  description,
+  children,
 }: PlanCardProps) {
   return (
     <Container>
@@ -31,16 +34,12 @@ export default function PlanCard({
           </div>
 
           <Link legacyBehavior href="/support/terms-of-service">
-            <a>
-              Ver regras e termos
-            </a>
+            <a>Ver regras e termos</a>
           </Link>
         </header>
 
         <footer>
-          <small>
-            {description}
-          </small>
+          <small>{description}</small>
 
           {children}
         </footer>

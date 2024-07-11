@@ -31,7 +31,7 @@ export default function HomeLadingPage() {
     getOnlyPremium: true,
     params: {},
   });
-  const { isAuthenticated } = useAuth();
+  const { user } = useAuth();
 
   return (
     <>
@@ -41,7 +41,6 @@ export default function HomeLadingPage() {
             <WrapperImageHero>
               <Image
                 src="/assets/images/home/creditbook_banner_texto.png"
-                layout="fixed"
                 width="580"
                 height="320"
                 priority
@@ -67,7 +66,7 @@ export default function HomeLadingPage() {
         </ContentHero>
 
         <PreSignupWrapper>
-          <PreSignUp isVisible={!isAuthenticated} />
+          <PreSignUp isVisible />
         </PreSignupWrapper>
       </SectionHero>
 
@@ -179,7 +178,9 @@ export default function HomeLadingPage() {
             </Direction>
           </Section.Header>
           <LawsuitCardSwiper
-            lawsuits={announcementsAsPremium?.announcements?.results}
+            lawsuits={announcementsAsPremium?.announcements?.results.filter(
+              ({ userId }) => userId !== user.id
+            )}
           />
         </Section.Container>
       )}

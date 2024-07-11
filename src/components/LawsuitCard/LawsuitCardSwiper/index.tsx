@@ -1,9 +1,7 @@
 import { useRef, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-import {
-  Pagination, A11y, Autoplay
-} from 'swiper';
+import { Pagination, A11y, Autoplay } from 'swiper';
 import Image from 'next/image';
 
 import useUserBatches from '@services/creditbook/batch/hooks/useUserBatches';
@@ -52,7 +50,7 @@ export default function LawsuitCardSwiper({ lawsuits }: LawsuitCardListProps) {
         modules={[Pagination, A11y, Autoplay]}
         pagination={{ dynamicBullets: true, clickable: true }}
         mousewheel
-        style={{ width: '100%' }}
+        style={{ width: '100%', height: '340px' }}
       >
         {lawsuits?.map((lawsuit) => (
           <SwiperSlide key={lawsuit.id}>
@@ -61,11 +59,7 @@ export default function LawsuitCardSwiper({ lawsuits }: LawsuitCardListProps) {
         ))}
       </Swiper>
 
-      <ButtonControl
-        type="button"
-        onClick={() => handleGoToNext()}
-        right
-      >
+      <ButtonControl type="button" onClick={() => handleGoToNext()} right>
         <Image
           src="/assets/icons/double-arrow.svg"
           width="24"
