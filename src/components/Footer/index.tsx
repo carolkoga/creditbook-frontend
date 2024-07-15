@@ -92,7 +92,7 @@ export default function Footer() {
           style={{
             display: 'flex',
             alignItems: 'start',
-            justifyContent: 'center',
+            justifyContent: 'left',
             flexDirection: 'row',
             marginBottom: '-12px',
           }}
@@ -104,7 +104,7 @@ export default function Footer() {
             alt="Endereço da sede"
             layout="fixed"
           />
-          <p style={{ textAlign: 'center' }}>
+          <p style={{ textAlign: 'left' }}>
             Alameda Santos, 1470 - 9º andar, Jardim Paulista - SP
           </p>
         </small>

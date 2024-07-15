@@ -65,7 +65,7 @@ export const FooterStyle = styled.footer`
     gap: 82px;
 
     .right-content {
-      align-items: center;
+      align-items: left;
     }
   }
 
