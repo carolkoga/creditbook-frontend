@@ -14,7 +14,7 @@ export default function MyDocument() {
           })(window,document,'script','dataLayer','GTM-WGR2DTN8');
           `}
         </Script>
-        <!-- Meta Pixel Code -->
+        
 <script>
 !function(f,b,e,v,n,t,s)
 {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -30,7 +30,7 @@ fbq('track', 'PageView');
 <noscript><img height="1" width="1" style="display:none"
 src="https://www.facebook.com/tr?id=469692729045038&ev=PageView&noscript=1"
 /></noscript>
-<!-- End Meta Pixel Code -->
+
 
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
