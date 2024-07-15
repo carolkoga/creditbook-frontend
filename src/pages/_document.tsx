@@ -14,7 +14,7 @@ export default function MyDocument() {
           })(window,document,'script','dataLayer','GTM-WGR2DTN8');
           `}
         </Script>
-       
+
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
           rel="preconnect"
