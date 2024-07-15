@@ -88,7 +88,15 @@ export default function Footer() {
           (11) 2737-1888
         </small>
 
-        <small>
+        <small
+          style={{
+            display: 'flex',
+            alignItems: 'start',
+            justifyContent: 'center',
+            flexDirection: 'row',
+            marginBottom: '-12px',
+          }}
+        >
           <Image
             src="/assets/icons/map-pin.svg"
             width="20"
@@ -96,7 +104,9 @@ export default function Footer() {
             alt="Endereço da sede"
             layout="fixed"
           />
-          Alameda Santos, 1470 - 9º andar, Jardim Paulista - SP
+          <p style={{ textAlign: 'center' }}>
+            Alameda Santos, 1470 - 9º andar, Jardim Paulista - SP
+          </p>
         </small>
 
         <small>

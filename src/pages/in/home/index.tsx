@@ -9,27 +9,24 @@ import useUserAnnouncements from '@services/creditbook/lawsuit/hooks/useUserAnno
 
 export default function Home() {
   const response = useUserAnnouncements();
-  const {
-    announcements: announcementsPremium,
-    isLoading: isLoadingPremium,
-  } = useAnnouncements(undefined, { params: { isPremium: true } });
+  const { announcements: announcementsPremium, isLoading: isLoadingPremium } =
+    useAnnouncements(undefined, {
+      params: { isPremium: true },
+      getOnlyPremium: true,
+    });
 
-  const isPremiumAnnouncementsAvailable = (
-    !isLoadingPremium
-    && announcementsPremium
-    && announcementsPremium?.results?.length > 0
-  );
+  const isPremiumAnnouncementsAvailable =
+    !isLoadingPremium &&
+    announcementsPremium &&
+    announcementsPremium?.results?.length > 0;
 
-  const {
-    announcements: favoriteAnnouncements,
-    isLoading: isLoadingFavorite,
-  } = useAnnouncements(undefined, { params: { isFavorite: true } });
+  const { announcements: favoriteAnnouncements, isLoading: isLoadingFavorite } =
+    useAnnouncements(undefined, { params: { isFavorite: true } });
 
-  const isFavoriteAnnouncementsAvailable = (
-    !isLoadingFavorite
-    && favoriteAnnouncements
-    && favoriteAnnouncements?.results?.length > 0
-  );
+  const isFavoriteAnnouncementsAvailable =
+    !isLoadingFavorite &&
+    favoriteAnnouncements &&
+    favoriteAnnouncements?.results?.length > 0;
 
   return (
     <>
@@ -63,9 +60,7 @@ export default function Home() {
 
       <Section.Container style={{ marginTop: 32 }}>
         <Section.Header>
-          <Section.Title as="h3">
-            Anúncios Gerais
-          </Section.Title>
+          <Section.Title as="h3">Anúncios Gerais</Section.Title>
         </Section.Header>
 
         <AnnouncementList

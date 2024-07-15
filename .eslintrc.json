@@ -58,7 +58,6 @@
     "@typescript-eslint/comma-dangle": "off",
     "object-curly-newline": "off",
     "padded-blocks": "off",
-    "no-trailing-spaces": "off"
-    
+    "operator-linebreak": "off"
   }
 }

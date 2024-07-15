@@ -124,6 +124,14 @@ export const ContentHero = styled.div`
       }
     }
   }
+
+  @media screen and (max-width: 675px) {
+    height: 100px;
+
+    div.actions img {
+      width: 30%;
+    }
+  }
 `;
 
 export const WrapperImageHero = styled.div`
@@ -144,8 +152,10 @@ export const WrapperImageHero = styled.div`
     margin: auto;
   }
 
-  @media screen and (max-width: 1000px) {
-    /* display: none; */
+  @media screen and (max-width: 675px) {
+    img {
+      display: none;
+    }
   }
 `;
 
@@ -221,7 +231,7 @@ export const InfoCard = styled.li`
 
   @media screen and (max-width: 502px) {
     max-width: 124px;
-    max-height: 180px;
+    height: 180px;
   }
 `;
 
