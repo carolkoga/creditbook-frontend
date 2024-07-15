@@ -89,14 +89,12 @@ export default function LawsuitNewCard({
           {lawsuit.userId !== user?.id && (
             <button
               type="button"
-              onClick={() =>
-                handleChangeFavorite({
-                  announcementId: lawsuit.id,
-                  isFavorite: lawsuit.isFavorite,
-                  userId: lawsuit.userId,
-                  favoriteId: lawsuit?.favoriteId,
-                })
-              }
+              onClick={() => handleChangeFavorite({
+                announcementId: lawsuit.id,
+                isFavorite: lawsuit.isFavorite,
+                userId: lawsuit.userId,
+                favoriteId: lawsuit?.favoriteId,
+              })}
               style={{
                 display: 'flex',
                 alignItems: 'center',
@@ -135,9 +133,9 @@ export default function LawsuitNewCard({
             <Lawsuit.Info.ValueInformation>
               {actionPhaseTranslation[lawsuit.actionPhase]?.length > 16
                 ? `${actionPhaseTranslation[lawsuit.actionPhase]?.slice(
-                    0,
-                    14
-                  )}...`
+                  0,
+                  14
+                )}...`
                 : actionPhaseTranslation[lawsuit.actionPhase]}
             </Lawsuit.Info.ValueInformation>
           </Lawsuit.Info.Container>

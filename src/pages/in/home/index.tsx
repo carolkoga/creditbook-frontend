@@ -1,3 +1,5 @@
+/* eslint-disable operator-linebreak */
+/* eslint-disable max-len */
 import AnnouncementList from '@components/LawsuitCard';
 import LawsuitCardSwiper from '@components/LawsuitCard/LawsuitCardSwiper/index';
 import { Section } from '@components/Section';
