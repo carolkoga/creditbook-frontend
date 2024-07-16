@@ -15,10 +15,8 @@ export default function MyDocument() {
           `}
         </Script>
 
-        
-<Script strategy="beforeInteractive">
-{
-  `
+        <Script strategy="beforeInteractive">
+          {`
   !function(f,b,e,v,n,t,s)
   {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
   n.callMethod.apply(n,arguments):n.queue.push(arguments)};
@@ -29,20 +27,15 @@ export default function MyDocument() {
   'https://connect.facebook.net/en_US/fbevents.js');
   fbq('init', '469692729045038');
   fbq('track', 'PageView');
-  `
-}
-</Script>
-<Script strategy="beforeInteractive">
-{
-  `
+  `}
+        </Script>
+        <Script strategy="beforeInteractive">
+          {`
   <img height="1" width="1" style="display:none"
   src="https://www.facebook.com/tr?id=469692729045038&ev=PageView&noscript=1"
   />
-  `
-}
-</Script>
-
-
+  `}
+        </Script>
 
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
