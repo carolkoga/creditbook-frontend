@@ -20,7 +20,7 @@ export default function Header() {
         <Link legacyBehavior href="/">
           <a>
             <Image
-              src="/assets/images/logo_creditbook.svg"
+              src="/assets/images/logo_creditbook.png"
               alt="logo"
               layout="fixed"
               width="180"
