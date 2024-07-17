@@ -10,7 +10,7 @@ import { userCreditbookService } from '@type/user/index';
 import { Container, Content, Header } from './styled';
 
 interface PreSignUpProps {
-  isVisible: boolean;
+  isVisible?: boolean;
 }
 
 interface PreSignUParams {

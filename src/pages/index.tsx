@@ -31,12 +31,12 @@ export default function HomeLadingPage() {
     getOnlyPremium: true,
     params: {},
   });
-  const { user } = useAuth();
+  const { user, isAuthenticated } = useAuth();
 
   return (
     <>
-      <SectionHero>
-        <ContentHero>
+      <SectionHero single={isAuthenticated}>
+        <ContentHero single={isAuthenticated}>
           <RelativeImageWrapper>
             <WrapperImageHero>
               <Image
@@ -50,13 +50,13 @@ export default function HomeLadingPage() {
           </RelativeImageWrapper>
 
           <Actions className="actions">
-            <NextLink legacyBehavior href="/in/ads/new">
+            <NextLink legacyBehavior href="/ain/ads/new">
               <img
                 src="/assets/images/home/creditbook_banner_botão1.png"
                 alt="comprar"
               />
             </NextLink>
-            <NextLink legacyBehavior href="/in/buy-credits">
+            <NextLink legacyBehavior href="/ain/buy-credits">
               <img
                 src="/assets/images/home/creditbook_banner_botão2.png"
                 alt="vender"
@@ -65,8 +65,8 @@ export default function HomeLadingPage() {
           </Actions>
         </ContentHero>
 
-        <PreSignupWrapper>
-          <PreSignUp isVisible />
+        <PreSignupWrapper isVisible={!isAuthenticated}>
+          <PreSignUp isVisible={!isAuthenticated} />
         </PreSignupWrapper>
       </SectionHero>
 
@@ -89,77 +89,89 @@ export default function HomeLadingPage() {
 
           <WrapperInfoCard>
             <InfoCard>
-              <Image
-                src="/assets/icons/home/creditbook_icone_anuncie.svg"
-                width="85"
-                height="85"
-                alt="De Lista"
-                layout="fixed"
-              />
+              <NextLink href="/ads">
+                <Image
+                  src="/assets/icons/home/creditbook_icone_anuncie.svg"
+                  width="85"
+                  height="85"
+                  alt="De Lista"
+                  layout="fixed"
+                />
+              </NextLink>
               <span>Anuncie</span>
             </InfoCard>
 
             <InfoCard>
               <div className="wrapper__image">
-                <Image
-                  src="/assets/icons/home/creditbook_icone_avalie.svg"
-                  width="85"
-                  height="85"
-                  alt="De insight"
-                  layout="fixed"
-                />
+                <NextLink href="/ads">
+                  <Image
+                    src="/assets/icons/home/creditbook_icone_avalie.svg"
+                    width="85"
+                    height="85"
+                    alt="De insight"
+                    layout="fixed"
+                  />
+                </NextLink>
               </div>
               <span>Avalie as ofertas</span>
             </InfoCard>
 
             <InfoCard>
               <div className="wrapper__image">
-                <Image
-                  src="/assets/icons/home/creditbook_icone_receba.svg"
-                  width="85"
-                  height="85"
-                  alt="De uma bolsa de dinheiro flutuando na mão (ilustrativa)"
-                  layout="fixed"
-                />
+                <NextLink href="/ads">
+                  <Image
+                    src="/assets/icons/home/creditbook_icone_receba.svg"
+                    width="85"
+                    height="85"
+                    alt="De uma bolsa de dinheiro flutuando na mão (ilustrativa)"
+                    layout="fixed"
+                  />
+                </NextLink>
               </div>
               <span>Receba o valor</span>
             </InfoCard>
 
             <InfoCard>
               <div className="wrapper__image">
-                <Image
-                  src="/assets/icons/home/creditbook_icone_busque.svg"
-                  width="85"
-                  height="85"
-                  alt="De Sinal de dolar"
-                  layout="fixed"
-                />
+                <NextLink href="/support/sell-ads">
+                  <Image
+                    src="/assets/icons/home/creditbook_icone_busque.svg"
+                    width="85"
+                    height="85"
+                    alt="De Sinal de dolar"
+                    layout="fixed"
+                  />
+                </NextLink>
               </div>
               <span>Busque anúncios</span>
             </InfoCard>
 
             <InfoCard>
               <div className="wrapper__image">
-                <Image
-                  src="/assets/icons/home/creditbook_icone_oferta.svg"
-                  width="85"
-                  height="85"
-                  alt="Bolsa de dinheiro"
-                  layout="fixed"
-                />
+                <NextLink href="/support/sell-ads">
+                  <Image
+                    src="/assets/icons/home/creditbook_icone_oferta.svg"
+                    width="85"
+                    height="85"
+                    alt="Bolsa de dinheiro"
+                    layout="fixed"
+                  />
+                </NextLink>
               </div>
               <span>Faça uma oferta</span>
             </InfoCard>
 
             <InfoCard>
               <div className="wrapper__image">
-                <Image
-                  src="/assets/icons/home/creditbook_icone_compre.svg"
-                  width="85"
-                  height="85"
-                  alt="Duas mãos fechando acordo"
-                  layout="fixed"
-                />
+                <NextLink href="/support/sell-ads">
+                  <Image
+                    src="/assets/icons/home/creditbook_icone_compre.svg"
+                    width="85"
+                    height="85"
+                    alt="Duas mãos fechando acordo"
+                    layout="fixed"
+                  />
+                </NextLink>
               </div>
               <span>Compre crédito</span>
             </InfoCard>
@@ -172,7 +184,7 @@ export default function HomeLadingPage() {
           <Section.Header>
             <Direction direction="horizontal" alignItems="center">
               <Section.Title as="h3">Galeria Premium</Section.Title>
-              <Link legacyBehavior href="/in/gallery-premium" variant="dark">
+              <Link legacyBehavior href="/ain/gallery-premium" variant="dark">
                 Ver Todos
               </Link>
             </Direction>

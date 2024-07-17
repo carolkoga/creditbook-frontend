@@ -11,11 +11,14 @@ import useUserAnnouncements from '@services/creditbook/lawsuit/hooks/useUserAnno
 
 export default function Home() {
   const response = useUserAnnouncements();
+
   const { announcements: announcementsPremium, isLoading: isLoadingPremium } =
     useAnnouncements(undefined, {
-      params: { isPremium: true },
+      params: {},
       getOnlyPremium: true,
     });
+
+  console.log(announcementsPremium);
 
   const isPremiumAnnouncementsAvailable =
     !isLoadingPremium &&
@@ -71,7 +74,7 @@ export default function Home() {
             type: 'link',
             href: '/in/ads/new',
             labelButton: 'Cadastrar Agora',
-            title: 'Não há anúncio favoritado ou criado',
+            title: 'Não há anúncios criados',
           }}
         />
       </Section.Container>

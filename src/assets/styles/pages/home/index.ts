@@ -3,8 +3,8 @@ import styled from 'styled-components';
 
 import { light } from '@styles/themes/light';
 
-export const PreSignupWrapper = styled.div`
-  display: flex;
+export const PreSignupWrapper = styled.div<{ isVisible: boolean }>`
+  display: ${(props) => (props.isVisible ? 'flex' : 'none')};
   align-items: center;
   justify-content: center;
 
@@ -12,10 +12,12 @@ export const PreSignupWrapper = styled.div`
   width: 100%;
 `;
 
-export const SectionHero = styled(Section.Container)`
+export const SectionHero = styled(Section.Container)<{ single: boolean }>`
   padding: 90px 10px;
+  display: ${(props) => (props.single ? 'flex' : 'grid')};
+  align-items: center;
+  justify-content: center;
 
-  display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 0 10px;
   margin-bottom: 32px;
@@ -37,12 +39,12 @@ export const SectionHero = styled(Section.Container)`
   }
 `;
 
-export const ContentHero = styled.div`
+export const ContentHero = styled.div<{ single: boolean }>`
   padding: 0px 80px;
 
   display: flex;
   flex-direction: column;
-  align-items: left;
+  align-items: ${(props) => (props.single ? 'center' : 'left')};
   justify-content: center;
 
   gap: 10px;
@@ -51,7 +53,7 @@ export const ContentHero = styled.div`
     z-index: 50;
 
     max-width: 100%;
-    width: 80%;
+    width: ${(props) => (props.single ? '100%' : '80%')};
 
     display: flex;
     align-items: start;
@@ -60,7 +62,7 @@ export const ContentHero = styled.div`
     margin-top: -18%;
 
     img {
-      width: 40%;
+      width: ${(props) => (props.single ? '200px' : '40%')};
 
       cursor: pointer !important;
     }

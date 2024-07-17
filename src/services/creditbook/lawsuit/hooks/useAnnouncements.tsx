@@ -1,6 +1,4 @@
-import {
-  useCallback, useEffect, useState,
-} from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import { QueriesToIndexAnnouncements } from '@type/creditbook';
 
@@ -9,15 +7,16 @@ import { AnnouncementResponse, CommonHookParams } from './types';
 
 export interface IUseAnnouncementResponse extends CommonHookParams {
   // eslint-disable-next-line no-unused-vars
-  loadMoreAnnouncement: (page?: number) => void,
+  loadMoreAnnouncement: (page?: number) => void;
 }
 
 export default function useAnnouncements(
   defaultValue?: AnnouncementResponse,
-  fetcherOptions?: QueriesToIndexAnnouncements,
+  fetcherOptions?: QueriesToIndexAnnouncements
 ): IUseAnnouncementResponse {
-  const [currentAnnouncements,
-    setCurrentAnnouncements] = useState(defaultValue as AnnouncementResponse);
+  const [currentAnnouncements, setCurrentAnnouncements] = useState(
+    defaultValue as AnnouncementResponse
+  );
   const [isFiltered, setIsFiltered] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(false);
@@ -38,6 +37,7 @@ export default function useAnnouncements(
           },
         });
       }
+
       setCurrentAnnouncements({
         pages: response.data.pages,
         results: response.data.announcements,
