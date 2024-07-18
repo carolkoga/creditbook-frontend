@@ -25,7 +25,7 @@ const routes = [
 
   {
     label: 'Vender',
-    link: '/support/sell-ads',
+    link: '/in/support/sell-ads',
   },
 
   {

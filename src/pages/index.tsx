@@ -50,13 +50,13 @@ export default function HomeLadingPage() {
           </RelativeImageWrapper>
 
           <Actions className="actions">
-            <NextLink legacyBehavior href="/ain/ads/new">
+            <NextLink legacyBehavior href="/in/in/ads/new">
               <img
                 src="/assets/images/home/creditbook_banner_botão1.png"
                 alt="comprar"
               />
             </NextLink>
-            <NextLink legacyBehavior href="/ain/buy-credits">
+            <NextLink legacyBehavior href="/in/buy-credits">
               <img
                 src="/assets/images/home/creditbook_banner_botão2.png"
                 alt="vender"
@@ -89,7 +89,7 @@ export default function HomeLadingPage() {
 
           <WrapperInfoCard>
             <InfoCard>
-              <NextLink href="/ads">
+              <NextLink href="/in/support/sell-ads">
                 <Image
                   src="/assets/icons/home/creditbook_icone_anuncie.svg"
                   width="85"
@@ -103,7 +103,7 @@ export default function HomeLadingPage() {
 
             <InfoCard>
               <div className="wrapper__image">
-                <NextLink href="/ads">
+                <NextLink href="/in/support/sell-ads">
                   <Image
                     src="/assets/icons/home/creditbook_icone_avalie.svg"
                     width="85"
@@ -118,7 +118,7 @@ export default function HomeLadingPage() {
 
             <InfoCard>
               <div className="wrapper__image">
-                <NextLink href="/ads">
+                <NextLink href="/in/support/sell-ads">
                   <Image
                     src="/assets/icons/home/creditbook_icone_receba.svg"
                     width="85"
@@ -133,7 +133,7 @@ export default function HomeLadingPage() {
 
             <InfoCard>
               <div className="wrapper__image">
-                <NextLink href="/support/sell-ads">
+                <NextLink href="/in/ads">
                   <Image
                     src="/assets/icons/home/creditbook_icone_busque.svg"
                     width="85"
@@ -148,7 +148,7 @@ export default function HomeLadingPage() {
 
             <InfoCard>
               <div className="wrapper__image">
-                <NextLink href="/support/sell-ads">
+                <NextLink href="/in/ads">
                   <Image
                     src="/assets/icons/home/creditbook_icone_oferta.svg"
                     width="85"
@@ -163,7 +163,7 @@ export default function HomeLadingPage() {
 
             <InfoCard>
               <div className="wrapper__image">
-                <NextLink href="/support/sell-ads">
+                <NextLink href="/in/ads">
                   <Image
                     src="/assets/icons/home/creditbook_icone_compre.svg"
                     width="85"

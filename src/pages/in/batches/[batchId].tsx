@@ -25,12 +25,10 @@ import ChooseCreditCard from '@components/BatchForm/ChooseCreditCard';
 import NewLawsuit from '../ads/new';
 
 interface IProps {
-  initialBatch: BatchParams
+  initialBatch: BatchParams;
 }
 
-export default function ShowBatchPage({
-  initialBatch,
-}: IProps) {
+export default function ShowBatchPage({ initialBatch }: IProps) {
   const router = useRouter();
   const [batch, setBatch] = useState(initialBatch);
   const [modalBatchBeingDelete, setModalBatchBeingDelete] = useState<boolean>(false);
@@ -38,10 +36,12 @@ export default function ShowBatchPage({
   const [deletingLoading, setDeletingLoading] = useState<boolean>(false);
   const [updatingLoading, setUpdatingLoading] = useState<boolean>(false);
   const [finishingLoading, setFinishingLoading] = useState<boolean>(false);
-  const [announcementsInBatch, setAnnouncementsInBatch] = useState(
-    { announcements: { results: batch.announcement, pages: 1 } },
+  const [announcementsInBatch, setAnnouncementsInBatch] = useState({
+    announcements: { results: batch.announcement, pages: 1 },
+  });
+  const [isCreating, setCreating] = useState<boolean>(
+    Boolean(router.query?.creating) || batch.status === 'being_created'
   );
-  const [isCreating, setCreating] = useState<boolean>(Boolean(router.query?.creating) || batch.status === 'being_created');
 
   const [openChoosePlanModal, setModalChoosePlanModal] = useState(false);
   const [choosePaymentMethodModal, setModalChoosePaymentMethod] = useState(false);
@@ -133,7 +133,8 @@ export default function ShowBatchPage({
         batch: {
           status: 'pending',
           plan: planSelected,
-          paymentMethodId: planSelected === 'byPercent' ? undefined : paymentMethodId,
+          paymentMethodId:
+            planSelected === 'byPercent' ? undefined : paymentMethodId,
         },
       });
 
@@ -168,23 +169,35 @@ export default function ShowBatchPage({
 
   return (
     <>
-      <ChooseCreditCard setPaymentMethod={setPaymentMethodId} choosenCreditCard={paymentMethodId} onBack={handleCloseModalChoosePaymentMethod} isVisible={choosePaymentMethodModal} />
+      <ChooseCreditCard
+        setPaymentMethod={setPaymentMethodId}
+        choosenCreditCard={paymentMethodId}
+        onBack={handleCloseModalChoosePaymentMethod}
+        isVisible={choosePaymentMethodModal}
+      />
 
-      <ModalToSelectPlan planSelected={planSelected} isVisible={openChoosePlanModal} batchValue={Number(batch.value)} setPlan={handleSelectPlan}>
+      <ModalToSelectPlan
+        planSelected={planSelected}
+        isVisible={openChoosePlanModal}
+        batchValue={Number(batch.value)}
+        setPlan={handleSelectPlan}
+      >
         <button type="button" onClick={() => setModalChoosePlanModal(false)}>
           Voltar
         </button>
 
-        {(planSelected === 'byPercent') && (
-        <Button onClick={handleFinishBatchCreating}>
-          Concluir
-        </Button>
+        {planSelected === 'byPercent' && (
+          <Button onClick={handleFinishBatchCreating}>Concluir</Button>
         )}
 
-        {(planSelected !== 'byPercent') && (
-        <Button type="button" onClick={handleOpenModalChoosePaymentMethod} disabled={!planSelected}>
-          Escolher pagamento
-        </Button>
+        {planSelected !== 'byPercent' && (
+          <Button
+            type="button"
+            onClick={handleOpenModalChoosePaymentMethod}
+            disabled={!planSelected}
+          >
+            Escolher pagamento
+          </Button>
         )}
       </ModalToSelectPlan>
       {/*
@@ -198,7 +211,9 @@ export default function ShowBatchPage({
       </ChooseCreditCard> */}
 
       <Section.Header>
-        <Button variant="white" onClick={backToLastRoute}>Voltar</Button>
+        <Button variant="white" onClick={backToLastRoute}>
+          Voltar
+        </Button>
         {/* <Alert
           message="Atenção - Plano percentual (8% sobre a venda)"
           description="Os anúncios em lote oferecem apenas o plano percentual
@@ -221,14 +236,18 @@ export default function ShowBatchPage({
         <Direction>
           <Section.Title as="h1">Lote: {batch.name}</Section.Title>
           <FormProvider {...methods}>
-            <BatchForm onSubmit={methods.handleSubmit(handleUpdateBatch)} disableValue>
+            <BatchForm
+              onSubmit={methods.handleSubmit(handleUpdateBatch)}
+              disableValue
+            >
               <WrapperActionsForm>
-                {(!isCreating) && (batch.status === 'active' || batch.status === 'edition_requested')
-                  && (
-                  <Button type="submit" isLoading={updatingLoading}>
-                    Salvar
-                  </Button>
-                  )}
+                {!isCreating
+                  && (batch.status === 'active'
+                    || batch.status === 'edition_requested') && (
+                    <Button type="submit" isLoading={updatingLoading}>
+                      Salvar
+                    </Button>
+                )}
                 <Button
                   type="button"
                   variant="danger"
@@ -244,7 +263,7 @@ export default function ShowBatchPage({
                     replace
                     href={`/in/sale/declare?processId=${batch.id}`}
                   >
-                    Comunicar  Venda
+                    Comunicar Venda
                   </Link>
                 )}
               </WrapperActionsForm>
@@ -257,10 +276,10 @@ export default function ShowBatchPage({
         <br />
 
         {isCreating && (
-        <NewLawsuit
-          batchId={batch.id}
-          setAnnouncementsInBatch={setAnnouncementsInBatch}
-        />
+          <NewLawsuit
+            batchId={batch.id}
+            setAnnouncementsInBatch={setAnnouncementsInBatch}
+          />
         )}
       </Section.Container>
 
@@ -339,7 +358,10 @@ export default function ShowBatchPage({
   );
 }
 
-export const getServerSideProps: GetServerSideProps<IProps> = async ({ query, req }) => {
+export const getServerSideProps: GetServerSideProps<IProps> = async ({
+  query,
+  req,
+}) => {
   const api = setupAPIClient(req.cookies['nextauth.token']);
   const batchService = new BatchServices(api);
   const { data } = await batchService.show(query.batchId as string);
