@@ -63,7 +63,7 @@ export function AuthProvider({ children }: IProps) {
     setUser(null);
     localStorage.removeItem('nextauth.token');
     destroyAuthCookies();
-    Router.push('/');
+    Router.replace('/');
 
     delete creditbookApi.defaults.headers.common.Authorization;
   }
@@ -114,18 +114,6 @@ export function AuthProvider({ children }: IProps) {
       localStorage.setItem('nextauth.token', token);
       creditbookApi.defaults.headers.common.Authorization = `Bearer ${token}`;
 
-      if (userSignIn.role === 'user') {
-        if (data.pathname) {
-          Router.replace(data.pathname);
-        } else {
-          Router.replace('/in/home');
-        }
-      }
-
-      if (userSignIn.role === 'admin') {
-        Router.replace('/admin/dashboard');
-      }
-
       setUser(userSignIn);
       // setAuthorizationHeader(token);
 
@@ -142,6 +130,22 @@ export function AuthProvider({ children }: IProps) {
           path: '/',
         }
       );
+
+      if (userSignIn.role === 'user') {
+        if (data.pathname) {
+          // Router.replace(data.pathname);
+          window.location.href = data.pathname;
+        } else {
+          // Router.replace('/in/home');
+          window.location.href = '/in/home';
+        }
+      }
+
+      if (userSignIn.role === 'admin') {
+        // Router.replace('/admin/dashboard');
+        window.location.href = '/admin/dashboard';
+      }
+
       toast.dismiss(toastId);
     } catch (error: any) {
       handleCatchErrorRequest(error);
