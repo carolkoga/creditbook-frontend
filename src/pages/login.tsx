@@ -9,8 +9,9 @@ import { WrapperForm } from '@styles/pages/login';
 import useAuth from 'hooks/useAuth';
 import CheckboxShownPassword from '@components/UserForm/components/CheckboxShownPassword';
 import { Direction } from '@components/Direction';
-import router from 'next/router';
 import { userCreditbookService } from '@type/user';
+import router from 'next/router';
+import { useSearchParams } from 'next/navigation';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -18,8 +19,13 @@ export default function Login() {
   const [loading, setLoading] = useState(false);
   const { handleSignIn } = useAuth();
   const [password, setPassword] = useState('');
-  const [shownPassword, setShownPassword] = useState<'text' | 'password'>('password');
+  const [shownPassword, setShownPassword] = useState<'text' | 'password'>(
+    'password'
+  );
   const isValid = !email.length && !password.length;
+
+  const searchParams = useSearchParams();
+  const redirect = searchParams.get('redirect');
 
   async function handleRegisterRedirect() {
     if (email) {
@@ -50,7 +56,11 @@ export default function Login() {
       setLoading(true);
       event.preventDefault();
 
-      await handleSignIn({ email, password });
+      await handleSignIn({
+        email,
+        password,
+        pathname: redirect || undefined,
+      });
     } finally {
       setLoading(false);
     }
@@ -72,7 +82,10 @@ export default function Login() {
 
       <WrapperForm>
         <form noValidate onSubmit={onSignIn}>
-          <FormGroup label={{ title: 'E-mail', forId: 'email' }} error={emailError}>
+          <FormGroup
+            label={{ title: 'E-mail', forId: 'email' }}
+            error={emailError}
+          >
             <Input
               type="email"
               placeholder=" "
@@ -115,9 +128,7 @@ export default function Login() {
           </Button>
 
           <LinkNext legacyBehavior href="/reset-password">
-            <a className="forget__password">
-              Esqueci minha senha
-            </a>
+            <a className="forget__password">Esqueci minha senha</a>
           </LinkNext>
         </div>
       </WrapperForm>

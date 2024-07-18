@@ -20,12 +20,12 @@ const routes = [
 
   {
     label: 'Comprar',
-    link: '/ads',
+    link: '/in/ads/ads?redirect=/in/ads/ads',
   },
 
   {
     label: 'Vender',
-    link: '/in/support/sell-ads',
+    link: '/in/support/sell-ads?redirect=/in/support/sell-ads',
   },
 
   {

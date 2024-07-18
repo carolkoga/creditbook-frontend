@@ -1,3 +1,4 @@
+/* eslint-disable operator-linebreak */
 /* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable no-nested-ternary */
 import { NextRequest, NextResponse } from 'next/server';
@@ -19,7 +20,10 @@ export function middleware(req: NextRequest) {
     return { token, user };
   }
 
-  if (req.nextUrl.pathname.startsWith('/admin') || req.nextUrl.pathname.startsWith('/login')) {
+  if (
+    req.nextUrl.pathname.startsWith('/admin') ||
+    req.nextUrl.pathname.startsWith('/login')
+  ) {
     const { token: isAuthenticated, user } = _getTokenAndUser();
 
     let path = !isAuthenticated ? '/login' : req.nextUrl.pathname;
@@ -35,7 +39,10 @@ export function middleware(req: NextRequest) {
     return NextResponse.rewrite(new URL(path, req.url));
   }
 
-  if (req.nextUrl.pathname.startsWith('/in') || req.nextUrl.pathname.startsWith('/login')) {
+  if (
+    req.nextUrl.pathname.startsWith('/in') ||
+    req.nextUrl.pathname.startsWith('/login')
+  ) {
     const { token: isAuthenticated, user } = _getTokenAndUser();
 
     let path = !isAuthenticated ? '/login' : req.nextUrl.pathname;

@@ -1,11 +1,19 @@
 import { useRouter } from 'next/router';
 import {
-  createContext, ReactNode, useCallback, useEffect, useMemo, useState,
+  createContext,
+  ReactNode,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
 } from 'react';
 import { toast, ToastOptions } from 'react-toastify';
 import { setCookie, parseCookies, destroyCookie } from 'nookies';
 
-import { AuthContextType, AuthenticatedUserData } from '@type/creditbook/auth/authenticatedUser';
+import {
+  AuthContextType,
+  AuthenticatedUserData,
+} from '@type/creditbook/auth/authenticatedUser';
 import { authCreditBookService } from '@services/creditbook/auth';
 import { LoginParams } from '@type/creditbook/auth/login';
 import { creditbookApi } from '@api/creditbookApi';
@@ -16,7 +24,7 @@ import { AxiosResponse } from 'axios';
 import { handleCatchErrorRequest } from '@utils/handleCatchErrorRequest';
 
 interface IProps {
-  children: ReactNode,
+  children: ReactNode;
 }
 
 export const AuthContext = createContext({} as Omit<AuthContextType, 'token'>);
@@ -87,11 +95,16 @@ export function AuthProvider({ children }: IProps) {
   // }
 
   async function handleSignIn(data: LoginParams) {
-    const toastId = toast.loading('Estamos verificando seus dados, aguarde um momento...', customToastProps);
+    const toastId = toast.loading(
+      'Estamos verificando seus dados, aguarde um momento...',
+      customToastProps
+    );
     try {
       setIsLoading(true);
       handleAddCustomLoadingScreen();
-      const response = await authCreditBookService.multipleLogin(data) as AxiosResponse;
+      const response = (await authCreditBookService.multipleLogin(
+        data
+      )) as AxiosResponse;
 
       const { token, user: userSignIn } = response.data;
       setCookie(undefined, 'nextauth.token', token, {
@@ -102,6 +115,10 @@ export function AuthProvider({ children }: IProps) {
       creditbookApi.defaults.headers.common.Authorization = `Bearer ${token}`;
 
       if (userSignIn.role === 'user') {
+        if (data.pathname) {
+          Router.replace(data.pathname);
+        }
+
         Router.replace('/in/home');
       }
 
@@ -112,14 +129,19 @@ export function AuthProvider({ children }: IProps) {
       setUser(userSignIn);
       // setAuthorizationHeader(token);
 
-      setCookie(undefined, 'nextauth.user', JSON.stringify({
-        ...userSignIn,
-        password: undefined,
-        role: userSignIn.role,
-      }), {
-        maxAge: 60 * 60 * 24 * 30, // 30 days
-        path: '/',
-      });
+      setCookie(
+        undefined,
+        'nextauth.user',
+        JSON.stringify({
+          ...userSignIn,
+          password: undefined,
+          role: userSignIn.role,
+        }),
+        {
+          maxAge: 60 * 60 * 24 * 30, // 30 days
+          path: '/',
+        }
+      );
       toast.dismiss(toastId);
     } catch (error: any) {
       handleCatchErrorRequest(error);
@@ -130,9 +152,12 @@ export function AuthProvider({ children }: IProps) {
     }
   }
 
-  const updateUser = useCallback((data: any) => {
-    setUser(data);
-  }, [user]);
+  const updateUser = useCallback(
+    (data: any) => {
+      setUser(data);
+    },
+    [user]
+  );
 
   async function getUserInformation(token?: string) {
     const { 'nextauth.user': userDataSaved } = parseCookies();
@@ -143,7 +168,9 @@ export function AuthProvider({ children }: IProps) {
     if (!token) return handleSignOut();
 
     try {
-      const { data } = await userCreditbookService.getUserInformation({ token });
+      const { data } = await userCreditbookService.getUserInformation({
+        token,
+      });
 
       setUser({ ...data, password: undefined });
     } catch {
@@ -165,13 +192,16 @@ export function AuthProvider({ children }: IProps) {
     }
   }, []);
 
-  const values = useMemo(() => ({
-    user: user as AuthenticatedUserData,
-    isAuthenticated,
-    handleSignIn,
-    handleSignOut,
-    handleUpdateUser: (data: AuthenticatedUserData) => updateUser(data),
-  }), [isAuthenticated, user, updateUser, handleSignOut, handleSignIn]);
+  const values = useMemo(
+    () => ({
+      user: user as AuthenticatedUserData,
+      isAuthenticated,
+      handleSignIn,
+      handleSignOut,
+      handleUpdateUser: (data: AuthenticatedUserData) => updateUser(data),
+    }),
+    [isAuthenticated, user, updateUser, handleSignOut, handleSignIn]
+  );
 
   return (
     <AuthContext.Provider value={values}>
