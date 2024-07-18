@@ -45,12 +45,7 @@ export function middleware(req: NextRequest) {
   ) {
     const { token: isAuthenticated, user } = _getTokenAndUser();
 
-    let path = !isAuthenticated ? '/login' : req.nextUrl.basePath;
-
-    console.log('pagina privada ou login');
-    console.log('Está autenticado', isAuthenticated);
-    console.log('Url', req.url);
-    console.log('Next Url', req.nextUrl.pathname);
+    let path = !isAuthenticated ? '/login' : req.nextUrl.pathname;
 
     if (isAuthenticated && user?.role === 'user') {
       if (req.nextUrl.pathname === '/login') {

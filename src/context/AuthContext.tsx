@@ -117,9 +117,9 @@ export function AuthProvider({ children }: IProps) {
       if (userSignIn.role === 'user') {
         if (data.pathname) {
           Router.replace(data.pathname);
+        } else {
+          Router.replace('/in/home');
         }
-
-        Router.replace('/in/home');
       }
 
       if (userSignIn.role === 'admin') {
