@@ -9,7 +9,7 @@ export default function Footer() {
         <Link legacyBehavior href="/">
           <a>
             <Image
-              src="/assets/images/creditbook_logo.png"
+              src="/assets/images/logo_creditbook.svg"
               width="180"
               height="50"
               alt="Logo"

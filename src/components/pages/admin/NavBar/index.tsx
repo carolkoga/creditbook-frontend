@@ -51,7 +51,7 @@ export default function NavBarAdmin({ menu }: IProps) {
               alt="logo"
               height="50"
               layout="intrinsic"
-              src="/assets/images/creditbook_logo.png"
+              src="/assets/images/logo_creditbook.svg"
             />
           </a>
         </Link>
