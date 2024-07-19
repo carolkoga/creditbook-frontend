@@ -13,6 +13,7 @@ import {
   ContainerVideoAndInfo,
   RelativeImageWrapper,
   PreSignupWrapper,
+  LineInfoCards,
 } from '@styles/pages/home';
 
 import { Section } from '@components/Section';
@@ -90,116 +91,121 @@ export default function HomeLadingPage() {
             />
           </WrapperVideo>
 
-          <WrapperInfoCard>
-            <InfoCard>
-              <NextLink
-                legacyBehavior
-                href="/in/support/sell-ads?redirect=/in/support/sell-ads"
-              >
-                <Image
-                  src="/assets/icons/home/creditbook_icone_anuncie.svg"
-                  width="25"
-                  height="25"
-                  alt="De Lista"
-                  layout="fixed"
-                />
-              </NextLink>
-              <span>Anuncie seu crédito judicial em qualquer fase da ação</span>
-            </InfoCard>
-
-            <InfoCard>
-              <div className="wrapper__image">
+          <LineInfoCards>
+            <h3>Venda de Créditos</h3>
+            <WrapperInfoCard>
+              <InfoCard>
                 <NextLink
                   legacyBehavior
                   href="/in/support/sell-ads?redirect=/in/support/sell-ads"
                 >
                   <Image
-                    src="/assets/icons/home/creditbook_icone_avalie.svg"
+                    src="/assets/icons/home/creditbook_icone_anuncie.svg"
                     width="25"
                     height="25"
-                    alt="De insight"
+                    alt="De Lista"
                     layout="fixed"
                   />
                 </NextLink>
-              </div>
-              <span>Avalie ofertas e escolha a melhor para você</span>
-            </InfoCard>
+                <span>Anuncie seu crédito judicial em qualquer fase da ação</span>
+              </InfoCard>
 
-            <InfoCard>
-              <div className="wrapper__image">
-                <NextLink
-                  legacyBehavior
-                  href="/in/support/sell-ads?redirect=/in/support/sell-ads"
-                >
-                  <Image
-                    src="/assets/icons/home/creditbook_icone_receba.svg"
-                    width="25"
-                    height="25"
-                    alt="De uma bolsa de dinheiro flutuando na mão (ilustrativa)"
-                    layout="fixed"
-                  />
-                </NextLink>
-              </div>
-              <span>Chega de esperar! Receba o valor em dinheiro</span>
-            </InfoCard>
+              <InfoCard>
+                <div className="wrapper__image">
+                  <NextLink
+                    legacyBehavior
+                    href="/in/support/sell-ads?redirect=/in/support/sell-ads"
+                  >
+                    <Image
+                      src="/assets/icons/home/creditbook_icone_avalie.svg"
+                      width="25"
+                      height="25"
+                      alt="De insight"
+                      layout="fixed"
+                    />
+                  </NextLink>
+                </div>
+                <span>Avalie ofertas e escolha a melhor para você</span>
+              </InfoCard>
 
-            <InfoCard>
-              <div className="wrapper__image">
-                <NextLink
-                  legacyBehavior
-                  href="/in/ads/ads?redirect=/in/ads/ads"
-                >
-                  <Image
-                    src="/assets/icons/home/creditbook_icone_busque.svg"
-                    width="25"
-                    height="25"
-                    alt="De Sinal de dolar"
-                    layout="fixed"
-                  />
-                </NextLink>
-              </div>
-              <span>Busque anúncios com filtros inteligentes</span>
-            </InfoCard>
+              <InfoCard>
+                <div className="wrapper__image">
+                  <NextLink
+                    legacyBehavior
+                    href="/in/support/sell-ads?redirect=/in/support/sell-ads"
+                  >
+                    <Image
+                      src="/assets/icons/home/creditbook_icone_receba.svg"
+                      width="25"
+                      height="25"
+                      alt="De uma bolsa de dinheiro flutuando na mão (ilustrativa)"
+                      layout="fixed"
+                    />
+                  </NextLink>
+                </div>
+                <span>Chega de esperar! Receba o valor em dinheiro</span>
+              </InfoCard>
+            </WrapperInfoCard>
+            <h3>Compra de Créditos</h3>
+            <WrapperInfoCard>
+              <InfoCard>
+                <div className="wrapper__image">
+                  <NextLink
+                    legacyBehavior
+                    href="/in/ads/ads?redirect=/in/ads/ads"
+                  >
+                    <Image
+                      src="/assets/icons/home/creditbook_icone_busque.svg"
+                      width="25"
+                      height="25"
+                      alt="De Sinal de dolar"
+                      layout="fixed"
+                    />
+                  </NextLink>
+                </div>
+                <span>Busque anúncios com filtros inteligentes</span>
+              </InfoCard>
 
-            <InfoCard>
-              <div className="wrapper__image">
-                <NextLink
-                  legacyBehavior
-                  href="/in/ads/ads?redirect=/in/ads/ads"
-                >
-                  <Image
-                    src="/assets/icons/home/creditbook_icone_oferta.svg"
-                    width="25"
-                    height="25"
-                    alt="Bolsa de dinheiro"
-                    layout="fixed"
-                  />
-                </NextLink>
-              </div>
-              <span>Escolha o melhor investimento e faça sua oferta</span>
-            </InfoCard>
+              <InfoCard>
+                <div className="wrapper__image">
+                  <NextLink
+                    legacyBehavior
+                    href="/in/ads/ads?redirect=/in/ads/ads"
+                  >
+                    <Image
+                      src="/assets/icons/home/creditbook_icone_oferta.svg"
+                      width="25"
+                      height="25"
+                      alt="Bolsa de dinheiro"
+                      layout="fixed"
+                    />
+                  </NextLink>
+                </div>
+                <span>Escolha o melhor investimento e faça sua oferta</span>
+              </InfoCard>
 
-            <InfoCard>
-              <div className="wrapper__image">
-                <NextLink
-                  legacyBehavior
-                  href="/in/ads/ads?redirect=/in/ads/ads"
-                >
-                  <Image
-                    src="/assets/icons/home/creditbook_icone_compre.svg"
-                    width="25"
-                    height="25"
-                    alt="Duas mãos fechando acordo"
-                    layout="fixed"
-                  />
-                </NextLink>
-              </div>
-              <span>
-                Feche negócio
-                <br /> com alta lucratividade
-              </span>
-            </InfoCard>
-          </WrapperInfoCard>
+              <InfoCard>
+                <div className="wrapper__image">
+                  <NextLink
+                    legacyBehavior
+                    href="/in/ads/ads?redirect=/in/ads/ads"
+                  >
+                    <Image
+                      src="/assets/icons/home/creditbook_icone_compre.svg"
+                      width="25"
+                      height="25"
+                      alt="Duas mãos fechando acordo"
+                      layout="fixed"
+                    />
+                  </NextLink>
+                </div>
+                <span>
+                  Feche negócio
+                  <br /> com alta lucratividade
+                </span>
+              </InfoCard>
+            </WrapperInfoCard>
+          </LineInfoCards>
         </ContainerVideoAndInfo>
       </Section.Container>
 

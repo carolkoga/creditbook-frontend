@@ -146,11 +146,11 @@ export const ContentHero = styled.div<{ single: boolean }>`
     }    
   }
   
-  @media screen and (max-width: 390px) {
+  @media screen and (max-width: 400px) {
     height: 250px;
 
     div.actions img {
-      width: 55%;
+      width: 50%;
     }    
   }
 `;
@@ -207,13 +207,31 @@ export const ContainerVideoAndInfo = styled.div`
   }
 `;
 
-export const WrapperInfoCard = styled.ul`
+export const LineInfoCards = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  
+
+  h3 {
+    font-weight: 500;
+    font-size: 22px;
+    line-height: 40px;
+    color: #150882;
+    text-align:center;
+}
+
+
+`;
+
+export const WrapperInfoCard = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-end;
   gap: 24px 18px;
   flex-wrap: wrap;
   max-width: 567px;
+  margin-bottom:30px;
 
   @media screen and (max-width: 1000px) {
     justify-content: center;
@@ -252,8 +270,8 @@ export const InfoCard = styled.li`
   }
 
   @media screen and (max-width: 502px) {
-    max-width: 154px;
-    height: 180px;
+    max-width: 70%;
+    height: 140px;
   }
 `;
 
