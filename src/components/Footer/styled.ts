@@ -15,15 +15,15 @@ export const FooterStyle = styled.footer`
 
   .left-content {
     .networking__media {
-      margin-top: 63px;
+      margin-top: 40px;
       display: flex;
       align-items: center;
-      gap: 18px;
+      gap: 8px;
 
       li {
         /* background: rgba(22, 8, 131, .13); */
         border-radius: 5px;
-        padding: 11px;
+        padding: 0px;
 
         cursor: pointer;
       }

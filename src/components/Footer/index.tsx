@@ -10,13 +10,45 @@ export default function Footer() {
           <a>
             <Image
               src="/assets/images/logo_creditbook.svg"
-              width="180"
+              width="256"
               height="50"
               alt="Logo"
               layout="fixed"
             />
           </a>
         </Link>
+
+        <small>
+          <Image
+            src="/assets/icons/phone.svg"
+            width="20"
+            height="20"
+            alt="Telefone para contato"
+            layout="fixed"
+          />
+          (11) 2737-1888
+        </small>
+
+        <small
+          style={{
+            display: 'flex',
+            alignItems: 'start',
+            justifyContent: 'left',
+            flexDirection: 'row',
+            marginBottom: '-12px',
+          }}
+        >
+          <Image
+            src="/assets/icons/map-pin.svg"
+            width="20"
+            height="20"
+            alt="Endereço da sede"
+            layout="fixed"
+          />
+          <p style={{ textAlign: 'left' }}>
+            Alameda Santos, 1470 - 9º andar, Jardim Paulista - SP
+          </p>
+        </small>
 
         <ul className="networking__media">
           <li>
@@ -70,48 +102,19 @@ export default function Footer() {
       </div>
 
       <div className="right-content">
+      <small>
+          © {new Date().getFullYear()} Creditbook. All rights reserved.
+        </small>
+
         <small>
-          Ajude-nos a evoluir!
+          Ajude-nos a evoluir!          
+        </small>
+
+        <small>          
           <Link legacyBehavior href="/contact">
             <a className="button">Dar Feedback</a>
           </Link>
-        </small>
-
-        <small>
-          <Image
-            src="/assets/icons/phone.svg"
-            width="20"
-            height="20"
-            alt="Telefone para contato"
-            layout="fixed"
-          />
-          (11) 2737-1888
-        </small>
-
-        <small
-          style={{
-            display: 'flex',
-            alignItems: 'start',
-            justifyContent: 'left',
-            flexDirection: 'row',
-            marginBottom: '-12px',
-          }}
-        >
-          <Image
-            src="/assets/icons/map-pin.svg"
-            width="20"
-            height="20"
-            alt="Endereço da sede"
-            layout="fixed"
-          />
-          <p style={{ textAlign: 'left' }}>
-            Alameda Santos, 1470 - 9º andar, Jardim Paulista - SP
-          </p>
-        </small>
-
-        <small>
-          © {new Date().getFullYear()} Creditbook. All rights reserved.
-        </small>
+        </small>     
       </div>
     </FooterStyle>
   );
