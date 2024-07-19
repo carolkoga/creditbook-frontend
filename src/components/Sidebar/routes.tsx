@@ -27,7 +27,7 @@ export const routes = [
   {
     label: 'Comprar',
     icon: <ShoppingCart size={24} weight="regular" />,
-    link: '/ads',
+    link: '/in/ads/ads',
   },
 
   {
