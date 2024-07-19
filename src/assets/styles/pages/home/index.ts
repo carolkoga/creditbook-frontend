@@ -146,7 +146,7 @@ export const ContentHero = styled.div<{ single: boolean }>`
     }    
   }
   
-  @media screen and (max-width: 375px) {
+  @media screen and (max-width: 390px) {
     height: 250px;
 
     div.actions img {
@@ -252,7 +252,7 @@ export const InfoCard = styled.li`
   }
 
   @media screen and (max-width: 502px) {
-    max-width: 124px;
+    max-width: 154px;
     height: 180px;
   }
 `;
