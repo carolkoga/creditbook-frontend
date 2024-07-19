@@ -207,13 +207,31 @@ export const ContainerVideoAndInfo = styled.div`
   }
 `;
 
-export const WrapperInfoCard = styled.ul`
+export const LineInfoCards = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  
+
+  h3 {
+    font-weight: 500;
+    font-size: 22px;
+    line-height: 40px;
+    color: #150882;
+    text-align:center;
+}
+
+
+`;
+
+export const WrapperInfoCard = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-end;
   gap: 24px 18px;
   flex-wrap: wrap;
   max-width: 567px;
+  margin-bottom:30px;
 
   @media screen and (max-width: 1000px) {
     justify-content: center;
