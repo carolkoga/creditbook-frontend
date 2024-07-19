@@ -146,11 +146,11 @@ export const ContentHero = styled.div<{ single: boolean }>`
     }    
   }
   
-  @media screen and (max-width: 390px) {
+  @media screen and (max-width: 400px) {
     height: 250px;
 
     div.actions img {
-      width: 55%;
+      width: 50%;
     }    
   }
 `;
@@ -252,8 +252,8 @@ export const InfoCard = styled.li`
   }
 
   @media screen and (max-width: 502px) {
-    max-width: 154px;
-    height: 180px;
+    max-width: 70%;
+    height: 140px;
   }
 `;
 
