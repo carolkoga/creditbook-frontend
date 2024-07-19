@@ -46,7 +46,7 @@ export default function HomeLadingPage() {
                 priority
                 alt="Hero"
               />
-            </WrapperImageHero>
+            </WrapperImageHero>            
           </RelativeImageWrapper>
 
           <Actions className="actions">
@@ -98,13 +98,13 @@ export default function HomeLadingPage() {
               >
                 <Image
                   src="/assets/icons/home/creditbook_icone_anuncie.svg"
-                  width="85"
-                  height="85"
+                  width="25"
+                  height="25"
                   alt="De Lista"
                   layout="fixed"
                 />
               </NextLink>
-              <span>Anuncie</span>
+              <span>Anuncie seu crédito judicial em qualquer fase da ação</span>
             </InfoCard>
 
             <InfoCard>
@@ -115,14 +115,14 @@ export default function HomeLadingPage() {
                 >
                   <Image
                     src="/assets/icons/home/creditbook_icone_avalie.svg"
-                    width="85"
-                    height="85"
+                    width="25"
+                    height="25"
                     alt="De insight"
                     layout="fixed"
                   />
                 </NextLink>
               </div>
-              <span>Avalie as ofertas</span>
+              <span>Avalie ofertas e escolha a melhor para você</span>
             </InfoCard>
 
             <InfoCard>
@@ -133,14 +133,14 @@ export default function HomeLadingPage() {
                 >
                   <Image
                     src="/assets/icons/home/creditbook_icone_receba.svg"
-                    width="85"
-                    height="85"
+                    width="25"
+                    height="25"
                     alt="De uma bolsa de dinheiro flutuando na mão (ilustrativa)"
                     layout="fixed"
                   />
                 </NextLink>
               </div>
-              <span>Receba o valor</span>
+              <span>Chega de esperar! Receba o valor em dinheiro</span>
             </InfoCard>
 
             <InfoCard>
@@ -151,14 +151,14 @@ export default function HomeLadingPage() {
                 >
                   <Image
                     src="/assets/icons/home/creditbook_icone_busque.svg"
-                    width="85"
-                    height="85"
+                    width="25"
+                    height="25"
                     alt="De Sinal de dolar"
                     layout="fixed"
                   />
                 </NextLink>
               </div>
-              <span>Busque anúncios</span>
+              <span>Busque anúncios com filtros inteligentes</span>
             </InfoCard>
 
             <InfoCard>
@@ -169,14 +169,14 @@ export default function HomeLadingPage() {
                 >
                   <Image
                     src="/assets/icons/home/creditbook_icone_oferta.svg"
-                    width="85"
-                    height="85"
+                    width="25"
+                    height="25"
                     alt="Bolsa de dinheiro"
                     layout="fixed"
                   />
                 </NextLink>
               </div>
-              <span>Faça uma oferta</span>
+              <span>Escolha o melhor investimento e faça sua oferta</span>
             </InfoCard>
 
             <InfoCard>
@@ -187,14 +187,14 @@ export default function HomeLadingPage() {
                 >
                   <Image
                     src="/assets/icons/home/creditbook_icone_compre.svg"
-                    width="85"
-                    height="85"
+                    width="25"
+                    height="25"
                     alt="Duas mãos fechando acordo"
                     layout="fixed"
                   />
                 </NextLink>
               </div>
-              <span>Compre crédito</span>
+              <span>Feche negócio<br/> com alta lucratividade</span>
             </InfoCard>
           </WrapperInfoCard>
         </ContainerVideoAndInfo>
