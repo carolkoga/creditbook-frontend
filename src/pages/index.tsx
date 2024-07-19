@@ -92,7 +92,7 @@ export default function HomeLadingPage() {
           </WrapperVideo>
 
           <LineInfoCards>
-            <h3>Compra de Créditos</h3>
+            <h3>Venda de Créditos</h3>
             <WrapperInfoCard>
               <InfoCard>
                 <NextLink
@@ -146,7 +146,7 @@ export default function HomeLadingPage() {
                 <span>Chega de esperar! Receba o valor em dinheiro</span>
               </InfoCard>
             </WrapperInfoCard>
-            <h3>Venda de Créditos</h3>
+            <h3>Compra de Créditos</h3>
             <WrapperInfoCard>
               <InfoCard>
                 <div className="wrapper__image">
