@@ -63,7 +63,7 @@ export function AuthProvider({ children }: IProps) {
     setUser(null);
     localStorage.removeItem('nextauth.token');
     destroyAuthCookies();
-    Router.replace('/');
+    Router.push('/').then(() => window.location.reload());
 
     delete creditbookApi.defaults.headers.common.Authorization;
   }
