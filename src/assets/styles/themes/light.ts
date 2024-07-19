@@ -5,7 +5,7 @@ export const light = {
     },
 
     secondary: {
-      main: '#5DC8C4',
+      main: '#30D686',
     },
 
     grey: {

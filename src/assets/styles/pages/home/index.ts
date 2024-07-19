@@ -127,12 +127,31 @@ export const ContentHero = styled.div<{ single: boolean }>`
     }
   }
 
-  @media screen and (max-width: 675px) {
-    height: 100px;
+@media screen and (max-width: 768px) {
+    height: 400px;
 
     div.actions img {
-      width: 30%;
-    }
+      width: 40%;
+    }    
+  }
+
+  @media screen and (max-width: 675px) {
+    height: 400px;
+  }
+
+  @media screen and (max-width: 600px) {    
+
+    div.actions img {
+      width: 55%;
+    }    
+  }
+  
+  @media screen and (max-width: 375px) {
+    height: 250px;
+
+    div.actions img {
+      width: 55%;
+    }    
   }
 `;
 
@@ -156,7 +175,9 @@ export const WrapperImageHero = styled.div`
 
   @media screen and (max-width: 675px) {
     img {
-      display: none;
+      display: block;
+      width: 100%;
+      height: auto;
     }
   }
 `;
@@ -208,7 +229,7 @@ export const InfoCard = styled.li`
   justify-content: space-between;
   border: 1px solid ${({ theme }) => theme.colors.primary.main};
   border-radius: 10px;
-  max-width: 141px;
+  max-width: 176px;
   max-height: 175px;
   /* height: 100%; */
   width: 100%;
@@ -221,8 +242,7 @@ export const InfoCard = styled.li`
   span {
     font-weight: 500;
     color: ${({ theme }) => theme.colors.grey[50]};
-    font-size: 13px;
-    max-width: 119px;
+    font-size: 16px;    
     width: 100%;
   }
 
