@@ -90,10 +90,11 @@ export default function HomeLadingPage() {
             />
           </WrapperVideo>
           <Section.Header>
-           <Section.Subtitle>
-           Venda de Créditos
-          </Section.Subtitle>
-        </Section.Header>
+            <Section.Subtitle>
+              Venda de Créditos
+            </Section.Subtitle>
+          </Section.Header>
+
           <WrapperInfoCard>
             <InfoCard>
               <NextLink
@@ -147,12 +148,14 @@ export default function HomeLadingPage() {
               <span>Chega de esperar! Receba o valor em dinheiro</span>
             </InfoCard>
           </WrapperInfoCard>
+
           <Section.Header>
-           <Section.Subtitle>
-           Compra de Créditos
-          </Section.Subtitle>
-        </Section.Header>
-          <WrapperInfoCard>         
+            <Section.Subtitle>
+              Compra de Créditos
+            </Section.Subtitle>
+          </Section.Header>
+
+          <WrapperInfoCard>
 
             <InfoCard>
               <div className="wrapper__image">
