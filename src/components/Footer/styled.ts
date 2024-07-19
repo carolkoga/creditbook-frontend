@@ -14,8 +14,12 @@ export const FooterStyle = styled.footer`
   }
 
   .left-content {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+
     .networking__media {
-      margin-top: 40px;
+      margin-top: 10px;
       display: flex;
       align-items: center;
       gap: 8px;
