@@ -46,7 +46,7 @@ export default function HomeLadingPage() {
                 priority
                 alt="Hero"
               />
-            </WrapperImageHero>            
+            </WrapperImageHero>
           </RelativeImageWrapper>
 
           <Actions className="actions">
@@ -194,7 +194,10 @@ export default function HomeLadingPage() {
                   />
                 </NextLink>
               </div>
-              <span>Feche negócio<br/> com alta lucratividade</span>
+              <span>
+                Feche negócio
+                <br /> com alta lucratividade
+              </span>
             </InfoCard>
           </WrapperInfoCard>
         </ContainerVideoAndInfo>

@@ -102,19 +102,17 @@ export default function Footer() {
       </div>
 
       <div className="right-content">
-      <small>
+        <small>
           © {new Date().getFullYear()} Creditbook. All rights reserved.
         </small>
 
-        <small>
-          Ajude-nos a evoluir!          
-        </small>
+        <small>Ajude-nos a evoluir!</small>
 
-        <small>          
+        <small>
           <Link legacyBehavior href="/contact">
             <a className="button">Dar Feedback</a>
           </Link>
-        </small>     
+        </small>
       </div>
     </FooterStyle>
   );
