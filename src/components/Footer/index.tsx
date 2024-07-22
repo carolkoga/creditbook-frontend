@@ -9,10 +9,9 @@ export default function Footer() {
         <Link legacyBehavior href="/">
           <a>
             <Image
-            style={{
-              marginBottom: '15px',
-            }}
-            
+              style={{
+                marginBottom: '15px',
+              }}
               src="/assets/images/logo_creditbook.svg"
               width="256"
               height="50"
