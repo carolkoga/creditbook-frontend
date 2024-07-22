@@ -18,7 +18,11 @@ export const LayoutWithImage = styled.div`
 
 export const WrapperImage = styled.div`
   @media screen and (max-width: 492px) {
-    display: none;
+    // display: none;
+    img{
+      width:100%;
+      height:auto;
+    }
   }
 `;
 

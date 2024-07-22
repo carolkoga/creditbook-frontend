@@ -9,6 +9,10 @@ export default function Footer() {
         <Link legacyBehavior href="/">
           <a>
             <Image
+            style={{
+              marginBottom: '15px',
+            }}
+            
               src="/assets/images/logo_creditbook.svg"
               width="256"
               height="50"
@@ -29,15 +33,7 @@ export default function Footer() {
           (11) 2737-1888
         </small>
 
-        <small
-          style={{
-            display: 'flex',
-            alignItems: 'start',
-            justifyContent: 'left',
-            flexDirection: 'row',
-            marginBottom: '-12px',
-          }}
-        >
+        <small>
           <Image
             src="/assets/icons/map-pin.svg"
             width="20"
@@ -45,9 +41,7 @@ export default function Footer() {
             alt="Endereço da sede"
             layout="fixed"
           />
-          <p style={{ textAlign: 'left' }}>
-            Alameda Santos, 1470 - 9º andar, Jardim Paulista - SP
-          </p>
+          Alameda Santos, 1470 - 9º andar, Jardim Paulista - SP
         </small>
 
         <ul className="networking__media">

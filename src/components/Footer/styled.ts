@@ -18,6 +18,14 @@ export const FooterStyle = styled.footer`
     flex-direction: column;
     gap: 14px;
 
+    small {
+      display: flex;
+      align-items: center;
+      color: #424242;
+      font-size: 13px;
+      gap: 8px;
+    }
+
     .networking__media {
       margin-top: 10px;
       display: flex;
