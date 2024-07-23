@@ -50,7 +50,7 @@ export const ContentHero = styled.div<{ single: boolean }>`
   gap: 10px;
 
   div.actions {
-    z-index: 50;
+    z-index: 1;
 
     max-width: 100%;
     width: ${(props) => (props.single ? '100%' : '80%')};
@@ -60,6 +60,7 @@ export const ContentHero = styled.div<{ single: boolean }>`
     justify-content: space-between;
 
     margin-top: -18%;
+    padding:0 20px;
 
     img {
       width: ${(props) => (props.single ? '200px' : '40%')};
@@ -146,7 +147,7 @@ export const ContentHero = styled.div<{ single: boolean }>`
     }    
   }
   
-  @media screen and (max-width: 400px) {
+  @media screen and (max-width: 420px) {
     height: 250px;
 
     div.actions img {

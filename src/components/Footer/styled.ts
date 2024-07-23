@@ -20,7 +20,7 @@ export const FooterStyle = styled.footer`
 
     small {
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       color: #424242;
       font-size: 13px;
       gap: 8px;
@@ -72,13 +72,18 @@ export const FooterStyle = styled.footer`
   @media screen and (max-width: 720px) {
     padding: 59px 42px;
     justify-content: center;
-
+    text-align:center;
     flex-direction: column;
-    gap: 82px;
+    gap: 50px;
 
-    .right-content {
-      align-items: left;
+    div{
+      width:100%;
+      align-items: center;
     }
+  }
+
+  @media screen and (max-width: 420px) {
+    padding: 59px 10px;
   }
 
   @media screen and (max-width: 308px) {
