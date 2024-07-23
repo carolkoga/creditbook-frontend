@@ -1,3 +1,8 @@
+/* eslint-disable operator-linebreak */
+/* eslint-disable function-paren-newline */
+/* eslint-disable implicit-arrow-linebreak */
+/* eslint-disable no-confusing-arrow */
+/* eslint-disable @typescript-eslint/indent */
 /* eslint-disable arrow-body-style */
 /* eslint-disable no-plusplus */
 /* eslint-disable max-len */
@@ -46,20 +51,20 @@ import { UFBrazilType } from '@type/creditbook';
 import { toast } from 'react-toastify';
 import { Input } from '@components/Input';
 
-interface IPropsSelect { label: string, value: string }
-
-interface IProps {
-  announcement: LawsuitParams
+interface IPropsSelect {
+  label: string;
+  value: string;
 }
 
-interface CustomUpdateLawsuitParams extends Omit<UpdateLawsuitParams,
-| 'tribunal'
-| 'uf'
-| 'city'
-| 'actionPhase'
-| 'kind'
-| 'processGender'
-> {
+interface IProps {
+  announcement: LawsuitParams;
+}
+
+interface CustomUpdateLawsuitParams
+  extends Omit<
+    UpdateLawsuitParams,
+    'tribunal' | 'uf' | 'city' | 'actionPhase' | 'kind' | 'processGender'
+  > {
   tribunal: IPropsSelect;
   city: IPropsSelect;
   uf: IPropsSelect;
@@ -72,6 +77,7 @@ export default function EditLawsuitByIdPage({ announcement }: IProps) {
   const [loading, setLoading] = useState(false);
   const [premium, setPremium] = useState<'add' | 'remove' | null>(null);
   const [stepForm, setStepForm] = useState('none');
+  const [card, setCard] = useState<any>(announcement.paymentMethod);
   const router = useRouter();
 
   const methods = useForm<CustomUpdateLawsuitParams>({
@@ -106,22 +112,39 @@ export default function EditLawsuitByIdPage({ announcement }: IProps) {
       isPremium: announcement?.isPremium,
       city: { label: announcement.city, value: announcement.city },
       uf: { label: announcement.uf, value: announcement.uf },
-      tribunal: courtsOptions[announcement.uf?.toUpperCase() as UFBrazilType]
-        .find((court: IPropsSelect) => court.value === announcement.tribunal),
+      tribunal: courtsOptions[
+        announcement.uf?.toUpperCase() as UFBrazilType
+      ].find((court: IPropsSelect) => court.value === announcement.tribunal),
       processGender: lawsuitCategories.find(
-        (category) => category.value === announcement.processGender,
+        (category) => category.value === announcement.processGender
       ),
-      actionPhase: lawsuitActionPhase.find((action) => action.value === announcement.actionPhase),
-      kind: lawsuitKind.find((currentKind) => currentKind.value === announcement.kind),
+      actionPhase: lawsuitActionPhase.find(
+        (action) => action.value === announcement.actionPhase
+      ),
+      kind: lawsuitKind.find(
+        (currentKind) => currentKind.value === announcement.kind
+      ),
     });
   }, []);
 
   function handleBackPrevModalChooseCreditCard() {
-    setStepForm((oldStep) => (oldStep === 'credit-card-plan' ? 'select-plan' : 'none'));
+    setStepForm((oldStep) =>
+      oldStep === 'credit-card-plan' ? 'select-plan' : 'none'
+    );
+  }
+
+  function setCardAndCloseModal(chooseCreditCard: any) {
+    setStepForm((oldStep) =>
+      oldStep === 'credit-card-plan' ? 'select-plan' : 'none'
+    );
+
+    setCard(chooseCreditCard);
   }
 
   function handleOpenChooseCreditCardModal() {
-    setStepForm((oldStep) => (oldStep === 'select-plan' ? 'credit-card-plan' : 'credit-card'));
+    setStepForm((oldStep) =>
+      oldStep === 'select-plan' ? 'credit-card-plan' : 'credit-card'
+    );
   }
 
   function handleCloseModal() {
@@ -134,7 +157,9 @@ export default function EditLawsuitByIdPage({ announcement }: IProps) {
 
       if (premium) {
         await lawsuitService.updatePremium({
-          ...data, premium, announcementId: data.id
+          ...data,
+          premium,
+          announcementId: data.id,
         });
       }
 
@@ -142,23 +167,29 @@ export default function EditLawsuitByIdPage({ announcement }: IProps) {
       const touchedFields = Object.entries(
         methods.formState.touchedFields
       ).filter((field) => {
-        return field[0] !== 'discountCode'
-        // @ts-ignore
-          && (field[0] !== 'paymentMethodId' && premium !== null);
+        return (
+          field[0] !== 'discountCode' &&
+          (field[0] !== 'paymentMethodId' || premium === null)
+        );
       });
 
-      if (
-        touchedFields.length > 0
-      ) {
+      console.log(touchedFields);
+      console.log(methods.formState.touchedFields);
+
+      if (touchedFields.length > 0) {
         const response = await lawsuitService.update({ ...data }, announcement);
 
         router.push(`/in/ads/${response.data.id}`);
       }
 
       if (data.paymentMethodId && premium && premium === 'add') {
-        toast.success('Seu anúncio foi editado com sucesso e seu pagamento será processado!');
+        toast.success(
+          'Seu anúncio foi editado com sucesso e seu pagamento será processado!'
+        );
       } else {
-        toast.success('Anúncio editado com sucesso, aguarde até que as mudanças sejam aprovadas!');
+        toast.success(
+          'Anúncio editado com sucesso, aguarde até que as mudanças sejam aprovadas!'
+        );
       }
     } catch (error) {
       handleCatchErrorRequest(error as any);
@@ -180,7 +211,8 @@ export default function EditLawsuitByIdPage({ announcement }: IProps) {
           isVisible={!announcement.overSixMonths}
           _alertProps={{
             type: 'info',
-            message: 'Só poderá mudar de plano ou valor do processo após 6 meses',
+            message:
+              'Só poderá mudar de plano ou valor do processo após 6 meses',
             closable: true,
           }}
         />
@@ -190,17 +222,24 @@ export default function EditLawsuitByIdPage({ announcement }: IProps) {
           _alertProps={{
             type: 'warning',
             message: 'Pagamento não foi processado',
-            description: 'O anúncio vai parar de ser anunciado na plataforma até realização do pagamento.',
+            description:
+              'O anúncio vai parar de ser anunciado na plataforma até realização do pagamento.',
             closable: true,
           }}
         />
       </FloatWarningContainer>
 
       <Section.Header>
-        <Button variant="white" size="small-large" onClick={() => router.back()}>
+        <Button
+          variant="white"
+          size="small-large"
+          onClick={() => router.back()}
+        >
           Voltar
         </Button>
-        <Section.Title as="h1" textColor="dark">Atualizar anúncio</Section.Title>
+        <Section.Title as="h1" textColor="dark">
+          Atualizar anúncio
+        </Section.Title>
       </Section.Header>
 
       <Section.Container>
@@ -210,7 +249,6 @@ export default function EditLawsuitByIdPage({ announcement }: IProps) {
               noValidate
               onSubmit={methods.handleSubmit(handleSubmitNewLawsuit)}
             >
-
               <div className="left__content">
                 <ProcessInfoForm />
                 <AuthorForm />
@@ -224,19 +262,21 @@ export default function EditLawsuitByIdPage({ announcement }: IProps) {
                 <AcceptNegotiation />
                 <Prices
                   fields={{
-                    _incomeInputProps: { disabled: !announcement.overSixMonths },
-                    _processPriceProps: { disabled: !announcement.overSixMonths },
+                    _incomeInputProps: {
+                      disabled: !announcement.overSixMonths,
+                    },
+                    _processPriceProps: {
+                      disabled: !announcement.overSixMonths,
+                    },
                   }}
                 />
 
-                {ownOrAttorneyField === 'attorney' && (
-                  <ProcurationField />
-                )}
+                {ownOrAttorneyField === 'attorney' && <ProcurationField />}
 
                 <CreditCardFieldset
                   isVisible={announcement.plan !== 'batch'}
                   onOpenChooseCreditCardModal={handleOpenChooseCreditCardModal}
-                  creditCard={announcement.paymentMethod}
+                  creditCard={card}
                 />
 
                 <Fieldset style={{ width: '100%' }}>
@@ -249,40 +289,51 @@ export default function EditLawsuitByIdPage({ announcement }: IProps) {
                     premiumState={premium}
                   />
 
-                  <Input {...methods.register('discountCode')} placeholder="CUPOM DE DESCONTO" name="discountCode" type="text" />
-
+                  <Input
+                    {...methods.register('discountCode')}
+                    placeholder="CUPOM DE DESCONTO"
+                    name="discountCode"
+                    type="text"
+                  />
                 </Fieldset>
 
                 <Direction gap="12px">
-                  <Button isLoading={loading} type="button" onClick={methods.handleSubmit(handleSubmitNewLawsuit)}>
+                  <Button
+                    isLoading={loading}
+                    type="button"
+                    onClick={methods.handleSubmit(handleSubmitNewLawsuit)}
+                  >
                     {!loading ? 'Atualizar' : 'Atualizando'}
                   </Button>
                 </Direction>
               </div>
 
               <ChooseCreditCard
-                isVisible={stepForm === 'credit-card' || stepForm === 'credit-card-plan'}
+                isVisible={
+                  stepForm === 'credit-card' || stepForm === 'credit-card-plan'
+                }
+                isLoading={loading}
                 onBack={() => handleBackPrevModalChooseCreditCard()}
-                onNewCard={() => {}}
-              >
-                <Button isLoading={loading} type="button" onClick={handleBackPrevModalChooseCreditCard}>
-                  {!loading ? 'Atualizar' : 'Atualizando'}
-                </Button>
-              </ChooseCreditCard>
+                onNewCard={setCardAndCloseModal}
+              />
 
               <ModalToSelectPlan isVisible={stepForm === 'select-plan'}>
                 <button type="button" onClick={handleCloseModal}>
                   Voltar
                 </button>
 
-                {(plan === 'byPercent' && !isPremium) && (
+                {plan === 'byPercent' && !isPremium && (
                   <Button isLoading={loading} type="submit">
                     {!loading ? 'Cadastrar' : 'Cadastrando'}
                   </Button>
                 )}
 
-                {((plan !== 'byPercent' || isPremium)) && (
-                  <Button isLoading={loading} type="button" onClick={() => handleOpenChooseCreditCardModal()}>
+                {(plan !== 'byPercent' || isPremium) && (
+                  <Button
+                    isLoading={loading}
+                    type="button"
+                    onClick={() => handleOpenChooseCreditCardModal()}
+                  >
                     Escolher pagamento
                   </Button>
                 )}
@@ -295,7 +346,10 @@ export default function EditLawsuitByIdPage({ announcement }: IProps) {
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async ({ req, query }) => {
+export const getServerSideProps: GetServerSideProps = async ({
+  req,
+  query,
+}) => {
   const api = setupAPIClient(req.cookies['nextauth.token']);
   const announcementServices = new LawsuitService(api);
   const { data } = await announcementServices.getById(query.id as string);

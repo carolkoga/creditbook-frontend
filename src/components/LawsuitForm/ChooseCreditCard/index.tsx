@@ -1,3 +1,4 @@
+/* eslint-disable operator-linebreak */
 import { Button } from '@components/Button';
 import { Overlay } from '@components/Overlay';
 import DebitAndCreditCard from '@components/pages/in/DebitAndCreditCard';
@@ -10,7 +11,11 @@ import { NewPaymentParams, PaymentParams } from '@type/creditbook/payment';
 import { handleCatchErrorRequest } from '@utils/handleCatchErrorRequest';
 import { ReactNode, useRef, useState } from 'react';
 import {
-  Controller, FieldValues, FormProvider, useForm, useFormContext,
+  Controller,
+  // FieldValues,
+  FormProvider,
+  useForm,
+  useFormContext,
 } from 'react-hook-form';
 import useSWR from 'swr';
 import { Actions } from '../ModalToSelectPlan/styled';
@@ -18,22 +23,29 @@ import { Actions } from '../ModalToSelectPlan/styled';
 import { Container, ListContainerPayment, RadioButton } from './styled';
 
 interface IProps {
-  isVisible: boolean,
-  children?: ReactNode,
-  onBack: () => void,
-  onNewCard: (values: FieldValues) => void,
+  isVisible: boolean;
+  children?: ReactNode;
+  onBack: () => void;
+  onNewCard: (payment: PaymentParams) => void;
+  isLoading: boolean;
 }
 
 export default function ChooseCreditCard({
-  isVisible, onBack, children, onNewCard
+  isVisible,
+  onBack,
+  // children,
+  isLoading,
+  onNewCard,
 }: IProps) {
-  const [isVisibleCreditCardModal, setIsVisibleCreditCardModal] = useState(false);
+  const [isVisibleCreditCardModal, setIsVisibleCreditCardModal] =
+    useState(false);
   const [creatingPaymentLoader, setCreatingPaymentLoader] = useState(false);
-  const { data: payments, mutate } = useSWR<PaymentParams[]>('credit_cards', async () => (await paymentServices.listPayments()).data);
+  const { data: payments, mutate } = useSWR<PaymentParams[]>(
+    'credit_cards',
+    async () => (await paymentServices.listPayments()).data
+  );
   const methodsToCreateCard = useForm<NewPaymentParams>();
-  const {
-    control, watch, setValue
-  } = useFormContext();
+  const { control, watch, setValue } = useFormContext();
   const chosenCreditCard = watch('paymentMethodId');
   const inputRadioRef = useRef<any>();
 
@@ -50,8 +62,10 @@ export default function ChooseCreditCard({
   async function handleRegisterCreditCard(data: NewPaymentParams) {
     try {
       setCreatingPaymentLoader(true);
-      // @ts-ignore
-      const { data: newPayment } = await paymentServices.createPaymentMethod(data);
+      const { data: newPayment } = await paymentServices.createPaymentMethod(
+        // @ts-ignore
+        data
+      );
       mutate(newPayment);
       setValue('paymentMethodId', newPayment.id);
       handleCloseVisibilityCreditCardModal();
@@ -77,34 +91,37 @@ export default function ChooseCreditCard({
 
           <Section.Container>
             <ListContainerPayment>
-              {!!payments?.length && payments?.map((payment) => (
-                <li key={payment.id}>
-                  <RadioButton
-                    htmlFor={payment.id}
-                    chosen={(payment.id === chosenCreditCard) ? 'false' : 'true'}
-                  >
-                    <DebitAndCreditCard card={payment} />
-                    <Controller
-                      name="paymentMethodId"
-                      control={control}
-                      render={({ field }) => (
-                        <input
-                          ref={inputRadioRef}
-                          type="radio"
-                          defaultChecked={!!payment.id === chosenCreditCard}
-                          id={payment.id}
-                          value={payment.id}
-                          onChange={field.onChange}
-                          onBlur={field.onBlur}
-                          name={field.name}
-                        />
-                      )}
-                    />
-                  </RadioButton>
-                </li>
-              ))}
+              {!!payments?.length &&
+                payments?.map((payment) => (
+                  <li key={payment.id}>
+                    <RadioButton
+                      htmlFor={payment.id}
+                      chosen={
+                        payment.id === chosenCreditCard ? 'false' : 'true'
+                      }
+                    >
+                      <DebitAndCreditCard card={payment} />
+                      <Controller
+                        name="paymentMethodId"
+                        control={control}
+                        render={({ field }) => (
+                          <input
+                            ref={inputRadioRef}
+                            type="radio"
+                            defaultChecked={!!payment.id === chosenCreditCard}
+                            id={payment.id}
+                            value={payment.id}
+                            onChange={field.onChange}
+                            onBlur={field.onBlur}
+                            name={field.name}
+                          />
+                        )}
+                      />
+                    </RadioButton>
+                  </li>
+                ))}
 
-              {(payments && payments?.length <= 0) && (
+              {payments && payments?.length <= 0 && (
                 <Section.Title
                   as="p"
                   textColor="dark"
@@ -125,7 +142,17 @@ export default function ChooseCreditCard({
                 Voltar
               </button>
 
-              {children}
+              <Button
+                isLoading={isLoading}
+                type="button"
+                onClick={() => {
+                  onNewCard(
+                    payments?.find(({ id }) => id === chosenCreditCard)!
+                  );
+                }}
+              >
+                {!isLoading ? 'Atualizar' : 'Atualizando'}
+              </Button>
             </Direction>
           </Actions>
 
@@ -136,7 +163,9 @@ export default function ChooseCreditCard({
               isVisible={isVisibleCreditCardModal}
               // @ts-ignore
               title="Adicionar Cartão"
-              onSubmit={methodsToCreateCard.handleSubmit(handleRegisterCreditCard)}
+              onSubmit={methodsToCreateCard.handleSubmit(
+                handleRegisterCreditCard
+              )}
               onCancel={handleCloseVisibilityCreditCardModal}
               loading={creatingPaymentLoader}
               onNewCard={onNewCard}
