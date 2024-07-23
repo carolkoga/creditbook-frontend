@@ -27,13 +27,13 @@ interface IProps {
   children?: ReactNode;
   onBack: () => void;
   onNewCard: (payment: PaymentParams) => void;
-  isLoading: boolean;
+  isLoading?: boolean;
 }
 
 export default function ChooseCreditCard({
   isVisible,
   onBack,
-  // children,
+  children,
   isLoading,
   onNewCard,
 }: IProps) {
@@ -142,17 +142,21 @@ export default function ChooseCreditCard({
                 Voltar
               </button>
 
-              <Button
-                isLoading={isLoading}
-                type="button"
-                onClick={() => {
-                  onNewCard(
-                    payments?.find(({ id }) => id === chosenCreditCard)!
-                  );
-                }}
-              >
-                {!isLoading ? 'Atualizar' : 'Atualizando'}
-              </Button>
+              {!children && (
+                <Button
+                  isLoading={isLoading}
+                  type="button"
+                  onClick={() => {
+                    onNewCard(
+                      payments?.find(({ id }) => id === chosenCreditCard)!
+                    );
+                  }}
+                >
+                  {!isLoading ? 'Atualizar' : 'Atualizando'}
+                </Button>
+              )}
+
+              {children}
             </Direction>
           </Actions>
 
