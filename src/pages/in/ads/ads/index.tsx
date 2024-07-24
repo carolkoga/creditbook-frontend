@@ -3,7 +3,10 @@ import AnnouncementList from '@components/LawsuitCard';
 import { Section } from '@components/Section';
 import TabBatchAnnouncement from '@components/TabBatchAnnouncement';
 import useAnnouncements from '@services/creditbook/lawsuit/hooks/useAnnouncements';
-import { AnnouncementsFilterDrawer, ResponseFilterCreditsProps } from '@components/FilterDrawer/Announcements';
+import {
+  AnnouncementsFilterDrawer,
+  ResponseFilterCreditsProps,
+} from '@components/FilterDrawer/Announcements';
 
 export default function SingleLawsuits() {
   const response = useAnnouncements(undefined, {
@@ -15,7 +18,9 @@ export default function SingleLawsuits() {
     },
   });
 
-  function handleProcessAnnouncementsFiltered(lawsuit: ResponseFilterCreditsProps<'announcements'>) {
+  function handleProcessAnnouncementsFiltered(
+    lawsuit: ResponseFilterCreditsProps<'announcements'>
+  ) {
     response.mutate(lawsuit as never);
     if (lawsuit.results.length <= 0) {
       response.mutateIsFiltered(false);
@@ -24,17 +29,22 @@ export default function SingleLawsuits() {
   }
 
   return (
-    <TabBatchAnnouncement batchLink="/batches" announcementLink="/ads">
+    <TabBatchAnnouncement batchLink="/batches" announcementLink="/in/ads/ads">
       <Section.Header>
         <Section.Title as="h1">
           {!response.isFiltered && 'Anúncios Individuais'}
           {response.isFiltered && 'Anúncios relacionados ao filtro'}
         </Section.Title>
-        <AnnouncementsFilterDrawer onGetResponseResults={handleProcessAnnouncementsFiltered} />
+        <AnnouncementsFilterDrawer
+          onGetResponseResults={handleProcessAnnouncementsFiltered}
+        />
       </Section.Header>
 
       <Section.Container align="center">
-        <AnnouncementList {...response} notFoundProps={{ type: 'children', children: null }} />
+        <AnnouncementList
+          {...response}
+          notFoundProps={{ type: 'children', children: null }}
+        />
       </Section.Container>
     </TabBatchAnnouncement>
   );
