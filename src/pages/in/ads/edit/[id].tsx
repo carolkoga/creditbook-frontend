@@ -175,6 +175,8 @@ export default function EditLawsuitByIdPage({ announcement }: IProps) {
 
       console.log(touchedFields);
       console.log(methods.formState.touchedFields);
+      console.log(methods.getValues('acceptNegotiation'));
+      console.log(methods.getValues('pledgeOrGuarantee'));
 
       if (touchedFields.length > 0) {
         const response = await lawsuitService.update({ ...data }, announcement);
@@ -184,17 +186,20 @@ export default function EditLawsuitByIdPage({ announcement }: IProps) {
 
       if (data.paymentMethodId && premium && premium === 'add') {
         toast.success(
-          'Seu anúncio foi editado com sucesso e seu pagamento será processado!'
+          'Seu anúncio foi editado com sucesso e seu pagamento será processado!',
+          { autoClose: 2000 }
         );
       } else {
         toast.success(
-          'Anúncio editado com sucesso, aguarde até que as mudanças sejam aprovadas!'
+          'Anúncio editado com sucesso, aguarde até que as mudanças sejam aprovadas!',
+          { autoClose: 2000 }
         );
       }
     } catch (error) {
       handleCatchErrorRequest(error as any);
     } finally {
       setLoading(false);
+      window.location.reload();
     }
   }
 

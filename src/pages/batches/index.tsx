@@ -1,6 +1,9 @@
 // import { GetServerSideProps } from 'next';
 
-import { BatchesFilterDrawer, ResponseFilterBatchesProps } from '@components/FilterDrawer/Batches';
+import {
+  BatchesFilterDrawer,
+  ResponseFilterBatchesProps,
+} from '@components/FilterDrawer/Batches';
 import TabBatchAnnouncement from '@components/TabBatchAnnouncement';
 import { batchServices } from '@services/creditbook/batch';
 import { BatchParams } from '@type/creditbook/Batch';
@@ -22,9 +25,7 @@ export default function Batches(/* { batches }: IProps */) {
     try {
       const response = await batchServices.list();
 
-      setAllBatches([
-        ...response.data,
-      ]);
+      setAllBatches([...response.data]);
     } catch {
       toast.error('ocorreu um erro, tente novamente');
     }
@@ -34,16 +35,20 @@ export default function Batches(/* { batches }: IProps */) {
     loadBatches();
   }, []);
 
-  function handleProcessBatchesFiltered(filteredBatches: ResponseFilterBatchesProps) {
+  function handleProcessBatchesFiltered(
+    filteredBatches: ResponseFilterBatchesProps
+  ) {
     setAllBatches(filteredBatches.results);
   }
 
   return (
-    <TabBatchAnnouncement batchLink="/batches" announcementLink="/ads">
+    <TabBatchAnnouncement batchLink="/batches" announcementLink="/in/ads/ads">
       <Section.Header>
         <Section.Title as="h1">Anúncios em Lotes</Section.Title>
 
-        <BatchesFilterDrawer onGetResponseResults={handleProcessBatchesFiltered} />
+        <BatchesFilterDrawer
+          onGetResponseResults={handleProcessBatchesFiltered}
+        />
       </Section.Header>
 
       <Section.Container>
@@ -55,9 +60,7 @@ export default function Batches(/* { batches }: IProps */) {
             <NotFoundData title="Não há dados cadastrados" type="children" />
           )} */}
 
-        {allBatches.length > 0 && (
-          <BatchesList batches={allBatches} />
-        )}
+        {allBatches.length > 0 && <BatchesList batches={allBatches} />}
 
         {allBatches.length === 0 && (
           <NotFoundData title="Não há dados cadastrados" type="children" />

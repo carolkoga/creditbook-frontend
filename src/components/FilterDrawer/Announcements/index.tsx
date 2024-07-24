@@ -34,14 +34,20 @@ import { FilterDrawer } from '..';
 import { Form, RadioLabel, Title } from '../styled';
 
 export type ResponseFilterCreditsProps<T = 'batches' | 'announcements'> = {
-  results: T extends 'batches' ? BatchParams[] : T extends 'announcements' ? LawsuitParams[] : unknown,
-  pages: number,
+  results: T extends 'batches'
+    ? BatchParams[]
+    : T extends 'announcements'
+      ? LawsuitParams[]
+      : unknown;
+  pages: number;
 };
 
 interface IProps {
   // eslint-disable-next-line no-unused-vars
-  onGetResponseResults: (data: ResponseFilterCreditsProps<'announcements'>) => void,
-  customQuery?: QueriesToIndexAnnouncements['params'],
+  onGetResponseResults: (
+    data: ResponseFilterCreditsProps<'announcements'>
+  ) => void;
+  customQuery?: QueriesToIndexAnnouncements['params'];
 }
 
 const rangePrice = [
@@ -55,14 +61,19 @@ const rangePrice = [
   'R$ 10.000.000,00 - R$ 20.000.000,00',
 ];
 
-export function AnnouncementsFilterDrawer({ onGetResponseResults, customQuery }: IProps) {
+export function AnnouncementsFilterDrawer({
+  onGetResponseResults,
+  customQuery,
+}: IProps) {
   const [isOpen, setIsOpen] = useState(false);
 
-  const {
-    register, control, handleSubmit, setValue,
-  } = useForm({ resolver: yupResolver(filterAnnouncementSchemaValidation) });
+  const { register, control, handleSubmit, setValue } = useForm({
+    resolver: yupResolver(filterAnnouncementSchemaValidation),
+  });
   const [uf, setUf] = useState<UFBrazilType | ''>('');
-  const [citiesOptions, setCitiesOptions] = useState([{ label: 'Selecione um estado', value: '' }]);
+  const [citiesOptions, setCitiesOptions] = useState([
+    { label: 'Selecione um estado', value: '' },
+  ]);
 
   const loadCitiesOptions = useCallback(() => {
     (async () => {
@@ -73,7 +84,9 @@ export function AnnouncementsFilterDrawer({ onGetResponseResults, customQuery }:
           return factoryOptionReactSelect(asPath, asPath, array);
         });
 
-        setCitiesOptions([{ value: '', label: 'Selecione a cidade' }].concat(options));
+        setCitiesOptions(
+          [{ value: '', label: 'Selecione a cidade' }].concat(options)
+        );
       }
     })();
   }, [uf]);
@@ -88,10 +101,14 @@ export function AnnouncementsFilterDrawer({ onGetResponseResults, customQuery }:
         ...data,
         actors: JSON.stringify(data.actors),
         defendants: JSON.stringify(data.defendants),
-        minPrice: rangePriceSuggestion === 'none'
-          ? Number(data?.minPrice?.replaceAll(/\D/g, '')) : Number(minPrice),
-        maxPrice: rangePriceSuggestion === 'none'
-          ? Number(data?.maxPrice?.replaceAll(/\D/g, '')) : Number(maxPrice),
+        minPrice:
+          rangePriceSuggestion === 'none'
+            ? Number(data?.minPrice?.replaceAll(/\D/g, ''))
+            : Number(minPrice),
+        maxPrice:
+          rangePriceSuggestion === 'none'
+            ? Number(data?.maxPrice?.replaceAll(/\D/g, ''))
+            : Number(maxPrice),
       };
 
       const filterOptionsParse = {};
@@ -142,7 +159,9 @@ export function AnnouncementsFilterDrawer({ onGetResponseResults, customQuery }:
       onClose={() => setIsOpen(false)}
     >
       <Form onSubmit={handleSubmit(handleFilterCredits)}>
-        <Title size={20} color="dark" weight={500}>Dados</Title>
+        <Title size={20} color="dark" weight={500}>
+          Dados
+        </Title>
         <Space direction="vertical" style={{ width: '100%' }}>
           <FormGroup
             label={{
@@ -153,40 +172,43 @@ export function AnnouncementsFilterDrawer({ onGetResponseResults, customQuery }:
             <Controller
               name="processNumber"
               control={control}
-              render={({ field }) => (
-                <InputCPForCNPJ {...field} id="processNumber" />
-              )}
+              render={({ field }) => <Input {...field} id="processNumber" />}
             />
           </FormGroup>
 
           <Controller
             control={control}
             name="uf"
-            render={(/* {field} */) => (
-              <FormGroup
-                label={{
-                  forId: 'uf',
-                  title: 'Estado',
-                }}
-              >
-                <Select
-                  className="custom-react-select-style"
-                  options={[{ value: '', label: 'Selecionar' }, ...UFListAsOptionSelect]}
-                  placeholder="Selecione um estado"
-                  onChange={(value) => {
-                    // @ts-ignore
-                    if (value.value !== uf) {
-                      setValue('city', '');
-                      setValue('tribunal', '');
-                    }
-
-                    // @ts-ignore
-                    setUf(value.value as UFBrazilType);
+            render={
+              (/* {field} */) => (
+                <FormGroup
+                  label={{
+                    forId: 'uf',
+                    title: 'Estado',
                   }}
-                  // {...field}
-                />
-              </FormGroup>
-            )}
+                >
+                  <Select
+                    className="custom-react-select-style"
+                    options={[
+                      { value: '', label: 'Selecionar' },
+                      ...UFListAsOptionSelect,
+                    ]}
+                    placeholder="Selecione um estado"
+                    onChange={(value) => {
+                      // @ts-ignore
+                      if (value.value !== uf) {
+                        setValue('city', '');
+                        setValue('tribunal', '');
+                      }
+
+                      // @ts-ignore
+                      setUf(value.value as UFBrazilType);
+                    }}
+                    // {...field}
+                  />
+                </FormGroup>
+              )
+            }
           />
 
           <Controller
@@ -226,7 +248,9 @@ export function AnnouncementsFilterDrawer({ onGetResponseResults, customQuery }:
               >
                 <Select
                   className="custom-react-select-style"
-                  options={[{ value: '', label: 'Selecione o tribunal' }].concat(uf ? courtsOptions[uf] : [])}
+                  options={[
+                    { value: '', label: 'Selecione o tribunal' },
+                  ].concat(uf ? courtsOptions[uf] : [])}
                   isSearchable={false}
                   placeholder="Selecione o tribunal"
                   {...field}
@@ -299,7 +323,9 @@ export function AnnouncementsFilterDrawer({ onGetResponseResults, customQuery }:
           />
         </Space>
 
-        <Title size={20} color="dark" weight={500}>Autores</Title>
+        <Title size={20} color="dark" weight={500}>
+          Autores
+        </Title>
         <Space direction="vertical" style={{ width: '100%' }}>
           <FormGroup
             label={{
@@ -307,7 +333,10 @@ export function AnnouncementsFilterDrawer({ onGetResponseResults, customQuery }:
               title: 'Nome do autor Principal',
             }}
           >
-            <Input id="main-author-name" {...register('actors.0.corporationNameOrName')} />
+            <Input
+              id="main-author-name"
+              {...register('actors.0.corporationNameOrName')}
+            />
           </FormGroup>
 
           <Controller
@@ -320,10 +349,7 @@ export function AnnouncementsFilterDrawer({ onGetResponseResults, customQuery }:
                   title: 'CNPJ/CPF do autor Principal',
                 }}
               >
-                <InputCPForCNPJ
-                  id="main-author-cnpj-cpf"
-                  {...field}
-                />
+                <InputCPForCNPJ id="main-author-cnpj-cpf" {...field} />
               </FormGroup>
             )}
           />
@@ -334,7 +360,10 @@ export function AnnouncementsFilterDrawer({ onGetResponseResults, customQuery }:
               title: 'Nome do autor Secundário',
             }}
           >
-            <Input id="secondary-author-name" {...register('actors.1.corporationNameOrName')} />
+            <Input
+              id="secondary-author-name"
+              {...register('actors.1.corporationNameOrName')}
+            />
           </FormGroup>
 
           <Controller
@@ -347,16 +376,15 @@ export function AnnouncementsFilterDrawer({ onGetResponseResults, customQuery }:
                   title: 'CNPJ/CPF do autor Secundário',
                 }}
               >
-                <InputCPForCNPJ
-                  id="secondary-author-cnpj-cpf"
-                  {...field}
-                />
+                <InputCPForCNPJ id="secondary-author-cnpj-cpf" {...field} />
               </FormGroup>
             )}
           />
         </Space>
 
-        <Title size={20} color="dark" weight={500}>Réus</Title>
+        <Title size={20} color="dark" weight={500}>
+          Réus
+        </Title>
         <Space direction="vertical" style={{ width: '100%' }}>
           <FormGroup
             label={{
@@ -364,7 +392,10 @@ export function AnnouncementsFilterDrawer({ onGetResponseResults, customQuery }:
               title: 'Nome do réu Principal',
             }}
           >
-            <Input id="main-defendant-name" {...register('defendants.0.corporationNameOrName')} />
+            <Input
+              id="main-defendant-name"
+              {...register('defendants.0.corporationNameOrName')}
+            />
           </FormGroup>
 
           <Controller
@@ -388,7 +419,10 @@ export function AnnouncementsFilterDrawer({ onGetResponseResults, customQuery }:
               title: 'Nome do réu Secundário',
             }}
           >
-            <Input id="secondary-defendant-name" {...register('defendants.1.corporationNameOrName')} />
+            <Input
+              id="secondary-defendant-name"
+              {...register('defendants.1.corporationNameOrName')}
+            />
           </FormGroup>
 
           <Controller
@@ -407,7 +441,9 @@ export function AnnouncementsFilterDrawer({ onGetResponseResults, customQuery }:
           />
         </Space>
 
-        <Title size={20} color="dark" weight={500}>Preço de Venda</Title>
+        <Title size={20} color="dark" weight={500}>
+          Preço de Venda
+        </Title>
         <Space direction="vertical" style={{ width: '100%' }}>
           <Controller
             control={control}
