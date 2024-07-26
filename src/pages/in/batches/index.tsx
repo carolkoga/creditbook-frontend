@@ -1,3 +1,4 @@
+/* eslint-disable operator-linebreak */
 import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
@@ -13,13 +14,14 @@ import { setupAPIClient } from '@api/creditbookApi';
 import BatchesList from '@components/BatchCard';
 
 interface IProps {
-  initialBatches: BatchParams[],
+  initialBatches: BatchParams[];
 }
 
 export default function Batches({ initialBatches }: IProps) {
   const router = useRouter();
   const modalOpen = Boolean(router.query?.modalOpen) || false;
-  const [newBatchModalIsVisible, setNewBatchModalIsVisible] = useState(modalOpen);
+  const [newBatchModalIsVisible, setNewBatchModalIsVisible] =
+    useState(modalOpen);
 
   function handleOpenNewBatchModal() {
     setNewBatchModalIsVisible(true);
@@ -49,11 +51,15 @@ export default function Batches({ initialBatches }: IProps) {
       </Section.Header>
 
       <BatchesList
+        customMine
         batches={initialBatches}
         notFoundProps={{
           type: 'children',
           children: (
-            <Button onClick={handleOpenNewBatchModal} size="outline-filled-round">
+            <Button
+              onClick={handleOpenNewBatchModal}
+              size="outline-filled-round"
+            >
               Cadastrar Agora
             </Button>
           ),

@@ -6,17 +6,25 @@ import { BatchParams } from '@type/creditbook/Batch';
 import { BatchCard } from './Card';
 
 interface IProps {
-  batches: BatchParams[],
-  customMine?: boolean | null
-  notFoundProps?: NotFoundDataProps
+  batches: BatchParams[];
+  customMine?: boolean | null;
+  notFoundProps?: NotFoundDataProps;
 }
 
-export default function BatchesList({ customMine, batches, notFoundProps }: IProps) {
+export default function BatchesList({
+  customMine,
+  batches,
+  notFoundProps,
+}: IProps) {
   const { user } = useAuth();
 
   if (batches?.length <= 0) {
     return (
-      <NotFoundData title="Não há dados cadastrados" type="reload" {...notFoundProps} />
+      <NotFoundData
+        title="Não há dados cadastrados"
+        type="reload"
+        {...notFoundProps}
+      />
     );
   }
 

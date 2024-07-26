@@ -1,27 +1,27 @@
 export interface NewBatchParams {
-  name: string,
-  description: string,
-  value: string,
+  name: string;
+  description: string;
+  value: string;
 }
 
 export interface UpdateBatchParams {
-  description?: string,
-  name?: string,
-  value?: string,
-  status?: string
-  plan?: string,
-  paymentMethodId?: string
+  description?: string;
+  name?: string;
+  value?: string;
+  status?: string;
+  plan?: string;
+  paymentMethodId?: string;
 }
 
 export interface BatchParams {
-  id: string,
-  description: string,
-  name: string,
-  value: string,
-  userId: string,
-  announcementQuantity: number,
-  status: BatchStatus
-  announcement: []
+  id: string;
+  description: string;
+  name: string;
+  value: string;
+  userId: string;
+  announcementQuantity: number;
+  status: BatchStatus;
+  announcement: [];
 }
 
 export type BatchStatus =
@@ -43,6 +43,6 @@ export const batchLabel = {
   inactive: 'inativo',
   edition_requested: 'edição solicitada',
   payment_failed: 'pagamento falhou',
-  being_created: 'em criação',
+  being_created: 'em criação ou edição',
   sold: 'vendido',
 };
