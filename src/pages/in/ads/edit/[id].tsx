@@ -80,6 +80,8 @@ export default function EditLawsuitByIdPage({ announcement }: IProps) {
   const [card, setCard] = useState<any>(announcement.paymentMethod);
   const router = useRouter();
 
+  console.log(announcement.paymentMethod);
+
   const methods = useForm<CustomUpdateLawsuitParams>({
     resolver: yupResolver(updateLawsuitSchemaValidation),
     mode: 'onBlur',
@@ -189,17 +191,21 @@ export default function EditLawsuitByIdPage({ announcement }: IProps) {
           'Seu anúncio foi editado com sucesso e seu pagamento será processado!',
           { autoClose: 2000 }
         );
+
+        window.location.reload();
+
       } else {
         toast.success(
           'Anúncio editado com sucesso, aguarde até que as mudanças sejam aprovadas!',
           { autoClose: 2000 }
         );
+        window.location.reload();
       }
+
     } catch (error) {
       handleCatchErrorRequest(error as any);
     } finally {
       setLoading(false);
-      window.location.reload();
     }
   }
 

@@ -95,8 +95,12 @@ export function AnnouncementsFilterDrawer({
     try {
       const { rangePriceSuggestion } = data;
       const range = rangePriceSuggestion !== 'none' && rangePriceSuggestion?.split(' - ');
-      const minPrice = range && range[0].replaceAll(/\D/g, '');
-      const maxPrice = range && range[1].replaceAll(/\D/g, '');
+      const minPrice = range && range[0].replaceAll(/\D/g, '').slice(0, -2);
+      const maxPrice = range && range[1].replaceAll(/\D/g, '').slice(0, -2);
+
+      console.log(minPrice);
+      console.log(maxPrice);
+
       const filterOptions = {
         ...data,
         actors: JSON.stringify(data.actors),

@@ -120,7 +120,7 @@ export default function AnnouncementId() {
 
           )}
 
-          {((announcement.status !== 'pending' || announcement.plan === 'batch') && user?.id !== announcement.userId) && (
+          {(((announcement.status !== 'pending' && announcement.status !== 'sold') || announcement.plan === 'batch') && user?.id !== announcement.userId) && (user.role === 'user') && (
             <Link
               legacyBehavior
               size="large"
