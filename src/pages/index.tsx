@@ -42,8 +42,8 @@ export default function HomeLadingPage() {
             <WrapperImageHero>
               <Image
                 src="/assets/images/home/creditbook_banner_texto.png"
-                width="580"
-                height="320"
+                width={580}
+                height={320}
                 priority
                 alt="Hero"
               />
@@ -92,21 +92,24 @@ export default function HomeLadingPage() {
           </WrapperVideo>
 
           <LineInfoCards>
+            {/* --- BLOCO: VENDA DE CRÉDITOS --- */}
             <h3>Venda de Créditos</h3>
             <WrapperInfoCard>
               <InfoCard>
-                <NextLink
-                  legacyBehavior
-                  href="/in/support/sell-ads?redirect=/in/support/sell-ads"
-                >
-                  <Image
-                    src="/assets/icons/home/creditbook_icone_anuncie.svg"
-                    width="25"
-                    height="25"
-                    alt="De Lista"
-                    layout="fixed"
-                  />
-                </NextLink>
+                <div className="wrapper__image">
+                  <NextLink
+                    legacyBehavior
+                    href="/in/support/sell-ads?redirect=/in/support/sell-ads"
+                  >
+                    <Image
+                      src="/assets/icons/home/creditbook_icone_anuncie.svg"
+                      width={25}
+                      height={25}
+                      alt="Anuncie seu crédito"
+                      layout="fixed"
+                    />
+                  </NextLink>
+                </div>
                 <span>Anuncie seu crédito judicial em qualquer fase da ação</span>
               </InfoCard>
 
@@ -118,9 +121,9 @@ export default function HomeLadingPage() {
                   >
                     <Image
                       src="/assets/icons/home/creditbook_icone_avalie.svg"
-                      width="25"
-                      height="25"
-                      alt="De insight"
+                      width={25}
+                      height={25}
+                      alt="Avalie ofertas"
                       layout="fixed"
                     />
                   </NextLink>
@@ -136,9 +139,9 @@ export default function HomeLadingPage() {
                   >
                     <Image
                       src="/assets/icons/home/creditbook_icone_receba.svg"
-                      width="25"
-                      height="25"
-                      alt="De uma bolsa de dinheiro flutuando na mão (ilustrativa)"
+                      width={25}
+                      height={25}
+                      alt="Receba em dinheiro"
                       layout="fixed"
                     />
                   </NextLink>
@@ -146,6 +149,8 @@ export default function HomeLadingPage() {
                 <span>Chega de esperar! Receba o valor em dinheiro</span>
               </InfoCard>
             </WrapperInfoCard>
+
+            {/* --- BLOCO: COMPRA DE CRÉDITOS --- */}
             <h3>Compra de Créditos</h3>
             <WrapperInfoCard>
               <InfoCard>
@@ -156,9 +161,9 @@ export default function HomeLadingPage() {
                   >
                     <Image
                       src="/assets/icons/home/creditbook_icone_busque.svg"
-                      width="25"
-                      height="25"
-                      alt="De Sinal de dolar"
+                      width={25}
+                      height={25}
+                      alt="Busque anúncios"
                       layout="fixed"
                     />
                   </NextLink>
@@ -174,9 +179,9 @@ export default function HomeLadingPage() {
                   >
                     <Image
                       src="/assets/icons/home/creditbook_icone_oferta.svg"
-                      width="25"
-                      height="25"
-                      alt="Bolsa de dinheiro"
+                      width={25}
+                      height={25}
+                      alt="Escolha o investimento"
                       layout="fixed"
                     />
                   </NextLink>
@@ -192,9 +197,9 @@ export default function HomeLadingPage() {
                   >
                     <Image
                       src="/assets/icons/home/creditbook_icone_compre.svg"
-                      width="25"
-                      height="25"
-                      alt="Duas mãos fechando acordo"
+                      width={25}
+                      height={25}
+                      alt="Feche negócio"
                       layout="fixed"
                     />
                   </NextLink>

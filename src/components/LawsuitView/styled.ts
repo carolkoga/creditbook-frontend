@@ -17,7 +17,6 @@ export const Container = styled.div`
       margin-top: 42px;
     }
 
-
     @media (max-width: 590px) {
       .ant-space {
         flex-wrap: wrap;
@@ -38,15 +37,24 @@ export const Title = styled.strong`
 
 export const DescriptionWrapper = styled.div`
   border: 1px solid #ccc;
-  width: 256px;
-  padding: 12px;
-  border-radius: 3px;
+  width: 500px; /* Aumentado em +80px (de 256px para 336px) */
+  min-width: 500px;
+  max-width: 500px;
+  padding: 16px;
+  border-radius: 12px;
   display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 10px;
-  overflow-x: auto;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 12px;
+  background-color: #ffffff;
+  box-sizing: border-box;
 
+  /* Garante que os botões/links ocupem toda a largura interna e fiquem organizados */
+  button,
+  a,
+  div {
+    width: 100%;
+  }
 `;
 
 export const Description = styled.p`

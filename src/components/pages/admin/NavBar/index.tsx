@@ -47,7 +47,7 @@ export default function NavBarAdmin({ menu }: IProps) {
         <Link legacyBehavior href="/">
           <a>
             <Image
-              width="256"
+              width="180"
               alt="logo"
               height="50"
               layout="intrinsic"
