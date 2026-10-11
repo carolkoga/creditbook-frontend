@@ -72,4 +72,9 @@ export default function LawsuitCardSwiper({ lawsuits }: LawsuitCardListProps) {
       </ButtonControl>
     </Container>
   );
+<<<<<<< HEAD
 }
+=======
+}
+
+>>>>>>> b7d3b73 (ajustes)

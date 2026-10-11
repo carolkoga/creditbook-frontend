@@ -72,3 +72,4 @@ export const routes = [
     link: `${DEFAULT_PATH}/settings`,
   },
 ];
+

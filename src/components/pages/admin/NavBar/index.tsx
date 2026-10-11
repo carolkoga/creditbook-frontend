@@ -66,3 +66,4 @@ export default function NavBarAdmin({ menu }: IProps) {
     </Nav>
   );
 }
+
