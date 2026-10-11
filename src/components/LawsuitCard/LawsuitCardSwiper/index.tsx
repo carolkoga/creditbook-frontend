@@ -51,7 +51,7 @@ export default function LawsuitCardSwiper({ lawsuits }: LawsuitCardListProps) {
         pagination={{ dynamicBullets: true, clickable: true }}
         mousewheel
         /* 1. ALTERAÇÃO: Trocamos '340px' por 'auto' e definimos minHeight para os botões não vazarem */
-        style={{ width: '100%', height: 'auto', minHeight: '480px', paddingBottom: '32px' }}
+        style={{ width: '100%', height: 'auto', minHeight: '120px', paddingBottom: '32px' }}
       >
         {lawsuits?.map((lawsuit) => (
           /* 2. ALTERAÇÃO: Definimos uma largura mínima confortável (310px) para cada slide */
