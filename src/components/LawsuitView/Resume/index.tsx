@@ -266,4 +266,3 @@ export default function Resume({ children = null, announcement }: IProps) {
     </Container>
   );
 }
-

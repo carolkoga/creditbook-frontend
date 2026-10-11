@@ -24,7 +24,7 @@ export function SendMapper(data: FieldDeclareFormTypes) {
         data.payment.paymentMethod.value === 'transferencia'
           ? 'transferência'
           : (data.payment.paymentMethod
-              .value as CommunicateSellingParams['paymentData']['paymentMethod']),
+            .value as CommunicateSellingParams['paymentData']['paymentMethod']),
       accountType: data.payment.bankInfo.accountType.value,
       installments:
         data.payment.paymentType === 'installments'
@@ -66,4 +66,3 @@ export function SendMapper(data: FieldDeclareFormTypes) {
 
   return dataParsed;
 }
-

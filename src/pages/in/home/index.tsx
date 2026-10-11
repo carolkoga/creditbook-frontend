@@ -100,9 +100,4 @@ export default function Home() {
       </Section.Container>
     </>
   );
-<<<<<<< HEAD
 }
-=======
-}
-
->>>>>>> b7d3b73 (ajustes)

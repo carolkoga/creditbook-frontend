@@ -72,9 +72,4 @@ export const Description = styled.p`
   @media (max-width: 590px) {
     width: fit-content;
   }
-<<<<<<< HEAD
 `;
-=======
-`;
-
->>>>>>> b7d3b73 (ajustes)
