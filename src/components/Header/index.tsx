@@ -21,7 +21,7 @@ export default function Header() {
           <a>
             <Image
               src="/assets/images/logo_creditbook.svg"
-              width="256"
+              width="180"
               height="50"
               alt="Logo"
               layout="fixed"
