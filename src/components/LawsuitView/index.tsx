@@ -145,6 +145,7 @@ export default function LawsuitView({ children, announcement }: IProps) {
                 <Description as="a" target="_blank" href={announcement.digitalProcessUrl}>
                   {announcement.digitalProcessUrl}
                 </Description>
+
               </DescriptionWrapper>
             </Space>
           </Col>
@@ -164,6 +165,7 @@ export default function LawsuitView({ children, announcement }: IProps) {
                 <Space direction="vertical" size="middle">
                   <Title>
                     {fileTranslation[file.name]}
+
                   </Title>
                   <DescriptionWrapper>
                     <Description
@@ -172,6 +174,7 @@ export default function LawsuitView({ children, announcement }: IProps) {
                       title={isPermittedToDownload ? 'Clique para fazer download' : ''}
                       download={isPermittedToDownload}
                     >
+
                       <File size={18} />
                       {`${fileTranslation[file.name]}-${announcement.id}`.slice(0, 22)}...
                     </Description>
@@ -196,6 +199,7 @@ export default function LawsuitView({ children, announcement }: IProps) {
           <Space size="large">
             <Space direction="vertical" size="middle">
               <Title>Nome</Title>
+
               <DescriptionWrapper>
                 <Description>
                   {announcement.mainDefendantCorporationNameOrName?.toUpperCase()}
@@ -279,6 +283,7 @@ export default function LawsuitView({ children, announcement }: IProps) {
                   href={isPermittedToDownload ? announcement.procurationUrl : ''}
                   title={isPermittedToDownload ? 'Clique para fazer download' : ''}
                 >
+
                   <File size={18} />
                   {`Procuracao-${announcement.processNumber}`.slice(0, 22)}...
                 </Description>

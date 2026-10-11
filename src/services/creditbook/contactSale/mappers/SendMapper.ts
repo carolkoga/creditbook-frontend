@@ -3,12 +3,16 @@ import { FieldDeclareFormTypes } from '@type/creditbook/sale/declare';
 import { mapperCurrency } from '@utils/mapperCurrency';
 
 export function SendMapper(data: FieldDeclareFormTypes) {
-  console.log('Data', data);
-
   const dataParsed = {
     emitContract: Boolean(Number(data.emitContract)),
-    announcementId: data.processInfo.processType === 'announcement' ? data.processInfo.processId.value : null,
-    batchId: data.processInfo.processType === 'batch' ? data.processInfo.processId.value : null,
+    announcementId:
+      data.processInfo.processType === 'announcement'
+        ? data.processInfo.processId.value
+        : null,
+    batchId:
+      data.processInfo.processType === 'batch'
+        ? data.processInfo.processId.value
+        : null,
     processId: data.processInfo.processId,
     paymentData: {
       accountNumber: data.payment.bankInfo.numberAccount,
@@ -16,11 +20,16 @@ export function SendMapper(data: FieldDeclareFormTypes) {
       bank: data.payment.bankInfo.bank,
       holderName: data.payment.bankInfo.holder,
       agencyNumber: data.payment.bankInfo.agency,
-      paymentMethod: data.payment.paymentMethod.value === 'transferencia'
-        ? 'transferência'
-        : data.payment.paymentMethod.value as CommunicateSellingParams['paymentData']['paymentMethod'],
+      paymentMethod:
+        data.payment.paymentMethod.value === 'transferencia'
+          ? 'transferência'
+          : (data.payment.paymentMethod
+            .value as CommunicateSellingParams['paymentData']['paymentMethod']),
       accountType: data.payment.bankInfo.accountType.value,
-      installments: data.payment.paymentType === 'installments' ? `${data.payment.installments as unknown as number}x` : null,
+      installments:
+        data.payment.paymentType === 'installments'
+          ? `${data.payment.installments as unknown as number}x`
+          : null,
       inCash: data.payment.paymentType === 'cash',
     },
     saleValue: mapperCurrency(data.processPrice),

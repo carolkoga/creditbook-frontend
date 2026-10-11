@@ -50,7 +50,6 @@ export default function LawsuitCardSwiper({ lawsuits }: LawsuitCardListProps) {
         modules={[Pagination, A11y, Autoplay]}
         pagination={{ dynamicBullets: true, clickable: true }}
         mousewheel
-        /* 1. ALTERAÇÃO: Trocamos '340px' por 'auto' e definimos minHeight para os botões não vazarem */
         style={{ width: '100%', height: 'auto', minHeight: '120px', paddingBottom: '32px' }}
       >
         {lawsuits?.map((lawsuit) => (
