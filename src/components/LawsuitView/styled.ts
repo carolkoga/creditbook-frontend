@@ -3,7 +3,6 @@ import styled from 'styled-components';
 export const Container = styled.div`
   text-align: left;
   width: 100%;
-  
   .ant-row {
     row-gap: 32px;
 
@@ -38,32 +37,23 @@ export const Title = styled.strong`
 
 export const DescriptionWrapper = styled.div`
   border: 1px solid #ccc;
-  width: 100%;
-  min-width: 270px;
-  max-width: 300px;
-  min-height: 490px; /* Garante altura suficiente para o texto e os botões */
-  height: 100%;
+  width: 500px; /* Aumentado em +80px (de 256px para 336px) */
+  min-width: 500px;
+  max-width: 500px;
   padding: 16px;
-  border-radius: 8px;
+  border-radius: 12px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   gap: 12px;
   background-color: #ffffff;
-  box-sizing: border-border-box;
+  box-sizing: border-box;
 
-  /* Estilização para garantir que os botões no final do card fiquem alinhados na base */
-  button, 
-  a, 
-  .actions,
-  .buttons-wrapper {
+  /* Garante que os botões/links ocupem toda a largura interna e fiquem organizados */
+  button,
+  a,
+  div {
     width: 100%;
-  }
-
-  /* Garante que o container de botões fique sempre fixado no rodapé interno do card */
-  > div:last-child,
-  > button:last-of-type {
-    margin-top: auto;
   }
 `;
 
